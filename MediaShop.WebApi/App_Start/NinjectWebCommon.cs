@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Http;
 using AutoMapper;
 using MediaShop.WebApi.App_Start;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
+using Ninject.Web.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
@@ -57,6 +59,7 @@ namespace MediaShop.WebApi.App_Start
             });
 
             RegisterServices(kernel);
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
             return kernel;
         }
 
