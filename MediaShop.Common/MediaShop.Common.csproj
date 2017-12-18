@@ -54,6 +54,8 @@
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
+    <Compile Include="Models\SubjectCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
