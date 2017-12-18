@@ -57,6 +57,8 @@
   <ItemGroup>
     <Folder Include="Dto\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\Repositories\" />
+    <Folder Include="Interfaces\Services\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
