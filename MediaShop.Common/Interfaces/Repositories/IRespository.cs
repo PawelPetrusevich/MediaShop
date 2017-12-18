@@ -15,6 +15,8 @@ namespace MediaShop.Common.Interfaces.Repositories
 
         TModel Delete(TModel model);
 
+        TModel Delete(int id);
+
         IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
     }
 }
