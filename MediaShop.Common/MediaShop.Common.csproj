@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="MapperProfile.cs" />
+    <Compile Include="Models\Content\Product.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
