@@ -6,14 +6,15 @@
     using MediaShop.Common.Models;
 
     /// <summary>
-    /// Base interface for working with repository
+    /// Interface describing the methods of
+    /// interaction with the repository when working with the ShoppingCart
     /// </summary>
-    /// <typeparam name="TModel">type object</typeparam>
-    public interface IRespository<TModel>
-        where TModel : Entity
+    /// <typeparam name="TModel">Type content in Cart</typeparam>
+    public interface ICartRespository<TModel>
+        where TModel : ContentCart
     {
         /// <summary>
-        /// Method for getting object type TModel
+        /// Method for getting object type ContentCart
         /// by identificator
         /// </summary>
         /// <param name="id">identificator</param>
@@ -21,35 +22,28 @@
         TModel Get(int id);
 
         /// <summary>
-        /// Method for additing object type TModel
+        /// Method for updating object type ContentCart
         /// </summary>
-        /// <param name="model">new object</param>
+        /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
         TModel Add(TModel model);
 
         /// <summary>
-        /// Method for updating object type TModel
+        /// Method for updating object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>
-        /// <returns>rezalt operation</returns>
-        TModel Update(TModel model);
-
-        /// <summary>
-        /// Method for deleting object type TModel
-        /// </summary>
-        /// <param name="model">delete object</param>
         /// <returns>rezalt operation</returns>
         TModel Delete(TModel model);
 
         /// <summary>
-        /// Method for deleting object type TModel
+        /// Method for deleting object type ContentCart
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
         TModel Delete(int id);
 
         /// <summary>
-        /// Method for find collection of object type TModel
+        /// Method for find collection of object type ContentCart
         /// by predicate
         /// </summary>
         /// <param name="filter">predicate</param>
