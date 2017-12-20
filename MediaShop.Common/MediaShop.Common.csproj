@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\Repositories\ICartRespository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
+    <Compile Include="Interfaces\Services\CartService.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\ContentCartDTO.cs" />

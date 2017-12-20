@@ -1,6 +1,8 @@
 ﻿namespace MediaShop.Common.Interfaces.Services
 {
+    using Models;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Interface describing the methods of
@@ -8,5 +10,11 @@
     /// </summary>
     public interface ICartService
     {
+        /// <summary>
+        /// Find items in a cart by user Id and return a item collection
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns> shopping cart for a user </returns>
+        IEnumerable<ContentCart> GetItemsInCart(int id);
     }
 }
