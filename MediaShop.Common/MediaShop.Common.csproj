@@ -51,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
