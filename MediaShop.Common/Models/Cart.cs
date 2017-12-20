@@ -3,9 +3,9 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Сlass describes model ShoppingCart
+    /// Сlass describes model Cart
     /// </summary>
-    public class ShoppingCart
+    public class Cart
     {
         /// <summary>
         /// Gets or sets Collection items

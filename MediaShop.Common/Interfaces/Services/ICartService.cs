@@ -6,7 +6,7 @@
 
     /// <summary>
     /// Interface describing the methods of
-    /// interaction with the service when working with the ShoppingCart
+    /// interaction with the service when working with the Cart
     /// </summary>
     public interface ICartService<TModel>
         where TModel : Models.Entity
