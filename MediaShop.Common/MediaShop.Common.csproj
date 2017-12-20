@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\User\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
