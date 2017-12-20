@@ -19,15 +19,13 @@ namespace MediaShop.Common.Models.User
 
         public string Password { get; set; }
 
-        public string Email { get; set; }
-
         /// <summary>
         /// Describing personal  users data
         /// </summary>
-        public Profile AccountProfile { get; set; }
+        public Profile Profile { get; set; }
 
         /// <summary>
-        /// Permissions  describes  list of roles, that has this user 
+        /// Permissions  describes  list of roles, that has this user
         /// </summary>
         public SortedSet<Role> Permissions { get; set; }
     }

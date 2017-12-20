@@ -51,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\RegistrationUserModel.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
+    <Compile Include="Interfaces\Repositories\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
@@ -60,7 +62,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dto\" />
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\Services\" />
   </ItemGroup>
