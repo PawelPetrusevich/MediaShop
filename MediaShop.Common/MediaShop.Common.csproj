@@ -53,11 +53,12 @@
   <ItemGroup>
     <Compile Include="Interfaces\Repositories\ICartRespository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
+    <Compile Include="Interfaces\Services\CartService.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\ContentCartDTO.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
