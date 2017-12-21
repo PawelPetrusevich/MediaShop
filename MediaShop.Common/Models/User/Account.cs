@@ -5,15 +5,11 @@ namespace MediaShop.Common.Models.User
 {
     public class Account : Entity
     {
-        public int Id { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        public int CreatorId { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
-
-        public int? ModifierId { get; set; }
+        public Account()
+        {
+            this.Permissions = new SortedSet<Role>();
+            this.Profile = new Profile();
+        }
 
         public string Login { get; set; }
 

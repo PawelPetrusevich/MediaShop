@@ -1,4 +1,5 @@
 ﻿using MediaShop.Common.Dto;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -8,7 +9,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// Registration user
         /// </summary>
         /// <param name="userModel">Required data for registration</param>
-        /// <returns>Is user registered or no</returns>
-        bool Register(RegistrationUserModel userModel);
+        /// <returns>Is user registered or no,</returns>
+        OperationResult Register(DtoUserModel userModel);
     }
 }
