@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediaShop.Common.Models;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -15,6 +16,21 @@ namespace MediaShop.Common.Interfaces.Services
             store = store;
         }
 
+        public Cart GetCart(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetCoutItems(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetCoutItems(IEnumerable<ContentCart> cart)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Find items in a cart by user Id and return a item collection
         /// </summary>
@@ -24,6 +40,16 @@ namespace MediaShop.Common.Interfaces.Services
         {
             var itemsInCart = this.store.Find(x => x.Id == id);
             return itemsInCart;
+        }
+
+        public float GetPrice(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float GetPrice(IEnumerable<ContentCart> cart)
+        {
+            throw new NotImplementedException();
         }
     }
 }
