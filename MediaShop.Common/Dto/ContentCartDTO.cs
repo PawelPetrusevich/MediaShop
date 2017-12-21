@@ -5,7 +5,7 @@
     /// <summary>
     /// Сlass describes model ContentCartDTO
     /// </summary>
-    public class ContentCartDTO : Entity
+    public class ContentCartDto : Entity
     {
         /// <summary>
         /// Gets or sets identificator content in the shopping cart

@@ -57,13 +57,12 @@
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Cart\Cart.cs" />
-    <Compile Include="Models\ContentCartDTO.cs" />
+    <Compile Include="Dto\ContentCartDto.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\ContentCart.cs" />
+    <Compile Include="Models\ContentCart\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dto\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>

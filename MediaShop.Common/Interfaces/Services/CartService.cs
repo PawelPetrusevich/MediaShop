@@ -1,32 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediaShop.Common.Models;
-
-namespace MediaShop.Common.Interfaces.Services
+﻿namespace MediaShop.Common.Interfaces.Services
 {
-    public class CartService : ICartService<Models.ContentCart>
-    {
-        private readonly Interfaces.Repositories.ICartRespository<Models.ContentCart> store;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Models;
 
-        public CartService(Interfaces.Repositories.ICartRespository<Models.ContentCart> store)
+    /// <summary>
+    /// Service for work with cart
+    /// </summary>
+    public class CartService : ICartService<ContentCart>
+    {
+        private readonly ICartRespository<ContentCart> repositoryCart;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CartService"/> class.
+        /// </summary>
+        /// <param name="contentRepo">instance repository</param>
+        public CartService(ICartRespository<ContentCart> contentRepo)
         {
-            store = store;
+            this.repositoryCart = contentRepo;
         }
+
+        /// <summary>
+        /// Creating and adding a new ContentCart object to Cart
+        /// </summary>
+        /// <param name="content">new ContentCart object</param>
+        /// <returns>saved ContentCart object in Cart</returns>
+        public ContentCart AddNewContentInCart(ContentCart content)
+        {
+            // Configuration Mapper
+            var mapperConfig = new MapperConfiguration(s => s.AddProfile(new MapperProfile()));
+            var mapper = new Mapper(mapperConfig);
+
+            // Mapping object content
+            var obj = Mapper.Map<ContentCart>(content);
+            return this.repositoryCart.Add(obj);
+        }
+
+        /// <summary>
+        /// Checking the existence of content in cart
+        /// </summary>
+        /// <param name="id">content identificator</param>
+        /// <returns>true - content exist in cart
+        /// false - content does not exist in cart</returns>
+        public bool FindContentInCart(int id) => this.repositoryCart
+            .Find(identificator => identificator.ContentId == id)
+            .FirstOrDefault() == null;
 
         public Cart GetCart(int id)
         {
             throw new NotImplementedException();
         }
 
-        public uint GetCoutItems(int id)
+        public uint GetCountItems(int id)
         {
             throw new NotImplementedException();
         }
 
-        public uint GetCoutItems(IEnumerable<ContentCart> cart)
+        public uint GetCountItems(IEnumerable<ContentCart> cart)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +71,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<Models.ContentCart> GetItemsInCart(int id)
         {
-            var itemsInCart = this.store.Find(x => x.Id == id);
+            var itemsInCart = this.repositoryCart.Find(x => x.Id == id);
             return itemsInCart;
         }
 

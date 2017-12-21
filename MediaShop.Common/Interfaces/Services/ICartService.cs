@@ -8,7 +8,7 @@
     /// Interface describing the methods of
     /// interaction with the service when working with the Cart
     /// </summary>
-    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TModel">type model</typeparam>
     public interface ICartService<TModel>
         where TModel : Models.Entity
     {
@@ -20,11 +20,26 @@
         IEnumerable<TModel> GetItemsInCart(int id);
 
         /// <summary>
+        /// Add new item in cart with return save item for update view
+        /// </summary>
+        /// <param name="content">identificator media content </param>
+        /// <returns>this save item</returns>
+        TModel AddNewContentInCart(TModel content);
+
+        /// <summary>
+        /// Checking the existence of content in cart
+        /// </summary>
+        /// <param name="id">content identificator</param>
+        /// <returns>true - content exist in cart
+        /// false - content does not exist in cart</returns>
+        bool FindContentInCart(int id);
+
+        /// <summary>
         /// Get created Cart model object
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Cart</returns>
-        Models.Cart GetCart(int id);
+        Cart GetCart(int id);
 
         /// <summary>
         /// Get sum price items for User
@@ -45,13 +60,13 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Count Items in cart</returns>
-        uint GetCoutItems(int id);
+        uint GetCountItems(int id);
 
         /// <summary>
         /// Get count items
         /// </summary>
         /// <param name="cart">Collection ContentCart</param>
         /// <returns>Count Items</returns>
-        uint GetCoutItems(IEnumerable<TModel> cart);
+        uint GetCountItems(IEnumerable<TModel> cart);
     }
 }
