@@ -56,7 +56,7 @@
     <Compile Include="Interfaces\Services\CartService.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
-    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Cart\Cart.cs" />
     <Compile Include="Models\ContentCartDTO.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\ContentCart.cs" />
