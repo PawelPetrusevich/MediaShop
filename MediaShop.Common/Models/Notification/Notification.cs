@@ -15,8 +15,16 @@ namespace MediaShop.Common.Models.Notification
         /// <summary>
         /// Gets or sets notification message
         /// </summary>
-        public string NotificationMessage { get; set; }
+        public string Message { get; set; }
 
-        // public NotificationTypes notificationTypes { get; set; }
+        /// <summary>
+        /// Gets or sets notification title
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets identifier of user who sent notification
+        /// </summary>
+        public int ReceiverId { get; set; }
     }
 }
