@@ -9,10 +9,10 @@ namespace MediaShop.Common.Models.Content
     public class Product : Entity
     {
         public string ProductName { get; set; }
-
+        
         public string Description { get; set; }
 
-        public int ProductType { get; set; }
+        public ProductType ProductType { get; set; }
 
         public decimal ProductPrice { get; set; }
 
