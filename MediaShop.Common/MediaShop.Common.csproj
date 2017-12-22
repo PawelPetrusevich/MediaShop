@@ -53,15 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\ProductDto.cs" />
+    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
+    <Compile Include="Interfaces\Services\IProductService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Content\Product.cs" />
+    <Compile Include="Models\Content\ProductType.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
