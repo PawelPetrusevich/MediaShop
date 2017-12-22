@@ -10,15 +10,15 @@
     /// <summary>
     /// Service for work with cart
     /// </summary>
-    public class CartService : ICartService<ContentCart>
+    public class CartService : ICartService<Entity, ContentCart>
     {
-        private readonly ICartRespository<ContentCart> repositoryCart;
+        private readonly ICartRespository<ContentCartDto> repositoryCart;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
         /// <param name="contentRepo">instance repository</param>
-        public CartService(ICartRespository<ContentCart> contentRepo)
+        public CartService(ICartRespository<ContentCartDto> contentRepo)
         {
             this.repositoryCart = contentRepo;
         }
@@ -28,15 +28,28 @@
         /// </summary>
         /// <param name="content">new ContentCart object</param>
         /// <returns>saved ContentCart object in Cart</returns>
-        public ContentCart AddNewContentInCart(ContentCart content)
+        public ContentCart AddNewContentInCart(Entity content)
         {
-            // Configuration Mapper
+            // Configuration Mapper ???
             var mapperConfig = new MapperConfiguration(s => s.AddProfile(new MapperProfile()));
             var mapper = new Mapper(mapperConfig);
 
-            // Mapping object content
+            // Mapping object Entoty to object ContentCart
             var obj = Mapper.Map<ContentCart>(content);
-            return this.repositoryCart.Add(obj);
+
+            // Mapping object ContentCart to ContentCartDto
+            var objContent = Mapper.Map<ContentCartDto>(obj);
+
+            // Save object ContentCartDto in repository
+            var objDto = this.repositoryCart.Add(objContent);
+
+            if (objDto == null)
+            {
+                return null;
+            }
+
+            // Mapping object ContentCartDto to ContentCart
+            return Mapper.Map<ContentCart>(objDto);
         }
 
         /// <summary>
@@ -69,10 +82,16 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns> shopping cart for a user </returns>
-        public IEnumerable<Models.ContentCart> GetItemsInCart(int id)
+        public IEnumerable<ContentCart> GetItemsInCart(int id)
         {
             var itemsInCart = this.repositoryCart.Find(x => x.Id == id);
-            return itemsInCart;
+            IList<ContentCart> itemsDto = new List<ContentCart>();
+            foreach (ContentCartDto itemDto in itemsInCart)
+            {
+                itemsDto.Add(Mapper.Map<ContentCart>(itemDto));
+            }
+
+            return itemsDto;
         }
 
         public float GetPrice(int id)

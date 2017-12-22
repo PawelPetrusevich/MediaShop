@@ -2,15 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-    using Models;
+    using MediaShop.Common.Models;
 
     /// <summary>
     /// Interface describing the methods of
     /// interaction with the service when working with the Cart
     /// </summary>
-    /// <typeparam name="TModel">type model</typeparam>
-    public interface ICartService<TModel>
-        where TModel : Models.Entity
+    /// <typeparam name="PModel">type model1</typeparam>
+    /// <typeparam name="TModel">type model2</typeparam>
+    public interface ICartService<PModel, TModel>
+        where PModel : Entity
+        where TModel : ContentCart
     {
         /// <summary>
         /// Find items in a cart by user Id and return a item collection
@@ -24,7 +26,7 @@
         /// </summary>
         /// <param name="content">identificator media content </param>
         /// <returns>this save item</returns>
-        TModel AddNewContentInCart(TModel content);
+        TModel AddNewContentInCart(PModel content);
 
         /// <summary>
         /// Checking the existence of content in cart

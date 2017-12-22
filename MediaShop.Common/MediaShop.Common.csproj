@@ -59,7 +59,7 @@
     <Compile Include="Models\Cart\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\ContentCart\ContentCart.cs" />
+    <Compile Include="Models\Cart\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
