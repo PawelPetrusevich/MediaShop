@@ -8,7 +8,6 @@ namespace MediaShop.Common.Models.User
         public Account()
         {
             this.Permissions = new SortedSet<Role>();
-            this.Profile = new Profile();
         }
 
         public string Login { get; set; }
@@ -23,6 +22,6 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// Permissions  describes  list of roles, that has this user
         /// </summary>
-        public SortedSet<Role> Permissions { get; set; }
+        public ICollection<Role> Permissions { get; set; }
     }
 }
