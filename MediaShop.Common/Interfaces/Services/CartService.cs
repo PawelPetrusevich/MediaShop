@@ -30,11 +30,10 @@
         /// <returns>saved ContentCart object in Cart</returns>
         public ContentCart AddNewContentInCart(Entity content)
         {
-            // Configuration Mapper ???
-            var mapperConfig = new MapperConfiguration(s => s.AddProfile(new MapperProfile()));
-            var mapper = new Mapper(mapperConfig);
+            // Configure Mapper here for testing service
+            AutoMapperConfiguration.Configure();
 
-            // Mapping object Entoty to object ContentCart
+            // Mapping object Entity to object ContentCart
             var obj = Mapper.Map<ContentCart>(content);
 
             // Mapping object ContentCart to ContentCartDto

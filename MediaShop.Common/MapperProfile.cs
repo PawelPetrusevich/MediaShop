@@ -13,7 +13,7 @@
         /// </summary>
         public MapperProfile()
         {
-            this.CreateMap<Entity, ContentCart>().ForMember(s => s.Id, s => s.MapFrom(m => m.CreatorId)).ReverseMap();
+            this.CreateMap<Entity, ContentCart>().ReverseMap();
             this.CreateMap<ContentCart, ContentCartDto>().ReverseMap();
         }
     }

@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets identificator content in the shopping cart
         /// </summary>
-        public new int Id { get; set; }
+        public int ContentCartId { get; set; }
 
         /// <summary>
         /// Gets or sets the content ID in the shopping cart

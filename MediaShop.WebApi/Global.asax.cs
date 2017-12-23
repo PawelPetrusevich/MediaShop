@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using AutoMapper;
+using MediaShop.Common;
 
 namespace MediaShop.WebApi
 {
@@ -19,6 +20,7 @@ namespace MediaShop.WebApi
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AutoMapperConfiguration.Configure();
         }
     }
 }

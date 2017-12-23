@@ -51,15 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="Interfaces\Repositories\ICartRespository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="Interfaces\Services\CartService.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
-    <Compile Include="Models\Cart\Cart.cs" />
+    <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
+    <Compile Include="Models\CartModels\ContentClassForUnitTest.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\Cart\ContentCart.cs" />
+    <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
