@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Interfaces.Services.Services;
+using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;

@@ -1,5 +1,4 @@
 ﻿using MediaShop.Common.Interfaces.Services;
-using MediaShop.Common.Interfaces.Services.Services;
 using Ninject.Modules;
 
 namespace MediaShop.BusinessLogic

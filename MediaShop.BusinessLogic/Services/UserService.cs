@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using AutoMapper;
 using MediaShop.Common.Dto;
-using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
+using MediaShop.Common.Helpers;
 
-namespace MediaShop.Common.Interfaces.Services.Services
+namespace MediaShop.BusinessLogic
 {
     public class UserService : IUserService
     {
