@@ -5,11 +5,6 @@ namespace MediaShop.Common.Models.User
 {
     public class Account : Entity
     {
-        public Account()
-        {
-            this.Permissions = new SortedSet<Role>();
-        }
-
         public string Login { get; set; }
 
         public string Password { get; set; }

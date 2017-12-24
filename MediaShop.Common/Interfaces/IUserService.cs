@@ -11,5 +11,13 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="userModel">Required data for registration</param>
         /// <returns>Is user registered or no,</returns>
         Account Register(UserDto userModel);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        bool RemoveRole(int id, Role role);
     }
 }

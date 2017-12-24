@@ -1,4 +1,6 @@
-﻿using Ninject.Modules;
+﻿using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Interfaces.Services;
+using Ninject.Modules;
 
 namespace MediaShop.BusinessLogic
 {
@@ -6,6 +8,7 @@ namespace MediaShop.BusinessLogic
     {
         public override void Load()
         {
+            this.Kernel?.Bind<IUserService>().To<UserService>();
         }
     }
 }
