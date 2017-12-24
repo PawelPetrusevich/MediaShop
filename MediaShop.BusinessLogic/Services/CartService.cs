@@ -1,10 +1,10 @@
-﻿namespace MediaShop.Common.Interfaces.Services
+﻿namespace MediaShop.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using AutoMapper;
     using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
 
     /// <summary>

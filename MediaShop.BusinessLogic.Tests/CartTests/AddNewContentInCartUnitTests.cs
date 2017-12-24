@@ -2,7 +2,9 @@
 using Moq;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
-using MediaShop.Common.Interfaces.Services;
+using MediaShop.BusinessLogic.Services;
+
+
 
 namespace MediaShop.Common.Tests.Cart
 {
