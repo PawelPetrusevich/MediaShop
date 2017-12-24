@@ -1,13 +1,13 @@
-﻿namespace MediaShop.DataAccess.Repositories
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using Common.Interfaces.Repositories;
-    using Common.Models.User;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Models.User;
 
-    public class UserRepository : IRespository<Account>
+namespace MediaShop.DataAccess.Repositories
+{
+    public class UserRepository : IUserRepository
     {
         private readonly List<Account> list = new List<Account>();
 

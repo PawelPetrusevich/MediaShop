@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Interfaces.Services.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;

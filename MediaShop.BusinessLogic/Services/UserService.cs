@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.User;
 
@@ -31,7 +32,7 @@ namespace MediaShop.Common.Interfaces.Services.Services
                 .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
 
-            var account = Mapper.Map<Account>(userModel);
+                var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
             var createdAccount = this.store.Add(account);
@@ -39,6 +40,13 @@ namespace MediaShop.Common.Interfaces.Services.Services
             //TODO Check if account was created. If not - return not.
 
             return createdAccount;
+        }
+
+        public bool RemoveRole(int id, Role role)
+        {
+            var user = this.store.Find(account => account.Id == id).FirstOrDefault();
+
+            return user?.Permissions.Remove(accountRole => accountRole == role) > 0;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -11,9 +9,10 @@ using Ninject;
 using Ninject.Web.Common;
 using Ninject.Web.Common.WebHost;
 using Ninject.Web.WebApi;
+using WebActivatorEx;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace MediaShop.WebApi.App_Start
 {
@@ -69,7 +68,7 @@ namespace MediaShop.WebApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(Assembly.GetExecutingAssembly(), typeof(MediaShop.BusinessLogic.NInjectProfile).Assembly, typeof(MediaShop.DataAccess.NInjectProfile).Assembly);
+            kernel.Load(Assembly.GetExecutingAssembly(), typeof(BusinessLogic.NInjectProfile).Assembly, typeof(DataAccess.NInjectProfile).Assembly);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using MediaShop.Common.Models;
+﻿using MediaShop.Common.Models;
 using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Dto
