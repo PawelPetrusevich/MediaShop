@@ -54,7 +54,6 @@
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="Interfaces\Services\UserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
@@ -65,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
