@@ -8,28 +8,23 @@
     public class ContentClassForUnitTest : Entity
     {
         /// <summary>
-        /// Gets or sets object identificator
+        /// Gets or sets the content name in the shopping cart
         /// </summary>
-        public int ContentId { get; set; }
+        public string ContentName { get; set; }
 
         /// <summary>
-        /// Gets or sets date of object creation
+        /// Gets or sets cart creator name
         /// </summary>
-        public new DateTime CreatedDate { get; set; }
+        public int CreatorName { get; set; }
 
         /// <summary>
-        /// Gets or sets cart creator Id
+        /// Gets or sets description media content
         /// </summary>
-        public new int CreatorId { get; set; }
+        public string DescriptionItem { get; set; }
 
         /// <summary>
-        /// Gets or sets date of object modification
+        /// Gets or sets price media content
         /// </summary>
-        public new DateTime? ModifiedDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets object modificator
-        /// </summary>
-        public new int? ModifierId { get; set; }
+        public decimal PriceItem { get; set; }
     }
 }

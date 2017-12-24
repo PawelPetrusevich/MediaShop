@@ -11,7 +11,7 @@
     /// <typeparam name="PModel">type model1</typeparam>
     /// <typeparam name="TModel">type model2</typeparam>
     public interface ICartService<PModel, TModel>
-        where PModel : Entity
+        where PModel : ContentClassForUnitTest
         where TModel : ContentCart
     {
         /// <summary>
@@ -19,14 +19,15 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns> shopping cart for a user </returns>
-        IEnumerable<TModel> GetItemsInCart(int id);
+        IEnumerable<TModel> GetItemsInCart(ulong id);
 
         /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="content">identificator media content </param>
+        /// <param name="userId">user identifier</param>
         /// <returns>this save item</returns>
-        TModel AddNewContentInCart(PModel content);
+        TModel AddNewContentInCart(PModel content, ulong userId);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -34,21 +35,21 @@
         /// <param name="id">content identificator</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        bool FindContentInCart(int id);
+        bool FindContentInCart(ulong id);
 
         /// <summary>
         /// Get created Cart model object
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Cart</returns>
-        Cart GetCart(int id);
+        Cart GetCart(ulong id);
 
         /// <summary>
         /// Get sum price items for User
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Sum price</returns>
-        float GetPrice(int id);
+        float GetPrice(ulong id);
 
         /// <summary>
         /// Get sum price items typeof ContentCart
@@ -62,7 +63,7 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Count Items in cart</returns>
-        uint GetCountItems(int id);
+        uint GetCountItems(ulong id);
 
         /// <summary>
         /// Get count items

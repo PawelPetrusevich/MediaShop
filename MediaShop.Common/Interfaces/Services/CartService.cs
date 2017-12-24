@@ -10,7 +10,7 @@
     /// <summary>
     /// Service for work with cart
     /// </summary>
-    public class CartService : ICartService<Entity, ContentCart>
+    public class CartService : ICartService<ContentClassForUnitTest, ContentCart>
     {
         private readonly ICartRespository<ContentCartDto> repositoryCart;
 
@@ -27,11 +27,15 @@
         /// Creating and adding a new ContentCart object to Cart
         /// </summary>
         /// <param name="content">new ContentCart object</param>
+        /// <param name="userId">id creator</param>
         /// <returns>saved ContentCart object in Cart</returns>
-        public ContentCart AddNewContentInCart(Entity content)
+        public ContentCart AddNewContentInCart(ContentClassForUnitTest content, ulong userId)
         {
            // Mapping object Entity to object ContentCart
             var obj = Mapper.Map<ContentCart>(content);
+
+            // Initialize CreatorId
+            obj.CreatorId = userId;
 
             // Mapping object ContentCart to ContentCartDto
             var objContent = Mapper.Map<ContentCartDto>(obj);
@@ -39,6 +43,8 @@
             // Save object ContentCartDto in repository
             var objDto = this.repositoryCart.Add(objContent);
 
+            // If the object is not added to the database
+            // return null
             if (objDto == null)
             {
                 return null;
@@ -54,15 +60,15 @@
         /// <param name="id">content identificator</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        public bool FindContentInCart(int id) => this.repositoryCart
+        public bool FindContentInCart(ulong id) => this.repositoryCart
             .Get(id) != null;
 
-        public Cart GetCart(int id)
+        public Cart GetCart(ulong id)
         {
             throw new NotImplementedException();
         }
 
-        public uint GetCountItems(int id)
+        public uint GetCountItems(ulong id)
         {
             throw new NotImplementedException();
         }
@@ -77,7 +83,7 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns> shopping cart for a user </returns>
-        public IEnumerable<ContentCart> GetItemsInCart(int id)
+        public IEnumerable<ContentCart> GetItemsInCart(ulong id)
         {
             var itemsInCart = this.repositoryCart.Find(x => x.Id == id);
             IList<ContentCart> itemsDto = new List<ContentCart>();
@@ -89,7 +95,7 @@
             return itemsDto;
         }
 
-        public float GetPrice(int id)
+        public float GetPrice(ulong id)
         {
             throw new NotImplementedException();
         }

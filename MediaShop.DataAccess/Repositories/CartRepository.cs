@@ -36,7 +36,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Delete(int id)
+        public ContentCartDto Delete(ulong id)
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Get(int id)
+        public ContentCartDto Get(ulong id)
         {
             throw new NotImplementedException();
         }

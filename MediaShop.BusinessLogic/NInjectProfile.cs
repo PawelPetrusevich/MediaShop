@@ -9,7 +9,7 @@
         /// <inheritdoc/>
         public override void Load()
         {
-            this.Bind<ICartService<Entity, ContentCart>>().To<CartService>();
+            this.Bind<ICartService<ContentClassForUnitTest, ContentCart>>().To<CartService>();
         }
     }
 }

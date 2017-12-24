@@ -60,6 +60,7 @@
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
     <Compile Include="Models\CartModels\ContentClassForUnitTest.cs" />
+    <Compile Include="Models\CartModels\UserClassForUnitTest.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

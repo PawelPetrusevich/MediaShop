@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        TModel Get(int id);
+        TModel Get(ulong id);
 
         /// <summary>
         /// Method for additing object type TModel
@@ -46,7 +46,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        TModel Delete(int id);
+        TModel Delete(ulong id);
 
         /// <summary>
         /// Method for find collection of object type TModel

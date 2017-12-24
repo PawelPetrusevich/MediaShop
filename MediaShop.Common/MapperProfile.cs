@@ -13,8 +13,10 @@
         /// </summary>
         public MapperProfile()
         {
-            this.CreateMap<Entity, ContentCart>().ReverseMap();
-            this.CreateMap<ContentCart, ContentCartDto>().ReverseMap();
+            this.CreateMap<ContentClassForUnitTest, ContentCart>()
+                .ReverseMap();
+            this.CreateMap<ContentCart, ContentCartDto>()
+                .ReverseMap();
         }
     }
 }
