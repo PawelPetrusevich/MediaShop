@@ -10,9 +10,9 @@ namespace MediaShop.BusinessLogic
 {
     public class UserService : IUserService
     {
-        private readonly IRespository<Account> store;
+        private readonly IUserRepository store;
 
-        public UserService(IRespository<Account> repository)
+        public UserService(IUserRepository repository)
         {
             this.store = repository;
         }
@@ -33,7 +33,7 @@ namespace MediaShop.BusinessLogic
                 .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
 
-                var account = Mapper.Map<Account>(userModel);
+           var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
             var createdAccount = this.store.Add(account);

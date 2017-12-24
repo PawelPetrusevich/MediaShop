@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;
@@ -17,7 +16,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         public void TestMethodRemoveRole(int n, Role role)
         {
-            var storage = new Mock<IRespository<Account>>();
+            var storage = new Mock<IUserRepository>();
 
             var listRoles = new SortedSet<Role> {Role.Admin, Role.User};
             var profile = new Profile {Id = n};
