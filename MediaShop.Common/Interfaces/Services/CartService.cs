@@ -30,10 +30,7 @@
         /// <returns>saved ContentCart object in Cart</returns>
         public ContentCart AddNewContentInCart(Entity content)
         {
-            // Configure Mapper here for testing service
-            AutoMapperConfiguration.Configure();
-
-            // Mapping object Entity to object ContentCart
+           // Mapping object Entity to object ContentCart
             var obj = Mapper.Map<ContentCart>(content);
 
             // Mapping object ContentCart to ContentCartDto
@@ -58,8 +55,7 @@
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
         public bool FindContentInCart(int id) => this.repositoryCart
-            .Find(identificator => identificator.ContentId == id)
-            .FirstOrDefault() == null;
+            .Get(id) != null;
 
         public Cart GetCart(int id)
         {
