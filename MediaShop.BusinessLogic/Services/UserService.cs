@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
@@ -17,7 +18,7 @@ namespace MediaShop.BusinessLogic
             this.store = repository;
         }
 
-        public Account Register(UserDto userModel)
+        public bool Register(UserDto userModel)
         {
             if (this.store.Find(x => x.Login == userModel.Login).FirstOrDefault() != null)
             {
@@ -33,14 +34,18 @@ namespace MediaShop.BusinessLogic
                 .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
 
-           var account = Mapper.Map<Account>(userModel);
+            var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
             var createdAccount = this.store.Add(account);
 
-            //TODO Check if account was created. If not - return not.
+            //TODO: Don't know what is the problem in Repository
+            if (createdAccount == null)
+            {
+                return false;
+            }
 
-            return createdAccount;
+            return true;
         }
 
         public bool RemoveRole(int id, Role role)

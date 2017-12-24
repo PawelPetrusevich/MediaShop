@@ -10,7 +10,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="userModel">Required data for registration</param>
         /// <returns>Is user registered or no,</returns>
-        Account Register(UserDto userModel);
+        bool Register(UserDto userModel);
 
         /// <summary>
         /// 

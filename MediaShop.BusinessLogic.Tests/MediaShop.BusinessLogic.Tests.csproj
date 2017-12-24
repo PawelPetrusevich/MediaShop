@@ -73,6 +73,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminTests\UserServiceTest.cs" />
     <Compile Include="AdminTests\UnitTestAdminTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
