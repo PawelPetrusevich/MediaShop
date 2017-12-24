@@ -1,42 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
-using MediaShop.DataAccess.Repositories;
 
-namespace MediaShop.BusinessLogic.Services
+namespace MediaShop.Common.Interfaces.Services.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRespository<Account> userRepository;
+        private readonly IRespository<Account> store;
 
-        public UserService(IRespository<Account> respository)
+        public UserService(IRespository<Account> repository)
         {
-            this.userRepository = respository ?? throw new ArgumentNullException(nameof(respository));
+            this.store = repository;
         }
 
-        public object Respository { get; set; }
-
-        public bool Register(RegistrationUserModel userModel)
+        public Account Register(UserDto userModel)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveRole(int id, Role role)
-        {
-            var user = this.userRepository.Find(account => account.Id == id).FirstOrDefault();
-
-            if (user?.Permissions.RemoveWhere(accountRole => accountRole == role) > 0)
+            if (this.store.Find(x => x.Login == userModel.Login).FirstOrDefault() != null)
             {
-                return true;
+                throw new ExistingLoginException(userModel.Login);
             }
 
-            return false;
+            Mapper.Initialize(config => config.CreateMap<UserDto, Account>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(m => m.Id))
+                .ForMember(x => x.Login, opt => opt.MapFrom(m => m.Login))
+                .ForMember(x => x.Password, opt => opt.MapFrom(m => m.Password))
+                .ForMember(x => x.CreatorId, opt => opt.MapFrom(m => m.CreatorId))
+                .ForMember(x => x.CreatedDate, opt => opt.MapFrom(m => m.CreatedDate))
+                .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
+                .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
+
+            var account = Mapper.Map<Account>(userModel);
+            account.Permissions.Add(userModel.UserRole);
+
+            var createdAccount = this.store.Add(account);
+
+            //TODO Check if account was created. If not - return not.
+
+            return createdAccount;
         }
     }
 }

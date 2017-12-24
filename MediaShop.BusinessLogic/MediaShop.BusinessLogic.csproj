@@ -64,10 +64,6 @@
       <Project>{70d5d62c-5908-4825-9b59-436fc179c1a9}</Project>
       <Name>MediaShop.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MediaShop.DataAccess\MediaShop.DataAccess.csproj">
-      <Project>{1408409B-0557-40E3-82C6-0DF7CC75716B}</Project>
-      <Name>MediaShop.DataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
