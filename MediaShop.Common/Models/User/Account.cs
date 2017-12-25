@@ -18,16 +18,16 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// Describing personal  users data
         /// </summary>
-        public AccountProfile Profile { get; set; }
+        public virtual AccountProfile Profile { get; set; }
 
         /// <summary>
         /// Personal user settings
         /// </summary>
-        public AccountSettings Settings { get; set; }
+        public virtual AccountSettings Settings { get; set; }
 
         /// <summary>
         /// Permissions  describes  list of roles, that has this user
         /// </summary>
-        public ICollection<Role> Permissions { get; set; }
+        public virtual ICollection<Role> Permissions { get; set; }
     }
 }
