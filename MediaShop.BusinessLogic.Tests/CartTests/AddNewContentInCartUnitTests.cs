@@ -2,9 +2,11 @@
 using Moq;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
+using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
 
-namespace MediaShop.Common.Tests.Cart
+
+namespace MediaShop.BusinessLogic.Tests.CartTests
 {
     [TestClass]
     public class AddNewContentInCartUnitTests

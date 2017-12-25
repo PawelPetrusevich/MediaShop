@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using AutoMapper;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
@@ -66,8 +67,11 @@
             var listDelete = this.repositoryCart.Find(item => item.CreatorId == userId);
             foreach (ContentCartDto item in listDelete)
             {
-                this.repositoryCart.Delete(item.Id);
-                flag++;
+                var objRezalt = this.repositoryCart.Delete(item.Id);
+                if (objRezalt != null)
+                {
+                    flag++;
+                }
             }
 
             return flag;
@@ -78,16 +82,21 @@
         /// </summary>
         /// <param name="userId">user id as identificator cart</param>
         /// <returns>collection of remote objects</returns>
-        public IEnumerable<ContentCartDto> DeleteContentFromCart(ulong userId)
+        public ICollection<ContentCartDto> DeleteContentFromCart(ulong userId)
         {
             var listDelete = this.repositoryCart.Find(item => item.CreatorId == userId
                 && item.IsChecked == true);
+            var listRezalt = new Collection<ContentCartDto>();
             foreach (ContentCartDto item in listDelete)
             {
-                this.repositoryCart.Delete(item.Id);
+                var obj = this.repositoryCart.Delete(item.Id);
+                if (obj != null)
+                {
+                    listRezalt.Add(obj);
+                }
             }
 
-            return listDelete;
+            return listRezalt;
         }
 
         /// <summary>

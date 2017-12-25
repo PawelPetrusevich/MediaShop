@@ -76,7 +76,7 @@
         /// </summary>
         /// <param name="userId">user id as identificator cart</param>
         /// <returns>collection of remote objects</returns>
-        IEnumerable<ContentCartDto> DeleteContentFromCart(ulong userId);
+        ICollection<ContentCartDto> DeleteContentFromCart(ulong userId);
 
         /// <summary>
         /// Method to indicate the ContentCart
