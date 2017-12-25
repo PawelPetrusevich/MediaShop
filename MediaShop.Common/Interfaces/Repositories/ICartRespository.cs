@@ -22,23 +22,23 @@
         TModel Get(ulong id);
 
         /// <summary>
-        /// Method for updating object type ContentCart
+        /// Method for add object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
         TModel Add(TModel model);
 
         /// <summary>
-        /// Method for updating object type ContentCart
+        /// Method for update object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
-        TModel Delete(TModel model);
+        TModel Update(TModel model);
 
         /// <summary>
-        /// Method for deleting object type ContentCart
+        /// Method for delete object type ContentCart
         /// </summary>
-        /// <param name="id">identificator</param>
+        /// <param name="id">contents identificator</param>
         /// <returns>rezalt operation</returns>
         TModel Delete(ulong id);
 

@@ -62,7 +62,15 @@
         /// <returns>amount of object that deleted</returns>
         public int DeleteAllContentFromCart(ulong userId)
         {
-            throw new NotImplementedException();
+            int flag = 0;
+            var listDelete = this.repositoryCart.Find(item => item.CreatorId == userId);
+            foreach (ContentCartDto item in listDelete)
+            {
+                this.repositoryCart.Delete(item.Id);
+                flag++;
+            }
+
+            return flag;
         }
 
         /// <summary>
@@ -72,7 +80,14 @@
         /// <returns>collection of remote objects</returns>
         public IEnumerable<ContentCartDto> DeleteContentFromCart(ulong userId)
         {
-            throw new NotImplementedException();
+            var listDelete = this.repositoryCart.Find(item => item.CreatorId == userId
+                && item.IsChecked == true);
+            foreach (ContentCartDto item in listDelete)
+            {
+                this.repositoryCart.Delete(item.Id);
+            }
+
+            return listDelete;
         }
 
         /// <summary>
@@ -83,11 +98,6 @@
         /// false - content does not exist in cart</returns>
         public bool FindContentInCart(ulong id) => this.repositoryCart
             .Get(id) != null;
-
-        public Cart GetCart(ulong userid)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Find items in a cart by user Id and return a item collection
@@ -112,11 +122,13 @@
         /// </summary>
         /// <param name="contentId">id content</param>
         /// <param name="userId">user id as identificator cart</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        public ContentCart CheckedContent(ulong contentId, ulong userId)
+        /// <returns>if object state is checked return true
+        /// else return false</returns>
+        public bool CheckedContent(ulong contentId, ulong userId)
         {
-            throw new NotImplementedException();
+            var objectForChecked = this.repositoryCart.CheckedContent(item => item.Id == contentId
+            && item.CreatorId == userId);
+            return objectForChecked.IsChecked == true;
         }
 
         /// <summary>
@@ -125,9 +137,16 @@
         /// </summary>
         /// <param name="contentId">id content</param>
         /// <param name="userId">user id as identificator cart</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        public ContentCart UnCheckedContent(ulong contentId, ulong userId)
+        /// <returns>if object state is unchecked return true
+        /// else return false</returns>
+        public bool UnCheckedContent(ulong contentId, ulong userId)
+        {
+            var objectForChecked = this.repositoryCart.CheckedContent(item => item.Id == contentId
+            && item.CreatorId == userId);
+            return objectForChecked.IsChecked == false;
+        }
+
+        public Cart GetCart(ulong userid)
         {
             throw new NotImplementedException();
         }

@@ -12,7 +12,7 @@
     public class CartRepository : ICartRespository<ContentCartDto>
     {
         /// <summary>
-        /// Method for updating object type ContentCartDto
+        /// Method for add object type ContentCartDto
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
@@ -22,17 +22,17 @@
         }
 
         /// <summary>
-        /// Method for updating object type ContentCartDto
+        /// Method for update object type ContentCartDto
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Delete(ContentCartDto model)
+        public ContentCartDto Update(ContentCartDto model)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Method for deleting object type ContentCartDto
+        /// Method for delete object type ContentCartDto
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>

@@ -1,6 +1,5 @@
 ﻿namespace MediaShop.Common.Interfaces.Services
 {
-    using System;
     using System.Collections.Generic;
     using MediaShop.Common.Models;
 
@@ -95,7 +94,7 @@
         /// <param name="userId">user id as identificator cart</param>
         /// <returns>object that checked for
         /// the control his condition</returns>
-        TModel CheckedContent(ulong contentId, ulong userId);
+        bool CheckedContent(ulong contentId, ulong userId);
 
         /// <summary>
         /// Method to indicate the ContentCart
@@ -105,6 +104,6 @@
         /// <param name="userId">user id as identificator cart</param>
         /// <returns>object that checked for
         /// the control his condition</returns>
-        TModel UnCheckedContent(ulong contentId, ulong userId);
+        bool UnCheckedContent(ulong contentId, ulong userId);
     }
 }
