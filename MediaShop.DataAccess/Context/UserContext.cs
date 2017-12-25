@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using MediaShop.Common.Models.User;
 
-namespace MediaShop.DataAccess.Repositories
+namespace MediaShop.DataAccess.Context
 {
     public class UserContext : DbContext
     {

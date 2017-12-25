@@ -9,12 +9,12 @@ using NUnit.Framework;
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
     [TestFixture]
-    public class UnitTestAdminTests
+    public class UserServiceRemoveRoleTests
     {
         [TestCase(5, Role.User)]
         [TestCase(5, Role.Admin)]
 
-        public void TestMethodRemoveRole(int n, Role role)
+        public void TestMethodRemoveRoleIsTrue(int n, Role role)
         {
             var storage = new Mock<IUserRepository>();
 
@@ -33,6 +33,29 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(list);
             var userService = new UserService(storage.Object);
             Assert.IsTrue(userService.RemoveRole(n, role));
+        }
+
+        [TestCase(5, Role.User)]
+
+        public void TestMethodRemoveRoleIsFalse(int n, Role role)
+        {
+            var storage = new Mock<IUserRepository>();
+
+            var listRoles = new SortedSet<Role> {Role.Admin};
+            var profile = new Profile { Id = n };
+            var user = new Account
+            {
+                Login = "User",
+                Password = "123",
+                Profile = profile,
+                Permissions = listRoles
+            };
+
+            var list = new List<Account> { user };
+            storage.Setup(s => s.Find(It.IsAny<Expression<Func<Account, bool>>>()))
+                .Returns(list);
+            var userService = new UserService(storage.Object);
+            Assert.IsFalse(userService.RemoveRole(n, role));
         }
     }
 }
