@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using MediaShop.Common.Interfaces.Repositories;
@@ -9,11 +10,18 @@ namespace MediaShop.DataAccess.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<Account> list = new List<Account>();
+        private DbContext сontext;
+        private DbSet<Account> set;
+
+        public UserRepository(DbContext context)
+        {
+            this.сontext = context;
+            this.set = this.сontext.Set<Account>();
+        }
 
         public Account Get(int id)
         {
-            return this.list.FirstOrDefault(account => account.Id == id) ??
+            return this.set.FirstOrDefault(account => account.Id == id) ??
                    throw new ArgumentOutOfRangeException($"Invalid {nameof(id)}");
         }
 
@@ -24,9 +32,8 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            this.list.Add(model);
+            this.set.Add(model);
 
-            // взять id откуда-нибудь. Мб Random
             return model;
         }
 
@@ -44,9 +51,9 @@ namespace MediaShop.DataAccess.Repositories
 
         public Account Delete(Account model)
         {
-            if (this.list.Contains(model))
+            if (this.set.Contains(model))
             {
-                this.list.Remove(model);
+                this.set.Remove(model);
             }
 
             return null;
@@ -57,10 +64,10 @@ namespace MediaShop.DataAccess.Repositories
 
         public Account Delete(int id)
         {
-            var model = this.list.FirstOrDefault(account => account.Id == id);
+            var model = this.set.FirstOrDefault(account => account.Id == id);
             if (model != null)
             {
-                this.list.Remove(model);
+                this.set.Remove(model);
             }
 
             return null;
@@ -75,7 +82,7 @@ namespace MediaShop.DataAccess.Repositories
 
             Func<Account, bool> criteria = filter.Compile();
 
-            return this.list.Where(criteria);
+            return this.set.Where(criteria);
         }
     }
 }
