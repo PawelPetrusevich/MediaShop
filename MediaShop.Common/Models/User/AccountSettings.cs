@@ -4,7 +4,7 @@ namespace MediaShop.Common.Models.User
 {
     public class AccountSettings : Entity
     {
-        public static readonly string DEFAULT_TIME_ZONE_ID = "UTC";
+        public const string DEFAULT_TIME_ZONE_ID = "UTC";
 
         /// <summary>
         /// Identifier timezone of user, default value +0

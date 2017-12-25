@@ -1,6 +1,6 @@
 ﻿namespace MediaShop.Common.Models.User
 {
-    public enum Language: byte
+    public enum Language : byte
     {
         Eng = 0,
         Rus = 1,
