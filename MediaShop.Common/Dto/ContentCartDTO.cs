@@ -13,6 +13,12 @@
         public string ContentName { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the theme of the selected
+        /// content group at the user's choice
+        /// </summary>
+        public string CategoryName { get; set; }
+
+        /// <summary>
         /// Gets or sets description media content
         /// </summary>
         public string DescriptionItem { get; set; }
