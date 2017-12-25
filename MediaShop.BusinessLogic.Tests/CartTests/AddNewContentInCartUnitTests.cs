@@ -4,8 +4,6 @@ using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 using MediaShop.BusinessLogic.Services;
 
-
-
 namespace MediaShop.Common.Tests.Cart
 {
     [TestClass]
@@ -75,9 +73,7 @@ namespace MediaShop.Common.Tests.Cart
             // Verification rezalt with neсуssary number
             Assert.AreEqual((ulong)5, actual1.Id);
         }
-
-
-
+        
         [TestMethod]
         public void Get_Content_In_Cart_If_Exist_In_Cart()
         {
