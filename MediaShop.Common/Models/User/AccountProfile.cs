@@ -2,7 +2,7 @@
 
 namespace MediaShop.Common.Models.User
 {
-    public class Profile : Entity
+    public class AccountProfile : Entity
     {
         public string Email { get; set; }
 

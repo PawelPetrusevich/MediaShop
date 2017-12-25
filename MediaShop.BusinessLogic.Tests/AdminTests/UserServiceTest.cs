@@ -45,7 +45,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void TestExistingLogin()
         {
             var permissions = new SortedSet<Role> { Role.User };
-            var profile = new Profile { Id = 1 };
+            var profile = new AccountProfile { Id = 1 };
             var account = new Account
             {
                 Login = "User",

@@ -60,7 +60,7 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\ExistingLoginException.cs" />
-    <Compile Include="Models\User\Profile.cs" />
+    <Compile Include="Models\User\AccountProfile.cs" />
     <Compile Include="Models\User\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

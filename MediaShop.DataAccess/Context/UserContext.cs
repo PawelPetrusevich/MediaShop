@@ -12,7 +12,7 @@ namespace MediaShop.DataAccess.Context
 
         public DbSet<Account> Accounts { get; set; }
 
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<AccountProfile> Profiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -22,10 +22,10 @@ namespace MediaShop.DataAccess.Context
 
             modelBuilder.Entity<Account>().Property(p => p.Login).IsRequired();
             modelBuilder.Entity<Account>().Property(p => p.Password).IsRequired();
-            modelBuilder.Entity<Profile>().Property(p => p.FirstName).IsRequired();
-            modelBuilder.Entity<Profile>().Property(p => p.Email).IsRequired();
-            modelBuilder.Entity<Profile>().Property(p => p.FirstName).HasMaxLength(30);
-            modelBuilder.Entity<Profile>().Property(p => p.LastName).HasMaxLength(30);
+            modelBuilder.Entity<AccountProfile>().Property(p => p.FirstName).IsRequired();
+            modelBuilder.Entity<AccountProfile>().Property(p => p.Email).IsRequired();
+            modelBuilder.Entity<AccountProfile>().Property(p => p.FirstName).HasMaxLength(30);
+            modelBuilder.Entity<AccountProfile>().Property(p => p.LastName).HasMaxLength(30);
         }
     }
 }
