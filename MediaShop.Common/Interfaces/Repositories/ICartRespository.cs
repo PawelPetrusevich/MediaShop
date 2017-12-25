@@ -49,5 +49,30 @@
         /// <param name="filter">predicate</param>
         /// <returns>collection objects</returns>
         IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
+
+        /// <summary>
+        /// Method for removing all contents from the cart by id user
+        /// </summary>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>count items delete from cart</returns>
+        int DeleteAll(ulong userId);
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="filter">predicate</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        TModel CheckedContent(Expression<Func<ContentCartDto, bool>> filter);
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="filter">predicate</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        TModel UnCheckedContent(Expression<Func<ContentCartDto, bool>> filter);
     }
 }

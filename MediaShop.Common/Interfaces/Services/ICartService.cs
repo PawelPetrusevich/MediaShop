@@ -71,5 +71,40 @@
         /// <param name="cart">Collection ContentCart</param>
         /// <returns>Count Items</returns>
         uint GetCountItems(IEnumerable<TModel> cart);
+
+        /// <summary>
+        /// Method for deleting selected items
+        /// </summary>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>collection of remote objects</returns>
+        IEnumerable<ContentCartDto> DeleteContentFromCart(ulong userId);
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>amount of object that deleted</returns>
+        int DeleteAllContentFromCart(ulong userId);
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="contentId">id content</param>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        TModel CheckedContent(ulong contentId, ulong userId);
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="contentId">id content</param>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        TModel UnCheckedContent(ulong contentId, ulong userId);
     }
 }

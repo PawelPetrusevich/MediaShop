@@ -55,6 +55,27 @@
         }
 
         /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>amount of object that deleted</returns>
+        public int DeleteAllContentFromCart(ulong userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Method for deleting selected items
+        /// </summary>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>collection of remote objects</returns>
+        public IEnumerable<ContentCartDto> DeleteContentFromCart(ulong userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="id">content identificator</param>
@@ -63,17 +84,7 @@
         public bool FindContentInCart(ulong id) => this.repositoryCart
             .Get(id) != null;
 
-        public Cart GetCart(ulong id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public uint GetCountItems(ulong id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public uint GetCountItems(IEnumerable<ContentCart> cart)
+        public Cart GetCart(ulong userid)
         {
             throw new NotImplementedException();
         }
@@ -93,6 +104,42 @@
             }
 
             return itemsDto;
+        }
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="contentId">id content</param>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        public ContentCart CheckedContent(ulong contentId, ulong userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Method to indicate the ContentCart
+        /// object as selected for deletion
+        /// </summary>
+        /// <param name="contentId">id content</param>
+        /// <param name="userId">user id as identificator cart</param>
+        /// <returns>object that checked for
+        /// the control his condition</returns>
+        public ContentCart UnCheckedContent(ulong contentId, ulong userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetCountItems(ulong id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetCountItems(IEnumerable<ContentCart> cart)
+        {
+            throw new NotImplementedException();
         }
 
         public float GetPrice(ulong id)
