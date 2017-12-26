@@ -14,6 +14,7 @@
         public MapperProfile()
         {
             this.CreateMap<ContentClassForUnitTest, ContentCart>()
+                .ForMember(item => item.CreatorId, m => m.Ignore())
                 .ReverseMap();
             this.CreateMap<ContentCart, ContentCartDto>()
                 .ReverseMap();

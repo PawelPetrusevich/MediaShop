@@ -87,6 +87,14 @@
         int DeleteAllContentFromCart(ulong userId);
 
         /// <summary>
+        /// Method for check object CounterId as Bought
+        /// </summary>
+        /// <param name="contentId">contents id</param>
+        /// <param name="userId">user id</param>
+        /// <returns>changes object</returns>
+        TModel SetContentAsBought(ulong contentId, ulong userId);
+
+        /// <summary>
         /// Method to indicate the ContentCart
         /// object as selected for deletion
         /// </summary>

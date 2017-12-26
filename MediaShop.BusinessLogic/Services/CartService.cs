@@ -101,6 +101,28 @@
         }
 
         /// <summary>
+        /// Method for check object CounterId as Bought
+        /// </summary>
+        /// <param name="contentId">contents id</param>
+        /// <param name="userId">user id</param>
+        /// <returns>changes object or </returns>
+        public ContentCart SetContentAsBought(ulong contentId, ulong userId)
+        {
+            // get object ContentCartDto according to the methods parameters
+            var itemSearch = this.repositoryCart
+                .Find(item => item.Id == contentId & item.CreatorId == userId).FirstOrDefault();
+
+            // verify for null rezalt
+            if (itemSearch == null)
+            {
+                return null;
+            }
+
+            itemSearch.IsBought = true;
+            return Mapper.Map<ContentCart>(itemSearch);
+        }
+
+        /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="id">content identificator</param>
