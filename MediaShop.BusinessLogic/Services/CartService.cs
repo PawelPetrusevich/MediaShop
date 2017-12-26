@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using AutoMapper;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
@@ -155,29 +156,61 @@
             return objectForChecked.IsChecked == false;
         }
 
-        public Cart GetCart(ulong userid)
+        /// <summary>
+        /// Get created Cart model object
+        /// </summary>
+        /// <param name="userId">user Id</param>
+        /// <returns>Cart</returns>
+        public Cart GetCart(ulong userId)
         {
-            throw new NotImplementedException();
+            var itemsInCart = this.GetItemsInCart(userId);
+            var model = new Common.Models.Cart();
+            model.ContentCartCollection = itemsInCart;
+            model.CountItemsInCollection = this.GetCountItems(itemsInCart);
+            model.PriceAllItemsCollection = this.GetPrice(itemsInCart);
+            return model;
         }
 
+        /// <summary>
+        /// Get count items for User
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>Count Items in cart</returns>
         public uint GetCountItems(ulong id)
         {
-            throw new NotImplementedException();
+            var cart = this.GetItemsInCart(id);
+            return (uint)cart.Count();
         }
 
+        /// <summary>
+        /// Get count items
+        /// </summary>
+        /// <param name="cart">Collection ContentCart</param>
+        /// <returns>Count Items</returns>
         public uint GetCountItems(IEnumerable<ContentCart> cart)
         {
-            throw new NotImplementedException();
+            return (uint)cart.Count();
         }
 
-        public float GetPrice(ulong id)
+        /// <summary>
+        /// Get sum price items for User
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>Sum price</returns>
+        public decimal GetPrice(ulong id)
         {
-            throw new NotImplementedException();
+            var cart = this.GetItemsInCart(id);
+            return cart.Sum<ContentCart>(x => x.PriceItem);
         }
 
-        public float GetPrice(IEnumerable<ContentCart> cart)
+        /// <summary>
+        /// Get sum price items typeof ContentCart
+        /// </summary>
+        /// <param name="cart">Collection ContentCart</param>
+        /// <returns>Sum price</returns>
+        public decimal GetPrice(IEnumerable<ContentCart> cart)
         {
-            throw new NotImplementedException();
+            return cart.Sum(x => x.PriceItem);
         }
     }
 }

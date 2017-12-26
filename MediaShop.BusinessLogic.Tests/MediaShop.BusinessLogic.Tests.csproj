@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="CartTests\AddNewContentInCartUnitTests.cs" />
     <Compile Include="CartTests\DeleteContentFromCartUnitTests.cs" />
+    <Compile Include="CartTests\GetCatrUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
