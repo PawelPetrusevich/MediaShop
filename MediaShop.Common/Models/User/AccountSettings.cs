@@ -4,12 +4,12 @@ namespace MediaShop.Common.Models.User
 {
     public class AccountSettings : Entity
     {
-        public const string DEFAULT_TIME_ZONE_ID = "UTC";
+        public const string DefaultTimeZoneId = "UTC";
 
         /// <summary>
         /// Identifier timezone of user, default value +0
         /// </summary>
-        public string TimeZoneId { get; set; } = DEFAULT_TIME_ZONE_ID;
+        public string TimeZoneId { get; set; } = DefaultTimeZoneId;
 
         /// <summary>
         /// Languae of userinterface
@@ -20,5 +20,10 @@ namespace MediaShop.Common.Models.User
         /// Turn on/off notification
         /// </summary>
         public bool NotificationStatus { get; set; } = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Account AccountOf { get; set; }
     }
 }

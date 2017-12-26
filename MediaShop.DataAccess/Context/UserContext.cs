@@ -1,31 +1,31 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using MediaShop.Common.Models;
 using MediaShop.Common.Models.User;
+using MediaShop.DataAccess.Configurations;
 
 namespace MediaShop.DataAccess.Context
 {
     public class UserContext : DbContext
     {
         public UserContext()
-            : base("DefaultConnection")
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<UserContext>());
         }
 
-        public DbSet<Account> Accounts { get; set; }
+        public IDbSet<Account> Accounts { get; set; }
 
-        public DbSet<AccountProfile> Profiles { get; set; }
+        public IDbSet<AccountProfile> Profiles { get; set; }
+
+        public IDbSet<AccountSettings> Settings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Account>().HasRequired(c => c.Profile);
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Account>().HasKey(p => p.Id);
-
-            modelBuilder.Entity<Account>().Property(p => p.Login).IsRequired();
-            modelBuilder.Entity<Account>().Property(p => p.Password).IsRequired();
-            modelBuilder.Entity<AccountProfile>().Property(p => p.FirstName).IsRequired();
-            modelBuilder.Entity<AccountProfile>().Property(p => p.Email).IsRequired();
-            modelBuilder.Entity<AccountProfile>().Property(p => p.FirstName).HasMaxLength(30);
-            modelBuilder.Entity<AccountProfile>().Property(p => p.LastName).HasMaxLength(30);
+            modelBuilder.Configurations.Add(new AccountConfiguration());
+            modelBuilder.Configurations.Add(new ProfileConfiguration());
+            modelBuilder.Configurations.Add(new AccountSettingsConfiguration());
         }
     }
 }

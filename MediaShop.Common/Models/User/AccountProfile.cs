@@ -13,5 +13,7 @@ namespace MediaShop.Common.Models.User
         public string LastName { get; set; }
 
         public string Phone { get; set; }
+
+        public Account AccountOf { get; set; }
     }
 }
