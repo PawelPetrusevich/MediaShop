@@ -71,11 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
-<<<<<<< HEAD
+
     <Folder Include="Context\" />
-=======
+
     <Folder Include="Repositories\" />
->>>>>>> develop
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
