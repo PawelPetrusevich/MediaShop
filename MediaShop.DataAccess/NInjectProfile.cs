@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using MediaShop.DataAccess.Context;
+using Ninject.Modules;
 
 namespace MediaShop.DataAccess
 {
@@ -6,6 +7,7 @@ namespace MediaShop.DataAccess
     {
         public override void Load()
         {
+            Bind<MediaContext>().ToSelf();
         }
     }
 }
