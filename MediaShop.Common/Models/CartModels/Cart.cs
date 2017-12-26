@@ -15,7 +15,7 @@
         /// <summary>
         /// Gets or sets Property to determine price all items in collection
         /// </summary>
-        public float PriceAllItemsCollection { get; set; }
+        public decimal PriceAllItemsCollection { get; set; }
 
         /// <summary>
         /// Gets or sets Property to determine the amount of content in a collection

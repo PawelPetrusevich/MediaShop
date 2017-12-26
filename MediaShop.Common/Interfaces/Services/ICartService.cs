@@ -48,14 +48,14 @@
         /// </summary>
         /// <param name="id">user Id</param>
         /// <returns>Sum price</returns>
-        float GetPrice(ulong id);
+        decimal GetPrice(ulong id);
 
         /// <summary>
         /// Get sum price items typeof ContentCart
         /// </summary>
         /// <param name="cart">Collection ContentCart</param>
         /// <returns>Sum price</returns>
-        float GetPrice(IEnumerable<TModel> cart);
+        decimal GetPrice(IEnumerable<TModel> cart);
 
         /// <summary>
         /// Get count items for User
