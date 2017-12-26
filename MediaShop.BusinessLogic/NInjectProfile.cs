@@ -1,4 +1,8 @@
-﻿using Ninject.Modules;
+﻿using System;
+using System.Collections.Generic;
+using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Models.Content;
+using Ninject.Modules;
 
 namespace MediaShop.BusinessLogic
 {

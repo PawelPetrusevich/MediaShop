@@ -11,5 +11,7 @@ namespace MediaShop.Common.Models.Content
         public int TypeId { get; set; }
 
         public int TypeName { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }
