@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using MediaShop.Common.Models.Content;
 
 namespace MediaShop.DataAccess.Context
 {
@@ -8,11 +9,14 @@ namespace MediaShop.DataAccess.Context
         {
         }
 
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<ProductType> ProductTypes { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // your config for Entity here placed in configuartion folder
+            modelBuilder.Configurations.Add(new ProductConfiguration());
         }
     }
 }

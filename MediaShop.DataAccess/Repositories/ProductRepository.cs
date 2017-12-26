@@ -21,7 +21,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 var result = productContext.Products.Add(model);
                 productContext.SaveChanges();
@@ -36,7 +36,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 var result = productContext.Products.Remove(model);
                 productContext.SaveChanges();
@@ -46,7 +46,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public Product Delete(int id)
         {
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 var model = productContext.Products.Single(x => x.Id == id);
                 if (model == null)
@@ -61,7 +61,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 var result = productContext.Products.Where(filter);
                 return result;
@@ -70,7 +70,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public Product Get(int id)
         {
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 return productContext.Products.Single(x => x.Id == id);
             }
@@ -78,7 +78,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public IQueryable<Product> Products()
         {
-            using (var productContext = new ProductContext())
+            using (var productContext = new MediaContext())
             {
                 var result = productContext.Products.AsQueryable();
                 return result;

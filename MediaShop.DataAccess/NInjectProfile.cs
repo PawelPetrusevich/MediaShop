@@ -1,22 +1,17 @@
-<<<<<<< HEAD
-﻿using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.DataAccess.Repositories;
-=======
-﻿using MediaShop.DataAccess.Context;
->>>>>>> develop
-using Ninject.Modules;
-
 namespace MediaShop.DataAccess
 {
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.DataAccess.Context;
+    using MediaShop.DataAccess.Repositories;
+    using Ninject.Modules;
+
     public class NInjectProfile : NinjectModule
     {
         public override void Load()
         {
-<<<<<<< HEAD
             Bind<IProductRepository>().To<ProductRepository>();
-=======
+
             Bind<MediaContext>().ToSelf();
->>>>>>> develop
         }
     }
 }
