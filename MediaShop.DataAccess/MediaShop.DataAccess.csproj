@@ -64,13 +64,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\MediaContext.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
+<<<<<<< HEAD
     <Folder Include="Context\" />
+=======
+    <Folder Include="Repositories\" />
+>>>>>>> develop
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

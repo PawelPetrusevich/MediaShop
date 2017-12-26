@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿namespace MediaShop.DataAccess
+=======
+﻿using MediaShop.DataAccess.Context;
+using Ninject.Modules;
+
+namespace MediaShop.DataAccess
+>>>>>>> develop
 {
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
@@ -13,7 +20,11 @@
         /// <inheritdoc/>
         public override void Load()
         {
+<<<<<<< HEAD
             this.Bind<ICartRespository<ContentCartDto>>().To<CartRepository>();
+=======
+            Bind<MediaContext>().ToSelf();
+>>>>>>> develop
         }
     }
 }
