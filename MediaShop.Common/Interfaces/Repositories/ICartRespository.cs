@@ -40,6 +40,13 @@
         /// </summary>
         /// <param name="id">contents identificator</param>
         /// <returns>rezalt operation</returns>
+        TModel Delete(TModel id);
+
+        /// <summary>
+        /// Method for delete object type ContentCart
+        /// </summary>
+        /// <param name="id">contents identificator</param>
+        /// <returns>rezalt operation</returns>
         TModel Delete(ulong id);
 
         /// <summary>

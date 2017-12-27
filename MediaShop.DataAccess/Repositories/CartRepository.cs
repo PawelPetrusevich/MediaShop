@@ -5,6 +5,7 @@
     using System.Linq.Expressions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
+    using MediaShop.DataAccess.Context;
 
     /// <summary>
     /// Class for work with repository
@@ -18,7 +19,12 @@
         /// <returns>rezalt operation</returns>
         public ContentCartDto Add(ContentCartDto model)
         {
-            throw new NotImplementedException();
+            using (var contentCartContext = new MediaContext())
+            {
+                var result = contentCartContext.ContentCart.Add(model);
+                contentCartContext.SaveChanges();
+                return result;
+            }
         }
 
         /// <summary>
@@ -28,13 +34,34 @@
         /// <returns>rezalt operation</returns>
         public ContentCartDto Update(ContentCartDto model)
         {
-            throw new NotImplementedException();
+            using (var contextContentCart = new MediaContext())
+            {
+                var contentCart = contextContentCart.ContentCart.Find(model.Id);
+                contentCart = model;
+                contextContentCart.SaveChanges();
+                return contentCart;
+            }
         }
 
         /// <summary>
         /// Method for delete object type ContentCartDto
         /// </summary>
-        /// <param name="id">identificator</param>
+        /// <param name="model">object for delete</param>
+        /// <returns>rezalt operation</returns>
+        public ContentCartDto Delete(ContentCartDto model)
+        {
+            using (var contextContentCart = new MediaContext())
+            {
+                var result = contextContentCart.ContentCart.Remove(model);
+                contextContentCart.SaveChanges();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Method for delete object type ContentCartDto
+        /// </summary>
+        /// <param name="model">object for delete</param>
         /// <returns>rezalt operation</returns>
         public ContentCartDto Delete(ulong id)
         {
