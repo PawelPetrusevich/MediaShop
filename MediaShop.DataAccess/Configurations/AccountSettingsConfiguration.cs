@@ -1,15 +1,19 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using MediaShop.Common.Models.User;
+﻿// <copyright file="AccountSettingsConfiguration.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.DataAccess.Configurations
 {
+    using System.Data.Entity.ModelConfiguration;
+    using MediaShop.Common.Models.User;
+
     /// <summary>
-    /// Configuration connect accountSeettings with  table account
+    /// Class AccountSettingsConfiguration.
     /// </summary>
     public class AccountSettingsConfiguration : EntityTypeConfiguration<AccountSettings>
     {
         /// <summary>
-        /// Initializes a new instance of the AccountSettingsConfiguration class
+        /// Initializes a new instance of the <see cref="AccountSettingsConfiguration"/> class.
         /// </summary>
         public AccountSettingsConfiguration()
         {

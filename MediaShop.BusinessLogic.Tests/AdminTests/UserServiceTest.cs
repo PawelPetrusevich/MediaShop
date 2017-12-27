@@ -10,6 +10,8 @@ using NUnit.Framework;
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
+    using MediaShop.BusinessLogic.Services;
+
     [TestFixture]
     public class UserServiceTest
     {

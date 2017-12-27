@@ -1,23 +1,30 @@
-﻿using MediaShop.Common.Dto;
-using MediaShop.Common.Models.User;
+﻿// <copyright file="IUserService.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.Common.Interfaces.Services
 {
+    using MediaShop.Common.Dto;
+    using MediaShop.Common.Models.User;
+
+    /// <summary>
+    /// Interface IUserService
+    /// </summary>
     public interface IUserService
     {
         /// <summary>
-        /// Registration user
+        /// Registers the user.
         /// </summary>
-        /// <param name="userModel">Required data for registration</param>
-        /// <returns>Is user registered or no,</returns>
+        /// <param name="userModel">The user to register.</param>
+        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         bool Register(UserDto userModel);
 
         /// <summary>
-        /// 
+        /// Removes the role from the user.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
+        /// <param name="id">The identifier of the user.</param>
+        /// <param name="role">The role to remove.</param>
+        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         bool RemoveRole(int id, Role role);
     }
 }

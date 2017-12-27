@@ -1,42 +1,57 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="Account.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.Common.Models.User
 {
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Class Account.
+    /// </summary>
+    /// <seealso cref="MediaShop.Common.Models.Entity" />
     public class Account : Entity
     {
         /// <summary>
-        /// user login
+        /// Gets or sets the login.
         /// </summary>
+        /// <value>The login.</value>
         public string Login { get; set; }
 
         /// <summary>
-        /// user password
+        /// Gets or sets the password.
         /// </summary>
+        /// <value>The password.</value>
         public string Password { get; set; }
 
         /// <summary>
-        /// id from table profile
+        /// Gets or sets the profile identifier.
         /// </summary>
+        /// <value>The profile identifier.</value>
         public int ProfileId { get; set; }
 
         /// <summary>
-        /// id from table settings
+        /// Gets or sets the settings identifier.
         /// </summary>
+        /// <value>The settings identifier.</value>
         public int SettingsId { get; set; }
 
         /// <summary>
-        /// Describing personal  users data
+        /// Gets or sets the profile.
         /// </summary>
+        /// <value>The profile.</value>
         public virtual AccountProfile Profile { get; set; } = new AccountProfile();
 
         /// <summary>
-        /// Personal user settings
+        /// Gets or sets the settings.
         /// </summary>
+        /// <value>The settings.</value>
         public virtual AccountSettings Settings { get; set; } = new AccountSettings();
 
         /// <summary>
-        /// Permissions  describes  list of roles, that has this user
+        /// Gets or sets the permissions.
         /// </summary>
+        /// <value>The permissions.</value>
         public virtual ICollection<Role> Permissions { get; set; } = new SortedSet<Role>();
     }
 }

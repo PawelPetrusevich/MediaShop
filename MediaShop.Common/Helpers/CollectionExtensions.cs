@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// <copyright file="CollectionExtensions.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.Common.Helpers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
-    /// help remove for ICollection<T>
+    /// Extension methods for ICollection
     /// </summary>
-    public static class ICollectionExtensions
+    public static class CollectionExtensions
     {
         /// <summary>
-        /// expansion to class
+        /// Remove suitable elements
         /// </summary>
-        /// <param name="collection"></param>collection
-        /// <param name="predicate"></param> predicate
-        /// <typeparam name="T"></typeparam> generic type
-        /// <returns></returns> deletedCount
+        /// <param name="collection">Collection</param>
+        /// <param name="predicate">Criteria</param>
+        /// <typeparam name="T">Generic type param</typeparam>
+        /// <returns>Count of deleted items</returns>
         public static int Remove<T>(this ICollection<T> collection, Func<T, bool> predicate)
         {
             int deletedCount = 0;

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="Helpers\ICollectionExtensions.cs" />
+    <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
@@ -69,6 +69,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

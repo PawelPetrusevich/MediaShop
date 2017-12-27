@@ -1,25 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Models;
+﻿// <copyright file="UserRepository.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.DataAccess.Repositories
-{  
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Models;
+
     /// <summary>
-    /// User repositoty for working with data
+    /// Class UserRepository.
     /// </summary>
-    public class UserRepository<T> : IRespository<T> where T : Entity
+    /// <typeparam name="T">Actual Entity type</typeparam>
+    /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRespository{T}" />
+    public class UserRepository<T> : IRespository<T>
+        where T : Entity
     {
-        private DbContext сontext;
-        private DbSet<T> set;
+        private readonly DbContext сontext;
+        private readonly DbSet<T> set;
 
         /// <summary>
-        /// Initializes a new instance of the UserRepository class
+        /// Initializes a new instance of the <see cref="UserRepository{T}"/> class.
         /// </summary>
-        /// <param name="context">db context</param>
+        /// <param name="context">The context.</param>
         public UserRepository(DbContext context)
         {
             this.сontext = context;

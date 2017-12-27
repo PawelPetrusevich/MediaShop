@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿// <copyright file="AccountSettings.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.Common.Models.User
 {

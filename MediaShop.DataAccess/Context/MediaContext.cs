@@ -1,16 +1,21 @@
-﻿namespace MediaShop.DataAccess.Context
+﻿// <copyright file="MediaContext.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
+
+namespace MediaShop.DataAccess.Context
 {
     using System.Data.Entity;
 
     /// <summary>
-    /// install media context
+    /// Class MediaContext.
     /// </summary>
+    /// <seealso cref="System.Data.Entity.DbContext" />
     public class MediaContext : DbContext
     {
         /// <summary>
-        /// Initializes a new instance of the MediaContext class
+        /// Initializes a new instance of the <see cref="MediaContext"/> class.
         /// </summary>
-        public MediaContext() 
+        public MediaContext()
             : base("MediaShopConnection")
         {
         }
