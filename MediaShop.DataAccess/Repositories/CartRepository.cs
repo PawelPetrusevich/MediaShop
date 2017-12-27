@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
     using MediaShop.DataAccess.Context;
-    using System.Linq.Expressions;
 
     /// <summary>
     /// Class for work with repository
@@ -84,7 +84,7 @@
         {
             using (var contentCartContext = new MediaContext())
             {
-                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId && x.IsChecked);
+                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId);
                 if (contentCartCollection != null)
                 {
                     foreach (var contentCart in contentCartCollection)
@@ -127,30 +127,6 @@
                 var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).SingleOrDefault();
                 return contentCart;
             }
-        }
-
-        /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
-        /// </summary>
-        /// <param name="filter">predicate</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        public ContentCartDto CheckedContent(Expression<Func<ContentCartDto, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
-        /// </summary>
-        /// <param name="filter">predicate</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        public ContentCartDto UnCheckedContent(Expression<Func<ContentCartDto, bool>> filter)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MediaShop.Common.Models
 {
-    using System;
+    using MediaShop.Common.Enums;
 
     /// <summary>
     /// Сlass describes model ContentCartDTO
@@ -29,21 +29,15 @@
         public decimal PriceItem { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets
-        /// the property to determine whether the content is bought
+        /// Gets or sets a state of contents in cart
         /// </summary>
-        public bool IsBought { get; set; } = false;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether gets or sets
-        /// the property to determine whether the content is delete
-        /// </summary>
-        public bool IsDelete { get; set; } = false;
+        public CartEnums.StateCartContent StateContent { get; set; } =
+            CartEnums.StateCartContent.InCart;
 
         /// <summary>
         /// Gets or sets a value indicating whether 
         /// gets or sets The property to determine whether the content is selected
         /// </summary>
-        public bool IsChecked { get; set; }
+        public bool IsChecked { get; set; } = false;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 using MediaShop.Common;
@@ -18,7 +19,10 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Initialize()
         {
             // Create Mapper for testing
-            AutoMapperConfiguration.Configure();
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<MapperProfile>();
+            });
 
             // Create Mock
             var _mock = new Mock<ICartRepository<ContentCartDto>>();

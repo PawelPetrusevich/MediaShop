@@ -1,13 +1,8 @@
-﻿using MediaShop.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MediaShop.DataAccess.Configurations
+﻿namespace MediaShop.DataAccess.Configurations
 {
+    using System.Data.Entity.ModelConfiguration;
+    using MediaShop.Common.Models;
+
     public class ContentCartConfiguration : EntityTypeConfiguration<ContentCartDto>
     {
         public ContentCartConfiguration()
@@ -26,10 +21,8 @@ namespace MediaShop.DataAccess.Configurations
                 .IsVariableLength();
             this.Property(x => x.PriceItem)
                 .IsRequired();
-            this.Property(x => x.IsBought)
+            this.Property(x => x.StateContent)
                 .IsRequired();
-            this.Property(x => x.IsDelete)
-               .IsRequired();
             this.Property(x => x.IsChecked)
                 .IsRequired();
             this.Property(x => x.CreatorId)

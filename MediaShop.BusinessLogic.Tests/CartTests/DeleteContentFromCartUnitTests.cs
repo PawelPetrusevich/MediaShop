@@ -3,10 +3,12 @@ using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Enums;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {
@@ -20,7 +22,10 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Initialize()
         {
             // Create Mapper for testing
-            AutoMapperConfiguration.Configure();
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<MapperProfile>();
+            });
 
             // Create Mock
             var _mock = new Mock<ICartRepository<ContentCartDto>>();
@@ -28,45 +33,141 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        public void Checked_ContentCart()
+        public void Set_Content_Is_Checked()
         {
             // Object ContentCartDto
             var objContentCartDto = new ContentCartDto() { IsChecked = false };
             var actual1 = objContentCartDto.IsChecked;
 
             // Setup mock object
-            mock.Setup(item => item.CheckedContent(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
-                .Returns(() => objContentCartDto)
-                .Callback(() => objContentCartDto.IsChecked = true);
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
 
             // Create CartService object with mock.Object
             var service = new CartService(mock.Object);
 
-            var actual2 = service.CheckedContent(5, 6);
-            
+            var actual2 = service.SetContentAsCheckedAndUnchecked(5, 6);
+
             Assert.IsFalse(actual1);
             Assert.IsTrue(actual2);
         }
 
         [TestMethod]
-        public void UnChecked_ContentCart()
+        public void Set_Content_Is_Unchecked()
         {
             // Object ContentCartDto
             var objContentCartDto = new ContentCartDto() { IsChecked = true };
             var actual1 = objContentCartDto.IsChecked;
 
             // Setup mock object
-            mock.Setup(item => item.CheckedContent(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
-                .Returns(() => objContentCartDto)
-                .Callback(() => objContentCartDto.IsChecked = false);
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
 
             // Create CartService object with mock.Object
             var service = new CartService(mock.Object);
 
-            var actual2 = service.CheckedContent(5, 6);
+            var actual2 = service.SetContentAsCheckedAndUnchecked(5, 6);
 
             Assert.IsTrue(actual1);
             Assert.IsFalse(actual2);
+        }
+
+        [TestMethod]
+        public void Set_Content_Is_Bought()
+        {
+            // Object ContentCartDto
+            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InCart };
+            var actual1 = objContentCartDto.StateContent;
+
+            // Setup mock object
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
+
+            // Create CartService object with mock.Object
+            var service = new CartService(mock.Object);
+
+            var actual2 = service.SetContentAsBoughtAndUnBought(5, 6);
+
+            Assert.AreEqual(CartEnums.StateCartContent.InCart, actual1);
+            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2);
+        }
+
+        [TestMethod]
+        public void Set_Content_Is_UnBought()
+        {
+            // Object ContentCartDto
+            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InBought };
+            var actual1 = objContentCartDto.StateContent;
+
+            // Setup mock object
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
+
+            // Create CartService object with mock.Object
+            var service = new CartService(mock.Object);
+
+            var actual2 = service.SetContentAsBoughtAndUnBought(5, 6);
+
+            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual1);
+            Assert.AreEqual(CartEnums.StateCartContent.InCart, actual2);
+        }
+
+        [TestMethod]
+        public void Set_Content_Is_Paid()
+        {
+            // Object ContentCartDto
+            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InBought };
+            var actual1 = objContentCartDto.StateContent;
+
+            // Setup mock object
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
+
+            // Create CartService object with mock.Object
+            var service = new CartService(mock.Object);
+
+            var actual2 = service.SetContentAsPaidAndUnPaid(5, 6);
+
+            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual1);
+            Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2);
+        }
+
+        [TestMethod]
+        public void Set_Content_Is_UnPaid()
+        {
+            // Object ContentCartDto
+            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InPaid };
+            var actual1 = objContentCartDto.StateContent;
+
+            // Setup mock object
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                 .Returns(() => objContentCartDto);
+            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto);
+
+            // Create CartService object with mock.Object
+            var service = new CartService(mock.Object);
+
+            var actual2 = service.SetContentAsPaidAndUnPaid(5, 6);
+
+            Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual1);
+            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2);
         }
 
         [TestMethod]

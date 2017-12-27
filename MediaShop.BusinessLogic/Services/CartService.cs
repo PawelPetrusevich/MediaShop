@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using AutoMapper;
+    using MediaShop.Common.Enums;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
@@ -12,7 +13,7 @@
     /// <summary>
     /// Service for work with cart
     /// </summary>
-    public class CartService : ICartService<ContentClassForUnitTest, ContentCart>
+    public class CartService : ICartService<Entity, ContentCart>
     {
         private readonly ICartRepository<ContentCartDto> repositoryCart;
 
@@ -31,7 +32,7 @@
         /// <param name="content">new ContentCart object</param>
         /// <param name="userId">id creator</param>
         /// <returns>saved ContentCart object in Cart</returns>
-        public ContentCart AddNewContentInCart(ContentClassForUnitTest content, ulong userId)
+        public ContentCart AddNewContentInCart(Entity content, ulong userId)
         {
            // Mapping object Entity to object ContentCart
             var obj = Mapper.Map<ContentCart>(content);
@@ -101,28 +102,6 @@
         }
 
         /// <summary>
-        /// Method for check object CounterId as Bought
-        /// </summary>
-        /// <param name="contentId">contents id</param>
-        /// <param name="userId">user id</param>
-        /// <returns>changes object or </returns>
-        public ContentCart SetContentAsBought(ulong contentId, ulong userId)
-        {
-            // get object ContentCartDto according to the methods parameters
-            var itemSearch = this.repositoryCart
-                .Find(item => item.Id == contentId & item.CreatorId == userId).FirstOrDefault();
-
-            // verify for null rezalt
-            if (itemSearch == null)
-            {
-                return null;
-            }
-
-            itemSearch.IsBought = true;
-            return Mapper.Map<ContentCart>(itemSearch);
-        }
-
-        /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="id">content identificator</param>
@@ -149,33 +128,80 @@
         }
 
         /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
+        /// Method for check object as Checked or UnChecked
         /// </summary>
-        /// <param name="contentId">id content</param>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>if object state is checked return true
-        /// else return false</returns>
-        public bool CheckedContent(ulong contentId, ulong userId)
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update state</returns>
+        public bool SetContentAsCheckedAndUnchecked(ulong contentId, ulong userId)
         {
-            var objectForChecked = this.repositoryCart.CheckedContent(item => item.Id == contentId
-            && item.CreatorId == userId);
-            return objectForChecked.IsChecked == true;
+            // Get object by id
+            var objectForUpdate = this.repositoryCart.Get(contentId);
+
+            // change value property IsChecked
+            objectForUpdate.IsChecked = objectForUpdate.IsChecked ? false : true;
+
+            // change ModifierId and ModifiedDate
+            objectForUpdate.ModifiedDate = DateTime.Now;
+            objectForUpdate.ModifierId = userId;
+
+            // Mapping object ContentCart to object ContentCartDto
+            var objectDtoUpdate = Mapper.Map<ContentCartDto>(objectForUpdate);
+
+            // Return object ContentCart with mapping object ContentCartDto to ContentCart
+            return objectDtoUpdate.IsChecked;
         }
 
         /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
+        /// Method for check object as Bought or UnBought
         /// </summary>
-        /// <param name="contentId">id content</param>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>if object state is unchecked return true
-        /// else return false</returns>
-        public bool UnCheckedContent(ulong contentId, ulong userId)
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update objects state</returns>
+        public CartEnums.StateCartContent SetContentAsBoughtAndUnBought(ulong contentId, ulong userId)
         {
-            var objectForChecked = this.repositoryCart.CheckedContent(item => item.Id == contentId
-            && item.CreatorId == userId);
-            return objectForChecked.IsChecked == false;
+            // Get object by id
+            var objectForUpdate = this.repositoryCart.Get(contentId);
+
+            // change state object
+            objectForUpdate.StateContent = (objectForUpdate.StateContent != CartEnums.StateCartContent.InBought) ?
+                CartEnums.StateCartContent.InBought : CartEnums.StateCartContent.InCart;
+
+            // change ModifierId and ModifiedDate
+            objectForUpdate.ModifiedDate = DateTime.Now;
+            objectForUpdate.ModifierId = userId;
+
+            // Update change
+            var objectDtoUpdate = this.repositoryCart.Update(objectForUpdate);
+
+            // Return object ContentCart with mapping object ContentCartDto to ContentCart
+            return objectDtoUpdate.StateContent;
+        }
+
+        /// <summary>
+        /// Method for check object as Paid or UnPaid
+        /// </summary>
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update objects state</returns>
+        public CartEnums.StateCartContent SetContentAsPaidAndUnPaid(ulong contentId, ulong userId)
+        {
+            // Get object by id
+            var objectForUpdate = this.repositoryCart.Get(contentId);
+
+            // change state object
+            objectForUpdate.StateContent = (objectForUpdate.StateContent != CartEnums.StateCartContent.InPaid) ?
+                CartEnums.StateCartContent.InPaid : CartEnums.StateCartContent.InBought;
+
+            // change ModifierId and ModifiedDate
+            objectForUpdate.ModifiedDate = DateTime.Now;
+            objectForUpdate.ModifierId = userId;
+
+            // Update change
+            var objectDtoUpdate = this.repositoryCart.Update(objectForUpdate);
+
+            // Return object ContentCart with mapping object ContentCartDto to ContentCart
+            return objectDtoUpdate.StateContent;
         }
 
         /// <summary>

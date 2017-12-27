@@ -20,7 +20,6 @@ namespace MediaShop.WebApi
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            AutoMapperConfiguration.Configure();
         }
     }
 }

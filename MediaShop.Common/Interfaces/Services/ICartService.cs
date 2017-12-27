@@ -1,6 +1,7 @@
 ﻿namespace MediaShop.Common.Interfaces.Services
 {
     using System.Collections.Generic;
+    using MediaShop.Common.Enums;
     using MediaShop.Common.Models;
 
     /// <summary>
@@ -10,7 +11,7 @@
     /// <typeparam name="PModel">type model1</typeparam>
     /// <typeparam name="TModel">type model2</typeparam>
     public interface ICartService<PModel, TModel>
-        where PModel : ContentClassForUnitTest
+        where PModel : Entity
         where TModel : ContentCart
     {
         /// <summary>
@@ -87,31 +88,28 @@
         int DeleteAllContentFromCart(ulong userId);
 
         /// <summary>
-        /// Method for check object CounterId as Bought
+        /// Method for check object as Bought and UnBought
         /// </summary>
-        /// <param name="contentId">contents id</param>
-        /// <param name="userId">user id</param>
-        /// <returns>changes object</returns>
-        TModel SetContentAsBought(ulong contentId, ulong userId);
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update objects state</returns>
+        CartEnums.StateCartContent SetContentAsBoughtAndUnBought(ulong contentId, ulong userId);
 
         /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
+        /// Method for check object as Paid and UnPaid
         /// </summary>
-        /// <param name="contentId">id content</param>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        bool CheckedContent(ulong contentId, ulong userId);
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update objects state</returns>
+        CartEnums.StateCartContent SetContentAsPaidAndUnPaid(ulong contentId, ulong userId);
 
         /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
+        /// Method for change state all contents in cart
+        /// between checked and unchecked
         /// </summary>
-        /// <param name="contentId">id content</param>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>object that checked for
-        /// the control his condition</returns>
-        bool UnCheckedContent(ulong contentId, ulong userId);
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update object</returns>
+        bool SetContentAsCheckedAndUnchecked(ulong contentId, ulong userId);
     }
 }
