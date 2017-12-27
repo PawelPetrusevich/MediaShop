@@ -2,6 +2,9 @@
 
 namespace MediaShop.Common.Models.User
 {
+    /// <summary>
+    /// Class discribes user data
+    /// </summary>
     public class Account : Entity
     {
         /// <summary>

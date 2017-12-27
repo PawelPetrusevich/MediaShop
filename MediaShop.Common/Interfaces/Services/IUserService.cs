@@ -3,6 +3,9 @@ using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
+    /// <summary>
+    /// Interfase user service
+    /// </summary>
     public interface IUserService
     {
         /// <summary>

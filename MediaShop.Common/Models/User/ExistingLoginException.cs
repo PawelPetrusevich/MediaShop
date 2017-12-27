@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace MediaShop.Common.Models.User
 {
+    /// <summary>
+    /// Exception arising when user registres with existing login
+    /// </summary>
     [Serializable]
     public class ExistingLoginException : Exception
     {

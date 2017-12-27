@@ -1,9 +1,13 @@
-﻿using System.Text;
-
-namespace MediaShop.Common.Models.User
+﻿namespace MediaShop.Common.Models.User
 {
+    /// <summary>
+    /// Class describes personal user settings
+    /// </summary>
     public class AccountSettings : Entity
     {
+        /// <summary>
+        /// Default id for timezone UTC
+        /// </summary>
         public const string DefaultTimeZoneId = "UTC";
 
         /// <summary>

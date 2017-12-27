@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MediaShop.Common;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;
+
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
@@ -28,6 +30,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Password = "12345",
                 UserRole = Role.User
             };
+            var mapper = new MapperProfile();
         }
 
         [Test]
