@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
+    using System.Linq;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
     using MediaShop.DataAccess.Context;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Class for work with repository
@@ -61,11 +62,17 @@
         /// <summary>
         /// Method for delete object type ContentCartDto
         /// </summary>
-        /// <param name="model">object for delete</param>
+        /// <param name="id">id for delete</param>
         /// <returns>rezalt operation</returns>
         public ContentCartDto Delete(ulong id)
         {
-            throw new NotImplementedException();
+            using (var contentCartContext = new MediaContext())
+            {
+                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).Single();
+                var result = contentCartContext.ContentCart.Remove(contentCart);
+                contentCartContext.SaveChanges();
+                return result;
+            }
         }
 
         /// <summary>
@@ -75,7 +82,21 @@
         /// <returns>amount is remote content in repository</returns>
         public int DeleteAll(ulong userId)
         {
-            throw new NotImplementedException();
+            using (var contentCartContext = new MediaContext())
+            {
+                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId);
+                if (contentCartCollection != null)
+                {
+                    foreach (var contentCart in contentCartCollection)
+                    {
+                        var result = contentCartContext.ContentCart.Remove(contentCart);
+                    }
+
+                    contentCartContext.SaveChanges();
+                }
+
+                return contentCartCollection.Count();
+            }
         }
 
         /// <summary>
@@ -86,7 +107,11 @@
         /// <returns>collection objects</returns>
         public IEnumerable<ContentCartDto> Find(Expression<Func<ContentCartDto, bool>> filter)
         {
-            throw new NotImplementedException();
+            using (var contentCartContext = new MediaContext())
+            {
+                var result = contentCartContext.ContentCart.Where(filter);
+                return result;
+            }
         }
 
         /// <summary>
@@ -97,7 +122,11 @@
         /// <returns>rezalt operation</returns>
         public ContentCartDto Get(ulong id)
         {
-            throw new NotImplementedException();
+            using (var contentCartContext = new MediaContext())
+            {
+                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).SingleOrDefault();
+                return contentCart;
+            }
         }
 
         /// <summary>
