@@ -11,7 +11,7 @@
     /// <summary>
     /// Class for work with repository
     /// </summary>
-    public class CartRepository : ICartRespository<ContentCartDto>
+    public class CartRepository : ICartRepository<ContentCartDto>
     {
         /// <summary>
         /// Method for add object type ContentCartDto
@@ -84,7 +84,7 @@
         {
             using (var contentCartContext = new MediaContext())
             {
-                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId);
+                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId && x.IsChecked);
                 if (contentCartCollection != null)
                 {
                     foreach (var contentCart in contentCartCollection)

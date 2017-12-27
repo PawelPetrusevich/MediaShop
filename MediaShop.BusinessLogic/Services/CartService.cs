@@ -14,13 +14,13 @@
     /// </summary>
     public class CartService : ICartService<ContentClassForUnitTest, ContentCart>
     {
-        private readonly ICartRespository<ContentCartDto> repositoryCart;
+        private readonly ICartRepository<ContentCartDto> repositoryCart;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
         /// <param name="contentRepo">instance repository</param>
-        public CartService(ICartRespository<ContentCartDto> contentRepo)
+        public CartService(ICartRepository<ContentCartDto> contentRepo)
         {
             this.repositoryCart = contentRepo;
         }

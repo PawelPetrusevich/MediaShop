@@ -9,7 +9,7 @@
     /// Base interface for working with repository
     /// </summary>
     /// <typeparam name="TModel">type object</typeparam>
-    public interface IRespository<TModel>
+    public interface IRepository<TModel>
         where TModel : Entity
     {
         /// <summary>

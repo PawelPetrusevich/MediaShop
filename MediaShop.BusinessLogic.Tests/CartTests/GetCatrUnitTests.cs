@@ -16,7 +16,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
     [TestClass]
     public class GetCatrUnitTests
     {
-        private Mock<ICartRespository<ContentCartDto>> mock;
+        private Mock<ICartRepository<ContentCartDto>> mock;
 
         [TestInitialize]
         public void Initialize()
@@ -25,7 +25,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             AutoMapperConfiguration.Configure();
 
             // Create Mock
-            var _mock = new Mock<ICartRespository<ContentCartDto>>();
+            var _mock = new Mock<ICartRepository<ContentCartDto>>();
             mock = _mock;
         }
 

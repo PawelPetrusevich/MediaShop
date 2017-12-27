@@ -10,7 +10,7 @@
     /// interaction with the repository when working with the ShoppingCart
     /// </summary>
     /// <typeparam name="TModel">Type content in Cart</typeparam>
-    public interface ICartRespository<TModel>
+    public interface ICartRepository<TModel>
         where TModel : ContentCartDto
     {
         /// <summary>

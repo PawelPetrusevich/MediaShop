@@ -12,7 +12,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
     public class AddNewContentInCartUnitTests
     {
         // Field for Mock
-        private Mock<ICartRespository<ContentCartDto>> mock;
+        private Mock<ICartRepository<ContentCartDto>> mock;
 
         [TestInitialize]
         public void Initialize()
@@ -21,7 +21,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             AutoMapperConfiguration.Configure();
 
             // Create Mock
-            var _mock = new Mock<ICartRespository<ContentCartDto>>();
+            var _mock = new Mock<ICartRepository<ContentCartDto>>();
             mock = _mock;
         }
 
