@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
+using MediaShop.Common.Dto;
+using MediaShop.Common.Models.Notification;
 
 namespace MediaShop.Common
 {
@@ -6,6 +9,7 @@ namespace MediaShop.Common
     {
         public MapperProfile()
         {
+            this.CreateMap<Notification, NotificationDto>().ReverseMap().ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now));
         }
     }
 }
