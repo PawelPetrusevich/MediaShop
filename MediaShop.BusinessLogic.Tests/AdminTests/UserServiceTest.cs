@@ -30,7 +30,6 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Password = "12345",
                 UserRole = Role.User
             };
-            var mapper = new MapperProfile();
         }
 
         [Test]
@@ -64,7 +63,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         }
 
         [Test]
-        public void TestRegistraionFial()
+        public void TestRegistraionFail()
         {
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns((Account)null);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>());

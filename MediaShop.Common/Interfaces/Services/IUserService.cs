@@ -16,7 +16,7 @@ namespace MediaShop.Common.Interfaces.Services
         bool Register(UserDto userModel);
 
         /// <summary>
-        /// 
+        /// Remove user role from permissions list
         /// </summary>
         /// <param name="id"></param>
         /// <param name="role"></param>
