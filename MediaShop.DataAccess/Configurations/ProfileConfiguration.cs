@@ -3,8 +3,14 @@ using MediaShop.Common.Models.User;
 
 namespace MediaShop.DataAccess.Configurations
 {
+    /// <summary>
+    /// Configuration connect accountProfile with  table account
+    /// </summary>
     public class ProfileConfiguration : EntityTypeConfiguration<AccountProfile>
     {
+        /// <summary>
+        /// Initializes a new instance of the ProfileConfiguration class
+        /// </summary>
         public ProfileConfiguration()
         {
             this.HasRequired(c => c.AccountOf).WithRequiredDependent(p => p.Profile);

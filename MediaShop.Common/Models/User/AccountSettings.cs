@@ -22,8 +22,13 @@ namespace MediaShop.Common.Models.User
         public bool NotificationStatus { get; set; } = true;
 
         /// <summary>
-        /// 
+        /// reference to account table
         /// </summary>
         public Account AccountOf { get; set; }
+
+        /// <summary>
+        /// id from table Account
+        /// </summary>
+        public int AccountId { get; set; }
     }
 }

@@ -13,13 +13,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     [TestFixture]
     public class UserServiceTest
     {
-        private Mock<IUserRepository> _store;
+        private Mock<IRespository<Account>> _store;
         private UserDto _user;
 
         [SetUp]
         public void Init()
         {
-            var mockRepository =  new Mock<IUserRepository>();
+            var mockRepository =  new Mock<IRespository<Account>>();
             _store = mockRepository;
 
             _user = new UserDto

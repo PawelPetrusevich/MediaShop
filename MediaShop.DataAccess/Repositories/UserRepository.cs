@@ -4,28 +4,47 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Models.User;
+using MediaShop.Common.Models;
 
 namespace MediaShop.DataAccess.Repositories
-{
-    public class UserRepository : IUserRepository
+{  
+    /// <summary>
+    /// User repositoty for working with data
+    /// </summary>
+    public class UserRepository<T> : IRespository<T> where T : Entity
     {
         private DbContext сontext;
-        private DbSet<Account> set;
+        private DbSet<T> set;
 
+        /// <summary>
+        /// Initializes a new instance of the UserRepository class
+        /// </summary>
+        /// <param name="context">db context</param>
         public UserRepository(DbContext context)
         {
             this.сontext = context;
-            this.set = this.сontext.Set<Account>();
+            this.set = this.сontext.Set<T>();
         }
 
-        public Account Get(int id)
+        /// <summary>
+        /// Method Get
+        /// gets user by ID
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <returns>db entry</returns>
+        public T Get(int id)
         {
             return this.set.FirstOrDefault(account => account.Id == id) ??
                    throw new ArgumentOutOfRangeException($"Invalid {nameof(id)}");
         }
 
-        public Account Add(Account model)
+        /// <summary>
+        /// add model to repository
+        /// </summary>
+        /// <param name="model">model user</param>
+        /// <returns>db entry</returns>
+        /// <exception cref="ArgumentNullException">if model = null</exception>
+        public T Add(T model)
         {
             if (model == null)
             {
@@ -37,11 +56,17 @@ namespace MediaShop.DataAccess.Repositories
             return model;
         }
 
-        public Account Update(Account model)
+        /// <summary>
+        /// Method Update
+        /// update user data
+        /// </summary>
+        /// <param name="model">model_user</param>
+        /// <returns>db_entry</returns>
+        public T Update(T model)
         {
-            Account account = this.Get(model.Id);
+            T account = this.Get(model.Id);
 
-            foreach (var property in typeof(Account).GetProperties())
+            foreach (var property in typeof(T).GetProperties())
             {
                 property.SetValue(account, property.GetValue(model));
             }
@@ -49,7 +74,13 @@ namespace MediaShop.DataAccess.Repositories
             return account;
         }
 
-        public Account Delete(Account model)
+        /// <summary>
+        /// Method delete
+        /// delete user data by model
+        /// </summary>
+        /// <param name="model">model user</param>
+        /// <returns>null</returns>
+        public T Delete(T model)
         {
             if (this.set.Contains(model))
             {
@@ -62,7 +93,13 @@ namespace MediaShop.DataAccess.Repositories
             // что делать, если такого профили в репозитории нет?
         }
 
-        public Account Delete(int id)
+        /// <summary>
+        /// Method delete
+        /// delete user data by Id
+        /// </summary>
+        /// <param name="id">user_id</param>
+        /// <returns>null</returns>
+        public T Delete(int id)
         {
             var model = this.set.FirstOrDefault(account => account.Id == id);
             if (model != null)
@@ -73,14 +110,21 @@ namespace MediaShop.DataAccess.Repositories
             return null;
         }
 
-        public IEnumerable<Account> Find(Expression<Func<Account, bool>> filter)
+        /// <summary>
+        /// Method Find
+        /// find user data by expression
+        /// </summary>
+        /// <param name="filter">lambda expression</param>
+        /// <returns>db entry</returns>
+        /// <exception cref="ArgumentNullException">ArgumentNullException</exception>
+        public IEnumerable<T> Find(Expression<Func<T, bool>> filter)
         {
             if (filter == null)
             {
                 throw new ArgumentNullException(nameof(filter));
             }
 
-            Func<Account, bool> criteria = filter.Compile();
+            Func<T, bool> criteria = filter.Compile();
 
             return this.set.Where(criteria);
         }

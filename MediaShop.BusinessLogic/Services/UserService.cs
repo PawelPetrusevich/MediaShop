@@ -11,9 +11,9 @@ namespace MediaShop.BusinessLogic
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository store;
+        private readonly IRespository<Account> store;
 
-        public UserService(IUserRepository repository)
+        public UserService(IRespository<Account> repository)
         {
             this.store = repository;
         }
