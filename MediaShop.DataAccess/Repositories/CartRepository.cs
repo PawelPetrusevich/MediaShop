@@ -68,7 +68,7 @@
         {
             using (var contentCartContext = new MediaContext())
             {
-                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).Single();
+                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).Single(); // from cart Delete only CartState=0?
                 var result = contentCartContext.ContentCart.Remove(contentCart);
                 contentCartContext.SaveChanges();
                 return result;
@@ -84,7 +84,7 @@
         {
             using (var contentCartContext = new MediaContext())
             {
-                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId);
+                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId && x.StateContent == 0);
                 if (contentCartCollection != null)
                 {
                     foreach (var contentCart in contentCartCollection)
