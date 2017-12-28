@@ -117,7 +117,7 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCart> GetItemsInCart(ulong id)
         {
-            var itemsInCart = this.repositoryCart.Find(x => x.Id == id);
+            var itemsInCart = this.repositoryCart.Find(x => x.CreatorId == id && x.StateContent != CartEnums.StateCartContent.InPaid);
             IList<ContentCart> itemsDto = new List<ContentCart>();
             foreach (ContentCartDto itemDto in itemsInCart)
             {
@@ -212,10 +212,12 @@
         public Cart GetCart(ulong userId)
         {
             var itemsInCart = this.GetItemsInCart(userId);
-            var model = new Common.Models.Cart();
-            model.ContentCartCollection = itemsInCart;
-            model.CountItemsInCollection = this.GetCountItems(itemsInCart);
-            model.PriceAllItemsCollection = this.GetPrice(itemsInCart);
+            var model = new Cart()
+            {
+                ContentCartCollection = itemsInCart,
+                CountItemsInCollection = this.GetCountItems(itemsInCart),
+                PriceAllItemsCollection = this.GetPrice(itemsInCart)
+            };
             return model;
         }
 
