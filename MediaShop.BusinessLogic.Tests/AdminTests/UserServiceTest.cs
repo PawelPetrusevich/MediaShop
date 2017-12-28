@@ -47,8 +47,18 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void TestRegistrationSuccessfull()
         {
+            var permissions = new SortedSet<Role> { Role.User };
+            var profile = new AccountProfile { Id = 1 };
+            var account = new Account
+            {
+                Id = 2,
+                Login = "User",
+                Password = "12345",
+                Profile = profile,
+                Permissions = permissions
+            };
 
-            _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
+            _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(account);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>());
 
             var userService = new UserService(_store.Object);           

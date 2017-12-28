@@ -42,7 +42,7 @@ namespace MediaShop.BusinessLogic
 
             var createdAccount = this.store.Add(account);
 
-            if (createdAccount == null)
+            if (createdAccount == null || createdAccount.Id == 0)
             {
                 return false;
             }
