@@ -1,8 +1,12 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
+﻿// <copyright file="RouteConfig.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.WebApi
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
     /// <summary>
     /// Class RouteConfig.
     /// </summary>

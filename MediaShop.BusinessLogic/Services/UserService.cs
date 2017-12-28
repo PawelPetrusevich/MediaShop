@@ -1,4 +1,4 @@
-﻿// <copyright file="UserService.cs" company="MediaShop">
+// <copyright file="UserService.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ namespace MediaShop.BusinessLogic.Services
     using MediaShop.Common.Models.User;
 
     /// <summary>
-    /// Class UserService.
+    /// Class with user service business logic.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Interfaces.Services.IUserService" />
     public class UserService : IUserService
@@ -44,22 +44,12 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ExistingLoginException(userModel.Login);
             }
 
-            Mapper.Initialize(config => config.CreateMap<UserDto, Account>()
-                .ForMember(x => x.Id, opt => opt.MapFrom(m => m.Id))
-                .ForMember(x => x.Login, opt => opt.MapFrom(m => m.Login))
-                .ForMember(x => x.Password, opt => opt.MapFrom(m => m.Password))
-                .ForMember(x => x.CreatorId, opt => opt.MapFrom(m => m.CreatorId))
-                .ForMember(x => x.CreatedDate, opt => opt.MapFrom(m => m.CreatedDate))
-                .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
-                .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
-
             var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
             var createdAccount = this.store.Add(account);
 
-            // TODO: Don't know what is the problem in Repository
-            if (createdAccount == null)
+            if (createdAccount == null || createdAccount.Id == 0)
             {
                 return false;
             }
@@ -68,7 +58,7 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
-        /// Removes the role from the user.
+        /// Removes the role from the user's permission list.
         /// </summary>
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>

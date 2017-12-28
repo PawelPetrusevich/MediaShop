@@ -1,4 +1,4 @@
-﻿// <copyright file="IUserService.cs" company="MediaShop">
+// <copyright file="IUserService.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -20,7 +20,7 @@ namespace MediaShop.Common.Interfaces.Services
         bool Register(UserDto userModel);
 
         /// <summary>
-        /// Removes the role from the user.
+        /// Removes the role from the user's permission list.
         /// </summary>
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>

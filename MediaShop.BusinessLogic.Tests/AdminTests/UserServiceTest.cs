@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MediaShop.Common;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;
+
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
@@ -63,7 +65,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         }
 
         [Test]
-        public void TestRegistraionFial()
+        public void TestRegistraionFail()
         {
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns((Account)null);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>());

@@ -1,11 +1,17 @@
-﻿// <copyright file="AccountSettings.cs" company="MediaShop">
+// <copyright file="AccountSettings.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
 namespace MediaShop.Common.Models.User
 {
+    /// <summary>
+    /// Class describes personal user settings
+    /// </summary>
     public class AccountSettings : Entity
     {
+        /// <summary>
+        /// Default id for timezone UTC
+        /// </summary>
         public const string DefaultTimeZoneId = "UTC";
 
         /// <summary>

@@ -1,7 +1,11 @@
-﻿using System.Web.Http;
+﻿// <copyright file="WebApiConfig.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.WebApi
 {
+    using System.Web.Http;
+
     /// <summary>
     /// Class WebApiConfig.
     /// </summary>
