@@ -16,6 +16,20 @@ namespace MediaShop.DataAccess.Context
                 .WithMany(p => p.Products)
                 .HasForeignKey<int>(s => s.ProductTypeId);
             this.HasKey(p => p.Id);
+            this.Property(p => p.Description)
+                .IsOptional()
+                .IsVariableLength()
+                .IsUnicode(true);
+            this.Property(p => p.IsFavorite)
+                .IsRequired();
+            this.Property(p => p.IsPremium)
+                .IsRequired();
+            this.Property(p => p.ProductName)
+                .IsRequired()
+                .HasMaxLength(50);
+            this.Property(p => p.ProductPrice)
+                .IsRequired()
+                .HasPrecision(15, 2);
         }
     }
 }

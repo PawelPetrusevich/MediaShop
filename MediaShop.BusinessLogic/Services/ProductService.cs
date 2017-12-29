@@ -74,5 +74,41 @@ namespace MediaShop.BusinessLogic.Services
         {
             return this.repository.Products();
         }
+
+        public List<Product> AddProductsList(IEnumerable<Product> products)
+        {
+            if (products == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            List<Product> result = null;
+
+            foreach (var product in products)
+            {
+                this.repository.Add(product);
+                result.Add(product);
+            }
+
+            return result;
+        }
+
+        public List<Product> DeleteProductsList(IEnumerable<Product> products)
+        {
+            if (products == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            List<Product> result = null;
+
+            foreach (var product in products)
+            {
+                this.repository.Delete(product);
+                result.Add(product);
+            }
+
+            return result;
+        }
     }
 }

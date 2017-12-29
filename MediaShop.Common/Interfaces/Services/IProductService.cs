@@ -20,5 +20,9 @@ namespace MediaShop.Common.Interfaces.Services
         IEnumerable<Product> Find(Expression<Func<Product, bool>> filter);
 
         IEnumerable<Product> Products();
+
+        List<Product> AddProductsList(IEnumerable<Product> products);
+
+        List<Product> DeleteProductsList(IEnumerable<Product> products);
     }
 }
