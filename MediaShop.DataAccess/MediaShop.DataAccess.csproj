@@ -64,10 +64,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AccountConfiguration.cs" />
+    <Compile Include="Configurations\AccountSettingsConfiguration.cs" />
+    <Compile Include="Configurations\ProfileConfiguration.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Configurations\ContentCartConfiguration.cs" />
     <Compile Include="Context\MediaContext.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Context\UserContext.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
   </ItemGroup>
   <ItemGroup />

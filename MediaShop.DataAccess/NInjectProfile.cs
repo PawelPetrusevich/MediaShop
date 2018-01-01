@@ -1,3 +1,7 @@
+﻿// <copyright file="NInjectProfile.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
+
 namespace MediaShop.DataAccess
 {
     using MediaShop.Common.Interfaces.Repositories;
@@ -7,11 +11,14 @@ namespace MediaShop.DataAccess
     using Ninject.Modules;
 
     /// <summary>
-    /// Profile Ninject container
+    /// Class NInjectProfile.
     /// </summary>
+    /// <seealso cref="Ninject.Modules.NinjectModule" />
     public class NInjectProfile : NinjectModule
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Loads the module into the kernel.
+        /// </summary>
         public override void Load()
         {
             this.Bind<ICartRepository<ContentCartDto>>().To<CartRepository>();

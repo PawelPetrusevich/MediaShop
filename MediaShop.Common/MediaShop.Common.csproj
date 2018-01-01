@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IRespository.cs" />
+    <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
@@ -61,15 +64,24 @@
     <Compile Include="Models\CartModels\ContentClassForUnitTest.cs" />
     <Compile Include="Models\CartModels\UserClassForUnitTest.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\User\Account.cs" />
+    <Compile Include="Models\User\AccountSettings.cs" />
+    <Compile Include="Models\User\ExistingLoginException.cs" />
+    <Compile Include="Models\User\AccountProfile.cs" />
+    <Compile Include="Models\User\Language.cs" />
+    <Compile Include="Models\User\Role.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dto\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

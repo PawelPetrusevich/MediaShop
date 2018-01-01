@@ -1,12 +1,17 @@
-﻿namespace MediaShop.DataAccess.Context
+﻿// <copyright file="MediaContext.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
+
+namespace MediaShop.DataAccess.Context
 {
     using MediaShop.DataAccess.Configurations;
     using System.Data.Entity;
     using MediaShop.Common.Models;
 
     /// <summary>
-    /// Context for work with database
+    /// Class MediaContext.
     /// </summary>
+    /// <seealso cref="System.Data.Entity.DbContext" />
     public class MediaContext : DbContext
     {
         /// <summary>
@@ -19,6 +24,10 @@
 
         public IDbSet<ContentCartDto> ContentCart { get; set; }
 
+        /// <summary>
+        /// Method configuration tables
+        /// </summary>
+        /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

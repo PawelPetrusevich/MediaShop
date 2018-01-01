@@ -79,6 +79,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminTests\UserServiceTest.cs" />
+    <Compile Include="AdminTests\UserServiceRemoveRoleTests.cs" />
     <Compile Include="CartTests\AddNewContentInCartUnitTests.cs" />
     <Compile Include="CartTests\DeleteContentFromCartUnitTests.cs" />
     <Compile Include="CartTests\GetCatrUnitTests.cs" />

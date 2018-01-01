@@ -1,4 +1,8 @@
-﻿namespace MediaShop.Common.Interfaces.Repositories
+﻿// <copyright file="IRespository.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
+
+namespace MediaShop.Common.Interfaces.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -6,54 +10,52 @@
     using MediaShop.Common.Models;
 
     /// <summary>
-    /// Base interface for working with repository
+    /// Interface IRespository
     /// </summary>
-    /// <typeparam name="TModel">type object</typeparam>
+    /// <typeparam name="TModel">The type of the t model.</typeparam>
     public interface IRepository<TModel>
         where TModel : Entity
     {
         /// <summary>
-        /// Method for getting object type TModel
-        /// by identificator
+        /// Interface method get for type TModel
         /// </summary>
-        /// <param name="id">identificator</param>
-        /// <returns>rezalt operation</returns>
+        /// <param name="id">Id of searching element</param>
+        /// <returns>TModel</returns>
         TModel Get(ulong id);
 
         /// <summary>
-        /// Method for additing object type TModel
+        /// interface method add for type TModel
         /// </summary>
-        /// <param name="model">new object</param>
-        /// <returns>rezalt operation</returns>
+        /// <param name="model">Model to add</param>
+        /// <returns>Added Model</returns>
         TModel Add(TModel model);
 
         /// <summary>
-        /// Method for updating object type TModel
+        ///  interface method update for type TModel
         /// </summary>
-        /// <param name="model">updating object</param>
-        /// <returns>rezalt operation</returns>
+        /// <param name="model">Model to update</param>
+        /// <returns>Updated model</returns>
         TModel Update(TModel model);
 
         /// <summary>
-        /// Method for deleting object type TModel
+        /// interface method delete for type TModel by model
         /// </summary>
-        /// <param name="model">delete object</param>
-        /// <returns>rezalt operation</returns>
+        /// <param name="model">Model to delete</param>
+        /// <returns>Instance of deleted model</returns>
         TModel Delete(TModel model);
 
         /// <summary>
-        /// Method for deleting object type TModel
+        /// interface method delete for type TModel by id
         /// </summary>
-        /// <param name="id">identificator</param>
-        /// <returns>rezalt operation</returns>
+        /// <param name="id">Id of deleting model</param>
+        /// <returns>Deleted model</returns>
         TModel Delete(ulong id);
 
         /// <summary>
-        /// Method for find collection of object type TModel
-        /// by predicate
+        /// Find by id
         /// </summary>
-        /// <param name="filter">predicate</param>
-        /// <returns>collection objects</returns>
+        /// <param name="filter">Filter criteria</param>
+        /// <returns>Suitable entities</returns>
         IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
     }
 }

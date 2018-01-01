@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿// <copyright file="WebApiConfig.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.WebApi
 {
+    using System.Web.Http;
+
+    /// <summary>
+    /// Class WebApiConfig.
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers the specified configuration.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
