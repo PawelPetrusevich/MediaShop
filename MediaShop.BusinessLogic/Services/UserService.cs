@@ -35,11 +35,11 @@ namespace MediaShop.BusinessLogic.Services
         /// Registers the user.
         /// </summary>
         /// <param name="userModel">The user to register.</param>
-        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
+        /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
         /// <exception cref="MediaShop.Common.Models.User.ExistingLoginException">Throws when user with such login already exists</exception>
-        public bool Register(UserDto userModel)
+        public Account Register(UserDto userModel)
         {
-            if (this.store.Find(x => x.Login == userModel.Login).FirstOrDefault() != null)
+            if (this.store.Find(x => x.Login == userModel.Login)?.Single() != null)
             {
                 throw new ExistingLoginException(userModel.Login);
             }
@@ -49,12 +49,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var createdAccount = this.store.Add(account);
 
-            if (createdAccount == null || createdAccount.Id == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return createdAccount;
         }
 
         /// <summary>

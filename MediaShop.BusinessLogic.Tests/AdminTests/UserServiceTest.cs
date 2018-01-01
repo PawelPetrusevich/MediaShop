@@ -22,14 +22,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         public UserServiceTest()
         {
-            Mapper.Initialize(config => config.CreateMap<UserDto, Account>()
-                .ForMember(x => x.Id, opt => opt.MapFrom(m => m.Id))
-                .ForMember(x => x.Login, opt => opt.MapFrom(m => m.Login))
-                .ForMember(x => x.Password, opt => opt.MapFrom(m => m.Password))
-                .ForMember(x => x.CreatorId, opt => opt.MapFrom(m => m.CreatorId))
-                .ForMember(x => x.CreatedDate, opt => opt.MapFrom(m => m.CreatedDate))
-                .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
-                .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)));
+            Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
         }
 
         [SetUp]
@@ -40,6 +33,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             _user = new UserDto
             {
+                Id = 0,
                 Login = "User",
                 Password = "12345",
                 UserRole = Role.User
@@ -54,18 +48,18 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var account = new Account
             {
                 Id = 2,
-                Login = "User",
-                Password = "12345",
+                Login = "Ivan",
+                Password = "111",
                 Profile = profile,
                 Permissions = permissions
             };
 
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(account);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>());
+            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns((IEnumerable<Account>)null); ;
 
             var userService = new UserService(_store.Object);           
 
-            Assert.IsTrue(userService.Register(_user));
+            Assert.IsNotNull(userService.Register(_user));
         }
 
         [Test]
@@ -88,14 +82,14 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         }
 
         [Test]
-        public void TestRegistraionFail()
+        public void TestRegistraionFailInRepository()
         {
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns((Account)null);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>());
+            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns((IEnumerable<Account>)null);
 
             var userService = new UserService(_store.Object);
 
-            Assert.IsFalse(userService.Register(_user));
+            Assert.IsNull(userService.Register(_user));
         }
     }
 }

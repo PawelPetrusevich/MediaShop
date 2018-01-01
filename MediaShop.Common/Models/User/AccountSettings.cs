@@ -22,7 +22,7 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// Languae of userinterface
         /// </summary>
-        public Language InterfaceLanguage { get; set; } = Language.Eng;
+        public Languages InterfaceLanguage { get; set; } = Languages.Eng;
 
         /// <summary>
         /// Turn on/off notification
