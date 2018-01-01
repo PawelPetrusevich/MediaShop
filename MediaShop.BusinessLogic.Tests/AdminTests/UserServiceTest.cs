@@ -17,7 +17,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     [TestFixture]
     public class UserServiceTest
     {
-        private Mock<IRespository<Account>> _store;
+        private Mock<IRepository<Account>> _store;
         private UserDto _user;
 
         public UserServiceTest()
@@ -35,7 +35,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [SetUp]
         public void Init()
         {
-            var mockRepository =  new Mock<IRespository<Account>>();
+            var mockRepository =  new Mock<IRepository<Account>>();
             _store = mockRepository;
 
             _user = new UserDto

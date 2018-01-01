@@ -5,7 +5,6 @@
 namespace MediaShop.DataAccess.Configurations
 {
     using System.Data.Entity.ModelConfiguration;
-
     using MediaShop.Common.Models.User;
 
     /// <summary>

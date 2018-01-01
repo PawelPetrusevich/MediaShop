@@ -16,9 +16,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [TestCase(5, Role.User)]
         [TestCase(5, Role.Admin)]
 
-        public void TestMethodRemoveRoleIsTrue(int n, Role role)
+        public void TestMethodRemoveRoleIsTrue(ulong n, Role role)
         {
-            var storage = new Mock<IRespository<Account>>();
+            var storage = new Mock<IRepository<Account>>();
 
             var listRoles = new SortedSet<Role> {Role.Admin, Role.User};
             var profile = new AccountProfile {Id = n};
@@ -39,9 +39,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         [TestCase(5, Role.User)]
 
-        public void TestMethodRemoveRoleIsFalse(int n, Role role)
+        public void TestMethodRemoveRoleIsFalse(ulong n, Role role)
         {
-            var storage = new Mock<IRespository<Account>>();
+            var storage = new Mock<IRepository<Account>>();
 
             var listRoles = new SortedSet<Role> {Role.Admin};
             var profile = new AccountProfile { Id = n };
