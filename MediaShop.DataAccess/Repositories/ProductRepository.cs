@@ -87,7 +87,13 @@ namespace MediaShop.DataAccess.Repositories
 
         public Product Update(Product model)
         {
-            throw new NotImplementedException();
+            using (var productContext = new MediaContext())
+            {
+                productContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                productContext.SaveChanges();
+            }
+
+            return model;
         }
     }
 }

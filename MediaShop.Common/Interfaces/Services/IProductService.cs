@@ -23,6 +23,6 @@ namespace MediaShop.Common.Interfaces.Services
 
         List<Product> AddProductsList(IEnumerable<Product> products);
 
-        List<Product> DeleteProductsList(IEnumerable<Product> products);
+        List<Product> DeleteProductsList(IEnumerable<Product> products);        
     }
 }
