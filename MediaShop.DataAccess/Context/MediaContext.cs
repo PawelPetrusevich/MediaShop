@@ -3,9 +3,19 @@ using MediaShop.Common.Models.Content;
 
 namespace MediaShop.DataAccess.Context
 {
+    using System.Data.Entity;
+
+    /// <summary>
+    /// Class MediaContext.
+    /// </summary>
+    /// <seealso cref="System.Data.Entity.DbContext" />
     public class MediaContext : DbContext
     {
-        public MediaContext() : base("MediaShopConnection")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MediaContext"/> class.
+        /// </summary>
+        public MediaContext()
+            : base("MediaShopConnection")
         {
         }
 
