@@ -46,12 +46,12 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the connected account.
         /// </summary>
         /// <value>The account.</value>
-        public Account AccountOf { get; set; }
+        public virtual Account AccountOf { get; set; }
 
         /// <summary>
         /// Gets or sets the account identifier.
         /// </summary>
         /// <value>The account identifier.</value>
-        public int AccountId { get; set; }
+        public ulong AccountId { get; set; }
     }
 }

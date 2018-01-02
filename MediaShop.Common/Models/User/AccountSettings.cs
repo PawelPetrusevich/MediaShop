@@ -32,11 +32,11 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// reference to account table
         /// </summary>
-        public Account AccountOf { get; set; }
+        public virtual Account AccountOf { get; set; }
 
         /// <summary>
         /// id from table Account
         /// </summary>
-        public int AccountId { get; set; }
+        public ulong AccountId { get; set; }
     }
 }

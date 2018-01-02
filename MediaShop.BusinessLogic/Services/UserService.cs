@@ -17,16 +17,16 @@ namespace MediaShop.BusinessLogic.Services
     /// <summary>
     /// Class with user service business logic.
     /// </summary>
-    /// <seealso cref="MediaShop.Common.Interfaces.Services.IUserService" />
+    /// <seealso cref="IUserService" />
     public class UserService : IUserService
     {
-        private readonly IRespository<Account> store;
+        private readonly IRepository<Account> store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public UserService(IRespository<Account> repository)
+        public UserService(IRepository<Account> repository)
         {
             this.store = repository;
         }
@@ -58,7 +58,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        public bool RemoveRole(int id, Role role)
+        public bool RemoveRole(ulong id, Role role)
         {
             var user = this.store.Find(account => account.Id == id).FirstOrDefault();
 

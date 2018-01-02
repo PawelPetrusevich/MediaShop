@@ -1,4 +1,4 @@
-﻿// <copyright file="IRespository.cs" company="MediaShop">
+﻿// <copyright file="IRepository.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -10,10 +10,10 @@ namespace MediaShop.Common.Interfaces.Repositories
     using MediaShop.Common.Models;
 
     /// <summary>
-    /// Interface IRespository
+    /// Interface IRepository
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
-    public interface IRespository<TModel>
+    public interface IRepository<TModel>
         where TModel : Entity
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// </summary>
         /// <param name="id">Id of searching element</param>
         /// <returns>TModel</returns>
-        TModel Get(int id);
+        TModel Get(ulong id);
 
         /// <summary>
         /// interface method add for type TModel
@@ -49,7 +49,7 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// </summary>
         /// <param name="id">Id of deleting model</param>
         /// <returns>Deleted model</returns>
-        TModel Delete(int id);
+        TModel Delete(ulong id);
 
         /// <summary>
         /// Find by id
