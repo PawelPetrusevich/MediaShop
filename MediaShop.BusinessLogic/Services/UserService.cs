@@ -39,7 +39,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="MediaShop.Common.Models.User.ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(UserDto userModel)
         {
-            var existingAccount = this.store.Get(userModel.Login);
+            var existingAccount = this.store.GetByLogin(userModel.Login);
             if (existingAccount != null)
             {
                 throw new ExistingLoginException(userModel.Login);

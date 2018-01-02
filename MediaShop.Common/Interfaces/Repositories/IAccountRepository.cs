@@ -17,6 +17,6 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// </summary>
         /// <param name="login">The login.</param>
         /// <returns>Entity</returns>
-        Account Get(string login);
+        Account GetByLogin(string login);
     }
 }

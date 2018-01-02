@@ -31,9 +31,9 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="login">The login.</param>
         /// <returns>Entity</returns>
-        public Account Get(string login)
+        public Account GetByLogin(string login)
         {
-            return this.Dbset.FirstOrDefault(account => account.Login == login);
+            return this.Dbset.Single(account => account.Login == login);
         }
     }
 }
