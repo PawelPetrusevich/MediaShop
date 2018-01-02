@@ -23,8 +23,6 @@
                 .IsRequired();
             this.Property(x => x.StateContent)
                 .IsRequired();
-            this.Property(x => x.IsChecked)
-                .IsRequired();
             this.Property(x => x.CreatorId)
                 .IsRequired();
             this.Property(x => x.CreatedDate)

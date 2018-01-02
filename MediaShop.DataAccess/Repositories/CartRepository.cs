@@ -68,34 +68,11 @@
         {
             using (var contentCartContext = new MediaContext())
             {
-                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).Single(); // from cart Delete only CartState=0?
+                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id
+                    && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).Single();
                 var result = contentCartContext.ContentCart.Remove(contentCart);
                 contentCartContext.SaveChanges();
                 return result;
-            }
-        }
-
-        /// <summary>
-        /// Mefod for delete all content from the carts repository
-        /// </summary>
-        /// <param name="userId">identifier carts owner</param>
-        /// <returns>amount is remote content in repository</returns>
-        public int DeleteAll(ulong userId)
-        {
-            using (var contentCartContext = new MediaContext())
-            {
-                var contentCartCollection = contentCartContext.ContentCart.Where(x => x.CreatorId == userId && x.StateContent == 0);
-                if (contentCartCollection != null)
-                {
-                    foreach (var contentCart in contentCartCollection)
-                    {
-                        var result = contentCartContext.ContentCart.Remove(contentCart);
-                    }
-
-                    contentCartContext.SaveChanges();
-                }
-
-                return contentCartCollection.Count();
             }
         }
 

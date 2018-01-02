@@ -51,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
@@ -61,8 +63,7 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
-    <Compile Include="Models\CartModels\ContentClassForUnitTest.cs" />
-    <Compile Include="Models\CartModels\UserClassForUnitTest.cs" />
+    <Compile Include="Models\CartModels\CartExceptions.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\AccountSettings.cs" />
@@ -73,11 +74,7 @@
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dto\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />

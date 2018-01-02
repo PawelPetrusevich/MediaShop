@@ -2,6 +2,7 @@
 using Moq;
 using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Dto;
 using MediaShop.Common.Models;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
@@ -40,15 +41,24 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(repo => repo.Add(It.IsAny<ContentCartDto>()))
                 .Returns(() => objContentCartDto).Callback(() => objContentCartDto.Id++);
 
-            // Create ContentClassForUnitTest object
-            var objContentClassForUnitTest = new ContentClassForUnitTest() { Id = 5 };
-            var actual2 = objContentClassForUnitTest.Id;
+            // Create ProductDto object
+            var objProductDto = new ProductDto() { Id = 5 };
+            var actual2 = objProductDto.Id;
+
+            Mock<IProductRepository<ProductDto>> mockProductDto =
+                new Mock<IProductRepository<ProductDto>>();
+
+            mockProductDto.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                .Returns(() => objProductDto);
+            mockProductDto.Setup(repo => repo.Dispose());
 
             // Create CartService object with mock.Object
             var service = new CartService(mock.Object);
 
+
+
             // Write rezalt method AddNewContentInCart in actual1
-            var actual3 = service.AddNewContentInCart(objContentClassForUnitTest, 50);
+            var actual3 = service.Add(objContentCartDto.Id, 50);
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((ulong)5, actual1);
@@ -70,11 +80,18 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create CartService with mock.Object
             var service = new CartService(mock.Object);
 
-            // Create ContentClassForUnitTest object
-            var objContentClassForUnitTest = new ContentClassForUnitTest() { Id = 5 };
+            // Create ProductDto object
+            var objProductDto = new ProductDto() { Id = 5 };
+            var actual2 = objProductDto.Id;
+
+            Mock<IProductRepository<ProductDto>> mockProductDto =
+                new Mock<IProductRepository<ProductDto>>();
+
+            mockProductDto.Setup(repo => repo.Get(It.IsAny<ulong>()))
+                .Returns(() => objProductDto);
 
             // Write rezalt method AddNewContentInCart in actual1
-            var actual1 = service.AddNewContentInCart(objContentClassForUnitTest, 50);
+            var actual1 = service.Add(objProductDto.Id, 50);
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((ulong)5, actual1.Id);
@@ -91,7 +108,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object);
 
             // Call method for find content by id in repository
-            var actual1 = service.FindContentInCart(6);
+            var actual1 = service.Find(6);
 
             Assert.IsTrue(actual1);
         }
@@ -107,7 +124,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object);
 
             // Call method for find content by id in repository
-            var actual1 = service.FindContentInCart(6);
+            var actual1 = service.Find(6);
 
             Assert.IsFalse(actual1);
         }

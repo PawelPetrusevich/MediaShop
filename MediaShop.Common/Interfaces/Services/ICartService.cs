@@ -8,48 +8,46 @@
     /// Interface describing the methods of
     /// interaction with the service when working with the Cart
     /// </summary>
-    /// <typeparam name="PModel">type model1</typeparam>
     /// <typeparam name="TModel">type model2</typeparam>
-    public interface ICartService<PModel, TModel>
-        where PModel : Entity
+    public interface ICartService<TModel>
         where TModel : ContentCart
     {
         /// <summary>
-        /// Find items in a cart by user Id and return a item collection
+        /// Find items in a cart by user Id and return a items collection
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">users id</param>
         /// <returns> shopping cart for a user </returns>
-        IEnumerable<TModel> GetItemsInCart(ulong id);
+        IEnumerable<TModel> GetItems(ulong userId);
 
         /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
-        /// <param name="content">identificator media content </param>
-        /// <param name="userId">user identifier</param>
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
         /// <returns>this save item</returns>
-        TModel AddNewContentInCart(PModel content, ulong userId);
+        TModel Add(ulong contentId, ulong userId);
 
         /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
-        /// <param name="id">content identificator</param>
+        /// <param name="contentId">content identificator</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        bool FindContentInCart(ulong id);
+        bool Find(ulong contentId);
 
         /// <summary>
         /// Get created Cart model object
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart</returns>
-        Cart GetCart(ulong id);
+        Cart GetCart(ulong userId);
 
         /// <summary>
         /// Get sum price items for User
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Sum price</returns>
-        decimal GetPrice(ulong id);
+        decimal GetPrice(ulong userId);
 
         /// <summary>
         /// Get sum price items typeof ContentCart
@@ -61,9 +59,9 @@
         /// <summary>
         /// Get count items for User
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Count Items in cart</returns>
-        uint GetCountItems(ulong id);
+        uint GetCountItems(ulong userId);
 
         /// <summary>
         /// Get count items
@@ -75,41 +73,40 @@
         /// <summary>
         /// Method for deleting selected items
         /// </summary>
-        /// <param name="userId">user id as identificator cart</param>
+        /// <param name="itemsId">collection users id</param>
         /// <returns>collection of remote objects</returns>
-        ICollection<ContentCartDto> DeleteContentFromCart(ulong userId);
+        ICollection<ContentCartDto> Delete(ICollection<ulong> itemsId);
 
         /// <summary>
-        /// Method to indicate the ContentCart
-        /// object as selected for deletion
-        /// </summary>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>amount of object that deleted</returns>
-        int DeleteAllContentFromCart(ulong userId);
-
-        /// <summary>
-        /// Method for check object as Bought and UnBought
+        /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
         /// <param name="userId">users id</param>
         /// <returns>update objects state</returns>
-        CartEnums.StateCartContent SetContentAsBoughtAndUnBought(ulong contentId, ulong userId);
+        CartEnums.StateCartContent SetBought(ulong contentId, ulong userId);
 
         /// <summary>
-        /// Method for check object as Paid and UnPaid
+        /// Method for check object as UnBought
         /// </summary>
         /// <param name="contentId">contents object</param>
         /// <param name="userId">users id</param>
         /// <returns>update objects state</returns>
-        CartEnums.StateCartContent SetContentAsPaidAndUnPaid(ulong contentId, ulong userId);
+        CartEnums.StateCartContent SetUnBought(ulong contentId, ulong userId);
 
         /// <summary>
-        /// Method for change state all contents in cart
-        /// between checked and unchecked
+        /// Method for check object as Paid
         /// </summary>
         /// <param name="contentId">contents object</param>
         /// <param name="userId">users id</param>
-        /// <returns>update object</returns>
-        bool SetContentAsCheckedAndUnchecked(ulong contentId, ulong userId);
+        /// <returns>update objects state</returns>
+        CartEnums.StateCartContent SetPaid(ulong contentId, ulong userId);
+
+        /// <summary>
+        /// Method for check object as UnPaid
+        /// </summary>
+        /// <param name="contentId">contents object</param>
+        /// <param name="userId">users id</param>
+        /// <returns>update objects state</returns>
+        CartEnums.StateCartContent SetUnPaid(ulong contentId, ulong userId);
     }
 }

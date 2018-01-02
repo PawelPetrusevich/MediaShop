@@ -27,9 +27,8 @@ namespace MediaShop.Common
                 .ForMember(x => x.CreatedDate, opt => opt.MapFrom(m => m.CreatedDate))
                 .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)).ReverseMap();
-            this.CreateMap<ContentClassForUnitTest, ContentCart>()
-                .ForMember(item => item.CreatorId, m => m.Ignore())
-                .ReverseMap();
+            this.CreateMap<ProductDto, ContentCart>()
+                .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<ContentCart, ContentCartDto>()
                 .ReverseMap();
         }

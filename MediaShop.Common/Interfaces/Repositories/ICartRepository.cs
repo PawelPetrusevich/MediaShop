@@ -56,12 +56,5 @@
         /// <param name="filter">predicate</param>
         /// <returns>collection objects</returns>
         IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
-
-        /// <summary>
-        /// Method for removing all contents from the cart by id user
-        /// </summary>
-        /// <param name="userId">user id as identificator cart</param>
-        /// <returns>count items delete from cart</returns>
-        int DeleteAll(ulong userId);
     }
 }

@@ -33,11 +33,5 @@
         /// </summary>
         public CartEnums.StateCartContent StateContent { get; set; } =
             CartEnums.StateCartContent.InCart;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether 
-        /// gets or sets The property to determine whether the content is selected
-        /// </summary>
-        public bool IsChecked { get; set; } = false;
     }
 }
