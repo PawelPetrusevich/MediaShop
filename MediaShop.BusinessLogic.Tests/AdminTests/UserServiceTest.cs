@@ -16,7 +16,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     [TestFixture]
     public class UserServiceTest
     {
-        private Mock<IRepository<Account>> _store;
+        private Mock<IAccountRepository> _store;
         private UserDto _user;
 
         public UserServiceTest()
@@ -27,7 +27,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [SetUp]
         public void Init()
         {
-            var mockRepository =  new Mock<IRepository<Account>>();
+            var mockRepository =  new Mock<IAccountRepository>();
             _store = mockRepository;
 
             _user = new UserDto
@@ -74,7 +74,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Permissions = permissions
             };
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(new List<Account>{account});
+            _store.Setup(x => x.Get(It.IsAny<string>())).Returns(new Account());
 
             var userService = new UserService(_store.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));

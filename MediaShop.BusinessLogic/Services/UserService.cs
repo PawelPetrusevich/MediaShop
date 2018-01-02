@@ -20,13 +20,13 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="IUserService" />
     public class UserService : IUserService
     {
-        private readonly IRepository<Account> store;
+        private readonly IAccountRepository store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public UserService(IRepository<Account> repository)
+        public UserService(IAccountRepository repository)
         {
             this.store = repository;
         }
@@ -39,7 +39,8 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="MediaShop.Common.Models.User.ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(UserDto userModel)
         {
-            if (this.store.Find(x => x.Login == userModel.Login)?.Single() != null)
+            var existingAccount = this.store.Get(userModel.Login);
+            if (existingAccount != null)
             {
                 throw new ExistingLoginException(userModel.Login);
             }
