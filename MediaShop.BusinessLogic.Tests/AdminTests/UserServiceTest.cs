@@ -74,7 +74,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Permissions = permissions
             };
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
-            _store.Setup(x => x.Get(It.IsAny<string>())).Returns(new Account());
+            _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new Account());
 
             var userService = new UserService(_store.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
