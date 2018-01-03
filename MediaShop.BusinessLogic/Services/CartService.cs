@@ -20,6 +20,8 @@
     {
         private readonly ICartRepository<ContentCartDto> repositoryCart;
 
+        private readonly IProductRepository<ProductDto> repositoryProduct;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
@@ -30,6 +32,17 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CartService"/> class.
+        /// </summary>
+        /// <param name="contentRepo">instance repository CartRepository</param>
+        /// <param name="productRepo">instance repository ProductRepository</param>
+        public CartService(ICartRepository<ContentCartDto> contentRepo, IProductRepository<ProductDto> productRepo)
+        {
+            this.repositoryCart = contentRepo;
+            this.repositoryProduct = productRepo;
+        }
+
+        /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents identifier</param>
@@ -37,39 +50,35 @@
         /// <returns>this save item</returns>
         public ContentCart Add(ulong contentId, ulong userId)
         {
-            // кастыль
-            using (IProductRepository<ProductDto> repositoryProduct = new ProductRepository())
+            //// Get object ProductDto by id
+            var product = this.repositoryProduct.Get(contentId);
+
+            if (product == null)
             {
-                // Get object ProductDto by id
-                var product = repositoryProduct.Get(contentId);
-
-                if (product == null)
-                {
-                    throw new CartExceptions($"Product with id = {contentId} is absent in database");
-                }
-
-                // Mapping object Entity to object ContentCart
-                var contentCart = Mapper.Map<ContentCart>(product);
-
-                // Initialize CreatorId
-                contentCart.CreatorId = userId;
-
-                // Mapping object ContentCart to ContentCartDto
-                var contentCartDto = Mapper.Map<ContentCartDto>(contentCart);
-
-                // Save object ContentCartDto in repository
-                var contentAddDto = this.repositoryCart.Add(contentCartDto);
-
-                // If the object is not added to the database
-                // return null
-                if (contentAddDto == null)
-                {
-                    throw new CartExceptions($"Content cart with id = {contentId} isn`t add in cart");
-                }
-
-                // Mapping object ContentCartDto to ContentCart
-                return Mapper.Map<ContentCart>(contentAddDto);
+                throw new CartExceptions($"Product with id = {contentId} is absent in database");
             }
+
+            // Mapping object Entity to object ContentCart
+            var contentCart = Mapper.Map<ContentCart>(product);
+
+            // Initialize CreatorId
+            contentCart.CreatorId = userId;
+
+            // Mapping object ContentCart to ContentCartDto
+            var contentCartDto = Mapper.Map<ContentCartDto>(contentCart);
+
+            // Save object ContentCartDto in repository
+            var contentAddDto = this.repositoryCart.Add(contentCartDto);
+
+            // If the object is not added to the database
+            // return null
+            if (contentAddDto == null)
+            {
+                throw new CartExceptions($"Content cart with id = {contentId} isn`t add in cart");
+            }
+
+            // Mapping object ContentCartDto to ContentCart
+            return Mapper.Map<ContentCart>(contentAddDto);
         }
 
         /// <summary>

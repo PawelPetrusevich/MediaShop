@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using MediaShop.Common.Dto;
 
-    public interface IProductRepository<TModel> : IDisposable
+    public interface IProductRepository<TModel>
         where TModel : ProductDto
     {
         TModel Get(ulong id);

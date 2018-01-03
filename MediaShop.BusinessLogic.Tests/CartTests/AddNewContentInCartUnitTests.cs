@@ -16,6 +16,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for Mock
         private Mock<ICartRepository<ContentCartDto>> mock;
 
+        // Field for Mock
+        private Mock<IProductRepository<ProductDto>> mockProduct;
+
         [TestInitialize]
         public void Initialize()
         {
@@ -28,6 +31,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create Mock
             var _mock = new Mock<ICartRepository<ContentCartDto>>();
             mock = _mock;
+            var _mockProduct = new Mock<IProductRepository<ProductDto>>();
+            mockProduct = _mockProduct;
         }
 
         [TestMethod]
@@ -45,17 +50,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var objProductDto = new ProductDto() { Id = 5 };
             var actual2 = objProductDto.Id;
 
-            Mock<IProductRepository<ProductDto>> mockProductDto =
-                new Mock<IProductRepository<ProductDto>>();
-
-            mockProductDto.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mockProduct.Setup(repo => repo.Get(It.IsAny<ulong>()))
                 .Returns(() => objProductDto);
-            mockProductDto.Setup(repo => repo.Dispose());
-
+           
             // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
-
-
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual1
             var actual3 = service.Add(objContentCartDto.Id, 50);
@@ -77,18 +76,15 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(repo => repo.Add(It.IsAny<ContentCartDto>()))
                 .Returns(() => objContentCartDto);
 
-            // Create CartService with mock.Object
-            var service = new CartService(mock.Object);
-
             // Create ProductDto object
             var objProductDto = new ProductDto() { Id = 5 };
             var actual2 = objProductDto.Id;
 
-            Mock<IProductRepository<ProductDto>> mockProductDto =
-                new Mock<IProductRepository<ProductDto>>();
-
-            mockProductDto.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mockProduct.Setup(repo => repo.Get(It.IsAny<ulong>()))
                 .Returns(() => objProductDto);
+
+            // Create CartService with mock.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual1
             var actual1 = service.Add(objProductDto.Id, 50);
