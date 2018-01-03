@@ -55,13 +55,22 @@
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
+    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
+    <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
+    <Compile Include="Models\User\Account.cs" />
+    <Compile Include="Models\User\AccountSettings.cs" />
+    <Compile Include="Models\User\ExistingLoginException.cs" />
+    <Compile Include="Models\User\AccountProfile.cs" />
+    <Compile Include="Models\User\Language.cs" />
+    <Compile Include="Models\User\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +79,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
@@ -84,4 +94,5 @@
     <Error Condition="!Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets'))" />
   </Target>
   <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
+
 </Project>
