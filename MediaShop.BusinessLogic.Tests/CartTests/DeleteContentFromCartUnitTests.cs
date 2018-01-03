@@ -191,5 +191,34 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Delete content
             var actual5 = service.Delete(collectionId);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void Delete_Content_From_Cart_If_Argument_Is_Null()
+        {
+            // collection for rezalt as return method 
+            var collectionItem = new Collection<ContentCartDto>()
+            {
+                new ContentCartDto { Id = 5, CreatorId = 10 },
+                new ContentCartDto { Id = 6, CreatorId = 11 }
+            };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
+                .Returns(() => collectionItem);
+            mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
+                .Returns(collectionItem[0])
+                .Returns(null)
+                .Throws(new InvalidOperationException());
+
+            // Create CartService object with mock.Object
+            var service = new CartService(mock.Object);
+
+            // Collection object`s id for delete
+            Collection<ulong> collectionId = null;
+
+            // Delete content
+            var actual5 = service.Delete(collectionId);
+        }
     }
 }
