@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Interfaces.Services;
-using MediaShop.Common.Models.Content;
-
-namespace MediaShop.BusinessLogic.Services
+﻿namespace MediaShop.BusinessLogic.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Net;
+    using AutoMapper;
+    using MediaShop.Common.Dto;
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Interfaces.Services;
+    using MediaShop.Common.Models.Content;
+
     public class ProductService : IProductService
     {
         private readonly IProductRepository repository;
@@ -25,16 +24,16 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="product">принимае экземпляр product</param>
         /// <returns>возрощаем product</returns>
-        public Product Add(Product product)
+        public ProductDto Add(Product product)
         {
             if (product == null)
             {
                 throw new ArgumentNullException();
             }
 
-            this.repository.Add(product);
+            var result = this.repository.Add(product);
 
-            return product;
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -42,16 +41,16 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="product">передаем product</param>
         /// <returns>возвращаем product</returns>
-        public Product Delete(Product product)
+        public ProductDto Delete(Product product)
         {
             if (product == null)
             {
                 throw new ArgumentNullException();
             }
 
-            this.repository.Delete(product);
+            var result = this.repository.Delete(product);
 
-            return product;
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -59,9 +58,11 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">передаем id product</param>
         /// <returns>возрощаем product</returns>
-        public Product Delete(int id)
+        public ProductDto Delete(int id)
         {
-            return this.repository.Delete(id);
+            var result = this.repository.Delete(id);
+
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -89,16 +90,16 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="product">передаем product</param>
         /// <returns>return product</returns>
-        public Product Update(Product product)
+        public ProductDto Update(Product product)
         {
             if (product == null)
             {
                 throw new NullReferenceException();
             }
 
-            this.repository.Update(product);
+            var result = this.repository.Update(product);
 
-            return product;
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -115,19 +116,29 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="products">передаем список продуктов</param>
         /// <returns>возрощаем статус код</returns>
-        public HttpStatusCode AddProductsList(IEnumerable<Product> products)
+        public IEnumerable<ProductDto> AddProductsList(IEnumerable<Product> products)
         {
             if (products == null)
             {
                 throw new ArgumentNullException();
             }
 
+            ICollection<ProductDto> resultsCollection = new List<ProductDto>();
             foreach (var product in products)
             {
-                this.repository.Add(product);
+                var result = this.repository.Add(product);
+
+                if (result != null)
+                {
+                    resultsCollection.Add(Mapper.Map<Product, ProductDto>(result));
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
             }
 
-            return HttpStatusCode.OK;
+            return resultsCollection;
         }
 
         /// <summary>
@@ -135,19 +146,29 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="products">передаем  список продуктов</param>
         /// <returns>возрощаем статус код</returns>
-        public HttpStatusCode DeleteProductsList(IEnumerable<Product> products)
+        public IEnumerable<ProductDto> DeleteProductsList(IEnumerable<Product> products)
         {
             if (products == null)
             {
                 throw new ArgumentNullException();
             }
 
+            ICollection<ProductDto> resultsCollection = new List<ProductDto>();
             foreach (var product in products)
             {
-                this.repository.Delete(product);
+                var result = this.repository.Delete(product);
+
+                if (result != null)
+                {
+                    resultsCollection.Add(Mapper.Map<Product, ProductDto>(result));
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
             }
 
-            return HttpStatusCode.OK;
+            return resultsCollection;
         }
     }
 }

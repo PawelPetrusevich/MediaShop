@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net;
+using MediaShop.Common.Dto;
 using MediaShop.Common.Models.Content;
 
 namespace MediaShop.Common.Interfaces.Services
@@ -10,20 +11,20 @@ namespace MediaShop.Common.Interfaces.Services
     {
         Product Get(int id);
 
-        Product Add(Product model);
+        ProductDto Add(Product model);
 
-        Product Update(Product model);
+        ProductDto Update(Product model);
 
-        Product Delete(Product model);
+        ProductDto Delete(Product model);
 
-        Product Delete(int id);
+        ProductDto Delete(int id);
 
         IEnumerable<Product> Find(Expression<Func<Product, bool>> filter);
 
         IEnumerable<Product> Products();
 
-        HttpStatusCode AddProductsList(IEnumerable<Product> products);
+        IEnumerable<ProductDto> AddProductsList(IEnumerable<Product> products);
 
-        HttpStatusCode DeleteProductsList(IEnumerable<Product> products);        
+        IEnumerable<ProductDto> DeleteProductsList(IEnumerable<Product> products);        
     }
 }

@@ -19,7 +19,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public ProductRepository()
         {
-            productContext = new MediaContext();
+            this.productContext = new MediaContext();
         }
 
         public Product Add(Product model)
@@ -29,8 +29,8 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            var result = productContext.Products.Add(model);
-            productContext.SaveChanges();
+            var result = this.productContext.Products.Add(model);
+            this.productContext.SaveChanges();
             return result;
         }
 
@@ -41,64 +41,64 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            var result = productContext.Products.Remove(model);
-            productContext.SaveChanges();
+            var result = this.productContext.Products.Remove(model);
+            this.productContext.SaveChanges();
             return result;
         }
 
         public Product Delete(int id)
         {
-            var model = productContext.Products.Single(x => x.Id == id);
+            var model = this.productContext.Products.Single(x => x.Id == id);
             if (model == null)
             {
                 throw new ArgumentNullException();
             }
 
-            var result = productContext.Products.Remove(model);
+            var result = this.productContext.Products.Remove(model);
             return result;
         }
 
         public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
-            var result = productContext.Products.Where(filter);
+            var result = this.productContext.Products.Where(filter);
             return result;
         }
 
         public Product Get(int id)
         {
-            return productContext.Products.Single(x => x.Id == id);
+            return this.productContext.Products.Single(x => x.Id == id);
         }
 
         public IQueryable<Product> Products()
         {
-            var result = productContext.Products.AsQueryable();
+            var result = this.productContext.Products.AsQueryable();
             return result;
         }
 
         public Product Update(Product model)
         {
-            productContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
-            productContext.SaveChanges();
+            this.productContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            this.productContext.SaveChanges();
 
             return model;
         }
 
         public virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!this.disposed)
             {
                 if (disposing)
                 {
-                    productContext.Dispose();
+                    this.productContext.Dispose();
                 }
             }
 
-            disposed = true;
+            this.disposed = true;
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
     }
