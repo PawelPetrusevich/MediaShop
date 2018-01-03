@@ -12,8 +12,16 @@ using MediaShop.DataAccess.Context;
 
 namespace MediaShop.DataAccess.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository, IDisposable
     {
+        private MediaContext productContext;
+        private bool disposed = false;
+
+        public ProductRepository()
+        {
+            productContext = new MediaContext();
+        }
+
         public Product Add(Product model)
         {
             if (model == null)
@@ -21,12 +29,9 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var productContext = new MediaContext())
-            {
-                var result = productContext.Products.Add(model);
-                productContext.SaveChanges();
-                return result;
-            }
+            var result = productContext.Products.Add(model);
+            productContext.SaveChanges();
+            return result;
         }
 
         public Product Delete(Product model)
@@ -36,64 +41,65 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var productContext = new MediaContext())
-            {
-                var result = productContext.Products.Remove(model);
-                productContext.SaveChanges();
-                return result;
-            }
+            var result = productContext.Products.Remove(model);
+            productContext.SaveChanges();
+            return result;
         }
 
         public Product Delete(int id)
         {
-            using (var productContext = new MediaContext())
+            var model = productContext.Products.Single(x => x.Id == id);
+            if (model == null)
             {
-                var model = productContext.Products.Single(x => x.Id == id);
-                if (model == null)
-                {
-                    throw new ArgumentNullException();
-                }
-
-                var result = productContext.Products.Remove(model);
-                return result;
+                throw new ArgumentNullException();
             }
+
+            var result = productContext.Products.Remove(model);
+            return result;
         }
 
         public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
-            using (var productContext = new MediaContext())
-            {
-                var result = productContext.Products.Where(filter);
-                return result;
-            }
+            var result = productContext.Products.Where(filter);
+            return result;
         }
 
         public Product Get(int id)
         {
-            using (var productContext = new MediaContext())
-            {
-                return productContext.Products.Single(x => x.Id == id);
-            }
+            return productContext.Products.Single(x => x.Id == id);
         }
 
         public IQueryable<Product> Products()
         {
-            using (var productContext = new MediaContext())
-            {
-                var result = productContext.Products.AsQueryable();
-                return result;
-            }
+            var result = productContext.Products.AsQueryable();
+            return result;
         }
 
         public Product Update(Product model)
         {
-            using (var productContext = new MediaContext())
-            {
-                productContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
-                productContext.SaveChanges();
-            }
+            productContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            productContext.SaveChanges();
 
             return model;
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    productContext.Dispose();
+                }
+            }
+
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

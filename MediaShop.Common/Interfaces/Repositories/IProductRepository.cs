@@ -7,7 +7,7 @@ using MediaShop.Common.Models.Content;
 
 namespace MediaShop.Common.Interfaces.Repositories
 {
-    public interface IProductRepository : IRespository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
         IQueryable<Product> Products();
     }

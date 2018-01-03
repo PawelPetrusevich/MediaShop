@@ -13,7 +13,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// Interface IRespository
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
-    public interface IRespository<TModel>
+    public interface IRepository<TModel>
         where TModel : Entity
     {
         /// <summary>

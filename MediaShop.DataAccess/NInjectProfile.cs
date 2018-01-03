@@ -1,4 +1,6 @@
-﻿using MediaShop.DataAccess.Context;
+﻿using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.DataAccess.Context;
+using MediaShop.DataAccess.Repositories;
 using Ninject.Modules;
 
 namespace MediaShop.DataAccess

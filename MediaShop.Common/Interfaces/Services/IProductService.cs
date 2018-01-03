@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Net;
 using MediaShop.Common.Models.Content;
 
 namespace MediaShop.Common.Interfaces.Services
@@ -21,8 +22,8 @@ namespace MediaShop.Common.Interfaces.Services
 
         IEnumerable<Product> Products();
 
-        List<Product> AddProductsList(IEnumerable<Product> products);
+        HttpStatusCode AddProductsList(IEnumerable<Product> products);
 
-        List<Product> DeleteProductsList(IEnumerable<Product> products);        
+        HttpStatusCode DeleteProductsList(IEnumerable<Product> products);        
     }
 }
