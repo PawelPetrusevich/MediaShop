@@ -13,17 +13,20 @@ namespace MediaShop.BusinessLogic.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private static readonly HttpClient Client = new HttpClient();
 
-        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore)
+        private readonly INotificationSubscribedUserRepository _subscribedUserStore;
+        private readonly INotificationRepository _notifcationStore;
+
+        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore)
         {
-            _subscribedUserStore = subscribedUserStore;
+            this._subscribedUserStore = subscribedUserStore;
+            this._notifcationStore = notifcationStore;
         }
 
         public void Notify(int userId, NotificationDto notification)
         {
-            var tokens = this._subscribedUserStore.GetUserTokenList(userId);
+            var tokens = this._subscribedUserStore.GetUserDeviceTokens(userId);
 
             if (tokens.Count > 0)
             {

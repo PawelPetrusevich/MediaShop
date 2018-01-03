@@ -52,10 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\NotificationDto.cs" />
+    <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRespository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
+    <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
