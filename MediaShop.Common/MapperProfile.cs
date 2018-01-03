@@ -1,6 +1,7 @@
-﻿// <copyright file="MapperProfile.cs" company="MediaShop">
-// Copyright (c) MediaShop. All rights reserved.
+﻿// <copyright file="MapperProfile.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
+
 namespace MediaShop.Common
 {
     using AutoMapper;
@@ -22,7 +23,7 @@ namespace MediaShop.Common
 
             Mapper.Initialize(config => config.CreateMap<Models.Content.Product, Dto.ProductDto>().ReverseMap());
 
-            //to do: output result, add source references (objects)
+            // to do: output result, add source references (objects)
             this.CreateMap<UserDto, Account>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(m => m.Id))
                 .ForMember(x => x.Login, opt => opt.MapFrom(m => m.Login))
