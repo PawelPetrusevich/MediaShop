@@ -1,26 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
+using AutoMapper;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Content;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using SampleDataGenerator;
+using Assert = NUnit.Framework.Assert;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
+
     [TestFixture]
     public class ProductServiceTest
     {
-        [Test]
-        public void Test_Service_Add_Method()
-        {
-            var repository = new Mock<IProductRepository>();
-            repository.Setup(r => r.Add(It.IsAny<Product>())).Returns(It.IsAny<Product>());
 
-            var service = new ProductService(repository.Object);
+        private Mock<IProductRepository> _rep;
+
+        private IProductRepository _mockRep;
+
+        private ProductService _productService;
+
+        private List<Product> _newProducts;
+
+        public ProductServiceTest()
+        {
+            Mapper.Initialize(config => config.CreateMap<Product, ProductDto>());
+        }
+
+        [SetUp]
+        public void Init()
+        {
+            _rep = new Mock<IProductRepository>();
+            _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
+            _rep.Setup(s => s.Delete(It.IsAny<Product>())).Returns(new Product());
+            _rep.Setup(s => s.Delete(It.IsAny<int>())).Returns(new Product());
+            _rep.Setup(s => s.Get(It.IsAny<int>())).Returns(new Product());
+            _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
+
+            _mockRep = _rep.Object;
+
+            _productService = new ProductService(_mockRep);
 
             var productGenerator = Generator
                 .For<Product>()
@@ -39,10 +65,77 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
                 .For(x => x.IsPremium)
                 .CreateUsing(() => false);
 
-            var product = productGenerator.Generate(1).ToList().First();
-                
+            _newProducts = productGenerator.Generate(10).ToList();
+        }
 
-            Assert.AreEqual(product, service.Add(product));
+       [Test]
+        public void AddProductTest()
+        {  
+            var returnProduct = _productService.Add(_newProducts[0]);
+
+            Assert.IsNotNull(returnProduct);
+        }
+
+        [Test]
+        public void AddProductListTest()
+        {
+            var returnProductList = _productService.Add(_newProducts);
+
+            foreach (var returnProduct in returnProductList)
+            {
+                Assert.IsNotNull(returnProduct);
+            }
+        }
+
+        [Test]
+        public void GetProductTest()
+        {
+            _productService.Add(_newProducts[0]);
+            var returnProduct = _productService.Get(0);
+
+            Assert.IsNotNull(returnProduct);
+        }
+
+        [Test]
+        public void DeleteProductTest()
+        {
+            _productService.Add(_newProducts[0]);
+            var returnProduct = _productService.Delete(_productService.Get(0));
+
+            Assert.IsNotNull(returnProduct);
+
+        }
+
+        [Test]
+        public void DeleteProductListTest()
+        {
+            var returnProductList = _productService.Add(_newProducts);
+
+            foreach (var returnProduct in returnProductList)
+            {
+                Assert.IsNotNull(returnProduct);
+            }
+
+        }
+
+        [Test]
+        public void DeleteProductByIdTest()
+        {
+            _productService.Add(_newProducts[0]);
+            var returnProduct = _productService.Delete(0);
+
+            Assert.IsNotNull(returnProduct);
+        }
+
+        
+
+        [Test]
+        public void UpdateProductTest()
+        {
+            _productService.Add(_newProducts[0]);
+            var returnProduct = _productService.Update(_productService.Get(0));
+
+            Assert.IsNotNull(returnProduct);
         }
     }
 }

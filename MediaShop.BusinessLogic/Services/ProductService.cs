@@ -116,7 +116,7 @@
         /// </summary>
         /// <param name="products">передаем список продуктов</param>
         /// <returns>возрощаем статус код</returns>
-        public IEnumerable<ProductDto> AddProductsList(IEnumerable<Product> products)
+        public IEnumerable<ProductDto> Add(IEnumerable<Product> products)
         {
             if (products == null)
             {
@@ -146,7 +146,7 @@
         /// </summary>
         /// <param name="products">передаем  список продуктов</param>
         /// <returns>возрощаем статус код</returns>
-        public IEnumerable<ProductDto> DeleteProductsList(IEnumerable<Product> products)
+        public IEnumerable<ProductDto> Delete(IEnumerable<Product> products)
         {
             if (products == null)
             {
