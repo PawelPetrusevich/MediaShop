@@ -13,6 +13,7 @@ using Moq;
 using NUnit.Framework;
 using SampleDataGenerator;
 using Assert = NUnit.Framework.Assert;
+using System.Linq.Expressions;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -43,6 +44,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep.Setup(s => s.Delete(It.IsAny<int>())).Returns(new Product());
             _rep.Setup(s => s.Get(It.IsAny<int>())).Returns(new Product());
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
+            _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>());
 
             _mockRep = _rep.Object;
 
@@ -136,6 +138,17 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var returnProduct = _productService.Update(_productService.Get(0));
 
             Assert.IsNotNull(returnProduct);
+        }
+
+        [Test]
+        public void FindProductTest()
+        {
+            _productService.Add(new Product(){ProductName = "Image1"});
+
+            Expression<Func<Product, bool>> filter = product => product.ProductName == "Image 1";
+            var returnProducts = _productService.Find(filter);
+
+            Assert.Less(0,returnProducts.Count());
         }
     }
 }
