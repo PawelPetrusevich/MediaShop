@@ -22,9 +22,9 @@ namespace MediaShop.DataAccess
         public override void Load()
         {
             this.Bind<MediaContext>().ToSelf();
-            this.Kernel?.Bind<IAccountRepository>().To<AccountRepository>();
-            this.Kernel?.Bind<IAccountProfileRepository>().To<AccountProfileRepository>();
-            this.Kernel?.Bind<IAccountSettingsRepository>().To<AccountSettingsRepository>();
+            this.Bind<IAccountRepository>().To<AccountRepository>();
+            this.Bind<IAccountProfileRepository>().To<AccountProfileRepository>();
+            this.Bind<IAccountSettingsRepository>().To<AccountSettingsRepository>();
         }
     }
 }
