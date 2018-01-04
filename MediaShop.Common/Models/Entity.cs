@@ -39,6 +39,6 @@ namespace MediaShop.Common.Models
         /// Gets or sets the modifier identifier.
         /// </summary>
         /// <value>The modifier identifier.</value>
-        public int? ModifierId { get; set; }
+        public ulong? ModifierId { get; set; }
     }
 }
