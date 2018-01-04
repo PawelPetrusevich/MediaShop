@@ -23,8 +23,8 @@ namespace MediaShop.DataAccess
         {
             this.Bind<MediaContext>().ToSelf();
             this.Bind<IAccountRepository>().To<AccountRepository>();
-            this.Bind<IAccountProfileRepository>().To<AccountProfileRepository>();
-            this.Bind<IAccountSettingsRepository>().To<AccountSettingsRepository>();
+            this.Bind<IProfileRepository>().To<ProfileRepository>();
+            this.Bind<ISettingsRepository>().To<SettingsRepository>();
         }
     }
 }

@@ -28,25 +28,25 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the profile identifier.
         /// </summary>
         /// <value>The profile identifier.</value>
-        public int ProfileId { get; set; }
+        public ulong ProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the settings identifier.
         /// </summary>
         /// <value>The settings identifier.</value>
-        public int SettingsId { get; set; }
+        public ulong SettingsId { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.
         /// </summary>
         /// <value>The profile.</value>
-        public virtual AccountProfile Profile { get; set; } = new AccountProfile();
+        public virtual Profile Profile { get; set; } = new Profile();
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public virtual AccountSettings Settings { get; set; } = new AccountSettings();
+        public virtual Settings Settings { get; set; } = new Settings();
 
         /// <summary>
         /// Gets or sets the permissions.

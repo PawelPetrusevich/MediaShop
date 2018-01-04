@@ -13,6 +13,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
     using MediaShop.BusinessLogic.Services;
 
+    using Profile = MediaShop.Common.Models.User.Profile;
+
     [TestFixture]
     public class UserServiceTest
     {
@@ -43,7 +45,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void TestRegistrationSuccessfull()
         {
             var permissions = new SortedSet<Role> { Role.User };
-            var profile = new AccountProfile { Id = 1 };
+            var profile = new Profile { Id = 1 };
             var account = new Account
             {
                 Id = 2,
@@ -65,7 +67,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void TestExistingLogin()
         {
             var permissions = new SortedSet<Role> { Role.User };
-            var profile = new AccountProfile { Id = 1 };
+            var profile = new Profile { Id = 1 };
             var account = new Account
             {
                 Login = "User",

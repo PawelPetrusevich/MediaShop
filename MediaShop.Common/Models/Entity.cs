@@ -27,7 +27,7 @@ namespace MediaShop.Common.Models
         /// Gets or sets the creator identifier.
         /// </summary>
         /// <value>The creator identifier.</value>
-        public int CreatorId { get; set; }
+        public ulong CreatorId { get; set; }
 
         /// <summary>
         /// Gets or sets the modified date.

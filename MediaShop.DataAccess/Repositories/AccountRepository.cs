@@ -4,6 +4,7 @@
 
 namespace MediaShop.DataAccess.Repositories
 {
+    using System;
     using System.Data.Entity;
     using System.Linq;
 
@@ -33,7 +34,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Entity</returns>
         public Account GetByLogin(string login)
         {
-            return this.Dbset.Single(account => account.Login == login);
+            return this.Dbset.SingleOrDefault(account => string.Equals(account.Login, login, StringComparison.InvariantCulture));
         }
     }
 }

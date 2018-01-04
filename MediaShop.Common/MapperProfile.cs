@@ -7,6 +7,8 @@ namespace MediaShop.Common
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models.User;
 
+    using Profile = AutoMapper.Profile;
+
     /// <summary>
     /// Class MapperProfile.
     /// </summary>

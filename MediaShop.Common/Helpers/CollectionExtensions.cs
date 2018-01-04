@@ -20,7 +20,7 @@ namespace MediaShop.Common.Helpers
         /// <param name="predicate">Criteria</param>
         /// <typeparam name="T">Generic type param</typeparam>
         /// <returns>Count of deleted items</returns>
-        public static int Remove<T>(this ICollection<T> collection, Func<T, bool> predicate)
+        public static int Remove<T>(this ICollection<T> collection, Predicate<T> predicate)
         {
             int deletedCount = 0;
 

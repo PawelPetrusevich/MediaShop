@@ -1,4 +1,4 @@
-﻿// <copyright file="AccountProfile.cs" company="MediaShop">
+﻿// <copyright file="Profile.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -7,10 +7,10 @@ namespace MediaShop.Common.Models.User
     using System;
 
     /// <summary>
-    /// Class AccountProfile.
+    /// Class Profile.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
-    public class AccountProfile : Entity
+    public class Profile : Entity
     {
         /// <summary>
         /// Gets or sets the email.

@@ -40,7 +40,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var storage = new Mock<IAccountRepository>();
 
             var listRoles = new SortedSet<Role> { Role.Admin, Role.User };
-            var profile = new AccountProfile { Id = n };
+            var profile = new Profile { Id = n };
             var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
 
             var list = new List<Account> { user };
@@ -61,7 +61,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var storage = new Mock<IAccountRepository>();
 
             var listRoles = new SortedSet<Role> { Role.Admin };
-            var profile = new AccountProfile { Id = n };
+            var profile = new Profile { Id = n };
             var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
 
             var list = new List<Account> { user };

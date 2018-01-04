@@ -58,7 +58,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>db entry</returns>
         public T Get(ulong id)
         {
-            return this.Dbset.Single(entity => entity.Id == id);
+            return this.Dbset.SingleOrDefault(entity => entity.Id == id);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Deleted model</returns>
         public T Delete(ulong id)
         {
-            var model = this.Dbset.Single(entity => entity.Id == id);
+            var model = this.Dbset.SingleOrDefault(entity => entity.Id == id);
             if (model != null)
             {
                 return this.Dbset.Remove(model);

@@ -10,7 +10,7 @@ namespace MediaShop.DataAccess.Configurations
     /// <summary>
     /// Class AccountSettingsConfiguration.
     /// </summary>
-    public class AccountSettingsConfiguration : EntityTypeConfiguration<AccountSettings>
+    public class AccountSettingsConfiguration : EntityTypeConfiguration<Settings>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountSettingsConfiguration"/> class.

@@ -10,7 +10,7 @@ namespace MediaShop.DataAccess.Configurations
     /// <summary>
     /// Configuration connect accountProfile with  table account
     /// </summary>
-    public class ProfileConfiguration : EntityTypeConfiguration<AccountProfile>
+    public class ProfileConfiguration : EntityTypeConfiguration<Profile>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileConfiguration"/> class.
