@@ -20,6 +20,8 @@ namespace MediaShop.DataAccess.Context
         {
         }
 
+        public DbSet<Notification> Notifications { get; set; }
+
         /// <summary>
         /// Method configuration tables
         /// </summary>
