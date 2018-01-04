@@ -34,6 +34,7 @@ namespace MediaShop.DataAccess.Context
         /// <summary>
         /// Overrided method OnModelCreating.
         /// </summary>
+        /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

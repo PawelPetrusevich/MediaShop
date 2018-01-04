@@ -1,4 +1,8 @@
-﻿namespace MediaShop.BusinessLogic.Services
+﻿// <copyright file="ProductService.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace MediaShop.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
@@ -10,10 +14,17 @@
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.Content;
 
+    /// <summary>
+    /// class ProductService.
+    /// </summary>
     public class ProductService : IProductService
     {
         private readonly IProductRepository repository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// </summary>
+        /// <param name="repository">repository</param>
         public ProductService(IProductRepository repository)
         {
             this.repository = repository;

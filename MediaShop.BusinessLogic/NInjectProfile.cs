@@ -1,4 +1,6 @@
-﻿using Ninject.Modules;
+﻿// <copyright file="NInjectProfile.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace MediaShop.BusinessLogic
 {

@@ -6,6 +6,8 @@ namespace MediaShop.Common
 {
     using AutoMapper;
     using MediaShop.Common.Dto;
+    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.Content;
     using MediaShop.Common.Models.User;
 
     /// <summary>
@@ -19,9 +21,9 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-            Mapper.Initialize(config => config.CreateMap<Models.Entity, Dto.ProductDto>().ForMember(x => x.ProductId, opt => opt.MapFrom(source => source.Id)).ReverseMap());
+            this.CreateMap<Entity, ProductDto>();
 
-            Mapper.Initialize(config => config.CreateMap<Models.Content.Product, Dto.ProductDto>().ReverseMap());
+            this.CreateMap<Product, ProductDto>();
 
             // to do: output result, add source references (objects)
             this.CreateMap<UserDto, Account>()
