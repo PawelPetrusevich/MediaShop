@@ -9,29 +9,24 @@ namespace MediaShop.WebApi.Controllers
 {
     public class ServiceProductController : ApiController
     {
-        [HttpGet]
-        [Route("get")]
         public IHttpActionResult Get()
         {
-            var account = new Account() { Login = "Login 1" };
-            return this.Redirect(new Uri("http://tut.by"));
+            return this.Ok();
         }
 
-        [HttpPost]
-        [Route("send")]
-        public IHttpActionResult Post(Account data)
+        public IHttpActionResult Post()
         {
             return this.Ok();
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]string data)
+        public IHttpActionResult Put()
         {
             return this.Ok();
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete([FromBody]int i)
+        public IHttpActionResult Delete()
         {
             return this.Ok();
         }
