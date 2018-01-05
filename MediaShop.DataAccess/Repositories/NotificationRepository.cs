@@ -15,6 +15,11 @@ namespace MediaShop.DataAccess.Repositories
         private bool _disposedValue = false;
         private MediaContext _notificationContext = new MediaContext();
 
+        ~NotificationRepository()
+        {
+            this.Dispose(false);
+        }
+
         public Notification Add(Notification model)
         {
             if (ReferenceEquals(model, null))
@@ -69,6 +74,11 @@ namespace MediaShop.DataAccess.Repositories
             return currentNotification;
         }
 
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this._disposedValue)
@@ -81,16 +91,6 @@ namespace MediaShop.DataAccess.Repositories
                 this._notificationContext.Dispose();
                 this._disposedValue = true;
             }
-        }
-
-        ~NotificationRepository()
-        {
-            this.Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            this.Dispose(true);
         }
     }
 }
