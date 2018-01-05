@@ -10,8 +10,11 @@ using MediaShop.DataAccess.Context;
 
 namespace MediaShop.DataAccess.Repositories
 {
-    public class NotificationRepository : INotificationRepository
+    public class NotificationRepository : INotificationRepository, IDisposable
     {
+        private bool _disposedValue = false;
+        private MediaContext _notificationContext = new MediaContext();
+
         public Notification Add(Notification model)
         {
             if (ReferenceEquals(model, null))
@@ -19,12 +22,9 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var notificationContext = new MediaContext())
-            {
-                var currentNotification = notificationContext.Notifications.Add(model);
-                notificationContext.SaveChanges();
-                return currentNotification;
-            }
+            var currentNotification = this._notificationContext.Notifications.Add(model);
+            this._notificationContext.SaveChanges();
+            return currentNotification;
         }
 
         public Notification Delete(Notification model)
@@ -34,38 +34,26 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var notificationContext = new MediaContext())
-            {
-                var currentNotification = notificationContext.Notifications.Remove(model);
-                notificationContext.SaveChanges();
-                return currentNotification;
-            }
+            var currentNotification = this._notificationContext.Notifications.Remove(model);
+            this._notificationContext.SaveChanges();
+            return currentNotification;
         }
 
         public Notification Delete(int id)
         {
-            using (var notificationContext = new MediaContext())
-            {
-                var model = notificationContext.Notifications.Single(n => n.Id == id);
-                return this.Delete(model);
-            }
+            var model = this._notificationContext.Notifications.Single(n => n.Id == id);
+            return this.Delete(model);
         }
 
         public IEnumerable<Notification> Find(Expression<Func<Notification, bool>> filter)
         {
-            using (var notificationContext = new MediaContext())
-            {
-                var searchResult = notificationContext.Notifications.Where(filter).ToList();
-                return searchResult;
-            }
+            var searchResult = this._notificationContext.Notifications.Where(filter).ToList();
+            return searchResult;
         }
 
         public Notification Get(int id)
         {
-            using (var notificationContext = new MediaContext())
-            {
-                return notificationContext.Notifications.Single(n => n.Id == id);
-            }
+            return this._notificationContext.Notifications.Single(n => n.Id == id);
         }
 
         public Notification Update(Notification model)
@@ -75,13 +63,34 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            using (var notificationContext = new MediaContext())
+            var currentNotification = this._notificationContext.Notifications.Single(n => n.Id == model.Id);
+            currentNotification = model;
+            this._notificationContext.SaveChanges();
+            return currentNotification;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposedValue)
             {
-                var currentNotification = notificationContext.Notifications.Single(n => n.Id == model.Id);
-                currentNotification = model;
-                notificationContext.SaveChanges();
-                return currentNotification;
+                if (disposing)
+                {
+                    GC.SuppressFinalize(this);
+                }
+
+                this._notificationContext.Dispose();
+                this._disposedValue = true;
             }
+        }
+
+        ~NotificationRepository()
+        {
+            this.Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
         }
     }
 }
