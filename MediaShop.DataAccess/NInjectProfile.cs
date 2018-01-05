@@ -22,7 +22,7 @@ namespace MediaShop.DataAccess
         /// </summary>
         public override void Load()
         {
-            this.Bind<ICartRepository<ContentCartDto>>().To<CartRepository>();
+            this.Bind<ICartRepository<ContentCart>>().To<CartRepository>();
             this.Bind<IProductRepository<ProductDto>>().To<ProductRepository>();
             this.Bind<MediaContext>().ToSelf();
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
     using MediaShop.Common.Interfaces.Repositories;
@@ -11,21 +12,41 @@
     /// <summary>
     /// Class for work with repository
     /// </summary>
-    public class CartRepository : ICartRepository<ContentCartDto>
+    public class CartRepository : ICartRepository<ContentCart>, IDisposable
     {
+        protected readonly DbContext Context;
+        protected readonly DbSet<ContentCart> DbSet;
+        private bool disposed;
+
+        public CartRepository(DbContext context)
+        {
+            this.Context = context;
+            this.DbSet = this.Context.Set<ContentCart>();
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="CartRepository"/> class.
+        /// </summary>
+        ~CartRepository()
+        {
+            this.Dispose(false);
+        }
+
         /// <summary>
         /// Method for add object type ContentCartDto
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Add(ContentCartDto model)
+        public ContentCart Add(ContentCart model)
         {
-            using (var contentCartContext = new MediaContext())
+            if (model == null)
             {
-                var result = contentCartContext.ContentCart.Add(model);
-                contentCartContext.SaveChanges();
-                return result;
+                throw new ArgumentNullException();
             }
+
+            var result = this.DbSet.Add(model);
+            this.Context.SaveChanges();
+            return result;
         }
 
         /// <summary>
@@ -33,15 +54,11 @@
         /// </summary>
         /// <param name="model">updating object</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Update(ContentCartDto model)
+        public ContentCart Update(ContentCart model)
         {
-            using (var contextContentCart = new MediaContext())
-            {
-                var contentCart = contextContentCart.ContentCart.Find(model.Id);
-                contentCart = model;
-                contextContentCart.SaveChanges();
-                return contentCart;
-            }
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChanges();
+            return model;
         }
 
         /// <summary>
@@ -49,14 +66,11 @@
         /// </summary>
         /// <param name="model">object for delete</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Delete(ContentCartDto model)
+        public ContentCart Delete(ContentCart model)
         {
-            using (var contextContentCart = new MediaContext())
-            {
-                var result = contextContentCart.ContentCart.Remove(model);
-                contextContentCart.SaveChanges();
-                return result;
-            }
+            var result = this.DbSet.Remove(model);
+            this.Context.SaveChanges();
+            return result;
         }
 
         /// <summary>
@@ -64,16 +78,13 @@
         /// </summary>
         /// <param name="id">id for delete</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Delete(ulong id)
+        public ContentCart Delete(ulong id)
         {
-            using (var contentCartContext = new MediaContext())
-            {
-                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id
-                    && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).Single();
-                var result = contentCartContext.ContentCart.Remove(contentCart);
-                contentCartContext.SaveChanges();
-                return result;
-            }
+            var contentCart = this.DbSet.Where(x => x.Id == id
+                && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
+            var result = this.DbSet.Remove(contentCart);
+            this.Context.SaveChanges();
+            return result;
         }
 
         /// <summary>
@@ -82,13 +93,10 @@
         /// </summary>
         /// <param name="filter">predicate</param>
         /// <returns>collection objects</returns>
-        public IEnumerable<ContentCartDto> Find(Expression<Func<ContentCartDto, bool>> filter)
+        public IEnumerable<ContentCart> Find(Expression<Func<ContentCart, bool>> filter)
         {
-            using (var contentCartContext = new MediaContext())
-            {
-                var result = contentCartContext.ContentCart.Where(filter);
-                return result;
-            }
+            var result = this.DbSet.Where(filter);
+            return result;
         }
 
         /// <summary>
@@ -97,12 +105,33 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        public ContentCartDto Get(ulong id)
+        public ContentCart Get(ulong id)
         {
-            using (var contentCartContext = new MediaContext())
+            return this.DbSet.Where(x => x.Id == id).SingleOrDefault();
+        }
+
+        /// <summary>
+        /// Releases resources
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases resources
+        /// </summary>
+        /// <param name="flag">flag from where the method was called releases resources</param>
+        protected virtual void Dispose(bool flag)
+        {
+            if (!this.disposed)
             {
-                var contentCart = contentCartContext.ContentCart.Where(x => x.Id == id).SingleOrDefault();
-                return contentCart;
+                this.Context.Dispose();
+                this.disposed = true;
+                if (flag)
+                {
+                    GC.SuppressFinalize(this); // сообщаем Garbage collector не вызывать финализатор для текущего обьекта
+                }
             }
         }
     }

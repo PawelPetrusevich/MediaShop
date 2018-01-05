@@ -22,7 +22,7 @@ namespace MediaShop.DataAccess.Context
         {
         }
 
-        public IDbSet<ContentCartDto> ContentCart { get; set; }
+        public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
         /// Method configuration tables
