@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using MediaShop.Common.Dto;
+    using MediaShop.Common.Models.CartModels;
 
     public interface IProductRepository<TModel>
-        where TModel : ProductDto
+        where TModel : Product
     {
         TModel Get(ulong id);
 

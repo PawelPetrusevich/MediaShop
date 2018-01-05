@@ -14,14 +14,16 @@
     /// </summary>
     public class CartRepository : ICartRepository<ContentCart>, IDisposable
     {
-        protected readonly DbContext Context;
+        protected readonly DbContext DbContext;
+
         protected readonly DbSet<ContentCart> DbSet;
+
         private bool disposed;
 
         public CartRepository(DbContext context)
         {
-            this.Context = context;
-            this.DbSet = this.Context.Set<ContentCart>();
+            this.DbContext = context;
+            this.DbSet = this.DbContext.Set<ContentCart>();
         }
 
         /// <summary>
@@ -45,7 +47,7 @@
             }
 
             var result = this.DbSet.Add(model);
-            this.Context.SaveChanges();
+            this.DbContext.SaveChanges();
             return result;
         }
 
@@ -56,8 +58,8 @@
         /// <returns>rezalt operation</returns>
         public ContentCart Update(ContentCart model)
         {
-            this.Context.Entry(model).State = EntityState.Modified;
-            this.Context.SaveChanges();
+            this.DbContext.Entry(model).State = EntityState.Modified;
+            this.DbContext.SaveChanges();
             return model;
         }
 
@@ -69,7 +71,7 @@
         public ContentCart Delete(ContentCart model)
         {
             var result = this.DbSet.Remove(model);
-            this.Context.SaveChanges();
+            this.DbContext.SaveChanges();
             return result;
         }
 
@@ -83,7 +85,7 @@
             var contentCart = this.DbSet.Where(x => x.Id == id
                 && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
             var result = this.DbSet.Remove(contentCart);
-            this.Context.SaveChanges();
+            this.DbContext.SaveChanges();
             return result;
         }
 
@@ -126,11 +128,11 @@
         {
             if (!this.disposed)
             {
-                this.Context.Dispose();
+                this.DbContext.Dispose();
                 this.disposed = true;
                 if (flag)
                 {
-                    GC.SuppressFinalize(this); // сообщаем Garbage collector не вызывать финализатор для текущего обьекта
+                    GC.SuppressFinalize(this); // tell Garbage collector not to call the finalizer for the current object
                 }
             }
         }

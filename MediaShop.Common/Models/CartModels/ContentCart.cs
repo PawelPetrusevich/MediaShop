@@ -1,6 +1,6 @@
 ﻿namespace MediaShop.Common.Models
 {
-    using System;
+    using MediaShop.Common.Enums;
 
     /// <summary>
     /// Сlass describes content in the cart
@@ -32,5 +32,11 @@
         /// Gets or sets price media content
         /// </summary>
         public decimal PriceItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets a state of contents in cart
+        /// </summary>
+        public CartEnums.StateCartContent StateContent { get; set; } =
+            CartEnums.StateCartContent.InCart;
     }
 }

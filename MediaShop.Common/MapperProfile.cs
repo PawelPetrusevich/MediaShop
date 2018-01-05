@@ -6,6 +6,7 @@ namespace MediaShop.Common
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
 
     /// <summary>
@@ -27,10 +28,8 @@ namespace MediaShop.Common
                 .ForMember(x => x.CreatedDate, opt => opt.MapFrom(m => m.CreatedDate))
                 .ForMember(x => x.ModifierId, opt => opt.MapFrom(m => m.ModifierId))
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(m => m.ModifiedDate)).ReverseMap();
-            this.CreateMap<ProductDto, ContentCart>()
+            this.CreateMap<Product, ContentCart>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
-            this.CreateMap<ContentCart, ContentCartDto>()
-                .ReverseMap();
         }
     }
 }

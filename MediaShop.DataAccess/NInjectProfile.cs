@@ -4,7 +4,7 @@
 
 namespace MediaShop.DataAccess
 {
-    using MediaShop.Common.Dto;
+    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
     using MediaShop.DataAccess.Context;
@@ -23,7 +23,7 @@ namespace MediaShop.DataAccess
         public override void Load()
         {
             this.Bind<ICartRepository<ContentCart>>().To<CartRepository>();
-            this.Bind<IProductRepository<ProductDto>>().To<ProductRepository>();
+            this.Bind<IProductRepository<Product>>().To<ProductRepository>();
             this.Bind<MediaContext>().ToSelf();
         }
     }

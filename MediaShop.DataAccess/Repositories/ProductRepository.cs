@@ -3,44 +3,40 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using MediaShop.Common.Dto;
+    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Interfaces.Repositories;
 
     /// <summary>
     /// Class ProductRepository
     /// </summary>
-    public class ProductRepository : IProductRepository<ProductDto>
+    public class ProductRepository : IProductRepository<Product>
     {
-        public ProductDto Add(ProductDto model)
+        public Product Add(Product model)
         {
             throw new NotImplementedException();
         }
 
-        public ProductDto Delete(ProductDto model)
+        public Product Delete(Product model)
         {
             throw new NotImplementedException();
         }
 
-        public ProductDto Delete(ulong id)
+        public Product Delete(ulong id)
         {
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-        }
-
-        public IEnumerable<ProductDto> Find(Expression<Func<ProductDto, bool>> filter)
+        public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public ProductDto Get(ulong id)
+        public Product Get(ulong id)
         {
             throw new NotImplementedException();
         }
 
-        public ProductDto Update(ProductDto model)
+        public Product Update(Product model)
         {
             throw new NotImplementedException();
         }

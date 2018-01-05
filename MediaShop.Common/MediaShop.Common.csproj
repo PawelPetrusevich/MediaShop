@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
@@ -64,6 +63,7 @@
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
     <Compile Include="Models\CartModels\CartExceptions.cs" />
+    <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\AccountSettings.cs" />

@@ -17,7 +17,10 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
     public class DeleteContentFromCartUnitTests
     {
         // Field for Mock
-        private Mock<ICartRepository<ContentCartDto>> mock;
+        private Mock<ICartRepository<ContentCart>> mock;
+
+        // Field for MockProduct
+        private Mock<IProductRepository<Product>> mockProduct;
 
         [TestInitialize]
         public void Initialize()
@@ -29,131 +32,85 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             });
 
             // Create Mock
-            var _mock = new Mock<ICartRepository<ContentCartDto>>();
+            var _mock = new Mock<ICartRepository<ContentCart>>();
             mock = _mock;
+            var _mockProduct = new Mock<IProductRepository<Product>>();
+            mockProduct = _mockProduct;
         }
 
         [TestMethod]
-        public void Set_Content_Is_Bought()
+        public void Set_State_Content_Is_Bought()
         {
             // Object ContentCartDto
-            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InCart };
-            var actual1 = objContentCartDto.StateContent;
+            var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InCart };
+            var actual1 = objContentCart.StateContent;
 
-            // Setup mock object
             // Setup object moc
             mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
-                 .Returns(() => objContentCartDto);
-            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
-                .Returns(() => objContentCartDto);
+                 .Returns(() => objContentCart);
+            mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
+                .Returns(() => objContentCart);
 
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
-            var actual2 = service.SetBought(5, 6);
+            var actual2 = service.SetState(5, 6, CartEnums.StateCartContent.InBought);
 
             Assert.AreEqual(CartEnums.StateCartContent.InCart, actual1);
-            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2);
+            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2.StateContent);
         }
 
         [TestMethod]
-        public void Set_Content_Is_UnBought()
+        public void Set_State_Content_Is_Paid()
         {
             // Object ContentCartDto
-            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InBought };
-            var actual1 = objContentCartDto.StateContent;
+            var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InBought };
+            var actual1 = objContentCart.StateContent;
 
-            // Setup mock object
             // Setup object moc
             mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
-                 .Returns(() => objContentCartDto);
-            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
-                .Returns(() => objContentCartDto);
+                 .Returns(() => objContentCart);
+            mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
+                .Returns(() => objContentCart);
 
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
-            var actual2 = service.SetUnBought(5, 6);
+            var actual2 = service.SetState(5, 6, CartEnums.StateCartContent.InPaid);
 
             Assert.AreEqual(CartEnums.StateCartContent.InBought, actual1);
-            Assert.AreEqual(CartEnums.StateCartContent.InCart, actual2);
-        }
-
-        [TestMethod]
-        public void Set_Content_Is_Paid()
-        {
-            // Object ContentCartDto
-            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InBought };
-            var actual1 = objContentCartDto.StateContent;
-
-            // Setup mock object
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
-                 .Returns(() => objContentCartDto);
-            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
-                .Returns(() => objContentCartDto);
-
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
-
-            var actual2 = service.SetPaid(5, 6);
-
-            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual1);
-            Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2);
-        }
-
-        [TestMethod]
-        public void Set_Content_Is_UnPaid()
-        {
-            // Object ContentCartDto
-            var objContentCartDto = new ContentCartDto() { StateContent = CartEnums.StateCartContent.InPaid };
-            var actual1 = objContentCartDto.StateContent;
-
-            // Setup mock object
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
-                 .Returns(() => objContentCartDto);
-            mock.Setup(item => item.Update(It.IsAny<ContentCartDto>()))
-                .Returns(() => objContentCartDto);
-
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
-
-            var actual2 = service.SetUnPaid(5, 6);
-
-            Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual1);
-            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2);
+            Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2.StateContent);
         }
 
         [TestMethod]
         public void Delete_Content_From_Cart()
         {
             // collection for rezalt as return method 
-            var collectionItem = new Collection<ContentCartDto>()
+            var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCartDto { Id = 5, CreatorId = 10 },
-                new ContentCartDto { Id = 6, CreatorId = 10 }
+                new ContentCart { Id = 5, CreatorId = 10 },
+                new ContentCart { Id = 6, CreatorId = 10 }
             };
 
-            var actual1 = collectionItem[0].Id;
-            var actual2 = collectionItem[0].CreatorId;
-            var actual3 = collectionItem[1].Id;
-            var actual4 = collectionItem[1].CreatorId;
+            var actual1 = collectionItems[0].Id;
+            var actual2 = collectionItems[0].CreatorId;
+            var actual3 = collectionItems[1].Id;
+            var actual4 = collectionItems[1].CreatorId;
 
             // Setup mock object
             mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
-                .Returns(collectionItem[0])
-                .Returns(collectionItem[1])
+                .Returns(collectionItems[0])
+                .Returns(collectionItems[1])
                 .Throws(new InvalidOperationException());
 
             // Collection object`s id for delete
             var collectionId = new Collection<ulong>() { 5, 6 };
 
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Delete content
-            var actual5 = service.Delete(collectionId);
+            var actual5 = service.DeleteOfCart(collectionId);
 
             Assert.AreEqual((ulong)5, actual1);
             Assert.AreEqual((ulong)10, actual2);
@@ -168,28 +125,30 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {
             // collection for rezalt as return method 
-            var collectionItem = new Collection<ContentCartDto>()
+            var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCartDto { Id = 5, CreatorId = 10 },
-                new ContentCartDto { Id = 6, CreatorId = 11 }
+                new ContentCart { Id = 5, CreatorId = 10 },
+                new ContentCart { Id = 6, CreatorId = 11 },
+                new ContentCart { Id = 7, CreatorId = 10 }
             };
 
             // Setup mock object
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
-                .Returns(() => collectionItem);
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => collectionItems);
             mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
-                .Returns(collectionItem[0])
+                .Returns(collectionItems[0])
+                .Returns(collectionItems[1])
                 .Returns(null)
                 .Throws(new InvalidOperationException());
 
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Collection object`s id for delete
-            var collectionId = new Collection<ulong>() { 5, 6 };
+            var collectionId = new Collection<ulong>() { 5, 6, 7 };
 
             // Delete content
-            var actual5 = service.Delete(collectionId);
+            var actual5 = service.DeleteOfCart(collectionId);
         }
 
         [TestMethod]
@@ -197,28 +156,28 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Delete_Content_From_Cart_If_Argument_Is_Null()
         {
             // collection for rezalt as return method 
-            var collectionItem = new Collection<ContentCartDto>()
+            var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCartDto { Id = 5, CreatorId = 10 },
-                new ContentCartDto { Id = 6, CreatorId = 11 }
+                new ContentCart { Id = 5, CreatorId = 10 },
+                new ContentCart { Id = 6, CreatorId = 11 }
             };
 
             // Setup mock object
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
-                .Returns(() => collectionItem);
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => collectionItems);
             mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
-                .Returns(collectionItem[0])
+                .Returns(collectionItems[0])
                 .Returns(null)
                 .Throws(new InvalidOperationException());
 
-            // Create CartService object with mock.Object
-            var service = new CartService(mock.Object);
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Collection object`s id for delete
             Collection<ulong> collectionId = null;
 
             // Delete content
-            var actual5 = service.Delete(collectionId);
+            var actual5 = service.DeleteOfCart(collectionId);
         }
     }
 }
