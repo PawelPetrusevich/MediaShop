@@ -19,7 +19,7 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public UserContext()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<UserContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<UserContext>());
         }
 
         /// <summary>

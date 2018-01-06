@@ -74,7 +74,12 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return this.Dbset.Add(model);
+            using (this.Context)
+            {
+                var result = this.Dbset.Add(model);
+                this.Context.SaveChanges();
+                return result;
+            }
         }
 
         /// <summary>
@@ -84,14 +89,18 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Updated model</returns>
         public T Update(T model)
         {
-            T entity = this.Get(model.Id);
-
-            foreach (var property in typeof(T).GetProperties())
+            using (this.Context)
             {
-                property.SetValue(entity, property.GetValue(model));
-            }
+                T entity = this.Get(model.Id);
 
-            return entity;
+                foreach (var property in typeof(T).GetProperties())
+                {
+                    property.SetValue(entity, property.GetValue(model));
+                }
+
+                this.Context.SaveChanges();
+                return entity;
+            }
         }
 
         /// <summary>
@@ -103,10 +112,14 @@ namespace MediaShop.DataAccess.Repositories
         {
             if (this.Dbset.Contains(model))
             {
-                return this.Dbset.Remove(model);
+                using (this.Context)
+                {
+                    this.Context.SaveChanges();
+                    return this.Dbset.Remove(model);
+                }
             }
 
-            return model;
+            return null;
         }
 
         /// <summary>
@@ -117,9 +130,15 @@ namespace MediaShop.DataAccess.Repositories
         public T Delete(ulong id)
         {
             var model = this.Dbset.SingleOrDefault(entity => entity.Id == id);
+
             if (model != null)
             {
-                return this.Dbset.Remove(model);
+                using (this.Context)
+                {
+                    var result = this.Dbset.Remove(model);
+                    this.Context.SaveChanges();
+                    return result;
+                }
             }
 
             return null;
@@ -155,7 +174,6 @@ namespace MediaShop.DataAccess.Repositories
         {
             if (!this.disposed)
             {
-                this.Context.SaveChanges();
                 this.Context.Dispose();
 
                 this.disposed = true;

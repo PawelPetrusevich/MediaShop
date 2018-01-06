@@ -4,6 +4,8 @@
 
 namespace MediaShop.DataAccess
 {
+    using System.Data.Entity;
+
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.DataAccess.Context;
     using MediaShop.DataAccess.Repositories;
@@ -25,6 +27,7 @@ namespace MediaShop.DataAccess
             this.Bind<IAccountRepository>().To<AccountRepository>();
             this.Bind<IProfileRepository>().To<ProfileRepository>();
             this.Bind<ISettingsRepository>().To<SettingsRepository>();
+            this.Bind<DbContext>().To<UserContext>();
         }
     }
 }
