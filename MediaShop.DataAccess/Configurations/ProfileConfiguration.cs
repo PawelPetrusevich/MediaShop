@@ -19,6 +19,8 @@ namespace MediaShop.DataAccess.Configurations
         {
             this.HasRequired(c => c.AccountOf).WithRequiredDependent(p => p.Profile);
 
+            this.HasKey(profile => profile.Id);
+
             this.Property(p => p.Email).IsRequired();
             this.Property(p => p.FirstName).HasMaxLength(30);
             this.Property(p => p.LastName).HasMaxLength(30);

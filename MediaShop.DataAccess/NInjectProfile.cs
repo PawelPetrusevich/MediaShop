@@ -27,7 +27,7 @@ namespace MediaShop.DataAccess
             this.Bind<IAccountRepository>().To<AccountRepository>();
             this.Bind<IProfileRepository>().To<ProfileRepository>();
             this.Bind<ISettingsRepository>().To<SettingsRepository>();
-            this.Bind<DbContext>().To<UserContext>();
+            this.Bind<DbContext>().To<MediaContext>();
         }
     }
 }

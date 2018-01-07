@@ -17,6 +17,7 @@ namespace MediaShop.DataAccess.Configurations
         /// </summary>
         public AccountSettingsConfiguration()
         {
+            this.HasKey(settings => settings.Id);
             this.HasRequired(c => c.AccountOf).WithRequiredDependent(p => p.Settings);
         }
     }
