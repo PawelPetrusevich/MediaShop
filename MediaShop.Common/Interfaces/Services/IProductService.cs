@@ -21,7 +21,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
-        Product Get(int id);
+        Product Get(long id);
 
         /// <summary>
         /// Add method.
@@ -49,7 +49,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        ProductDto Delete(int id);
+        ProductDto Delete(long id);
 
         /// <summary>
         /// Find method.

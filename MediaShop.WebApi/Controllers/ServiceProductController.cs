@@ -9,7 +9,6 @@ using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.Common.Models.Content;
-using Ninject.Infrastructure.Language;
 
 namespace MediaShop.WebApi.Controllers
 {
@@ -34,6 +33,7 @@ namespace MediaShop.WebApi.Controllers
 
         [HttpGet]
         [Route("id")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Not found")]
         public IHttpActionResult GetProductsById(int id)
         {
             var result = this.service.Get(id);
@@ -70,6 +70,7 @@ namespace MediaShop.WebApi.Controllers
 
         //удаление по Id продукта
         [HttpDelete]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Not found")]
         public IHttpActionResult Delete([FromBody] int id)
         {
             var result = this.service.Delete(id);
