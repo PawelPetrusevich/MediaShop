@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using MediaShop.Common.Dto.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {

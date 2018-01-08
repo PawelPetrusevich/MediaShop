@@ -1,6 +1,9 @@
 // <copyright file="MapperProfile.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
+
+using MediaShop.Common.Dto.User;
+
 namespace MediaShop.Common
 {
 using System;

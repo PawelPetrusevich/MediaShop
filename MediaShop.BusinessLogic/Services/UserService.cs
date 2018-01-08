@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 
 namespace MediaShop.BusinessLogic.Services
