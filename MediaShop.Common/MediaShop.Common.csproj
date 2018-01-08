@@ -75,13 +75,14 @@
   <ItemGroup>
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
-    <Compile Include="Dto\User\UserDto.cs" />
+    <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
+    <Compile Include="Interfaces\Services\IProfileService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
