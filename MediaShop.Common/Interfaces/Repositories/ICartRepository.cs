@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        TModel Get(ulong id);
+        TModel Get(long id);
 
         /// <summary>
         /// Method for add object type ContentCart
@@ -47,7 +47,7 @@
         /// </summary>
         /// <param name="id">contents identificator</param>
         /// <returns>rezalt operation</returns>
-        TModel Delete(ulong id);
+        TModel Delete(long id);
 
         /// <summary>
         /// Method for find collection of object type ContentCart

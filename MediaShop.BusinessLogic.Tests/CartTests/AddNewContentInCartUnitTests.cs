@@ -50,7 +50,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var objProductDto = new Product() { Id = 5 };
             var actual2 = objProductDto.Id;
 
-            mockProduct.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
                 .Returns(() => objProductDto);
 
             // Create CartService object with mock.Object and mockProduct.Object
@@ -60,10 +60,10 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var actual3 = service.AddInCart(objContentCart.Id, 50);
 
             // Verification rezalt with neсуssary number
-            Assert.AreEqual((ulong)5, actual1);
-            Assert.AreEqual((ulong)5, actual2);
-            Assert.AreEqual((ulong)6, actual3.Id);
-            Assert.AreEqual((ulong)50, actual3.CreatorId);
+            Assert.AreEqual((long)5, actual1);
+            Assert.AreEqual((long)5, actual2);
+            Assert.AreEqual((long)6, actual3.Id);
+            Assert.AreEqual((long)50, actual3.CreatorId);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var objProduct = new Product() { Id = 5 };
             var actual2 = objProduct.Id;
 
-            mockProduct.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
                 .Returns(() => objProduct);
 
             // Create CartService with mock.Object and mockProduct.Object
@@ -106,7 +106,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var objProduct = new Product() { Id = 5 };
             var actual2 = objProduct.Id;
 
-            mockProduct.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
                 .Returns(() => null);
 
             // Create CartService with mock.Object and mockProduct.Object
@@ -120,7 +120,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Get_Content_In_Cart_If_Exist_In_Cart()
         {
             // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
                  .Returns(() => new ContentCart());
 
             // Create CartService with mock.Object
@@ -136,7 +136,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Get_Content_In_Cart_If_Not_Exist_In_Cart()
         {
             // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
                 .Returns(() => null);
 
             // Create CartService with mock.Object

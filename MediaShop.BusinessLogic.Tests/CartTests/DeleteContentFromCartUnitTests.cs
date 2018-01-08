@@ -46,7 +46,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var actual1 = objContentCart.StateContent;
 
             // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
                  .Returns(() => objContentCart);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
                 .Returns(() => objContentCart);
@@ -68,7 +68,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var actual1 = objContentCart.StateContent;
 
             // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<ulong>()))
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
                  .Returns(() => objContentCart);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
                 .Returns(() => objContentCart);
@@ -98,13 +98,13 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var actual4 = collectionItems[1].CreatorId;
 
             // Setup mock object
-            mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
+            mock.SetupSequence(item => item.Delete(It.IsAny<long>()))
                 .Returns(collectionItems[0])
                 .Returns(collectionItems[1])
                 .Throws(new InvalidOperationException());
 
             // Collection object`s id for delete
-            var collectionId = new Collection<ulong>() { 5, 6 };
+            var collectionId = new Collection<long>() { 5, 6 };
 
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
@@ -112,12 +112,12 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);
 
-            Assert.AreEqual((ulong)5, actual1);
-            Assert.AreEqual((ulong)10, actual2);
-            Assert.AreEqual((ulong)6, actual3);
-            Assert.AreEqual((ulong)10, actual4);
+            Assert.AreEqual((long)5, actual1);
+            Assert.AreEqual((long)10, actual2);
+            Assert.AreEqual((long)6, actual3);
+            Assert.AreEqual((long)10, actual4);
             Assert.AreEqual(2, actual5.Count);
-            mock.Verify(item => item.Delete(It.IsAny<ulong>()), Times.Exactly(2));
+            mock.Verify(item => item.Delete(It.IsAny<long>()), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
                 .Returns(() => collectionItems);
-            mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
+            mock.SetupSequence(item => item.Delete(It.IsAny<long>()))
                 .Returns(collectionItems[0])
                 .Returns(collectionItems[1])
                 .Returns(null)
@@ -145,7 +145,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             // Collection object`s id for delete
-            var collectionId = new Collection<ulong>() { 5, 6, 7 };
+            var collectionId = new Collection<long>() { 5, 6, 7 };
 
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);
@@ -165,7 +165,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
                 .Returns(() => collectionItems);
-            mock.SetupSequence(item => item.Delete(It.IsAny<ulong>()))
+            mock.SetupSequence(item => item.Delete(It.IsAny<long>()))
                 .Returns(collectionItems[0])
                 .Returns(null)
                 .Throws(new InvalidOperationException());
@@ -174,7 +174,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             // Collection object`s id for delete
-            Collection<ulong> collectionId = null;
+            Collection<long> collectionId = null;
 
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);

@@ -80,7 +80,7 @@
         /// </summary>
         /// <param name="id">id for delete</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Delete(ulong id)
+        public ContentCart Delete(long id)
         {
             var contentCart = this.DbSet.Where(x => x.Id == id
                 && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
@@ -107,7 +107,7 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Get(ulong id)
+        public ContentCart Get(long id)
         {
             return this.DbSet.Where(x => x.Id == id).SingleOrDefault();
         }

@@ -18,7 +18,7 @@
         /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        IEnumerable<ContentCart> GetInCart(ulong userId, CartEnums.StateCartContent contentState);
+        IEnumerable<ContentCart> GetInCart(long userId, CartEnums.StateCartContent contentState);
 
         /// <summary>
         /// Add new item in cart with return save item for update view
@@ -26,7 +26,7 @@
         /// <param name="contentId">contents object</param>
         /// <param name="userId">users id</param>
         /// <returns>this save item</returns>
-        TModel AddInCart(ulong contentId, ulong userId);
+        TModel AddInCart(long contentId, long userId);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -34,21 +34,21 @@
         /// <param name="contentId">content identificator</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        bool FindInCart(ulong contentId);
+        bool FindInCart(long contentId);
 
         /// <summary>
         /// Get created Cart model object
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Cart</returns>
-        Cart GetCart(ulong userId);
+        Cart GetCart(long userId);
 
         /// <summary>
         /// Get sum price items for User
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Sum price</returns>
-        decimal GetPrice(ulong userId);
+        decimal GetPrice(long userId);
 
         /// <summary>
         /// Get sum price items typeof ContentCart
@@ -62,7 +62,7 @@
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Count Items in cart</returns>
-        uint GetCountItems(ulong userId);
+        uint GetCountItems(long userId);
 
         /// <summary>
         /// Get count items
@@ -76,7 +76,7 @@
         /// </summary>
         /// <param name="itemsId">collection users id</param>
         /// <returns>collection of remote objects</returns>
-        ICollection<ContentCart> DeleteOfCart(ICollection<ulong> itemsId);
+        ICollection<ContentCart> DeleteOfCart(ICollection<long> itemsId);
 
         /// <summary>
         /// Method for check object as Bought
@@ -86,6 +86,6 @@
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
         ContentCart SetState(
-            ulong contentId, ulong userId, CartEnums.StateCartContent contentState);
+            long contentId, long userId, CartEnums.StateCartContent contentState);
     }
 }

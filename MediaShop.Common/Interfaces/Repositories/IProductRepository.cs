@@ -8,7 +8,7 @@
     public interface IProductRepository<TModel>
         where TModel : Product
     {
-        TModel Get(ulong id);
+        TModel Get(long id);
 
         TModel Add(TModel model);
 
@@ -16,7 +16,7 @@
 
         TModel Delete(TModel model);
 
-        TModel Delete(ulong id);
+        TModel Delete(long id);
 
         IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
     }

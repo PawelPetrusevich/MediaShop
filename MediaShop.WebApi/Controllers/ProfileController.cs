@@ -16,7 +16,7 @@ namespace MediaShop.WebApi.Controllers
 
         [HttpGet]
         [Route("GetById")]
-        public IHttpActionResult GetById(ulong id)
+        public IHttpActionResult GetById(long id)
         {
             return this.Ok(new AccountProfile());
         }
@@ -34,7 +34,7 @@ namespace MediaShop.WebApi.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete([FromBody]ulong? id)
+        public IHttpActionResult Delete([FromBody]long? id)
         {
             return this.Ok();
         }

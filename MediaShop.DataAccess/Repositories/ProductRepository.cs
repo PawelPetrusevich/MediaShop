@@ -21,7 +21,7 @@
             throw new NotImplementedException();
         }
 
-        public Product Delete(ulong id)
+        public Product Delete(long id)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +31,7 @@
             throw new NotImplementedException();
         }
 
-        public Product Get(ulong id)
+        public Product Get(long id)
         {
             throw new NotImplementedException();
         }

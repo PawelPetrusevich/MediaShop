@@ -37,7 +37,7 @@
         /// <param name="contentId">contents identifier</param>
         /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        public ContentCart AddInCart(ulong contentId, ulong userId)
+        public ContentCart AddInCart(long contentId, long userId)
         {
             //// Get object ProductDto by id
             var product = this.repositoryProduct.Get(contentId);
@@ -72,7 +72,7 @@
         /// </summary>
         /// <param name="collectionId">collection users id</param>
         /// <returns>collection of remote objects</returns>
-        public ICollection<ContentCart> DeleteOfCart(ICollection<ulong> collectionId)
+        public ICollection<ContentCart> DeleteOfCart(ICollection<long> collectionId)
         {
             if (collectionId == null)
             {
@@ -80,7 +80,7 @@
             }
 
             var collectionContentCart = new Collection<ContentCart>();
-            foreach (ulong contentCart in collectionId)
+            foreach (long contentCart in collectionId)
             {
                 var deleteContentCart = this.repositoryContentCart.Delete(contentCart);
                 if (deleteContentCart == null)
@@ -112,7 +112,7 @@
         /// <param name="contentid">content id</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool FindInCart(ulong contentid) => this.repositoryContentCart
+        public bool FindInCart(long contentid) => this.repositoryContentCart
             .Get(contentid) != null;
 
         /// <summary>
@@ -122,7 +122,7 @@
         /// <param name="id">user Id</param>
         /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        public IEnumerable<ContentCart> GetInCart(ulong id, CartEnums.StateCartContent contentState)
+        public IEnumerable<ContentCart> GetInCart(long id, CartEnums.StateCartContent contentState)
         {
             var contentsInCart = this.repositoryContentCart.Find(
                 x => x.CreatorId == id && x.StateContent == contentState);
@@ -142,7 +142,7 @@
         /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>object with update state</returns>
-        public ContentCart SetState(ulong contentId, ulong userId, CartEnums.StateCartContent contentState)
+        public ContentCart SetState(long contentId, long userId, CartEnums.StateCartContent contentState)
         {
             // Get object by id
             var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
@@ -176,7 +176,7 @@
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Cart</returns>
-        public Cart GetCart(ulong userId)
+        public Cart GetCart(long userId)
         {
             var itemsInCart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
             var model = new Cart()
@@ -193,7 +193,7 @@
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Count Items in cart</returns>
-        public uint GetCountItems(ulong userId)
+        public uint GetCountItems(long userId)
         {
             var cart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
             return (uint)cart.Count();
@@ -214,7 +214,7 @@
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Sum price</returns>
-        public decimal GetPrice(ulong userId)
+        public decimal GetPrice(long userId)
         {
             var cart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
             return cart.Sum<ContentCart>(x => x.PriceItem);

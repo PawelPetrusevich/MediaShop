@@ -27,6 +27,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        bool RemoveRole(int id, Role role);
+        bool RemoveRole(long id, Role role);
     }
 }
