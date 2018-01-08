@@ -35,7 +35,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [TestCase(5ul, Role.User)]
         [TestCase(5ul, Role.Admin)]
 
-        public void TestMethodRemoveRoleIsTrue(ulong n, Role role)
+        public void TestMethodRemoveRoleIsTrue(long n, Role role)
         {
             var storage = new Mock<IAccountRepository>();
 
@@ -56,7 +56,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// <param name="role">The role.</param>
         [TestCase(5ul, Role.User)]
 
-        public void TestMethodRemoveRoleIsFalse(ulong n, Role role)
+        public void TestMethodRemoveRoleIsFalse(long n, Role role)
         {
             var storage = new Mock<IAccountRepository>();
 

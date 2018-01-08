@@ -80,10 +80,8 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
-    <Compile Include="Models\User\AccountSettings.cs" />
     <Compile Include="Models\User\Constants.cs" />
     <Compile Include="Models\User\Settings.cs" />
-    <Compile Include="Models\User\ExistingLoginException.cs" />
     <Compile Include="Exceptions\ExistingLoginException.cs" />
     <Compile Include="Models\User\Profile.cs" />
     <Compile Include="Enums\Languages.cs" />

@@ -14,30 +14,30 @@ namespace MediaShop.WebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return this.Ok(new List<AccountSettings>());
+            return this.Ok(new List<Settings>());
         }
 
         [HttpGet]
         [Route("GetById")]
-        public IHttpActionResult GetById(ulong id)
+        public IHttpActionResult GetById(long id)
         {
-            return this.Ok(new AccountSettings());
+            return this.Ok(new Settings());
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] AccountSettings settings)
+        public IHttpActionResult Post([FromBody] Settings settings)
         {
-            return this.Content<AccountSettings>(HttpStatusCode.Created, new AccountSettings());
+            return this.Content<Settings>(HttpStatusCode.Created, new Settings());
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]AccountSettings settings)
+        public IHttpActionResult Put([FromBody]Settings settings)
         {
-            return this.Ok(new AccountSettings());
+            return this.Ok(new Settings());
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete([FromBody]ulong id)
+        public IHttpActionResult Delete([FromBody]long id)
         {
             return this.Ok();
         }

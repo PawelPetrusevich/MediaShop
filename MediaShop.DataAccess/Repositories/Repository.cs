@@ -56,7 +56,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>db entry</returns>
-        public T Get(ulong id)
+        public T Get(long id)
         {
             return this.Dbset.SingleOrDefault(entity => entity.Id == id);
         }
@@ -127,7 +127,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">Id of deleting model</param>
         /// <returns>Deleted model</returns>
-        public T Delete(ulong id)
+        public T Delete(long id)
         {
             var model = this.Dbset.SingleOrDefault(entity => entity.Id == id);
 

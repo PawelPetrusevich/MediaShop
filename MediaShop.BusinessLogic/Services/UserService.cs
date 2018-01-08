@@ -23,7 +23,7 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="IUserService" />
     public class UserService : IUserService
     {
-        private readonly IRespository<Account> store;
+        private readonly IAccountRepository _store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
@@ -31,7 +31,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="repository">The repository.</param>
         public UserService(IAccountRepository repository)
         {
-            this.store = repository;
+            this._store = repository;
         }
 
         /// <summary>
@@ -39,10 +39,10 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
-        /// <exception cref="MediaShop.Common.Models.User.ExistingLoginException">Throws when user with such login already exists</exception>
+        /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(UserDto userModel)
         {
-            var existingAccount = this.store.GetByLogin(userModel.Login);
+            var existingAccount = this._store.GetByLogin(userModel.Login);
             if (existingAccount != null)
             {
                 throw new ExistingLoginException(userModel.Login);
@@ -51,7 +51,7 @@ namespace MediaShop.BusinessLogic.Services
             var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
-            var createdAccount = this.store.Add(account);
+            var createdAccount = this._store.Add(account);
 
             return createdAccount;
         }
@@ -64,7 +64,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public bool RemoveRole(long id, Role role)
         {
-            var user = this.store.Find(account => account.Id == id).FirstOrDefault();
+            var user = this._store.Find(account => account.Id == id).FirstOrDefault();
 
             return user?.Permissions.Remove(accountRole => accountRole == role) > 0;
         }

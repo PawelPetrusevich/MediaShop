@@ -11,30 +11,30 @@ namespace MediaShop.WebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return this.Ok(new List<AccountProfile>());
+            return this.Ok(new List<Profile>());
         }
 
         [HttpGet]
         [Route("GetById")]
-        public IHttpActionResult GetById(ulong id)
+        public IHttpActionResult GetById(long id)
         {
-            return this.Ok(new AccountProfile());
+            return this.Ok(new Profile());
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] AccountProfile profile)
+        public IHttpActionResult Post([FromBody] Profile profile)
         {
-            return this.Content<AccountProfile>(HttpStatusCode.Created, new AccountProfile());
+            return this.Content<Profile>(HttpStatusCode.Created, new Profile());
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]AccountProfile profile)
+        public IHttpActionResult Put([FromBody]Profile profile)
         {
-            return this.Ok(new AccountProfile());
+            return this.Ok(new Profile());
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete([FromBody]ulong? id)
+        public IHttpActionResult Delete([FromBody]long? id)
         {
             return this.Ok();
         }
