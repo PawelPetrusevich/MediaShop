@@ -17,7 +17,7 @@ namespace MediaShop.BusinessLogic.Services
 
     using Profile = MediaShop.Common.Models.User.Profile;
 
-    class ProfileService:IProfileService
+    public class ProfileService : IProfileService
     {
         private readonly IProfileRepository storeProfile;
         private readonly IAccountRepository storeAccount;
@@ -28,7 +28,7 @@ namespace MediaShop.BusinessLogic.Services
             this.storeAccount = accountRepository;
         }
 
-        public Profile Create(ProfileDto profileModel,string login)
+        public Profile Create(ProfileDto profileModel, string login)
         {
             var existingAccount = this.storeAccount.GetByLogin(login);
 

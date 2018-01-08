@@ -38,6 +38,5 @@ namespace MediaShop.Common.Dto.User
         /// </summary>
         /// <value>The phone.</value>
         public string Phone { get; set; }
-
     }
 }

@@ -89,15 +89,24 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
-    <Compile Include="Models\User\Constants.cs" />
     <Compile Include="Models\User\Settings.cs" />
     <Compile Include="Exceptions\ExistingLoginException.cs" />
     <Compile Include="Models\User\Profile.cs" />
     <Compile Include="Enums\Languages.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />

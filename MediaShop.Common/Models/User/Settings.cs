@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Models.User
 {
@@ -14,7 +15,7 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// Identifier timezone of user, default value +0
         /// </summary>
-        public string TimeZoneId { get; set; } = Constants.DefaultTimeZoneId;
+        public string TimeZoneId { get; set; } = Resources.DefaultTimeZoneId;
 
         /// <summary>
         /// Languae of userinterface

@@ -21,11 +21,11 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     public class UserServiceTest
     {
         private Mock<IAccountRepository> _store;
-        private UserDto _user;
+        private RegisterUserDto _user;
 
         public UserServiceTest()
         {
-            Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
+            Mapper.Initialize(config => config.CreateMap<RegisterUserDto, Account>());
         }
 
         [SetUp]
@@ -34,12 +34,10 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var mockRepository =  new Mock<IAccountRepository>();
             _store = mockRepository;
 
-            _user = new UserDto
-            {
-                Id = 0,
+            _user = new RegisterUserDto()
+            {                
                 Login = "User",
-                Password = "12345",
-                UserRole = Role.User
+                Password = "12345",                
             };
         }
 
