@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace MediaShop.Common.Models.User
 {
     /// <summary>
@@ -32,6 +34,6 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// id from table Account
         /// </summary>
-        public ulong AccountId { get; set; }
+        public long AccountId { get; set; }
     }
 }

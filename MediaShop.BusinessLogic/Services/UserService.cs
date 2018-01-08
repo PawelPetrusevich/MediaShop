@@ -2,6 +2,9 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
+using MediaShop.Common.Exceptions;
+
 namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
@@ -20,7 +23,7 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="IUserService" />
     public class UserService : IUserService
     {
-        private readonly IAccountRepository store;
+        private readonly IRespository<Account> store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
@@ -59,7 +62,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        public bool RemoveRole(ulong id, Role role)
+        public bool RemoveRole(long id, Role role)
         {
             var user = this.store.Find(account => account.Id == id).FirstOrDefault();
 

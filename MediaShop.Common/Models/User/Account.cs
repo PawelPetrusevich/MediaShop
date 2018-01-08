@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace MediaShop.Common.Models.User
 {
     using System.Collections.Generic;
@@ -28,25 +30,25 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the profile identifier.
         /// </summary>
         /// <value>The profile identifier.</value>
-        public ulong ProfileId { get; set; }
+        public long ProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the settings identifier.
         /// </summary>
         /// <value>The settings identifier.</value>
-        public ulong SettingsId { get; set; }
+        public long SettingsId { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.
         /// </summary>
         /// <value>The profile.</value>
-        public virtual Profile Profile { get; set; } = new Profile();
+        public virtual AccountProfile Profile { get; set; } = new AccountProfile();
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public virtual Settings Settings { get; set; } = new Settings();
+        public virtual AccountSettings Settings { get; set; } = new AccountSettings();
 
         /// <summary>
         /// Gets or sets the permissions.
