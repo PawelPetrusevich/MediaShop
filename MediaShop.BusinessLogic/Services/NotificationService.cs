@@ -37,5 +37,11 @@ namespace MediaShop.BusinessLogic.Services
 
             return Mapper.Map<NotificationDto>(notify);
         }
+
+        public IEnumerable<NotificationDto> GetByUserId(long userId)
+        {
+            var result = _notifcationStore.Find(n => n.ReceiverId == userId);
+            return Mapper.Map<List<NotificationDto>>(result);
+        }
     }
 }

@@ -68,5 +68,14 @@ namespace MediaShop.WebApi.Properties {
                 return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification is not valid.
+        /// </summary>
+        internal static string NotValidNotification {
+            get {
+                return ResourceManager.GetString("NotValidNotification", resourceCulture);
+            }
+        }
     }
 }

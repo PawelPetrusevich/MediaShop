@@ -1,31 +1,49 @@
-﻿using System.Net;
+﻿using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Dto;
+using MediaShop.Common.Interfaces.Services;
+using MediaShop.WebApi.Properties;
+using System.Net;
 using System.Web.Http;
 
 namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
+    [RoutePrefix("api/messaging")]
     public class NotificationController : ApiController
     {
-        [HttpGet]
-        public IHttpActionResult Get()
+        private readonly INotificationService _notificationService;
+        public NotificationController(INotificationService notificationService)
         {
-            return this.Ok();
-        }
+            _notificationService = notificationService;
+        }     
 
-        [HttpGet]
-        [Route("GetById")]
-        public IHttpActionResult Get(long id)
+        [HttpGet]       
+        public IHttpActionResult Get(long userId)
         {
-            return this.Ok();
+            return this.Ok(_notificationService.GetByUserId(userId));
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody]long userId, [FromBody]string message)
+        public IHttpActionResult CreateNotification([FromBody]NotificationDto notification)
         {
-            return this.Content(HttpStatusCode.Created, string.Empty);
+            if (ReferenceEquals(notification, null) || !ModelState.IsValid)
+            {
+                return this.BadRequest(Resources.NotValidNotification);
+            }
+
+            try
+            {                
+                return this.Ok(_notificationService.Notify(notification));
+            }
+            catch (System.Exception)
+            {
+
+                return this.InternalServerError();
+            }
+            
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]long id, [FromBody]string message)
+        public IHttpActionResult UpdateNotification([FromBody]NotificationDto notification)
         {
             return this.Ok();
         }

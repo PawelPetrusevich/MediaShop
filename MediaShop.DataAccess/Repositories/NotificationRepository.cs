@@ -15,6 +15,11 @@ namespace MediaShop.DataAccess.Repositories
         private bool _disposedValue = false;
         private MediaContext _notificationContext = new MediaContext();
 
+        public NotificationRepository(MediaContext notificationContext)
+        {
+            _notificationContext = notificationContext;
+        }
+
         ~NotificationRepository()
         {
             this.Dispose(false);
@@ -27,9 +32,12 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            var currentNotification = this._notificationContext.Notifications.Add(model);
-            this._notificationContext.SaveChanges();
-            return currentNotification;
+            using (this._notificationContext)
+            {
+                var currentNotification = this._notificationContext.Notifications.Add(model);
+                this._notificationContext.SaveChanges();
+                return currentNotification;
+            }
         }
 
         public Notification Delete(Notification model)
@@ -39,9 +47,12 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            var currentNotification = this._notificationContext.Notifications.Remove(model);
-            this._notificationContext.SaveChanges();
-            return currentNotification;
+            using (this._notificationContext)
+            {
+                var currentNotification = this._notificationContext.Notifications.Remove(model);
+                this._notificationContext.SaveChanges();
+                return currentNotification;
+            }
         }
 
         public Notification Delete(long id)
@@ -68,10 +79,13 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException();
             }
 
-            var currentNotification = this._notificationContext.Notifications.Single(n => n.Id == model.Id);
-            currentNotification = model;
-            this._notificationContext.SaveChanges();
-            return currentNotification;
+            using (this._notificationContext)
+            {
+                var currentNotification = this._notificationContext.Notifications.Single(n => n.Id == model.Id);
+                currentNotification = model;
+                this._notificationContext.SaveChanges();
+                return currentNotification;
+            }
         }
 
         public void Dispose()
