@@ -3,7 +3,7 @@
     /// <summary>
     /// User language
     /// </summary>
-    public enum Language : byte
+    public enum Languages : byte
     {
         /// <summary>
         /// English

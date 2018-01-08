@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using FluentValidation.WebApi;
+
 namespace MediaShop.WebApi
 {
     using System.Web.Http;
@@ -18,6 +20,7 @@ namespace MediaShop.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            FluentValidationModelValidatorProvider.Configure(config);
 
             // Web API routes
             config.MapHttpAttributeRoutes();

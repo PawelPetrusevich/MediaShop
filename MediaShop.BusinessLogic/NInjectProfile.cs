@@ -19,7 +19,7 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            this.Kernel?.Bind<IUserService>().To<UserService>();
+            Bind<IUserService>().To<UserService>();
         }
     }
 }

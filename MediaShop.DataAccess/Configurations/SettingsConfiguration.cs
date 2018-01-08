@@ -1,4 +1,4 @@
-﻿// <copyright file="AccountSettingsConfiguration.cs" company="MediaShop">
+﻿// <copyright file="SettingsConfiguration.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -8,15 +8,16 @@ namespace MediaShop.DataAccess.Configurations
     using MediaShop.Common.Models.User;
 
     /// <summary>
-    /// Class AccountSettingsConfiguration.
+    /// Class SettingsConfiguration.
     /// </summary>
-    public class AccountSettingsConfiguration : EntityTypeConfiguration<AccountSettings>
+    public class SettingsConfiguration : EntityTypeConfiguration<Settings>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountSettingsConfiguration"/> class.
+        /// Initializes a new instance of the <see cref="SettingsConfiguration"/> class.
         /// </summary>
-        public AccountSettingsConfiguration()
+        public SettingsConfiguration()
         {
+            this.HasKey(settings => settings.Id);
             this.HasRequired(c => c.AccountOf).WithRequiredDependent(p => p.Settings);
         }
     }

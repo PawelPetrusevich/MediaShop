@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Web.Http;
 
-namespace MediaShop.WebApi.Controllers
+namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
     public class NotificationController : ApiController
     {
@@ -13,25 +13,25 @@ namespace MediaShop.WebApi.Controllers
 
         [HttpGet]
         [Route("GetById")]
-        public IHttpActionResult Get(ulong id)
+        public IHttpActionResult Get(long id)
         {
             return this.Ok();
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody]ulong userId, [FromBody]string message)
+        public IHttpActionResult Post([FromBody]long userId, [FromBody]string message)
         {
             return this.Content(HttpStatusCode.Created, string.Empty);
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]ulong id, [FromBody]string message)
+        public IHttpActionResult Put([FromBody]long id, [FromBody]string message)
         {
             return this.Ok();
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete([FromBody]ulong id)
+        public IHttpActionResult Delete([FromBody]long id)
         {
             return this.Ok();
         }
