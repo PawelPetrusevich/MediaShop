@@ -20,6 +20,7 @@ namespace MediaShop.BusinessLogic
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
+            Bind<INotificationService>().To<NotificationService>();
         }
     }
 }

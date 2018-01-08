@@ -8,13 +8,12 @@ using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Notification;
 using System.Net.Http;
+using AutoMapper;
 
 namespace MediaShop.BusinessLogic.Services
 {
     public class NotificationService : INotificationService
     {
-        private static readonly HttpClient Client = new HttpClient();
-
         private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private readonly INotificationRepository _notifcationStore;
 
@@ -26,36 +25,17 @@ namespace MediaShop.BusinessLogic.Services
 
         public NotificationDto Notify(NotificationDto notification)
         {
-            var tokens = this._subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
+            var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
+            var notify = _notifcationStore
+                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message && n.Title == notification.Title)
+                .FirstOrDefault();
 
-            if (tokens.Count > 0)
+            if (tokens.Count > 0 && notify == null)
             {
-                //TODO: тут нужно сгенерить пост запрос вида: 
-                /*
-                    POST /fcm/send HTTP/1.1
-                    Host: fcm.googleapis.com
-                    Authorization: key=YOUR-SERVER-KEY
-                    Content-Type: application/json
-
-                    {
-                      "notification": {
-                        "title": "Ералаш",
-                        "body": "Начало в 21:00",
-                        "icon": "https://eralash.ru.rsz.io/sites/all/themes/eralash_v5/logo.png?width=40&height=40",
-                        "click_action": "http://eralash.ru/"
-                      },
-                      "to": "YOUR-TOKEN-ID"
-                    }
-             */
-                /*если полчателей несколько то вместо "to"   "registration_ids": [
-                                                                                       "YOUR-TOKEN-ID-1",
-                                                                                       "YOUR-TOKEN-ID-2"
-                                                                                       "YOUR-TOKEN-ID-3"
-                                                                                     ]
-                */
+                notify = _notifcationStore.Add(Mapper.Map<Notification>(notification));
             }
 
-            return new NotificationDto();
+            return Mapper.Map<NotificationDto>(notify);
         }
     }
 }

@@ -6,11 +6,11 @@ using MediaShop.Common.Dto.User;
 
 namespace MediaShop.Common
 {
-using System;
+    using System;
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models.User;
-using MediaShop.Common.Models.Notification;
+    using MediaShop.Common.Models.Notification;
 
     using Profile = AutoMapper.Profile;
 
@@ -26,7 +26,12 @@ using MediaShop.Common.Models.Notification;
         public MapperProfile()
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
-            this.CreateMap<Notification, NotificationDto>().ReverseMap().ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now));
+            this.CreateMap<Notification, NotificationDto>().ReverseMap()
+                .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
+                .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
+            this.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
+                .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
+                .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
         }
     }
 }

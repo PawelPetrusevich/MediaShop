@@ -19,8 +19,13 @@ namespace MediaShop.Common.Dto
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets identifier of user who receive notification
+        /// </summary>
+        public long ReceiverId { get; set; }
+
+        /// <summary>
         /// Gets or sets identifier of user who sent notification
         /// </summary>
-        public int ReceiverId { get; set; }
+        public long SenderId { get; set; }
     }
 }
