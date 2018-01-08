@@ -64,6 +64,13 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
         }
 
+        [HttpPatch]
+        [Route("patch")]
+        public IHttpActionResult SmallUpdate([FromBody]UpdateModelDto model)
+        {
+            return Ok();
+        }
+
         [HttpPut]
         public IHttpActionResult Put([FromBody]Account account)
         {

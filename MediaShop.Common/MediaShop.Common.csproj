@@ -73,8 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
-    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
