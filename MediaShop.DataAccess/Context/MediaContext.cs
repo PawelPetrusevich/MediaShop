@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Models.Content;
+
 namespace MediaShop.DataAccess.Context
 {
     using System.Data.Entity;
@@ -41,6 +43,8 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         /// <value>The settings.</value>
         public IDbSet<Settings> Settings { get; set; }
+
+        public IDbSet<Product> Products { get; set; }
 
         /// <summary>
         /// Method configuration tables

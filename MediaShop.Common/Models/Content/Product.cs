@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Models.User;
+
 namespace MediaShop.Common.Models.Content
 {
     /// <summary>
@@ -33,11 +35,6 @@ namespace MediaShop.Common.Models.Content
         /// Gets or sets a value indicating whether gets or sets the login.
         /// </summary>
         public bool IsFavorite { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ProductType.
-        /// </summary>
-        public int ProductTypeId { get; set; }
 
         /// <summary>
         /// Gets or sets the ProductType.

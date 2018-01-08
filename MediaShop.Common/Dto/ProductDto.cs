@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Models.User;
+
 namespace MediaShop.Common.Dto
 {
     /// <summary>
@@ -22,7 +24,7 @@ namespace MediaShop.Common.Dto
         /// <summary>
         /// Gets or sets the ProductId.
         /// </summary>
-        public int ProductId { get; set; }
+        public ProductType ProductType { get; set; }
 
         /// <summary>
         /// Gets or sets the Description.
