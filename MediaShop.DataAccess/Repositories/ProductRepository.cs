@@ -67,7 +67,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">Product Id</param>
         /// <returns>result</returns>
-        public Product Delete(int id)
+        public Product Delete(long id)
         {
             var model = this.productContext.Products.Single(x => x.Id == id);
             if (model == null)
@@ -95,7 +95,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">Product Id</param>
         /// <returns>Id</returns>
-        public Product Get(int id)
+        public Product Get(long id)
         {
             return this.productContext.Products.Single(x => x.Id == id);
         }

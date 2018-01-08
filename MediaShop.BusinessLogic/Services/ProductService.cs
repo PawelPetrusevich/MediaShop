@@ -69,7 +69,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">передаем id product</param>
         /// <returns>возрощаем product</returns>
-        public ProductDto Delete(int id)
+        public ProductDto Delete(long id)
         {
             var result = this.repository.Delete(id);
 
@@ -91,7 +91,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">передаем id</param>
         /// <returns>возращаем product</returns>
-        public Product Get(int id)
+        public Product Get(long id)
         {
             return this.repository.Get(id);
         }

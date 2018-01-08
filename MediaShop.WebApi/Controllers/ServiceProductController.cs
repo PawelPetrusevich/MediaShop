@@ -8,6 +8,7 @@ using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Models;
 using MediaShop.Common.Models.Content;
+using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Controllers
 {
@@ -24,6 +25,7 @@ namespace MediaShop.WebApi.Controllers
 
         [HttpGet]
         [Route("id")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Not found")]
         public IHttpActionResult GetProductsById(int id)
         {
             //возвращаем модельку ProductDto по Id продукта
@@ -54,6 +56,7 @@ namespace MediaShop.WebApi.Controllers
 
         //удаление по Id продукта
         [HttpDelete]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Not found")]
         public IHttpActionResult Delete([FromBody] int id)
         {
             return this.Ok();
