@@ -154,6 +154,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\ServiceProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
