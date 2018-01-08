@@ -23,13 +23,13 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="MediaShop.Common.Interfaces.Services.IUserService" />
     public class UserService : IUserService
     {
-        private readonly IRespository<Account> _store;
+        private readonly IRepository<Account> _store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public UserService(IRespository<Account> repository)
+        public UserService(IRepository<Account> repository)
         {
             this._store = repository;
         }
