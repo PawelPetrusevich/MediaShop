@@ -24,9 +24,9 @@ namespace MediaShop.BusinessLogic.Services
             this._notifcationStore = notifcationStore;
         }
 
-        public void Notify(long userId, NotificationDto notification)
+        public NotificationDto Notify(NotificationDto notification)
         {
-            var tokens = this._subscribedUserStore.GetUserDeviceTokens(userId);
+            var tokens = this._subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
 
             if (tokens.Count > 0)
             {
@@ -54,6 +54,8 @@ namespace MediaShop.BusinessLogic.Services
                                                                                      ]
                 */
             }
+
+            return new NotificationDto();
         }
     }
 }

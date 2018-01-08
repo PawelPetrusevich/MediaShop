@@ -5,6 +5,6 @@ namespace MediaShop.Common.Interfaces.Services
 {
     public interface INotificationService
     {
-        void Notify(long userId, NotificationDto notification);
+        NotificationDto Notify(NotificationDto notification);
     }
 }

@@ -80,7 +80,6 @@
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
-    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
@@ -103,9 +102,7 @@
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
