@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace MediaShop.Common.Models.User
+namespace MediaShop.Common.Exceptions
 {
     /// <summary>
     /// Exception arising when user registres with existing login

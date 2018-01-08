@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace MediaShop.Common.Models.User
 {
     using System.Collections.Generic;
@@ -28,13 +30,13 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the profile identifier.
         /// </summary>
         /// <value>The profile identifier.</value>
-        public int ProfileId { get; set; }
+        public long ProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the settings identifier.
         /// </summary>
         /// <value>The settings identifier.</value>
-        public int SettingsId { get; set; }
+        public long SettingsId { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.

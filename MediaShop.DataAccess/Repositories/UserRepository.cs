@@ -39,7 +39,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>db entry</returns>
-        public T Get(int id)
+        public T Get(long id)
         {
             return this.set.FirstOrDefault(account => account.Id == id) ??
                    throw new ArgumentOutOfRangeException($"Invalid {nameof(id)}");
@@ -106,7 +106,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user_id</param>
         /// <returns>null</returns>
-        public T Delete(int id)
+        public T Delete(long id)
         {
             var model = this.set.FirstOrDefault(account => account.Id == id);
             if (model != null)
