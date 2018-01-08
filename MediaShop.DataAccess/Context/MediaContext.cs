@@ -1,11 +1,13 @@
-﻿// <copyright file="MediaContext.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="MediaContext.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
 namespace MediaShop.DataAccess.Context
 {
     using System.Data.Entity;
-    using MediaShop.Common.Models.Content;
+
+    using MediaShop.Common.Models.User;
+    using MediaShop.DataAccess.Configurations;
 
     /// <summary>
     /// Class MediaContext.
@@ -19,26 +21,38 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
         }
 
         /// <summary>
-        /// Gets or sets the Products.
+        /// Gets or sets the accounts.
         /// </summary>
-        public DbSet<Product> Products { get; set; }
+        /// <value>The accounts.</value>
+        public IDbSet<Account> Accounts { get; set; }
 
         /// <summary>
-        /// Gets or sets the ProductTypes.
+        /// Gets or sets the profiles.
         /// </summary>
-        public DbSet<ProductType> ProductTypes { get; set; }
+        /// <value>The profiles.</value>
+        public IDbSet<Profile> Profiles { get; set; }
 
         /// <summary>
-        /// Overrided method OnModelCreating.
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>The settings.</value>
+        public IDbSet<Settings> Settings { get; set; }
+
+        /// <summary>
+        /// Method configuration tables
         /// </summary>
         /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new ProductConfiguration());
+
+            modelBuilder.Configurations.Add(new AccountConfiguration());
+            modelBuilder.Configurations.Add(new ProfileConfiguration());
+            modelBuilder.Configurations.Add(new SettingsConfiguration());
         }
     }
 }

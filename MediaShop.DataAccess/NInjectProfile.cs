@@ -1,10 +1,21 @@
-﻿using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.DataAccess.Context;
-using MediaShop.DataAccess.Repositories;
-using Ninject.Modules;
+﻿// <copyright file="NInjectProfile.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
 
 namespace MediaShop.DataAccess
 {
+    using System.Data.Entity;
+
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.DataAccess.Context;
+    using MediaShop.DataAccess.Repositories;
+
+    using Ninject.Modules;
+
+    /// <summary>
+    /// Class NInjectProfile.
+    /// </summary>
+    /// <seealso cref="Ninject.Modules.NinjectModule" />
     public class NInjectProfile : NinjectModule
     {
         /// <summary>
@@ -12,9 +23,11 @@ namespace MediaShop.DataAccess
         /// </summary>
         public override void Load()
         {
-            Bind<IProductRepository>().To<ProductRepository>();
-
-            Bind<MediaContext>().ToSelf();
+            this.Bind<MediaContext>().ToSelf();
+            this.Bind<IAccountRepository>().To<AccountRepository>();
+            this.Bind<IProfileRepository>().To<ProfileRepository>();
+            this.Bind<ISettingsRepository>().To<SettingsRepository>();
+            this.Bind<DbContext>().To<MediaContext>();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public UserContext()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<UserContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<UserContext>());
         }
 
         /// <summary>
@@ -32,13 +32,13 @@ namespace MediaShop.DataAccess.Context
         /// Gets or sets the profiles.
         /// </summary>
         /// <value>The profiles.</value>
-        public IDbSet<AccountProfile> Profiles { get; set; }
+        public IDbSet<Profile> Profiles { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public IDbSet<AccountSettings> Settings { get; set; }
+        public IDbSet<Settings> Settings { get; set; }
 
         /// <summary>
         /// This method is called when the model for a derived context has been initialized, but
@@ -59,7 +59,7 @@ namespace MediaShop.DataAccess.Context
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
-            modelBuilder.Configurations.Add(new AccountSettingsConfiguration());
+            modelBuilder.Configurations.Add(new SettingsConfiguration());
         }
     }
 }
