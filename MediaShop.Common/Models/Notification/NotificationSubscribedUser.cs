@@ -8,7 +8,7 @@ namespace MediaShop.Common.Models.Notification
 {
     public class NotificationSubscribedUser : Entity
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public string DeviceIdentifier { get; set; }
     }

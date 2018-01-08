@@ -6,8 +6,8 @@ namespace MediaShop.Common.Interfaces.Repositories
 {
     public interface INotificationSubscribedUserRepository : IRespository<NotificationSubscribedUser>
     {
-        List<string> GetUserDeviceTokens(int userId);
+        List<string> GetUserDeviceTokens(long userId);
 
-        bool IsExists(ulong userId, string deviceToken);
+        bool IsExists(long userId, string deviceToken);
     }
 }

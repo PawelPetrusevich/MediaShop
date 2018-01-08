@@ -5,8 +5,8 @@ namespace MediaShop.Common.Interfaces.Services
 {
     public interface INotificationSubscribedUserService
     {
-        NotificationSubscribedUserDto Subscribe(ulong userId, string deviceToken);
+        NotificationSubscribedUserDto Subscribe(long userId, string deviceToken);
 
-        bool UserIsSubscribed(ulong userId, string deviceToken);
+        bool UserIsSubscribed(long userId, string deviceToken);
     }
 }

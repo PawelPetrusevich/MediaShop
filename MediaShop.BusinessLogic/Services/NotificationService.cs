@@ -24,7 +24,7 @@ namespace MediaShop.BusinessLogic.Services
             this._notifcationStore = notifcationStore;
         }
 
-        public void Notify(int userId, NotificationDto notification)
+        public void Notify(long userId, NotificationDto notification)
         {
             var tokens = this._subscribedUserStore.GetUserDeviceTokens(userId);
 

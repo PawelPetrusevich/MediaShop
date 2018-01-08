@@ -44,7 +44,7 @@ namespace MediaShop.DataAccess.Repositories
             return currentNotification;
         }
 
-        public Notification Delete(int id)
+        public Notification Delete(long id)
         {
             var model = this._notificationContext.Notifications.Single(n => n.Id == id);
             return this.Delete(model);
@@ -56,7 +56,7 @@ namespace MediaShop.DataAccess.Repositories
             return searchResult;
         }
 
-        public Notification Get(int id)
+        public Notification Get(long id)
         {
             return this._notificationContext.Notifications.Single(n => n.Id == id);
         }
