@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Resources;
 using System.Web.Http;
 using MediaShop.Common.Models.User;
+using MediaShop.WebApi.Properties;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
@@ -14,16 +16,15 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             return this.Ok(new List<Settings>());
         }
 
-        [HttpGet]
-        [Route("GetById")]
-        public IHttpActionResult GetById(long id)
-        {
-            return this.Ok(new Settings());
-        }
-
         [HttpPost]
-        public IHttpActionResult Post([FromBody] Settings settings)
+        [Route("modify")]
+        public IHttpActionResult ModifySettings([FromBody] Settings settings)
         {
+            if (settings == null || ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
             return this.Content<Settings>(HttpStatusCode.Created, new Settings());
         }
 

@@ -52,7 +52,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_userService.Register(Mapper.Map<UserDto>(data)));
+                return Ok(_userService.Register(data));
             }
             catch (ExistingLoginException ex)
             {

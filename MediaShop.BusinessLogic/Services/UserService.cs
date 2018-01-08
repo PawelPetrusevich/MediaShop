@@ -41,7 +41,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
         /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
-        public Account Register(UserDto userModel)
+        public Account Register(RegisterUserDto userModel)
         {
             var existingAccount = this._store.GetByLogin(userModel.Login);
             if (existingAccount != null)
@@ -50,7 +50,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var account = Mapper.Map<Account>(userModel);
-            account.Permissions.Add(userModel.UserRole);
+            account.Permissions.Add(Role.User);
 
             var createdAccount = this._store.Add(account);
 

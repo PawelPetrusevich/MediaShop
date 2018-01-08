@@ -23,7 +23,8 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-            this.CreateMap<UserDto, Account>().ReverseMap();
+            this.CreateMap<RegisterUserDto, Account>().ReverseMap();
+            CreateMap<SettingsDto, Settings>().ReverseMap();
         }
     }
 }
