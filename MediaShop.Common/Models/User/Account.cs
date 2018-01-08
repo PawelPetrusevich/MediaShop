@@ -27,6 +27,12 @@ namespace MediaShop.Common.Models.User
         public string Password { get; set; }
 
         /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>The email.</value>
+        public string Email { get; set; }
+
+        /// <summary>
         /// Gets or sets the profile identifier.
         /// </summary>
         /// <value>The profile identifier.</value>

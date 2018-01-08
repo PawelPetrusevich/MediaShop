@@ -1,43 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Resources;
 using System.Web.Http;
+using MediaShop.Common.Dto.User;
+using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Properties;
+using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
     [RoutePrefix("api/settings")]
     public class SettingsController : ApiController
     {
-        [HttpGet]
-        public IHttpActionResult Get()
+        private readonly ISettingsService _settingsService;
+
+        public SettingsController(ISettingsService settingsService)
         {
-            return this.Ok(new List<Settings>());
+            _settingsService = settingsService;
         }
 
         [HttpPost]
         [Route("modify")]
-        public IHttpActionResult ModifySettings([FromBody] Settings settings)
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Settings))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult ModifySettings([FromBody] SettingsDto settings)
         {
             if (settings == null || ModelState.IsValid)
             {
                 return BadRequest(Resources.EmptyRegisterDate);
             }
 
-            return this.Content<Settings>(HttpStatusCode.Created, new Settings());
-        }
-
-        [HttpPut]
-        public IHttpActionResult Put([FromBody]Settings settings)
-        {
-            return this.Ok(new Settings());
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete([FromBody]long id)
-        {
-            return this.Ok();
+            try
+            {
+                return Ok(_settingsService.Modify(settings));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

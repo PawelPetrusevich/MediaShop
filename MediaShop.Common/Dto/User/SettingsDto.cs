@@ -1,7 +1,10 @@
-﻿using MediaShop.Common.Models.User;
+﻿using FluentValidation.Attributes;
+using MediaShop.Common.Dto.User.Validators;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Dto.User
 {
+    [Validator(typeof(SettingsValidator))]
     public class SettingsDto
     {
         public string UserLogin { get; set; }

@@ -78,6 +78,7 @@
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
+    <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
