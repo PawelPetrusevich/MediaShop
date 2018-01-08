@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\ISettingsService.cs" />
+    <Compile Include="Interfaces\Services\IProfileService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\Entity.cs" />
