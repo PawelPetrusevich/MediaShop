@@ -4,7 +4,12 @@
 
 namespace MediaShop.DataAccess
 {
+    using System.Data.Entity;
+
+    using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.DataAccess.Context;
+    using MediaShop.DataAccess.Repositories;
+
     using Ninject.Modules;
 
     /// <summary>
@@ -19,6 +24,10 @@ namespace MediaShop.DataAccess
         public override void Load()
         {
             this.Bind<MediaContext>().ToSelf();
+            this.Bind<IAccountRepository>().To<AccountRepository>();
+            this.Bind<IProfileRepository>().To<ProfileRepository>();
+            this.Bind<ISettingsRepository>().To<SettingsRepository>();
+            this.Bind<DbContext>().To<MediaContext>();
         }
     }
 }

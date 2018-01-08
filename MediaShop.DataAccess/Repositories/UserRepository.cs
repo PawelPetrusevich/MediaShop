@@ -17,7 +17,7 @@ namespace MediaShop.DataAccess.Repositories
     /// </summary>
     /// <typeparam name="T">Actual Entity type</typeparam>
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRespository{T}" />
-    public class UserRepository<T> : IRespository<T>
+    public class UserRepository<T> : IRepository<T>
         where T : Entity
     {
         private readonly DbContext сontext;

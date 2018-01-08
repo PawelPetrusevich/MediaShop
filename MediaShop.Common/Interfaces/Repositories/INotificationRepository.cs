@@ -8,7 +8,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// <summary>
     /// Interface of notifications' repository
     /// </summary>
-    public interface INotificationRepository : IRespository<Notification>
+    public interface INotificationRepository : IRepository<Notification>
     {
     }
 }

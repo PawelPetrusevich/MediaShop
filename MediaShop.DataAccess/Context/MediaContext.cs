@@ -6,6 +6,9 @@ namespace MediaShop.DataAccess.Context
 {
     using System.Data.Entity;
 
+    using MediaShop.Common.Models.User;
+    using MediaShop.DataAccess.Configurations;
+
     /// <summary>
     /// Class MediaContext.
     /// </summary>
@@ -18,9 +21,28 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
         }
 
         public DbSet<Notification> Notifications { get; set; }
+
+        /// <summary>
+        /// Gets or sets the accounts.
+        /// </summary>
+        /// <value>The accounts.</value>
+        public IDbSet<Account> Accounts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profiles.
+        /// </summary>
+        /// <value>The profiles.</value>
+        public IDbSet<Profile> Profiles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>The settings.</value>
+        public IDbSet<Settings> Settings { get; set; }
 
         /// <summary>
         /// Method configuration tables
@@ -30,7 +52,9 @@ namespace MediaShop.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            // your config for Entity here placed in configuartion folder
+            modelBuilder.Configurations.Add(new AccountConfiguration());
+            modelBuilder.Configurations.Add(new ProfileConfiguration());
+            modelBuilder.Configurations.Add(new SettingsConfiguration());
             modelBuilder.Configurations.Add(new NotificationConfiguration());
         }
     }
