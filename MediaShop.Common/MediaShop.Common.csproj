@@ -76,7 +76,7 @@
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
-    <Compile Include="Dto\User\UserDto.cs" />
+    <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
