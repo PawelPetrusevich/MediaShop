@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Web.Http;
 
-namespace MediaShop.WebApi.Controllers
+namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
     public class NotificationController : ApiController
     {
