@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70D5D62C-5908-4825-9B59-436FC179C1A9}</ProjectGuid>
+    <ProjectGuid>{D7F777B1-771E-4E5F-9A29-DD7E11A7E32D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaShop.Common</RootNamespace>
-    <AssemblyName>MediaShop.Common</AssemblyName>
+    <RootNamespace>MediaShop.BusinessLogic</RootNamespace>
+    <AssemblyName>MediaShop.BusinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
-    <DocumentationFile>bin\Debug\MediaShop.Common.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MediaShop.BusinessLogic.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +41,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -52,26 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="Helpers\CollectionExtensions.cs" />
-    <Compile Include="Dto\ProductDto.cs" />
-    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IRepository.cs" />
-    <Compile Include="Interfaces\Services\IUserService.cs" />
-    <Compile Include="Interfaces\Services\IProductService.cs" />
-    <Compile Include="MapperProfile.cs" />
-    <Compile Include="Models\Content\Product.cs" />
-    <Compile Include="Models\Content\ProductType.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\User\Account.cs" />
-    <Compile Include="Models\User\AccountSettings.cs" />
-    <Compile Include="Models\User\ExistingLoginException.cs" />
-    <Compile Include="Models\User\AccountProfile.cs" />
-    <Compile Include="Models\User\Language.cs" />
-    <Compile Include="Models\User\Role.cs" />
+    <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">
+      <Project>{70d5d62c-5908-4825-9b59-436fc179c1a9}</Project>
+      <Name>MediaShop.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
@@ -97,11 +92,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70D5D62C-5908-4825-9B59-436FC179C1A9}</ProjectGuid>
+    <ProjectGuid>{D7F777B1-771E-4E5F-9A29-DD7E11A7E32D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MediaShop.Common</RootNamespace>
-    <AssemblyName>MediaShop.Common</AssemblyName>
+    <RootNamespace>MediaShop.BusinessLogic</RootNamespace>
+    <AssemblyName>MediaShop.BusinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -117,7 +112,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
-    <DocumentationFile>bin\Debug\MediaShop.Common.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MediaShop.BusinessLogic.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -132,7 +127,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>bin\Debug\MediaShop.Common.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MediaShop.BusinessLogic.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -151,6 +146,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -162,21 +160,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="Helpers\CollectionExtensions.cs" />
-    <Compile Include="Interfaces\Repositories\IRespository.cs" />
-    <Compile Include="Interfaces\Services\IUserService.cs" />
-    <Compile Include="MapperProfile.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\User\Account.cs" />
-    <Compile Include="Models\User\AccountSettings.cs" />
-    <Compile Include="Exceptions\ExistingLoginException.cs" />
-    <Compile Include="Models\User\AccountProfile.cs" />
-    <Compile Include="Models\User\Language.cs" />
-    <Compile Include="Models\User\Role.cs" />
+    <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">
+      <Project>{70d5d62c-5908-4825-9b59-436fc179c1a9}</Project>
+      <Name>MediaShop.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
