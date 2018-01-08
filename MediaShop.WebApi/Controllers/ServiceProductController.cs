@@ -30,6 +30,5 @@ namespace MediaShop.WebApi.Controllers
         {
             return this.Ok();
         }
-
     }
 }
