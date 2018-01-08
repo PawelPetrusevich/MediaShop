@@ -21,7 +21,11 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// </summary>
         /// <param name="id">Id of searching element</param>
         /// <returns>TModel</returns>
-        TModel Get(int id);
+<<<<<<< HEAD:MediaShop.Common/Interfaces/Repositories/IRepository.cs
+        TModel Get(ulong id);
+=======
+        TModel Get(long id);
+>>>>>>> develop:MediaShop.Common/Interfaces/Repositories/IRespository.cs
 
         /// <summary>
         /// interface method add for type TModel
@@ -49,7 +53,11 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// </summary>
         /// <param name="id">Id of deleting model</param>
         /// <returns>Deleted model</returns>
-        TModel Delete(int id);
+<<<<<<< HEAD:MediaShop.Common/Interfaces/Repositories/IRepository.cs
+        TModel Delete(ulong id);
+=======
+        TModel Delete(long id);
+>>>>>>> develop:MediaShop.Common/Interfaces/Repositories/IRespository.cs
 
         /// <summary>
         /// Find by id

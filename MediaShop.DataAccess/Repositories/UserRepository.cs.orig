@@ -16,7 +16,7 @@ namespace MediaShop.DataAccess.Repositories
     /// Class UserRepository.
     /// </summary>
     /// <typeparam name="T">Actual Entity type</typeparam>
-    /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRespository{T}" />
+    /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRepository{T}" />
     public class UserRepository<T> : IRepository<T>
         where T : Entity
     {
@@ -39,7 +39,11 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>db entry</returns>
+<<<<<<< HEAD
+        public T Get(ulong id)
+=======
         public T Get(long id)
+>>>>>>> develop
         {
             return this.set.FirstOrDefault(account => account.Id == id) ??
                    throw new ArgumentOutOfRangeException($"Invalid {nameof(id)}");
@@ -106,7 +110,11 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user_id</param>
         /// <returns>null</returns>
+<<<<<<< HEAD
+        public T Delete(ulong id)
+=======
         public T Delete(long id)
+>>>>>>> develop
         {
             var model = this.set.FirstOrDefault(account => account.Id == id);
             if (model != null)

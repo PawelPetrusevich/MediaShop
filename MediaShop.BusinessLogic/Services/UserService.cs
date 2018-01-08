@@ -2,6 +2,9 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
+using MediaShop.Common.Exceptions;
+
 namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
@@ -18,7 +21,7 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="MediaShop.Common.Interfaces.Services.IUserService" />
     public class UserService : IUserService
     {
-        private readonly IRepository<Account> store;
+        private readonly IRespository<Account> store;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
@@ -26,7 +29,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="repository">The repository.</param>
         public UserService(IRepository<Account> repository)
         {
-            this.store = repository;
+            this._store = repository;
         }
 
         /// <summary>
@@ -34,10 +37,10 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        /// <exception cref="MediaShop.Common.Models.User.ExistingLoginException">Throws when user with such login already exists</exception>
+        /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
         public bool Register(UserDto userModel)
         {
-            if (this.store.Find(x => x.Login == userModel.Login).FirstOrDefault() != null)
+            if (this._store.Find(x => x.Login == userModel.Login).FirstOrDefault() != null)
             {
                 throw new ExistingLoginException(userModel.Login);
             }
@@ -45,7 +48,7 @@ namespace MediaShop.BusinessLogic.Services
             var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(userModel.UserRole);
 
-            var createdAccount = this.store.Add(account);
+            var createdAccount = this._store.Add(account);
 
             if (createdAccount == null || createdAccount.Id == 0)
             {
@@ -61,9 +64,9 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        public bool RemoveRole(ulong id, Role role)
+        public bool RemoveRole(int id, Role role)
         {
-            var user = this.store.Find(account => account.Id == id).FirstOrDefault();
+            var user = this._store.Find(account => account.Id == id).FirstOrDefault();
 
             return user?.Permissions.Remove(accountRole => accountRole == role) > 0;
         }

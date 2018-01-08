@@ -52,6 +52,6 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the account identifier.
         /// </summary>
         /// <value>The account identifier.</value>
-        public int AccountId { get; set; }
+        public long AccountId { get; set; }
     }
 }
