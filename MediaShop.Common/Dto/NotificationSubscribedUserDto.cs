@@ -8,7 +8,7 @@ namespace MediaShop.Common.Dto
 {
     public class NotificationSubscribedUserDto
     {
-        public ulong UserId { get; set; }
+        public long UserId { get; set; }
 
         public string DeviceIdentifier { get; set; }
     }
