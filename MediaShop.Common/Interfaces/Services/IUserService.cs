@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using MediaShop.Common.Dto.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -19,7 +20,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        bool Register(UserDto userModel);
+        Account Register(UserDto userModel);
 
         /// <summary>
         /// Removes the role from the user's permission list.

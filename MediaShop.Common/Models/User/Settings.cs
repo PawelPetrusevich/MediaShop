@@ -1,4 +1,4 @@
-// <copyright file="AccountSettings.cs" company="MediaShop">
+// <copyright file="Settings.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -9,22 +9,17 @@ namespace MediaShop.Common.Models.User
     /// <summary>
     /// Class describes personal user settings
     /// </summary>
-    public class AccountSettings : Entity
+    public class Settings : Entity
     {
-        /// <summary>
-        /// Default id for timezone UTC
-        /// </summary>
-        public const string DefaultTimeZoneId = "UTC";
-
         /// <summary>
         /// Identifier timezone of user, default value +0
         /// </summary>
-        public string TimeZoneId { get; set; } = DefaultTimeZoneId;
+        public string TimeZoneId { get; set; } = Constants.DefaultTimeZoneId;
 
         /// <summary>
         /// Languae of userinterface
         /// </summary>
-        public Language InterfaceLanguage { get; set; } = Language.Eng;
+        public Languages InterfaceLanguage { get; set; } = Languages.Eng;
 
         /// <summary>
         /// Turn on/off notification
@@ -34,7 +29,7 @@ namespace MediaShop.Common.Models.User
         /// <summary>
         /// reference to account table
         /// </summary>
-        public Account AccountOf { get; set; }
+        public virtual Account AccountOf { get; set; }
 
         /// <summary>
         /// id from table Account

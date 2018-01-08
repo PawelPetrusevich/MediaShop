@@ -4,7 +4,7 @@ using MediaShop.Common.Models.Notification;
 
 namespace MediaShop.Common.Interfaces.Repositories
 {
-    public interface INotificationSubscribedUserRepository : IRespository<NotificationSubscribedUser>
+    public interface INotificationSubscribedUserRepository : IRepository<NotificationSubscribedUser>
     {
         List<string> GetUserDeviceTokens(long userId);
 

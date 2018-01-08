@@ -2,11 +2,11 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-namespace MediaShop.Common.Dto
-{
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.User;
 
+namespace MediaShop.Common.Dto.User
+{
     /// <summary>
     /// Class UserDto.
     /// </summary>
