@@ -10,14 +10,9 @@ namespace MediaShop.Common.Models.User
     public class Settings : Entity
     {
         /// <summary>
-        /// Default id for timezone UTC
-        /// </summary>
-        public const string DefaultTimeZoneId = "UTC";
-
-        /// <summary>
         /// Identifier timezone of user, default value +0
         /// </summary>
-        public string TimeZoneId { get; set; } = DefaultTimeZoneId;
+        public string TimeZoneId { get; set; } = Constants.DefaultTimeZoneId;
 
         /// <summary>
         /// Languae of userinterface
