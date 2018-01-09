@@ -24,7 +24,7 @@ namespace MediaShop.Common
         public MapperProfile()
         {
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
-            CreateMap<SettingsDto, Settings>().ReverseMap();
+            this.CreateMap<SettingsDto, Settings>().ForMember(x => x.AccountId, opt => opt.MapFrom(m => m.UserId)).ReverseMap();
         }
     }
 }

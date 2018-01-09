@@ -56,7 +56,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
             catch (ExistingLoginException ex)
             {
-                return BadRequest(string.Empty);
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

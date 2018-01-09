@@ -20,7 +20,7 @@ namespace MediaShop.BusinessLogic.Services
 
         public Settings Modify(SettingsDto settings)
         {
-            var user = _storeAccount.GetByLogin(settings.UserLogin);
+            var user = _storeAccount.Get(settings.UserId);
 
             //TODO change to correct Exception
 

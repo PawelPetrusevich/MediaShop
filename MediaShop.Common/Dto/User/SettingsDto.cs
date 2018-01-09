@@ -7,7 +7,7 @@ namespace MediaShop.Common.Dto.User
     [Validator(typeof(SettingsValidator))]
     public class SettingsDto
     {
-        public string UserLogin { get; set; }
+        public int UserId { get; set; }
 
         public string TimeZoneId { get; set; }
 

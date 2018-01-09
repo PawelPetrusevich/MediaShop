@@ -13,16 +13,10 @@ namespace MediaShop.Common.Models.User
     public class Profile : Entity
     {
         /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        /// <value>The email.</value>
-        public string Email { get; set; }
-
-        /// <summary>
         /// Gets or sets the date of birth.
         /// </summary>
         /// <value>The date of birth.</value>
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the first name.
@@ -52,6 +46,6 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the account identifier.
         /// </summary>
         /// <value>The account identifier.</value>
-        public long AccountId { get; set; }
+        public long? AccountId { get; set; }
     }
 }
