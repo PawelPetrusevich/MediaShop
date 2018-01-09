@@ -1,4 +1,4 @@
-﻿namespace MediaShop.Common.Models.User
+namespace MediaShop.Common.Models.User
 {
     /// <summary>
     /// Class describes all constants for user

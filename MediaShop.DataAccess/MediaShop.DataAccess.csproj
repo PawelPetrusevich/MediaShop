@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
-    <Compile Include="Configurations\AccountSettingsConfiguration.cs" />
+    <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +96,10 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\ProfileRepository.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

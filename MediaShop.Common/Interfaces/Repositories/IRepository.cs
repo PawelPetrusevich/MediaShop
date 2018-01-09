@@ -1,4 +1,4 @@
-﻿// <copyright file="IRespository.cs" company="MediaShop">
+﻿// <copyright file="IRepository.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     using MediaShop.Common.Models;
 
     /// <summary>
-    /// Interface IRespository
+    /// Interface IRepository
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
     public interface IRepository<TModel>

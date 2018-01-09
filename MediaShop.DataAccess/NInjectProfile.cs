@@ -4,6 +4,8 @@
 
 namespace MediaShop.DataAccess
 {
+    using System.Data.Entity;
+
     using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
@@ -25,6 +27,10 @@ namespace MediaShop.DataAccess
             this.Bind<ICartRepository<ContentCart>>().To<CartRepository>();
             this.Bind<IProductRepository<Product>>().To<ProductRepository>();
             this.Bind<MediaContext>().ToSelf();
+            this.Bind<IAccountRepository>().To<AccountRepository>();
+            this.Bind<IProfileRepository>().To<ProfileRepository>();
+            this.Bind<ISettingsRepository>().To<SettingsRepository>();
+            this.Bind<DbContext>().To<MediaContext>();
         }
     }
 }
