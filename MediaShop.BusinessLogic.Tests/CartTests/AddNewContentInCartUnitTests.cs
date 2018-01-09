@@ -5,6 +5,7 @@ using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.CartModels;
 using MediaShop.Common.Models;
 using MediaShop.Common;
+using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.BusinessLogic.Services;
 
 
@@ -67,7 +68,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(CartExceptions))]
+        [ExpectedException(typeof(AddContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
             // Create object ContentCartDto
@@ -92,7 +93,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(CartExceptions))]
+        [ExpectedException(typeof(ExistContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Get_Product()
         {
             // Create object ContentCartDto

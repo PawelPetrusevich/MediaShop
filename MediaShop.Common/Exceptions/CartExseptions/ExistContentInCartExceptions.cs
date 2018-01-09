@@ -7,24 +7,24 @@
     /// Class CartExceptions
     /// </summary>
     [Serializable]
-    public class CartExceptions : Exception
+    public class ExistContentInCartExceptions : Exception
     {
-        public CartExceptions()
+        public ExistContentInCartExceptions()
             : base()
         {
         }
 
-        public CartExceptions(string message)
+        public ExistContentInCartExceptions(string message)
             : base(message)
         {
         }
 
-        public CartExceptions(string message, Exception inner)
+        public ExistContentInCartExceptions(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        public CartExceptions(SerializationInfo info, StreamingContext context)
+        public ExistContentInCartExceptions(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

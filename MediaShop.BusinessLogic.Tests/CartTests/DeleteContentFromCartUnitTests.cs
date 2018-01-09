@@ -121,7 +121,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(CartExceptions))]
+        [ExpectedException(typeof(DeleteContentFromCartUnitTests))]
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {
             // collection for rezalt as return method 

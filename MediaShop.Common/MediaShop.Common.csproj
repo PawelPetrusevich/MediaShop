@@ -77,6 +77,9 @@
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
+    <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
@@ -90,7 +93,7 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
-    <Compile Include="Models\CartModels\CartExceptions.cs" />
+    <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
@@ -102,8 +105,18 @@
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />

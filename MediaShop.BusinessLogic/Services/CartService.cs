@@ -5,7 +5,9 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using AutoMapper;
+    using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Enums;
+    using MediaShop.Common.Exceptions.CartExseptions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
@@ -44,7 +46,7 @@
 
             if (product == null)
             {
-                throw new CartExceptions($"Product with id = {contentId} is absent in database");
+                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
             // Mapping object Entity to object ContentCart
@@ -60,7 +62,7 @@
             // return null
             if (addContentCart == null)
             {
-                throw new CartExceptions($"Content cart with id = {contentId} isn`t add in cart");
+                throw new AddContentInCartExceptions(Resources.AddContentInCart);
             }
 
             // Mapping object ContentCartDto to ContentCart
@@ -94,8 +96,7 @@
                         }
                     }
 
-                    throw new CartExceptions(
-                        $"Operation delete unsuccesfully. Content cart with id = {contentCart} isn`t delete in cart");
+                    throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
                 }
                 else
                 {
@@ -149,7 +150,7 @@
 
             if (contentCartForUpdate == null)
             {
-                throw new CartExceptions($"Product with id = {contentId} is absent in database");
+                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
             // change state object
@@ -164,7 +165,7 @@
 
             if (contentCartAfterUpdate.StateContent != contentState)
             {
-                throw new CartExceptions($"State content with id = {contentCartAfterUpdate.Id} isn`t update");
+                throw new UpdateContentInCartExseptions(Resources.UpdateContentInCart);
             }
 
             // Return object ContentCart
