@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Security.AccessControl;
 using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Models.Content
@@ -40,5 +41,11 @@ namespace MediaShop.Common.Models.Content
         /// Gets or sets the ProductType.
         /// </summary>
         public ProductType ProductType { get; set; }
+
+        public byte[] OriginalProduct { get; set; }
+
+        public byte[] ProtectedProduct { get; set; }
+
+        public byte[] CompressedProduct { get; set; }
     }
 }

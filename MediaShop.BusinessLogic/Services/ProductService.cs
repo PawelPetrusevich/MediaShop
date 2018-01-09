@@ -30,6 +30,19 @@ namespace MediaShop.BusinessLogic.Services
             this.repository = repository;
         }
 
+        //public IEnumerable<ProductDto> UploadProducts(IEnumerable<Product> data)
+        //{
+        //    // Вытащить данные из заголовка файла
+
+        //    // 1.проверка валидации или null
+
+        //    // 2.Создание защищеной
+
+        //    // 3. создание уменьшеной
+
+        //    // 4. Сохранение
+        //}
+
         /// <summary>
         /// метод добовления продукта
         /// </summary>
