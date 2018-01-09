@@ -3,6 +3,7 @@
 // </copyright>
 
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Models.Content;
 
 namespace MediaShop.Common
 {
@@ -24,6 +25,7 @@ namespace MediaShop.Common
         public MapperProfile()
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
+            this.CreateMap<ProductDto, Product>().ReverseMap();
         }
     }
 }

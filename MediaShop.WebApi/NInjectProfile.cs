@@ -18,8 +18,7 @@ namespace MediaShop.WebApi
         /// Load
         /// </summary>
         public override void Load()
-        {
-            Bind<IProductService>().To<ProductService>();
+        {  
         }
     }
 }
