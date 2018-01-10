@@ -24,11 +24,15 @@ namespace MediaShop.Common
         /// Initializes a new instance of the <see cref="MapperProfile"/> class.
         /// </summary>
         public MapperProfile()
-        {            
-               this.CreateMap<Product, ContentCart>()
-                .ForMember(item => item.CreatorId, m => m.Ignore());
+        {
+<<<<<<< HEAD
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
             this.CreateMap<SettingsDto, Settings>().ForMember(x => x.AccountId, opt => opt.MapFrom(m => m.UserId)).ReverseMap();
+=======
+            this.CreateMap<UserDto, Account>().ReverseMap();
+               this.CreateMap<Product, ContentCart>()
+                .ForMember(item => item.CreatorId, m => m.Ignore());
+>>>>>>> develop
         }
     }
 }

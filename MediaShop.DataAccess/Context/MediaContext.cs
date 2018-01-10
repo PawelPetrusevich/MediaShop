@@ -4,7 +4,9 @@
 
 namespace MediaShop.DataAccess.Context
 {
+    using MediaShop.DataAccess.Configurations;
     using System.Data.Entity;
+    using MediaShop.Common.Models;
 
     using MediaShop.Common.Models.User;
     using MediaShop.DataAccess.Configurations;
@@ -23,6 +25,8 @@ namespace MediaShop.DataAccess.Context
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
         }
+
+        public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
         /// Gets or sets the accounts.
@@ -49,6 +53,7 @@ namespace MediaShop.DataAccess.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new ContentCartConfiguration());
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());

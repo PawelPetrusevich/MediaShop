@@ -34,7 +34,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Entity</returns>
         public Account GetByLogin(string login)
         {
-            return this.Dbset.SingleOrDefault(account => account.Login.Equals(login));
+            return this.DbSet.SingleOrDefault(account => account.Login.Equals(login));
         }
     }
 }
