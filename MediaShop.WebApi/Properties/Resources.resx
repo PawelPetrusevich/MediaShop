@@ -120,6 +120,9 @@
   <data name="EmptyRegisterDate" xml:space="preserve">
     <value>Data cannot be empty.</value>
   </data>
+  <data name="NotFoundNotification" xml:space="preserve">
+    <value>Notifications for user with this id not found</value>
+  </data>
   <data name="NotValidNotification" xml:space="preserve">
     <value>Notification is not valid</value>
   </data>

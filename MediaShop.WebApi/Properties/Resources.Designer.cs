@@ -70,6 +70,15 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notifications for user with this id not found.
+        /// </summary>
+        internal static string NotFoundNotification {
+            get {
+                return ResourceManager.GetString("NotFoundNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification is not valid.
         /// </summary>
         internal static string NotValidNotification {

@@ -63,8 +63,11 @@ namespace MediaShop.DataAccess.Repositories
 
         public IEnumerable<Notification> Find(Expression<Func<Notification, bool>> filter)
         {
-            var searchResult = this._notificationContext.Notifications.Where(filter).ToList();
-            return searchResult;
+            using (this._notificationContext)
+            {
+                var searchResult = this._notificationContext.Notifications.Where(filter).ToList();
+                return searchResult;
+            }
         }
 
         public Notification Get(long id)

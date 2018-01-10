@@ -14,12 +14,18 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         public NotificationController(INotificationService notificationService)
         {
             _notificationService = notificationService;
-        }     
+        }
 
-        [HttpGet]       
+        [HttpGet]
         public IHttpActionResult Get(long userId)
         {
-            return this.Ok(_notificationService.GetByUserId(userId));
+            var result = _notificationService.GetByUserId(userId);
+            if (ReferenceEquals(result, null))
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(result);
         }
 
         [HttpPost]
@@ -31,15 +37,16 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             }
 
             try
-            {                
+            {
                 return this.Ok(_notificationService.Notify(notification));
             }
+
             catch (System.Exception)
             {
 
                 return this.InternalServerError();
             }
-            
+
         }
 
         [HttpPut]
