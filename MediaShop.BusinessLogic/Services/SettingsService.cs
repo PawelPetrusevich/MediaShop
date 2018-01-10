@@ -30,6 +30,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var userSettings = Mapper.Map<Settings>(settings);
+            userSettings.AccountOf = user;
 
             var modiffiedSettings = _storeSettings.Update(userSettings);
 

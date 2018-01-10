@@ -30,7 +30,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult ModifySettings([FromBody] SettingsDto settings)
         {
-            if (settings == null || ModelState.IsValid)
+            if (settings == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmptyRegisterDate);
             }
