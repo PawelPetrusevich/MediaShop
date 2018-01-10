@@ -1,4 +1,4 @@
-﻿namespace MediaShop.Common.Models.User
+﻿namespace MediaShop.Common.Enums
 {
     public enum ProductType
     {

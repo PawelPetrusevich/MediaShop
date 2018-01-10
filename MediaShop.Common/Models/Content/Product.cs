@@ -2,8 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System.Security.AccessControl;
-using MediaShop.Common.Models.User;
+using MediaShop.Common.Enums;
 
 namespace MediaShop.Common.Models.Content
 {

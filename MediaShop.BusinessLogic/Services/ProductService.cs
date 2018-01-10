@@ -1,21 +1,21 @@
 ﻿// <copyright file="ProductService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
+
 namespace MediaShop.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.IO;
     using System.Linq.Expressions;
-    using System.Net;
     using AutoMapper;
+    using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.Content;
-    using System.IO;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using MediaShop.BusinessLogic.Properties;
 
     /// <summary>
     /// class ProductService.
@@ -38,27 +38,40 @@ namespace MediaShop.BusinessLogic.Services
             var returnProducts = new List<ProductDto>();
 
             // Вытащить данные из заголовка файла
-
             // 1.проверка валидации или null
-
             // 2.Создание защищеной
             // 3. создание уменьшеной
+            // 4. Добавление
 
             foreach (var product in data)
             {
                 try
                 {
-                    var protectedProduct = GetProtectedImage(product.OriginalProduct.File);
+                    product.ProtectedProduct =
+                        new ProtectedProduct()
+                        {
+                            File = GetProtectedImage(product.OriginalProduct.File),
+                            Product = product,
+                            ProductId = product.Id
+                        };
+
+                    product.CompressedProduct =
+                        new CompressedProduct()
+                        {
+                            File = GetCompressedImage(product.OriginalProduct.File),
+                            Product = product,
+                            ProductId = product.Id
+                        };
                 }
                 catch (Exception e)
                 {
                     throw;
                 }
 
-                var compressedProduct = GetCompressedImage(product.OriginalProduct.File);
+                var result = repository.Add(product);
+                if (!ReferenceEquals(result, null))
+                    returnProducts.Add(result);
             }
-
-            // 4. Сохранение
 
             return returnProducts;
         }
@@ -215,7 +228,7 @@ namespace MediaShop.BusinessLogic.Services
             return resultsCollection;
         }
 
-        private byte[] GetProtectedImage(byte[] originalImageByte)
+        public byte[] GetProtectedImage(byte[] originalImageByte)
         {
             byte[] fileByte = new byte[1];
             if (!ReferenceEquals(originalImageByte, null))
@@ -274,7 +287,7 @@ namespace MediaShop.BusinessLogic.Services
             return protectedImageByte;
         }
 
-        private byte[] GetCompressedImage(byte[] originalImage)
+        public byte[] GetCompressedImage(byte[] originalImage)
         {
             int compressedImageSize = 0;
 
