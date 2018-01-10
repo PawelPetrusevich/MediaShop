@@ -98,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\watermark.bmp" />
     <None Include="Resources\WM.png" />
     <Content Include="Settings.StyleCop" />
   </ItemGroup>

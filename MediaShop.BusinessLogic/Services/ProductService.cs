@@ -48,14 +48,14 @@ namespace MediaShop.BusinessLogic.Services
             {
                 try
                 {
-                    var protectedProduct = GetProtectedImage(product.OriginalProduct);
+                    var protectedProduct = GetProtectedImage(product.OriginalProduct.File);
                 }
                 catch (Exception e)
                 {
                     throw;
                 }
 
-                var compressedProduct = GetCompressedImage(product.OriginalProduct);
+                var compressedProduct = GetCompressedImage(product.OriginalProduct.File);
             }
 
             // 4. Сохранение

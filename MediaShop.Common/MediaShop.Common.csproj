@@ -88,6 +88,9 @@
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
     <Compile Include="MapperProfile.cs" />
+    <Compile Include="Models\Content\CompressedProduct.cs" />
+    <Compile Include="Models\Content\ProtectedProduct.cs" />
+    <Compile Include="Models\Content\OriginalProduct.cs" />
     <Compile Include="Models\Content\Product.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
