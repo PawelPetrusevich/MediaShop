@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 using AutoMapper;
@@ -35,7 +36,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(_productService.Add(Mapper.Map<Product>(data)));
+                return Ok(_productService.UploadProducts(new List<Product>() { Mapper.Map<Product>(data) }));
             }
             catch (InvalidOperationException e)
             {

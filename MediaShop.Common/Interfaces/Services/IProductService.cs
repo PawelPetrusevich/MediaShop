@@ -31,6 +31,13 @@ namespace MediaShop.Common.Interfaces.Services
         ProductDto Add(Product model);
 
         /// <summary>
+        /// Upload products.
+        /// </summary>
+        /// <param name="model">product model</param>
+        /// <returns>result</returns>
+        List<ProductDto> UploadProducts(IEnumerable<Product> model);
+
+        /// <summary>
         /// Update method.
         /// </summary>
         /// <param name="model">product model</param>

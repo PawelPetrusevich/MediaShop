@@ -1,7 +1,6 @@
 ﻿// <copyright file="ProductService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
 namespace MediaShop.BusinessLogic.Services
 {
     using System;
@@ -13,6 +12,10 @@ namespace MediaShop.BusinessLogic.Services
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.Content;
+    using System.IO;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using MediaShop.BusinessLogic.Properties;
 
     /// <summary>
     /// class ProductService.
@@ -30,18 +33,35 @@ namespace MediaShop.BusinessLogic.Services
             this.repository = repository;
         }
 
-        //public IEnumerable<ProductDto> UploadProducts(IEnumerable<Product> data)
-        //{
-        //    // Вытащить данные из заголовка файла
+        public List<ProductDto> UploadProducts(IEnumerable<Product> data)
+        {
+            var returnProducts = new List<ProductDto>();
 
-        //    // 1.проверка валидации или null
+            // Вытащить данные из заголовка файла
 
-        //    // 2.Создание защищеной
+            // 1.проверка валидации или null
 
-        //    // 3. создание уменьшеной
+            // 2.Создание защищеной
+            // 3. создание уменьшеной
 
-        //    // 4. Сохранение
-        //}
+            foreach (var product in data)
+            {
+                try
+                {
+                    var protectedProduct = GetProtectedImage(product.OriginalProduct);
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+
+                var compressedProduct = GetCompressedImage(product.OriginalProduct);
+            }
+
+            // 4. Сохранение
+
+            return returnProducts;
+        }
 
         /// <summary>
         /// метод добовления продукта
@@ -193,6 +213,74 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             return resultsCollection;
+        }
+
+        private byte[] GetProtectedImage(byte[] originalImageByte)
+        {
+            byte[] fileByte = new byte[1];
+            if (!ReferenceEquals(originalImageByte, null))
+            {
+                fileByte = new byte[originalImageByte.Length];
+                Array.Copy(originalImageByte, fileByte, originalImageByte.Length);
+            }
+
+            // Temporary: load file from disk
+            // _
+            //FileStream stream = File.OpenRead(@"d:\1.jpg");
+            //fileByte = new byte[stream.Length];
+            //stream.Read(fileByte, 0, fileByte.Length);
+            //stream.Close();
+            //_
+
+            Bitmap originalImageBitmap;
+
+            using (MemoryStream ms = new MemoryStream(fileByte))
+            {
+                originalImageBitmap = (Bitmap)Image.FromStream(ms);
+            }
+
+            var watermarkBitmap = Resources.WaterMark;
+            using (Graphics gr = Graphics.FromImage(originalImageBitmap))
+            {
+                float opacity = (float)0.5;
+                ImageAttributes attr = new ImageAttributes();
+                ColorMatrix matrix = new ColorMatrix(new float[][]
+                {
+                    new float[] { opacity, 0f, 0f, 0f, 0f },
+                    new float[] { 0f, opacity, 0f, 0f, 0f },
+                    new float[] { 0f, 0f, opacity, 0f, 0f },
+                    new float[] { 0f, 0f, 0f, opacity, 0f },
+                    new float[] { 0f, 0f, 0f, 0f, opacity }
+                });
+                attr.SetColorMatrix(matrix);
+                watermarkBitmap.MakeTransparent(Color.White);
+                gr.DrawImage(watermarkBitmap, new Rectangle(0, 0, originalImageBitmap.Width, originalImageBitmap.Height), 0, 0, watermarkBitmap.Width, watermarkBitmap.Height, GraphicsUnit.Pixel, attr);
+            }
+
+            ImageConverter converter = new ImageConverter();
+            var protectedImageByte = (byte[])converter.ConvertTo(originalImageBitmap, typeof(byte[]));
+
+            // Temporary save file to disk for debug
+            // _
+            //using (Stream file = File.OpenWrite(@"d:\2.jpg"))
+            //{
+            //    if (!ReferenceEquals(protectedImageByte, null))
+            //    {
+            //        file.Write(protectedImageByte, 0, protectedImageByte.Length);
+            //    }
+            //}
+            // _
+
+            return protectedImageByte;
+        }
+
+        private byte[] GetCompressedImage(byte[] originalImage)
+        {
+            int compressedImageSize = 0;
+
+            byte[] compressedImage = new byte[compressedImageSize];
+
+            return compressedImage;
         }
     }
 }
