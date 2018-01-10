@@ -9,8 +9,9 @@ namespace MediaShop.DataAccess.Repositories
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
-    using MediaShop.Common.Interfaces.Repositories;
-    using MediaShop.Common.Models;
+    using AutoMapper;
+    using Common.Interfaces.Repositories;
+    using Common.Models;
 
     /// <summary>
     /// Class Repository.
@@ -29,8 +30,8 @@ namespace MediaShop.DataAccess.Repositories
         /// <summary>
         /// The db set
         /// </summary>
-        protected readonly DbSet<T> Dbset;
-        private bool disposed;
+        protected readonly DbSet<T> DbSet;
+        private bool _disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{T}"/> class.
@@ -38,8 +39,8 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="context">The context.</param>
         public Repository(DbContext context)
         {
-            this.Context = context;
-            this.Dbset = this.Context.Set<T>();
+            Context = context;
+            DbSet = Context.Set<T>();
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         ~Repository()
         {
-            this.Dispose(false);
+            Dispose(false);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>db entry</returns>
         public T Get(long id)
         {
-            return this.Dbset.SingleOrDefault(entity => entity.Id == id);
+            return DbSet.SingleOrDefault(entity => entity.Id == id);
         }
 
         /// <summary>
@@ -74,10 +75,10 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            using (this.Context)
+            using (Context)
             {
-                var result = this.Dbset.Add(model);
-                this.Context.SaveChanges();
+                var result = DbSet.Add(model);
+                Context.SaveChanges();
                 return result;
             }
         }
@@ -89,16 +90,13 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Updated model</returns>
         public T Update(T model)
         {
-            using (this.Context)
+            using (Context)
             {
-                T entity = this.Get(model.Id);
+                T entity = Get(model.Id);
 
-                foreach (var property in typeof(T).GetProperties())
-                {
-                    property.SetValue(entity, property.GetValue(model));
-                }
+                entity = Mapper.Map(model, entity);
 
-                this.Context.SaveChanges();
+                Context.SaveChanges();
                 return entity;
             }
         }
@@ -110,16 +108,17 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Instance of deleted model</returns>
         public T Delete(T model)
         {
-            if (this.Dbset.Contains(model))
+            if (DbSet.Contains(model))
             {
-                using (this.Context)
+                using (Context)
                 {
-                    this.Context.SaveChanges();
-                    return this.Dbset.Remove(model);
+                    DbSet.Remove(model);
+                    Context.SaveChanges();
+                    return model;
                 }
             }
 
-            return null;
+            return default(T);
         }
 
         /// <summary>
@@ -129,19 +128,19 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>Deleted model</returns>
         public T Delete(long id)
         {
-            var model = this.Dbset.SingleOrDefault(entity => entity.Id == id);
+            var model = DbSet.SingleOrDefault(entity => entity.Id == id);
 
             if (model != null)
             {
-                using (this.Context)
+                using (Context)
                 {
-                    var result = this.Dbset.Remove(model);
-                    this.Context.SaveChanges();
-                    return result;
+                    DbSet.Remove(model);
+                    Context.SaveChanges();
+                    return model;
                 }
             }
 
-            return null;
+            return default(T);
         }
 
         /// <summary>
@@ -157,13 +156,13 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(filter));
             }
 
-            return this.Dbset.Where(filter);
+            return DbSet.Where(filter);
         }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
         }
 
         /// <summary>
@@ -172,15 +171,17 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="flag"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool flag)
         {
-            if (!this.disposed)
+            if (_disposed)
             {
-                this.Context.Dispose();
+                return;
+            }
 
-                this.disposed = true;
-                if (flag)
-                {
-                    GC.SuppressFinalize(this);
-                }
+            Context.Dispose();
+            _disposed = true;
+
+            if (flag)
+            {
+                GC.SuppressFinalize(this);
             }
         }
     }
