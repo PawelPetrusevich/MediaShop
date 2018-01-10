@@ -16,20 +16,20 @@
     /// <summary>
     /// Service for work with cart
     /// </summary>
-    public class CartService : ICartService<ContentCart>
+    public class CartService : ICartService<ContentCartDto>
     {
-        private readonly ICartRepository<ContentCart> repositoryContentCart;
+        private readonly ICartRepository<ContentCartDto> repositoryContentCartDto;
 
         private readonly IProductRepository<Product> repositoryProduct;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
-        /// <param name="contentCartRepository">instance repository CartRepository</param>
+        /// <param name="contentCartDtoRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository<ContentCart> contentCartRepository, IProductRepository<Product> productRepository)
+        public CartService(ICartRepository<ContentCartDto> contentCartDtoRepository, IProductRepository<Product> productRepository)
         {
-            this.repositoryContentCart = contentCartRepository;
+            this.repositoryContentCartDto = contentCartDtoRepository;
             this.repositoryProduct = productRepository;
         }
 
@@ -39,8 +39,14 @@
         /// <param name="contentId">contents identifier</param>
         /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        public ContentCart AddInCart(long contentId)
+        public ContentCartDto AddInCart(long contentId, string categoryName)
         {
+            // Verify string categoryName
+            if (string.IsNullOrEmpty(categoryName) || string.IsNullOrWhiteSpace(categoryName))
+            {
+                throw new FormatException(Resources.NullOrEmptyValueString);
+            }
+
             //// Get object ProductDto by id
             var product = this.repositoryProduct.Get(contentId);
 
@@ -49,50 +55,50 @@
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            // Mapping object Entity to object ContentCart
-            var contentCart = Mapper.Map<ContentCart>(product);
+            // Mapping object Entity to object ContentCartDto
+            var contentCartDto = Mapper.Map<ContentCartDto>(product);
 
             // Initialize CreatorId
-            contentCart.CreatorId = 1; // Need initializing userId
+            contentCartDto.CreatorId = 1; // Need initializing userId
 
-            // Save object ContentCartDto in repository
-            var addContentCart = this.repositoryContentCart.Add(contentCart);
+            // Save object ContentCartDtoDto in repository
+            var addContentCartDto = this.repositoryContentCartDto.Add(contentCartDto);
 
             // If the object is not added to the database
             // return null
-            if (addContentCart == null)
+            if (addContentCartDto == null)
             {
                 throw new AddContentInCartExceptions(Resources.AddContentInCart);
             }
 
-            // Mapping object ContentCartDto to ContentCart
-            return addContentCart;
+            // Mapping object ContentCartDtoDto to ContentCartDto
+            return addContentCartDto;
         }
 
         /// <summary>
-        /// Method for deleting selected contentCart
+        /// Method for deleting selected ContentCartDto
         /// </summary>
         /// <param name="collectionId">collection users id</param>
         /// <returns>collection of remote objects</returns>
-        public ICollection<ContentCart> DeleteOfCart(ICollection<long> collectionId)
+        public ICollection<ContentCartDto> DeleteOfCart(ICollection<long> collectionId)
         {
             if (collectionId == null)
             {
                 throw new NullReferenceException();
             }
 
-            var collectionContentCart = new Collection<ContentCart>();
-            foreach (long contentCart in collectionId)
+            var collectionContentCartDto = new Collection<ContentCartDto>();
+            foreach (long contentCartDto in collectionId)
             {
-                var deleteContentCart = this.repositoryContentCart.Delete(contentCart);
-                if (deleteContentCart == null)
+                var deleteContentCartDto = this.repositoryContentCartDto.Delete(contentCartDto);
+                if (deleteContentCartDto == null)
                 {
                     // To do rollback
-                    if (collectionContentCart.Count != 0)
+                    if (collectionContentCartDto.Count != 0)
                     {
-                        foreach (ContentCart content in collectionContentCart)
+                        foreach (ContentCartDto content in collectionContentCartDto)
                         {
-                            var addContentCartRollback = this.repositoryContentCart.Add(content);
+                            var addContentCartDtoRollback = this.repositoryContentCartDto.Add(content);
                         }
                     }
 
@@ -100,11 +106,11 @@
                 }
                 else
                 {
-                    collectionContentCart.Add(deleteContentCart);
+                    collectionContentCartDto.Add(deleteContentCartDto);
                 }
             }
 
-            return collectionContentCart;
+            return collectionContentCartDto;
         }
 
         /// <summary>
@@ -113,7 +119,7 @@
         /// <param name="contentid">content id</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool FindInCart(long contentid) => this.repositoryContentCart
+        public bool FindInCart(long contentid) => this.repositoryContentCartDto
             .Get(contentid) != null;
 
         /// <summary>
@@ -123,17 +129,17 @@
         /// <param name="id">user Id</param>
         /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        public IEnumerable<ContentCart> GetInCart(long id, CartEnums.StateCartContent contentState)
+        public IEnumerable<ContentCartDto> GetInCart(long id, CartEnums.StateCartContent contentState)
         {
-            var contentsInCart = this.repositoryContentCart.Find(
+            var contentsInCart = this.repositoryContentCartDto.Find(
                 x => x.CreatorId == id && x.StateContent == contentState);
-            List<ContentCart> collectionContentCarts = new List<ContentCart>();
-            foreach (ContentCart contentCart in contentsInCart)
+            List<ContentCartDto> collectionContentCartDtos = new List<ContentCartDto>();
+            foreach (ContentCartDto contentCartDto in contentsInCart)
             {
-                collectionContentCarts.Add(contentCart);
+                collectionContentCartDtos.Add(contentCartDto);
             }
 
-            return collectionContentCarts;
+            return collectionContentCartDtos;
         }
 
         /// <summary>
@@ -143,33 +149,32 @@
         /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>object with update state</returns>
-        public ContentCart SetState(long contentId, CartEnums.StateCartContent contentState)
+        public ContentCartDto SetState(long contentId, CartEnums.StateCartContent contentState)
         {
             // Get object by id
-            var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
+            var contentCartDtoForUpdate = this.repositoryContentCartDto.Get(contentId);
 
-            if (contentCartForUpdate == null)
+            if (contentCartDtoForUpdate == null)
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
             // change state object
-            contentCartForUpdate.StateContent = contentState;
+            contentCartDtoForUpdate.StateContent = contentState;
 
             // change ModifierId and ModifiedDate
-            contentCartForUpdate.ModifiedDate = DateTime.Now;
-            contentCartForUpdate.ModifierId = 1; // Need initializing modifierId
+            contentCartDtoForUpdate.ModifierId = 1; // Need initializing modifierId
 
             // Update change
-            var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
+            var contentCartDtoAfterUpdate = this.repositoryContentCartDto.Update(contentCartDtoForUpdate);
 
-            if (contentCartAfterUpdate.StateContent != contentState)
+            if (contentCartDtoAfterUpdate.StateContent != contentState)
             {
                 throw new UpdateContentInCartExseptions(Resources.UpdateContentInCart);
             }
 
-            // Return object ContentCart
-            return contentCartAfterUpdate;
+            // Return object ContentCartDto
+            return contentCartDtoAfterUpdate;
         }
 
         /// <summary>
@@ -182,7 +187,7 @@
             var itemsInCart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
             var model = new Cart()
             {
-                ContentCartCollection = itemsInCart,
+                ContentCartDtoCollection = itemsInCart,
                 CountItemsInCollection = this.GetCountItems(itemsInCart),
                 PriceAllItemsCollection = this.GetPrice(itemsInCart)
             };
@@ -203,9 +208,9 @@
         /// <summary>
         /// Get count items
         /// </summary>
-        /// <param name="cart">Collection ContentCart</param>
+        /// <param name="cart">Collection ContentCartDto</param>
         /// <returns>Count Items</returns>
-        public uint GetCountItems(IEnumerable<ContentCart> cart)
+        public uint GetCountItems(IEnumerable<ContentCartDto> cart)
         {
             return (uint)cart.Count();
         }
@@ -218,15 +223,15 @@
         public decimal GetPrice(long userId)
         {
             var cart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
-            return cart.Sum<ContentCart>(x => x.PriceItem);
+            return cart.Sum<ContentCartDto>(x => x.PriceItem);
         }
 
         /// <summary>
-        /// Get sum price items typeof ContentCart
+        /// Get sum price items typeof ContentCartDto
         /// </summary>
-        /// <param name="cart">Collection ContentCart</param>
+        /// <param name="cart">Collection ContentCartDto</param>
         /// <returns>Sum price</returns>
-        public decimal GetPrice(IEnumerable<ContentCart> cart)
+        public decimal GetPrice(IEnumerable<ContentCartDto> cart)
         {
             return cart.Sum(x => x.PriceItem);
         }

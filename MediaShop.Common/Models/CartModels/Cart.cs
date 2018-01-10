@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets Collection items
         /// </summary>
-        public IEnumerable<ContentCart> ContentCartCollection { get; set; }
+        public IEnumerable<ContentCartDto> ContentCartDtoCollection { get; set; }
 
         /// <summary>
         /// Gets or sets Property to determine price all items in collection

@@ -5,14 +5,14 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
+    using AutoMapper;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
-    using MediaShop.DataAccess.Context;
 
     /// <summary>
     /// Class for work with repository
     /// </summary>
-    public class CartRepository : ICartRepository<ContentCart>, IDisposable
+    public class CartRepository : ICartRepository<ContentCartDto>, IDisposable
     {
         protected readonly DbContext DbContext;
 
@@ -37,42 +37,45 @@
         /// <summary>
         /// Method for add object type ContentCartDto
         /// </summary>
-        /// <param name="model">updating object</param>
+        /// <param name="modelDto">updating object</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Add(ContentCart model)
+        public ContentCartDto Add(ContentCartDto modelDto)
         {
-            if (model == null)
+            if (modelDto == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(modelDto));
             }
 
+            var model = Mapper.Map<ContentCart>(modelDto);
             var result = this.DbSet.Add(model);
             this.DbContext.SaveChanges();
-            return result;
+            return Mapper.Map<ContentCartDto>(result);
         }
 
         /// <summary>
         /// Method for update object type ContentCartDto
         /// </summary>
-        /// <param name="model">updating object</param>
+        /// <param name="modelDto">updating object</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Update(ContentCart model)
+        public ContentCartDto Update(ContentCartDto modelDto)
         {
+            var model = Mapper.Map<ContentCart>(modelDto);
             this.DbContext.Entry(model).State = EntityState.Modified;
             this.DbContext.SaveChanges();
-            return model;
+            return Mapper.Map<ContentCartDto>(model);
         }
 
         /// <summary>
         /// Method for delete object type ContentCartDto
         /// </summary>
-        /// <param name="model">object for delete</param>
+        /// <param name="modelDto">object for delete</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Delete(ContentCart model)
+        public ContentCartDto Delete(ContentCartDto modelDto)
         {
+            var model = Mapper.Map<ContentCart>(modelDto);
             var result = this.DbSet.Remove(model);
             this.DbContext.SaveChanges();
-            return result;
+            return Mapper.Map<ContentCartDto>(result);
         }
 
         /// <summary>
@@ -80,13 +83,13 @@
         /// </summary>
         /// <param name="id">id for delete</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Delete(long id)
+        public ContentCartDto Delete(long id)
         {
             var contentCart = this.DbSet.Where(x => x.Id == id
                 && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
             var result = this.DbSet.Remove(contentCart);
             this.DbContext.SaveChanges();
-            return result;
+            return Mapper.Map<ContentCartDto>(result);
         }
 
         /// <summary>
@@ -95,10 +98,13 @@
         /// </summary>
         /// <param name="filter">predicate</param>
         /// <returns>collection objects</returns>
-        public IEnumerable<ContentCart> Find(Expression<Func<ContentCart, bool>> filter)
+        public IEnumerable<ContentCartDto> Find(Expression<Func<ContentCartDto, bool>> filter)
         {
-            var result = this.DbSet.Where(filter);
-            return result;
+            // var result = this.DbSet.Where(filter);
+            // return result;
+            // For compilation solution!!!
+            List<ContentCartDto> forCompillerList = new List<ContentCartDto>();
+            return forCompillerList;
         }
 
         /// <summary>
@@ -107,9 +113,10 @@
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
-        public ContentCart Get(long id)
+        public ContentCartDto Get(long id)
         {
-            return this.DbSet.Where(x => x.Id == id).SingleOrDefault();
+            var result = this.DbSet.Where(x => x.Id == id).SingleOrDefault();
+            return Mapper.Map<ContentCartDto>(result);
         }
 
         /// <summary>

@@ -3,7 +3,7 @@
     using System.Data.Entity.ModelConfiguration;
     using MediaShop.Common.Models;
 
-    public class ContentCartConfiguration : EntityTypeConfiguration<ContentCartDto>
+    public class ContentCartConfiguration : EntityTypeConfiguration<ContentCart>
     {
         public ContentCartConfiguration()
         {

@@ -5,8 +5,14 @@
     /// <summary>
     /// Сlass describes model ContentCartDTO
     /// </summary>
-    public class ContentCartDto : Entity
+    public class ContentCartDto
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public long Id { get; set; }
+
         /// <summary>
         /// Gets or sets the content name in the shopping cart
         /// </summary>
@@ -17,6 +23,11 @@
         /// content group at the user's choice
         /// </summary>
         public string CategoryName { get; set; }
+
+        /// <summary>
+        /// Gets or sets cart creator name
+        /// </summary>
+        public int CreatorName { get; set; }
 
         /// <summary>
         /// Gets or sets description media content
@@ -33,5 +44,17 @@
         /// </summary>
         public CartEnums.StateCartContent StateContent { get; set; } =
             CartEnums.StateCartContent.InCart;
+
+        /// <summary>
+        /// Gets or sets the creator identifier.
+        /// </summary>
+        /// <value>The creator identifier.</value>
+        public long CreatorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the modifier identifier.
+        /// </summary>
+        /// <value>The modifier identifier.</value>
+        public long? ModifierId { get; set; }
     }
 }

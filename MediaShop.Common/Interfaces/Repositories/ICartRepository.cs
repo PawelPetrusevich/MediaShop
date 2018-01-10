@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TModel">Type content in Cart</typeparam>
     public interface ICartRepository<TModel>
-        where TModel : ContentCart
+        where TModel : ContentCartDto
     {
         /// <summary>
         /// Method for getting object type ContentCart

@@ -12,9 +12,9 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {
-        private readonly ICartService<ContentCart> _cartService;
+        private readonly ICartService<ContentCartDto> _cartService;
 
-        public CartController(ICartService<ContentCart> cartService)
+        public CartController(ICartService<ContentCartDto> cartService)
         {
             this._cartService = cartService;
         }
@@ -30,11 +30,15 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCart))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Post(long contentId)
+        public IHttpActionResult Post(long contentId, string categoryName)
         {
             try
             {
-                return this.Ok(_cartService.AddInCart(contentId));
+                return this.Ok(_cartService.AddInCart(contentId, categoryName));
+            }
+            catch (FormatException error)
+            {
+                return BadRequest(error.Message);
             }
             catch (ExistContentInCartExceptions error)
             {
