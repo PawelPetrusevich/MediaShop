@@ -24,9 +24,8 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="userId">users id</param>
         /// <returns>this save item</returns>
-        TModel AddInCart(long contentId, long userId);
+        TModel AddInCart(long contentId);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -82,10 +81,9 @@
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
         ContentCart SetState(
-            long contentId, long userId, CartEnums.StateCartContent contentState);
+            long contentId, CartEnums.StateCartContent contentState);
     }
 }

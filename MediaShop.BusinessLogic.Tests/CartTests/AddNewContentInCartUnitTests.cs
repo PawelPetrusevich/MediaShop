@@ -58,13 +58,12 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual1
-            var actual3 = service.AddInCart(objContentCart.Id, 50);
+            var actual3 = service.AddInCart(objContentCart.Id);
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((long)5, actual1);
             Assert.AreEqual((long)5, actual2);
             Assert.AreEqual((long)6, actual3.Id);
-            Assert.AreEqual((long)50, actual3.CreatorId);
         }
 
         [TestMethod]
@@ -89,7 +88,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual1
-            var actual3 = service.AddInCart(objContentCart.Id, 50);
+            var actual3 = service.AddInCart(objContentCart.Id);
         }
 
         [TestMethod]
@@ -114,7 +113,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual1
-            var actual3 = service.AddInCart(objContentCart.Id, 50);
+            var actual3 = service.AddInCart(objContentCart.Id);
         }
 
         [TestMethod]

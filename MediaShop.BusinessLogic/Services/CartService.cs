@@ -39,7 +39,7 @@
         /// <param name="contentId">contents identifier</param>
         /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        public ContentCart AddInCart(long contentId, long userId)
+        public ContentCart AddInCart(long contentId)
         {
             //// Get object ProductDto by id
             var product = this.repositoryProduct.Get(contentId);
@@ -53,7 +53,7 @@
             var contentCart = Mapper.Map<ContentCart>(product);
 
             // Initialize CreatorId
-            contentCart.CreatorId = userId;
+            contentCart.CreatorId = 1; // Need initializing userId
 
             // Save object ContentCartDto in repository
             var addContentCart = this.repositoryContentCart.Add(contentCart);
@@ -143,7 +143,7 @@
         /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>object with update state</returns>
-        public ContentCart SetState(long contentId, long userId, CartEnums.StateCartContent contentState)
+        public ContentCart SetState(long contentId, CartEnums.StateCartContent contentState)
         {
             // Get object by id
             var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
@@ -158,7 +158,7 @@
 
             // change ModifierId and ModifiedDate
             contentCartForUpdate.ModifiedDate = DateTime.Now;
-            contentCartForUpdate.ModifierId = userId;
+            contentCartForUpdate.ModifierId = 1; // Need initializing modifierId
 
             // Update change
             var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
