@@ -6,6 +6,7 @@ namespace MediaShop.BusinessLogic
 {
     using MediaShop.BusinessLogic.Services;
     using MediaShop.Common.Interfaces.Services;
+    using MediaShop.Common.Models;
     using Ninject.Modules;
 
     /// <summary>
@@ -21,6 +22,7 @@ namespace MediaShop.BusinessLogic
         {
             Bind<IUserService>().To<UserService>();
             Bind<INotificationService>().To<NotificationService>();
+            this.Bind<ICartService<ContentCart>>().To<CartService>();
         }
     }
 }

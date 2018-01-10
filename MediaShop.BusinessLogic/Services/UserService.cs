@@ -9,9 +9,7 @@ using MediaShop.Common.Exceptions;
 namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
-
     using AutoMapper;
-
     using MediaShop.Common.Dto;
     using MediaShop.Common.Helpers;
     using MediaShop.Common.Interfaces.Repositories;

@@ -9,6 +9,8 @@ namespace MediaShop.Common
     using System;
     using AutoMapper;
     using MediaShop.Common.Dto;
+    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
 
@@ -26,6 +28,8 @@ namespace MediaShop.Common
         public MapperProfile()
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
+               this.CreateMap<Product, ContentCart>()
+                .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<Notification, NotificationDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
