@@ -6,6 +6,7 @@ namespace MediaShop.BusinessLogic
 {
     using MediaShop.BusinessLogic.Services;
     using MediaShop.Common.Interfaces.Services;
+    using MediaShop.Common.Models;
     using Ninject.Modules;
 
     /// <summary>
@@ -19,7 +20,8 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            Bind<IUserService>().To<UserService>();
-        }
+            this.Bind<IUserService>().To<UserService>();
+            this.Bind<ICartService<ContentCart>>().To<CartService>();
+         }
     }
 }
