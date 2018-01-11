@@ -160,7 +160,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             stream.Read(fileByte, 0, fileByte.Length);
             stream.Close();
 
-            var result = GetProtectedImage(fileByte);
+            var result = ProductService.GetProtectedImage(fileByte);
 
             using (Stream file = File.OpenWrite(@"d:\2.jpg"))
             {

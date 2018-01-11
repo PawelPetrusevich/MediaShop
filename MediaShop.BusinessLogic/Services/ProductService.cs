@@ -70,7 +70,9 @@ namespace MediaShop.BusinessLogic.Services
 
                 var result = repository.Add(product);
                 if (!ReferenceEquals(result, null))
-                    returnProducts.Add(result);
+                {
+                    returnProducts.Add(Mapper.Map<Product, ProductDto>(result));
+                }
             }
 
             return returnProducts;
@@ -228,7 +230,7 @@ namespace MediaShop.BusinessLogic.Services
             return resultsCollection;
         }
 
-        public byte[] GetProtectedImage(byte[] originalImageByte)
+        public static byte[] GetProtectedImage(byte[] originalImageByte)
         {
             byte[] fileByte = new byte[1];
             if (!ReferenceEquals(originalImageByte, null))
@@ -236,14 +238,6 @@ namespace MediaShop.BusinessLogic.Services
                 fileByte = new byte[originalImageByte.Length];
                 Array.Copy(originalImageByte, fileByte, originalImageByte.Length);
             }
-
-            // Temporary: load file from disk
-            // _
-            //FileStream stream = File.OpenRead(@"d:\1.jpg");
-            //fileByte = new byte[stream.Length];
-            //stream.Read(fileByte, 0, fileByte.Length);
-            //stream.Close();
-            //_
 
             Bitmap originalImageBitmap;
 
@@ -273,21 +267,10 @@ namespace MediaShop.BusinessLogic.Services
             ImageConverter converter = new ImageConverter();
             var protectedImageByte = (byte[])converter.ConvertTo(originalImageBitmap, typeof(byte[]));
 
-            // Temporary save file to disk for debug
-            // _
-            //using (Stream file = File.OpenWrite(@"d:\2.jpg"))
-            //{
-            //    if (!ReferenceEquals(protectedImageByte, null))
-            //    {
-            //        file.Write(protectedImageByte, 0, protectedImageByte.Length);
-            //    }
-            //}
-            // _
-
             return protectedImageByte;
         }
 
-        public byte[] GetCompressedImage(byte[] originalImage)
+        public static byte[] GetCompressedImage(byte[] originalImage)
         {
             int compressedImageSize = 0;
 
