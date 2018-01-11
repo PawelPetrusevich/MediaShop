@@ -13,8 +13,6 @@ namespace MediaShop.BusinessLogic.Services
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
 
-    using Microsoft.Win32.SafeHandles;
-
     using Profile = MediaShop.Common.Models.User.Profile;
 
     public class ProfileService : IProfileService

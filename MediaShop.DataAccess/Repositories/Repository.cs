@@ -9,7 +9,6 @@ namespace MediaShop.DataAccess.Repositories
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
-    using AutoMapper;
     using Common.Interfaces.Repositories;
     using Common.Models;
 
@@ -94,7 +93,10 @@ namespace MediaShop.DataAccess.Repositories
             {
                 T entity = Get(model.Id);
 
-                entity = Mapper.Map(model, entity);
+                foreach (var property in typeof(T).GetProperties())
+                {
+                    property.SetValue(entity, property.GetValue(model));
+                }
 
                 Context.SaveChanges();
                 return entity;
