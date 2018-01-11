@@ -36,16 +36,8 @@ namespace MediaShop.Common.Models.User
         /// <value>The phone.</value>
         public string Phone { get; set; }
 
-        /// <summary>
-        /// Gets or sets the connected account.
-        /// </summary>
-        /// <value>The account.</value>
-        public virtual Account AccountOf { get; set; }
+        //public virtual Account AccountOf { get; set; }
 
-        /// <summary>
-        /// Gets or sets the account identifier.
-        /// </summary>
-        /// <value>The account identifier.</value>
-        public long? AccountId { get; set; }
+        //public long AccountId { get; set; }
     }
 }

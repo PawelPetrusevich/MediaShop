@@ -28,20 +28,27 @@ namespace MediaShop.BusinessLogic.Services
             this.storeAccount = accountRepository;
         }
 
-        public Profile Create(ProfileDto profileModel, string login)
+        public Profile Create(ProfileDto profileModel)
         {
-            var existingAccount = this.storeAccount.GetByLogin(login);
+            var existingAccount = this.storeAccount.GetByLogin(profileModel.Login);
 
-            if (existingAccount != null)
+            if (existingAccount == null)
             {
-                throw new ExistingLoginException(login);
+                throw new ExistingLoginException(profileModel.Login);
             }
 
             var profile = Mapper.Map<Profile>(profileModel);
 
-            var createdProfile = this.storeProfile.Add(profile);
+            if (profile != null)
+            {
+                profile.Id = existingAccount.ProfileId;
 
-            return createdProfile;
+                var updatingProfile = this.storeProfile.Update(profile);
+
+                return updatingProfile;
+            }
+
+            return null;
         }
     }
 }

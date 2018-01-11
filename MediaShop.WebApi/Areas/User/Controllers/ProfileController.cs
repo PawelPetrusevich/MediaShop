@@ -43,12 +43,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             return this.Ok(new Profile());
         }
 
-        [HttpPost]
-        public IHttpActionResult Post([FromBody] Profile profile)
-        {
-            return this.Content<Profile>(HttpStatusCode.Created, new Profile());
-        }
-
         [HttpPut]
         public IHttpActionResult Put([FromBody]Profile profile)
         {
@@ -67,7 +61,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Profile))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult CreateProfile([FromBody] ProfileDto data, string login)
+        public IHttpActionResult Post([FromBody] ProfileDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -76,7 +70,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_profileService.Create(data, login));
+                return Ok(_profileService.Create(data));
             }
             catch (ExistingLoginException ex)
             {

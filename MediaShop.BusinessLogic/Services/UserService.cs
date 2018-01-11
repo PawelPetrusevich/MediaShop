@@ -49,7 +49,12 @@ namespace MediaShop.BusinessLogic.Services
 
             var account = Mapper.Map<Account>(userModel);
             account.Permissions.Add(Role.User);
-
+            account.Profile.DateOfBirth = DateTime.Now;
+            account.CreatedDate = DateTime.Now;
+            account.Profile.CreatedDate = DateTime.Now;
+            account.Profile.ModifiedDate = DateTime.Now;
+            account.Settings.CreatedDate = DateTime.Now;
+            account.Settings.ModifiedDate = DateTime.Now;
             var createdAccount = this._store.Add(account);
 
             return createdAccount;

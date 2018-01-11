@@ -22,8 +22,8 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public MediaContext()
             : base("MediaShopConnection")
-        {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
+        {   //DropCreateDatabaseAlways
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MediaContext>());
         }
 
         public IDbSet<ContentCart> ContentCart { get; set; }

@@ -5,6 +5,6 @@
 
     public interface IProfileService
     {
-        Profile Create(ProfileDto profileModel, string login);
+        Profile Create(ProfileDto profileModel);
     }
 }
