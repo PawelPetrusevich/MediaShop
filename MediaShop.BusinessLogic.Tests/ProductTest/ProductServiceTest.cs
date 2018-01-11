@@ -15,6 +15,8 @@ using NUnit.Framework;
 using SampleDataGenerator;
 using Assert = NUnit.Framework.Assert;
 using System.Linq.Expressions;
+using MediaShop.BusinessLogic.ExtensionMethods;
+using MediaShop.Common.Dto.Product;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -160,7 +162,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             stream.Read(fileByte, 0, fileByte.Length);
             stream.Close();
 
-            var result = ProductService.GetProtectedImage(fileByte);
+            var result = ExtensionProductMethods.GetProtectedImage(fileByte);
 
             using (Stream file = File.OpenWrite(@"d:\2.jpg"))
             {

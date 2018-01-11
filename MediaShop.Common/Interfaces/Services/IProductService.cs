@@ -2,6 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Dto.Product;
+
 namespace MediaShop.Common.Interfaces.Services
 {
     using System;
@@ -35,7 +37,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="model">product model</param>
         /// <returns>result</returns>
-        List<ProductDto> UploadProducts(IEnumerable<Product> model);
+        ProductDto UploadProducts(UploadModel model);
 
         /// <summary>
         /// Update method.

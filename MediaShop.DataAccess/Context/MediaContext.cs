@@ -46,6 +46,12 @@ namespace MediaShop.DataAccess.Context
 
         public IDbSet<Product> Products { get; set; }
 
+        public IDbSet<OriginalProduct> OriginalProducts { get; set; }
+
+        public IDbSet<CompressedProduct> CompressedProducts { get; set; }
+
+        public IDbSet<ProtectedProduct> ProtectedProducts { get; set; }
+
         /// <summary>
         /// Method configuration tables
         /// </summary>
@@ -56,6 +62,7 @@ namespace MediaShop.DataAccess.Context
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
+            modelBuilder.Configurations.Add(new ProductConfiguration());
         }
     }
 }

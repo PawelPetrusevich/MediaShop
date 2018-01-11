@@ -5,6 +5,7 @@ using System.Resources;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Services;
