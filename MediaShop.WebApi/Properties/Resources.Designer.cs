@@ -68,5 +68,14 @@ namespace MediaShop.WebApi.Properties {
                 return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id can not be 0.
+        /// </summary>
+        internal static string IncorrectId {
+            get {
+                return ResourceManager.GetString("IncorrectId", resourceCulture);
+            }
+        }
     }
 }

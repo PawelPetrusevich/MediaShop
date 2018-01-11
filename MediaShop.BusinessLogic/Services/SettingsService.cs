@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
@@ -21,16 +22,14 @@ namespace MediaShop.BusinessLogic.Services
         public Settings Modify(SettingsDto settings)
         {
             var user = _storeAccount.Get(settings.UserId);
-
-            //TODO change to correct Exception
-
+            
             if (user == null)
             {
-                throw new NullReferenceException();
+                throw new NotFoundUserException();
             }
 
             var userSettings = Mapper.Map<Settings>(settings);
-            userSettings.AccountOf = user;
+            userSettings.Id = user.SettingsId;
 
             var modiffiedSettings = _storeSettings.Update(userSettings);
 

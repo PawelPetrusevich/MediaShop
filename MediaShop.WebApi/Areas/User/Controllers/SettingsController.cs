@@ -4,6 +4,7 @@ using System.Net;
 using System.Resources;
 using System.Web.Http;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
@@ -38,6 +39,10 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 return Ok(_settingsService.Modify(settings));
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

@@ -120,4 +120,7 @@
   <data name="EmptyRegisterDate" xml:space="preserve">
     <value>Data cannot be empty.</value>
   </data>
+  <data name="IncorrectId" xml:space="preserve">
+    <value>Id can not be 0</value>
+  </data>
 </root>

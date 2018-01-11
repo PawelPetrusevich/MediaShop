@@ -82,6 +82,7 @@
     <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
     <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\Settings.cs" />
-    <Compile Include="Exceptions\ExistingLoginException.cs" />
+    <Compile Include="Exceptions\User\ExistingLoginException.cs" />
     <Compile Include="Models\User\Profile.cs" />
     <Compile Include="Enums\Languages.cs" />
     <Compile Include="Enums\Role.cs" />

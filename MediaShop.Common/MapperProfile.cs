@@ -28,7 +28,7 @@ namespace MediaShop.Common
                this.CreateMap<Product, ContentCart>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
-            this.CreateMap<SettingsDto, Settings>().ForMember(x => x.AccountId, opt => opt.MapFrom(m => m.UserId)).ReverseMap();
+            this.CreateMap<SettingsDto, Settings>().ReverseMap();
         }
     }
 }

@@ -24,19 +24,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public IHttpActionResult Get()
-        {
-            return this.Ok(new List<Account>());
-        }
-
-        [HttpGet]
-        [Route("GetById")]
-        public IHttpActionResult GetById(long id)
-        {
-            return this.Ok(new Account());
-        }
-
         [HttpPost]
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
@@ -62,25 +49,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             {
                 return InternalServerError(ex);
             }
-        }
-
-        [HttpPatch]
-        [Route("patch")]
-        public IHttpActionResult SmallUpdate([FromBody]UpdateModelDto model)
-        {
-            return Ok();
-        }
-
-        [HttpPut]
-        public IHttpActionResult Put([FromBody]Account account)
-        {
-            return this.Ok(new Account());
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete([FromBody]long id)
-        {
-            return this.Ok();
         }
     }
 }
