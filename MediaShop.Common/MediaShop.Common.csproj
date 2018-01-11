@@ -99,6 +99,10 @@
     <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Content\Product.cs" />
+    <Compile Include="Models\Content\CompressedProduct.cs" />
+    <Compile Include="Models\Content\OriginalProduct.cs" />
+    <Compile Include="Models\Content\Product.cs" />
+    <Compile Include="Models\Content\ProtectedProduct.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\Constants.cs" />

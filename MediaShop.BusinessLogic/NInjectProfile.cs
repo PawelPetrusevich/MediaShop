@@ -6,7 +6,6 @@ namespace MediaShop.BusinessLogic
 {
     using MediaShop.BusinessLogic.Services;
     using MediaShop.Common.Interfaces.Services;
-    using MediaShop.Common.Models;
     using Ninject.Modules;
 
     /// <summary>

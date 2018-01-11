@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
@@ -149,6 +150,25 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var returnProducts = _productService.Find(filter);
 
             Assert.Less(0,returnProducts.Count());
+        }
+
+        [Test]
+        public void WaterMarkAddTest()
+        {
+            FileStream stream = File.OpenRead(@"d:\1.jpg");
+            var fileByte = new byte[stream.Length];
+            stream.Read(fileByte, 0, fileByte.Length);
+            stream.Close();
+
+            var result = ProductService.GetProtectedImage(fileByte);
+
+            using (Stream file = File.OpenWrite(@"d:\2.jpg"))
+            {
+                if (!ReferenceEquals(result, null))
+                {
+                    file.Write(result, 0, result.Length);
+                }
+            }
         }
     }
 }

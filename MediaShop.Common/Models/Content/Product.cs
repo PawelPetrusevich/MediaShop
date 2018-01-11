@@ -2,8 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using System.Security.AccessControl;
-using MediaShop.Common.Models.User;
+using MediaShop.Common.Enums;
 
 namespace MediaShop.Common.Models.Content
 {
@@ -42,10 +41,34 @@ namespace MediaShop.Common.Models.Content
         /// </summary>
         public ProductType ProductType { get; set; }
 
-        public byte[] OriginalProduct { get; set; }
+        /// <summary>
+        /// Gets or sets file original product
+        /// </summary>
+        public OriginalProduct OriginalProduct { get; set; } = new OriginalProduct();
 
-        public byte[] ProtectedProduct { get; set; }
+        /// <summary>
+        /// Gets or sets file id of original product
+        /// </summary>
+        public int OriginalProductId { get; set; }
 
-        public byte[] CompressedProduct { get; set; }
+        /// <summary>
+        /// Gets or sets file of protected product
+        /// </summary>
+        public ProtectedProduct ProtectedProduct { get; set; } = new ProtectedProduct();
+
+        /// <summary>
+        /// Gets or sets file id of protected product
+        /// </summary>
+        public int ProtectedProductId { get; set; }
+
+        /// <summary>
+        /// Gets or sets file of compressed product 
+        /// </summary>
+        public CompressedProduct CompressedProduct { get; set; } = new CompressedProduct();
+
+        /// <summary>
+        /// Gets or sets file id of compressed product 
+        /// </summary>
+        public int CompressedProductId { get; set; }
     }
 }
