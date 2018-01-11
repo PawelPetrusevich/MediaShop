@@ -39,7 +39,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [HttpPost]
         [Route("addContent")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCart))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult Post(long contentId, string categoryName)
@@ -65,7 +65,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [HttpPut]
         [Route("changeStateContent")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCart))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult Put(long contentId, CartEnums.StateCartContent contentState)
