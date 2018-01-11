@@ -47,6 +47,8 @@
             }
 
             var model = Mapper.Map<ContentCart>(modelDto);
+            model.CreatedDate = DateTime.Now;
+            model.CreatorId = modelDto.CreatorId; // temporally
             var result = this.DbSet.Add(model);
             this.DbContext.SaveChanges();
             return Mapper.Map<ContentCartDto>(result);
@@ -60,6 +62,8 @@
         public ContentCartDto Update(ContentCartDto modelDto)
         {
             var model = Mapper.Map<ContentCart>(modelDto);
+            model.ModifiedDate = DateTime.Now;
+            model.ModifierId = modelDto.CreatorId; // temporally
             this.DbContext.Entry(model).State = EntityState.Modified;
             this.DbContext.SaveChanges();
             return Mapper.Map<ContentCartDto>(model);
@@ -117,6 +121,18 @@
         {
             var result = this.DbSet.Where(x => x.Id == id).SingleOrDefault();
             return Mapper.Map<ContentCartDto>(result);
+        }
+
+        /// <summary>
+        /// Method for getting collection objects type ContentCartDto
+        /// by user identificator
+        /// </summary>
+        /// <param name="userId">identificator user</param>
+        /// <returns>rezalt operation</returns>
+        public IEnumerable<ContentCartDto> GetAll(long userId)
+        {
+            var result = this.DbSet.Where(x => x.CreatorId == userId);
+            return Mapper.Map<IEnumerable<ContentCart>, IEnumerable<ContentCartDto>>(result);
         }
 
         /// <summary>

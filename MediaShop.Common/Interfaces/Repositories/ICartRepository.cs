@@ -22,6 +22,14 @@
         TModel Get(long id);
 
         /// <summary>
+        /// Method for getting collection objects type ContentCartDto
+        /// by user identificator
+        /// </summary>
+        /// <param name="userId">identificator user</param>
+        /// <returns>rezalt operation</returns>
+        IEnumerable<TModel> GetAll(long userId);
+
+        /// <summary>
         /// Method for add object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>

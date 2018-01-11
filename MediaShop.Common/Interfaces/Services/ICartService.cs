@@ -16,9 +16,8 @@
         /// Find items in a cart by user Id and return a items collection
         /// </summary>
         /// <param name="userId">users id</param>
-        /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        IEnumerable<ContentCartDto> GetInCart(long userId, CartEnums.StateCartContent contentState);
+        IEnumerable<TModel> GetContent(long userId);
 
         /// <summary>
         /// Add new item in cart with return save item for update view
@@ -70,6 +69,13 @@
         /// <param name="cart">Collection ContentCartDto</param>
         /// <returns>Count Items</returns>
         uint GetCountItems(IEnumerable<TModel> cart);
+
+        /// <summary>
+        /// Method for deleting selected items
+        /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        TModel DeleteContent(TModel model);
 
         /// <summary>
         /// Method for deleting selected items

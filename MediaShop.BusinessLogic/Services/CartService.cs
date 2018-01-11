@@ -77,6 +77,28 @@
         }
 
         /// <summary>
+        /// Method for deleting selected contentCart
+        /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        public ContentCartDto DeleteContent(ContentCartDto model)
+        {
+            if (model == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var collectionContentCart = new Collection<ContentCart>();
+            var deleteContentCart = this.repositoryContentCartDto.Delete(model);
+            if (deleteContentCart == null)
+            {
+                throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
+            }
+
+            return deleteContentCart;
+        }
+
+        /// <summary>
         /// Method for deleting selected ContentCartDto
         /// </summary>
         /// <param name="collectionId">collection users id</param>
@@ -128,19 +150,11 @@
         /// without state InPaid and InBought
         /// </summary>
         /// <param name="id">user Id</param>
-        /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        public IEnumerable<ContentCartDto> GetInCart(long id, CartEnums.StateCartContent contentState)
+        public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            var contentsInCart = this.repositoryContentCartDto.Find(
-                x => x.CreatorId == id && x.StateContent == contentState);
-            List<ContentCartDto> collectionContentCartDtos = new List<ContentCartDto>();
-            foreach (ContentCartDto contentCartDto in contentsInCart)
-            {
-                collectionContentCartDtos.Add(contentCartDto);
-            }
-
-            return collectionContentCartDtos;
+            var contentInCart = this.repositoryContentCartDto.GetAll(id);
+            return contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
         }
 
         /// <summary>
@@ -163,9 +177,6 @@
             // change state object
             contentCartDtoForUpdate.StateContent = contentState;
 
-            // change ModifierId and ModifiedDate
-            contentCartDtoForUpdate.ModifierId = 1; // Need initializing modifierId
-
             // Update change
             var contentCartDtoAfterUpdate = this.repositoryContentCartDto.Update(contentCartDtoForUpdate);
 
@@ -185,7 +196,7 @@
         /// <returns>Cart</returns>
         public Cart GetCart(long userId)
         {
-            var itemsInCart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
+            var itemsInCart = this.GetContent(userId);
             var model = new Cart()
             {
                 ContentCartDtoCollection = itemsInCart,
@@ -202,7 +213,7 @@
         /// <returns>Count Items in cart</returns>
         public uint GetCountItems(long userId)
         {
-            var cart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
+            var cart = this.GetContent(userId);
             return (uint)cart.Count();
         }
 
@@ -213,7 +224,7 @@
         /// <returns>Count Items</returns>
         public uint GetCountItems(IEnumerable<ContentCartDto> cart)
         {
-            return (uint)cart.Count();
+            return cart == null ? 0 : (uint)cart.Count();
         }
 
         /// <summary>
@@ -223,8 +234,8 @@
         /// <returns>Sum price</returns>
         public decimal GetPrice(long userId)
         {
-            var cart = this.GetInCart(userId, CartEnums.StateCartContent.InCart);
-            return cart.Sum<ContentCartDto>(x => x.PriceItem);
+            var cart = this.GetContent(userId);
+            return cart == null ? 0 : cart.Sum<ContentCartDto>(x => x.PriceItem);
         }
 
         /// <summary>
@@ -234,7 +245,7 @@
         /// <returns>Sum price</returns>
         public decimal GetPrice(IEnumerable<ContentCartDto> cart)
         {
-            return cart.Sum(x => x.PriceItem);
+            return cart == null ? 0 : cart.Sum(x => x.PriceItem);
         }
     }
 }

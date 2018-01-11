@@ -6,6 +6,7 @@ using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
+using MediaShop.WebApi.Properties;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
@@ -19,9 +20,20 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             this._cartService = cartService;
         }
 
-        public IHttpActionResult Get()
+        [HttpGet]
+        [Route("GetCart")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(string))]
+        public IHttpActionResult Get([FromUri] long id) //id User
         {
-            return this.Ok();
+            var cart = _cartService.GetCart(id);
+            if (cart == null)
+            {
+                return InternalServerError();
+            }
+
+            return this.Ok(cart);
         }
 
         [HttpPost]
@@ -73,9 +85,30 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete()
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public IHttpActionResult Delete([FromBody] ContentCartDto data)
         {
-            return this.Ok();
+            if (data == null)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var result = _cartService.DeleteContent(data);
+                return this.Ok(result);
+            }
+            catch (DeleteContentInCartExseptions ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

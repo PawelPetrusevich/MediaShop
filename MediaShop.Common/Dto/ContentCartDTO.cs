@@ -27,7 +27,7 @@
         /// <summary>
         /// Gets or sets cart creator name
         /// </summary>
-        public int CreatorName { get; set; }
+        public string CreatorName { get; set; }
 
         /// <summary>
         /// Gets or sets description media content
@@ -50,11 +50,5 @@
         /// </summary>
         /// <value>The creator identifier.</value>
         public long CreatorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the modifier identifier.
-        /// </summary>
-        /// <value>The modifier identifier.</value>
-        public long? ModifierId { get; set; }
     }
 }
