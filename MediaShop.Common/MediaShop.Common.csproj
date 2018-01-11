@@ -63,8 +63,10 @@
       <HintPath>..\packages\FluentValidation.7.3.4\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,7 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\UpdateModelDto.cs" />
+    <Compile Include="Dto\Product\UploadModel.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
-    <Compile Include="Dto\ProductDto.cs" />
+    <Compile Include="Dto\Product\ProductDto.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />

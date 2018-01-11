@@ -22,24 +22,12 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public ProductConfiguration()
         {
-            this.HasRequired<ProductType>(p => p.ProductType)
-                .WithMany(p => p.Products)
-                .HasForeignKey<int>(s => s.ProductTypeId);
-            this.HasKey(p => p.Id);
-            this.Property(p => p.Description)
-                .IsOptional()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(p => p.IsFavorite)
-                .IsRequired();
-            this.Property(p => p.IsPremium)
-                .IsRequired();
-            this.Property(p => p.ProductName)
-                .IsRequired()
-                .HasMaxLength(50);
-            this.Property(p => p.ProductPrice)
-                .IsRequired()
-                .HasPrecision(15, 2);
+            this.HasRequired(s => s.OriginalProduct)
+                .WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.CompressedProduct)
+                .WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.ProtectedProduct)
+                .WithRequiredPrincipal(x => x.Product);
         }
     }
 }

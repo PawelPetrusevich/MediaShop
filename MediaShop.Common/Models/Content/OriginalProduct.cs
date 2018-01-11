@@ -1,4 +1,6 @@
-﻿namespace MediaShop.Common.Models.Content
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MediaShop.Common.Models.Content
 {
     /// <summary>
     /// Загруженный файл контента в оригинальном размере
@@ -7,6 +9,7 @@
     {
         public byte[] File { get; set; }
 
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
         public long ProductId { get; set; }

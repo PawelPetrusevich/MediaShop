@@ -2,6 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Linq;
+using MediaShop.BusinessLogic.ExtensionMethods;
+using MediaShop.Common.Dto.Product;
+
 namespace MediaShop.BusinessLogic.Services
 {
     using System;
@@ -33,49 +37,73 @@ namespace MediaShop.BusinessLogic.Services
             this.repository = repository;
         }
 
-        public List<ProductDto> UploadProducts(IEnumerable<Product> data)
+        /// <summary>
+        /// Загрузка файла на сервер
+        /// </summary>
+        /// <param name="uploadModels">Модель формы загрузки</param>
+        /// <returns>Возрощаем модель для отоброжения</returns>
+        public ProductDto UploadProducts(UploadModel uploadModels)
         {
             var returnProducts = new List<ProductDto>();
+            var data = Mapper.Map<Product>(uploadModels);
+            var validsType = new string[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image / png",
+                "image / svg + xml",
+                "image / tiff",
+                "image / vnd.microsoft.icon",
+                "image / vnd.wap.wbmp",
+                "image / webp"
+            };
 
-            // Вытащить данные из заголовка файла
-            // 1.проверка валидации или null
-            // 2.Создание защищеной
-            // 3. создание уменьшеной
-            // 4. Добавление
-
-            foreach (var product in data)
+            if (uploadModels.UploadProduct == null || uploadModels.UploadProduct.ContentLength == 0)
+            {
+                throw new ArgumentNullException();
+            }
+            else if (!validsType.Contains(uploadModels.UploadProduct.ContentType))
+            {
+                throw new ArgumentException();
+            }
+            else
             {
                 try
                 {
-                    product.ProtectedProduct =
+                    byte[] tempProduct = null;
+
+                    using (var br = new BinaryReader(uploadModels.UploadProduct.InputStream))
+                    {
+                        tempProduct = br.ReadBytes(uploadModels.UploadProduct.ContentLength);
+                    }
+
+                    data.OriginalProduct = new OriginalProduct()
+                    {
+                        File = tempProduct
+                    };
+
+                    data.ProtectedProduct =
                         new ProtectedProduct()
                         {
-                            File = GetProtectedImage(product.OriginalProduct.File),
-                            Product = product,
-                            ProductId = product.Id
+                            File = ExtensionProductMethods.GetProtectedImage(tempProduct)
                         };
 
-                    product.CompressedProduct =
+                    data.CompressedProduct =
                         new CompressedProduct()
                         {
-                            File = GetCompressedImage(product.OriginalProduct.File),
-                            Product = product,
-                            ProductId = product.Id
+                            File = ExtensionProductMethods.GetCompressedImage(tempProduct)
                         };
                 }
                 catch (Exception e)
                 {
                     throw;
                 }
-
-                var result = repository.Add(product);
-                if (!ReferenceEquals(result, null))
-                {
-                    returnProducts.Add(Mapper.Map<Product, ProductDto>(result));
-                }
             }
 
-            return returnProducts;
+            var result = repository.Add(data);
+
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -228,55 +256,6 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             return resultsCollection;
-        }
-
-        public static byte[] GetProtectedImage(byte[] originalImageByte)
-        {
-            byte[] fileByte = new byte[1];
-            if (!ReferenceEquals(originalImageByte, null))
-            {
-                fileByte = new byte[originalImageByte.Length];
-                Array.Copy(originalImageByte, fileByte, originalImageByte.Length);
-            }
-
-            Bitmap originalImageBitmap;
-
-            using (MemoryStream ms = new MemoryStream(fileByte))
-            {
-                originalImageBitmap = (Bitmap)Image.FromStream(ms);
-            }
-
-            var watermarkBitmap = Resources.WaterMark;
-            using (Graphics gr = Graphics.FromImage(originalImageBitmap))
-            {
-                float opacity = (float)0.5;
-                ImageAttributes attr = new ImageAttributes();
-                ColorMatrix matrix = new ColorMatrix(new float[][]
-                {
-                    new float[] { opacity, 0f, 0f, 0f, 0f },
-                    new float[] { 0f, opacity, 0f, 0f, 0f },
-                    new float[] { 0f, 0f, opacity, 0f, 0f },
-                    new float[] { 0f, 0f, 0f, opacity, 0f },
-                    new float[] { 0f, 0f, 0f, 0f, opacity }
-                });
-                attr.SetColorMatrix(matrix);
-                watermarkBitmap.MakeTransparent(Color.White);
-                gr.DrawImage(watermarkBitmap, new Rectangle(0, 0, originalImageBitmap.Width, originalImageBitmap.Height), 0, 0, watermarkBitmap.Width, watermarkBitmap.Height, GraphicsUnit.Pixel, attr);
-            }
-
-            ImageConverter converter = new ImageConverter();
-            var protectedImageByte = (byte[])converter.ConvertTo(originalImageBitmap, typeof(byte[]));
-
-            return protectedImageByte;
-        }
-
-        public static byte[] GetCompressedImage(byte[] originalImage)
-        {
-            int compressedImageSize = 0;
-
-            byte[] compressedImage = new byte[compressedImageSize];
-
-            return compressedImage;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
 using MediaShop.WebApi.Properties;
@@ -27,7 +28,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductDto))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult AddProduct([FromBody]ProductDto data)
+        public IHttpActionResult AddProduct([FromBody] UploadModel data)
         {
             if (data == null)
             {
@@ -36,7 +37,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(_productService.UploadProducts(new List<Product>() { Mapper.Map<Product>(data) }));
+                return Ok(_productService.UploadProducts(data));
             }
             catch (InvalidOperationException e)
             {

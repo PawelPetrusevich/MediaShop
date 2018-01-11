@@ -4,7 +4,7 @@
 
 using MediaShop.Common.Enums;
 
-namespace MediaShop.Common.Dto
+namespace MediaShop.Common.Dto.Product
 {
     /// <summary>
     /// class ProductDto

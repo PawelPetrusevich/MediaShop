@@ -2,6 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Models.Content;
 
@@ -26,6 +27,8 @@ namespace MediaShop.Common
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
             this.CreateMap<ProductDto, Product>().ReverseMap();
+            this.CreateMap<UploadModel, Product>().ReverseMap();
+            this.CreateMap<UploadModel, ProductDto>().ReverseMap();
         }
     }
 }
