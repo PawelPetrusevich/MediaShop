@@ -9,6 +9,7 @@ using MediaShop.Common.Models;
 using MediaShop.Common.Models.CartModels;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.Common.Enums;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
@@ -121,7 +122,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DeleteContentFromCartUnitTests))]
+        [ExpectedException(typeof(DeleteContentInCartExseptions))]
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {
             // collection for rezalt as return method 

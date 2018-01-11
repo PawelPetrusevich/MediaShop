@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using Moq;
 using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
@@ -39,7 +40,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Add_New_Content_In_Cart()
         {
             // Create object ContentCartDtoDto
-            var objContentCartDto = new ContentCartDto() { Id = 5, CreatorId = 50 };
+            var objContentCartDto = new ContentCartDto() { Id = 5, CategoryName = "My Category" };
             var actual1 = objContentCartDto.Id;
 
             // Setup mock object
@@ -56,17 +57,44 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create CartService object with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
 
-            // Write rezalt method AddNewContentInCart in actual1
+            // Write rezalt method AddNewContentInCart in actual3
             var actual3 = service.AddInCart(objContentCartDto.Id, "My Category");
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((long)5, actual1);
             Assert.AreEqual((long)5, actual2);
             Assert.AreEqual((long)6, actual3.Id);
+            Assert.AreEqual("My Category", actual3.CategoryName);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AddContentInCartExceptions))]
+        [ExpectedException(typeof(FormatException))]
+        public void Add_New_Content_In_Cart_If_Invalid_Argument_CategoryName()
+        {
+            // Create object ContentCartDtoDto
+            var objContentCartDto = new ContentCartDto() { Id = 5, CategoryName = "" };
+            var actual1 = objContentCartDto.Id;
+
+            // Setup mock object
+            mock.Setup(repo => repo.Add(It.IsAny<ContentCartDto>()))
+                .Returns(() => objContentCartDto).Callback(() => objContentCartDto.Id++);
+
+            // Create ProductDto object
+            var objProductDto = new Product() { Id = 5 };
+            var actual2 = objProductDto.Id;
+
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
+                .Returns(() => objProductDto);
+
+            // Create CartService object with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object);
+
+            // Write rezalt method AddNewContentInCart in actual3
+            var actual3 = service.AddInCart(objContentCartDto.Id, "");
+        }
+
+        [TestMethod]
+        [ ExpectedException(typeof(AddContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
             // Create object ContentCartDto
@@ -85,8 +113,6 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
 
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
-
-            // Write rezalt method AddNewContentInCart in actual1
             var actual3 = service.AddInCart(objContentCartDto.Id, "My Category");
         }
 

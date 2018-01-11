@@ -37,7 +37,7 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents identifier</param>
-        /// <param name="userId">users identifier</param>
+        /// <param name="categoryName">name category content</param>
         /// <returns>this save item</returns>
         public ContentCartDto AddInCart(long contentId, string categoryName)
         {
@@ -58,8 +58,9 @@
             // Mapping object Entity to object ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
 
-            // Initialize CreatorId
+            // Initialize CreatorId and CategoryName
             contentCartDto.CreatorId = 1; // Need initializing userId
+            contentCartDto.CategoryName = categoryName;
 
             // Save object ContentCartDtoDto in repository
             var addContentCartDto = this.repositoryContentCartDto.Add(contentCartDto);
@@ -68,7 +69,7 @@
             // return null
             if (addContentCartDto == null)
             {
-                throw new AddContentInCartExceptions(Resources.AddContentInCart);
+                throw new AddContentInCartExceptions(Resources.ResourceManager.GetString("AddContentInCart"));
             }
 
             // Mapping object ContentCartDtoDto to ContentCartDto
