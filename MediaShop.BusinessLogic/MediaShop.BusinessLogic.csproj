@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\CartService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -94,6 +95,10 @@
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">
       <Project>{70d5d62c-5908-4825-9b59-436fc179c1a9}</Project>
       <Name>MediaShop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaShop.DataAccess\MediaShop.DataAccess.csproj">
+      <Project>{1408409b-0557-40e3-82c6-0df7cc75716b}</Project>
+      <Name>MediaShop.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
