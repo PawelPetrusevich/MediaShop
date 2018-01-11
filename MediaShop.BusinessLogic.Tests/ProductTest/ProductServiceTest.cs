@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
-using MediaShop.BusinessLogic.Services;
+using MediaShop.BusinessLogic.Service;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Content;
