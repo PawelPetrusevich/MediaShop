@@ -88,7 +88,6 @@
                 throw new NullReferenceException();
             }
 
-            var collectionContentCart = new Collection<ContentCart>();
             var deleteContentCart = this.repositoryContentCartDto.Delete(model);
             if (deleteContentCart == null)
             {
