@@ -95,13 +95,15 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Content is not update in cart.
         /// </summary>
-        internal static string UpdateContentInCart {
-            get {
-                return ResourceManager.GetString("UpdateContentInCart", resourceCulture);
+        internal static string UpdateContentInCart
+        {
+            get { return ResourceManager.GetString("UpdateContentInCart", resourceCulture); }
+        }
+
 
         internal static System.Drawing.Bitmap WaterMark {
             get {

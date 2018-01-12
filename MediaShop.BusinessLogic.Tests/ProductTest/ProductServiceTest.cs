@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
-using MediaShop.BusinessLogic.Service;
-using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Content;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using SampleDataGenerator;
 using Assert = NUnit.Framework.Assert;
 using System.Linq.Expressions;
 using MediaShop.BusinessLogic.ExtensionMethods;
+using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Dto.Product;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
