@@ -23,7 +23,6 @@ namespace MediaShop.BusinessLogic
             this.Bind<IUserService>().To<UserService>();
             this.Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IProductService>().To<ProductService>();
-
          }
     }
 }

@@ -11,7 +11,6 @@
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models;
 
     /// <summary>
     /// Service for work with cart

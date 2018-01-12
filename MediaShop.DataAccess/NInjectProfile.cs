@@ -7,7 +7,7 @@ namespace MediaShop.DataAccess
     using System.Data.Entity;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.Content;
     using MediaShop.DataAccess.Context;
     using MediaShop.DataAccess.Repositories;
 

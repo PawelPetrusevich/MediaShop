@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Dto;
