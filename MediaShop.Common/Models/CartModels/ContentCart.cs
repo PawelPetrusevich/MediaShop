@@ -21,7 +21,7 @@
         /// <summary>
         /// Gets or sets cart creator name
         /// </summary>
-        public int CreatorName { get; set; }
+        public string CreatorName { get; set; }
 
         /// <summary>
         /// Gets or sets description media content
