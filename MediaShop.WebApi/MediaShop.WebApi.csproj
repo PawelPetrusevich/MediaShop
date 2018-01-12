@@ -158,7 +158,7 @@
     <Compile Include="Areas\User\Controllers\AccountController.cs" />
     <Compile Include="Areas\User\Controllers\ProfileController.cs" />
     <Compile Include="Areas\User\Controllers\SettingsController.cs" />
-    <Compile Include="Areas\Content\Controllers\ServiceProductController.cs" />
+    <Compile Include="Areas\Content\Controllers\ProductController.cs" />
     <Compile Include="Areas\Content\Controllers\CartController.cs" />
     <Compile Include="Areas\Messaging\Controllers\NotificationController.cs" />
     <Compile Include="Global.asax.cs">

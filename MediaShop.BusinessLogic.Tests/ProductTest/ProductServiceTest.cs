@@ -156,7 +156,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void Product_WaterMarkAddTest()
+        public void Product_GetProtectedImageTest()
         {
             ImageConverter converter = new ImageConverter();
             var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
@@ -164,6 +164,24 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var result = ExtensionProductMethods.GetProtectedImage(sourceImageByte);
 
             using (Stream file = File.OpenWrite(@"d:\ImageWithWatermark.jpg"))
+            {
+                if (!ReferenceEquals(result, null))
+                {
+                    file.Write(result, 0, result.Length);
+                }
+            }
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Product_GetCompressImageTest()
+        {
+            ImageConverter converter = new ImageConverter();
+            var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
+
+            var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
+
+            using (Stream file = File.OpenWrite(@"d:\ResizedImage.jpg"))
             {
                 if (!ReferenceEquals(result, null))
                 {

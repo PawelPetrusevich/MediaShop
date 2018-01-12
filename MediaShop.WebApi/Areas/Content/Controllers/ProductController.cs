@@ -13,11 +13,11 @@ using Swashbuckle.Swagger.Annotations;
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [RoutePrefix("api/product")]
-    public class ServiceProductController : ApiController
+    public class ProductController : ApiController
     {
         private readonly IProductService _productService;
 
-        public ServiceProductController(IProductService productService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }

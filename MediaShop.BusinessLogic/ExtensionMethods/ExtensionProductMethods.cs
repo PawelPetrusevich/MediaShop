@@ -57,13 +57,59 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             return protectedImageByte;
         }
 
-        public static byte[] GetCompressedImage(byte[] originalImage)
+        /// <summary>
+        /// Get compressed copy of image
+        /// </summary>
+        /// <param name="originalImageByte"></param>
+        /// <returns></returns>
+        public static byte[] GetCompressedImage(byte[] originalImageByte)
         {
-            int compressedImageSize = 0;
+            byte[] fileByte = new byte[1];
+            if (!ReferenceEquals(originalImageByte, null))
+            {
+                fileByte = new byte[originalImageByte.Length];
+                Array.Copy(originalImageByte, fileByte, originalImageByte.Length);
+            }
 
-            byte[] compressedImage = new byte[compressedImageSize];
+            Bitmap originalImageBitmap;
 
-            return compressedImage;
+            using (MemoryStream ms = new MemoryStream(fileByte))
+            {
+                originalImageBitmap = (Bitmap)Image.FromStream(ms);
+            }
+
+            int maxWidth = 300;
+            int maxHeight = 300;
+            int newWidth;
+            int newHeight;
+
+            if (originalImageBitmap.Width < maxWidth && originalImageBitmap.Height < maxHeight)
+            {
+                newWidth = originalImageBitmap.Width;
+                newHeight = originalImageBitmap.Height;
+            }
+            else if (originalImageBitmap.Width < maxWidth)
+            {
+                newHeight = maxHeight;
+                newWidth = originalImageBitmap.Width * newHeight / originalImageBitmap.Height;
+            }
+            else
+            {
+                newWidth = maxWidth;
+                newHeight = originalImageBitmap.Height * newWidth / originalImageBitmap.Width;
+            }
+
+            var resizedBitmap = new Bitmap(newWidth, newHeight);
+
+            using (Graphics gr = Graphics.FromImage(resizedBitmap))
+            {
+                gr.DrawImage(originalImageBitmap, 0, 0, newWidth, newHeight);
+            }
+
+            ImageConverter converter = new ImageConverter();
+            var comressedImageByte = (byte[])converter.ConvertTo(resizedBitmap, typeof(byte[]));
+
+            return comressedImageByte;
         }
     }
 }
