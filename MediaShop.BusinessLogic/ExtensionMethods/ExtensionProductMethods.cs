@@ -12,6 +12,11 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
 {
     public static class ExtensionProductMethods
     {
+        /// <summary>
+        /// Get protected copy of image in original size
+        /// </summary>
+        /// <param name="originalImageByte"></param>
+        /// <returns></returns>
         public static byte[] GetProtectedImage(byte[] originalImageByte)
         {
             byte[] fileByte = new byte[1];

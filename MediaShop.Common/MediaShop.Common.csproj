@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Product\UploadModel.cs" />
+    <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />

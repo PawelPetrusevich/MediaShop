@@ -17,7 +17,9 @@ using Assert = NUnit.Framework.Assert;
 using System.Linq.Expressions;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.BusinessLogic.Tests.Properties;
 using MediaShop.Common.Dto.Product;
+using System.Drawing;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -75,7 +77,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
        [Test]
-        public void AddProductTest()
+        public void Product_AddProductTest()
         {  
             var returnProduct = _productService.Add(_newProducts[0]);
 
@@ -83,7 +85,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void AddProductListTest()
+        public void Product_AddProductListTest()
         {
             var returnProductList = _productService.Add(_newProducts);
 
@@ -94,7 +96,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void GetProductTest()
+        public void Product_GetProductTest()
         {
             _productService.Add(_newProducts[0]);
             var returnProduct = _productService.Get(0);
@@ -103,7 +105,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void DeleteProductTest()
+        public void Product_DeleteProductTest()
         {
             _productService.Add(_newProducts[0]);
             var returnProduct = _productService.Delete(_productService.Get(0));
@@ -113,7 +115,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void DeleteProductListTest()
+        public void Product_DeleteProductListTest()
         {
             var returnProductList = _productService.Add(_newProducts);
 
@@ -125,7 +127,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void DeleteProductByIdTest()
+        public void Product_DeleteProductByIdTest()
         {
             _productService.Add(_newProducts[0]);
             var returnProduct = _productService.Delete(0);
@@ -136,7 +138,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         
 
         [Test]
-        public void UpdateProductTest()
+        public void Product_UpdateProductTest()
         {
             _productService.Add(_newProducts[0]);
             var returnProduct = _productService.Update(_productService.Get(0));
@@ -145,7 +147,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void FindProductTest()
+        public void Product_FindProductTest()
         {
             _productService.Add(new Product(){ProductName = "Image1"});
 
@@ -156,22 +158,21 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         }
 
         [Test]
-        public void WaterMarkAddTest()
+        public void Product_WaterMarkAddTest()
         {
-            FileStream stream = File.OpenRead(@"d:\1.jpg");
-            var fileByte = new byte[stream.Length];
-            stream.Read(fileByte, 0, fileByte.Length);
-            stream.Close();
+            ImageConverter converter = new ImageConverter();
+            var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
 
-            var result = ExtensionProductMethods.GetProtectedImage(fileByte);
+            var result = ExtensionProductMethods.GetProtectedImage(sourceImageByte);
 
-            using (Stream file = File.OpenWrite(@"d:\2.jpg"))
+            using (Stream file = File.OpenWrite(@"d:\ImageWithWatermark.jpg"))
             {
                 if (!ReferenceEquals(result, null))
                 {
                     file.Write(result, 0, result.Length);
                 }
             }
+            Assert.IsNotNull(result);
         }
     }
 }
