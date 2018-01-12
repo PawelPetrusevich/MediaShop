@@ -11,6 +11,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
     public class NotificationController : ApiController
     {
         private readonly INotificationService _notificationService;
+
         public NotificationController(INotificationService notificationService)
         {
             _notificationService = notificationService;
@@ -40,13 +41,10 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             {
                 return this.Ok(_notificationService.Notify(notification));
             }
-
             catch (System.Exception)
             {
-
                 return this.InternalServerError();
             }
-
         }
 
         [HttpPut]

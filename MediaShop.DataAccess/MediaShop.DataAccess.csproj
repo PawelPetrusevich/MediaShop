@@ -101,7 +101,6 @@
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
   </ItemGroup>
   <ItemGroup />
