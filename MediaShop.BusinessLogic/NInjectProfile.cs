@@ -1,11 +1,12 @@
-﻿// <copyright file="NInjectProfile.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="NInjectProfile.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
 namespace MediaShop.BusinessLogic
 {
     using MediaShop.BusinessLogic.Services;
     using MediaShop.Common.Interfaces.Services;
+    using MediaShop.Common.Models;
     using Ninject.Modules;
 
     /// <summary>
@@ -19,9 +20,10 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            Bind<IUserService>().To<UserService>();
+            this.Bind<IUserService>().To<UserService>();
+            this.Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IProductService>().To<ProductService>();
-            Bind<ICartService<ContentCart>>().To<CartService>();
-        }
+
+         }
     }
 }

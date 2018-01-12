@@ -2,9 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Dto.User;
-using MediaShop.Common.Models.Content;
 
 namespace MediaShop.Common
 {
@@ -13,6 +11,9 @@ namespace MediaShop.Common
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
+    using MediaShop.Common.Dto.Product;
+    using MediaShop.Common.Models.Content;
+
 
     using Profile = AutoMapper.Profile;
 
@@ -28,11 +29,12 @@ namespace MediaShop.Common
         public MapperProfile()
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
-               this.CreateMap<Product, ContentCart>()
+               this.CreateMap<Product, ContentCartDto>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadModel, Product>().ReverseMap();
             this.CreateMap<UploadModel, ProductDto>().ReverseMap();
+
         }
     }
 }

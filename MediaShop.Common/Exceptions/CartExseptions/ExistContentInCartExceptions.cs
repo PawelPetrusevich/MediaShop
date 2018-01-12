@@ -1,4 +1,4 @@
-﻿namespace MediaShop.Common.Models.CartModels
+﻿namespace MediaShop.Common.Exceptions.CartExseptions
 {
     using System;
     using System.Runtime.Serialization;

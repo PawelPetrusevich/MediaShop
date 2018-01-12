@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TModel">Type content in Cart</typeparam>
     public interface ICartRepository<TModel>
-        where TModel : ContentCart
+        where TModel : ContentCartDto
     {
         /// <summary>
         /// Method for getting object type ContentCart
@@ -20,6 +20,14 @@
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
         TModel Get(long id);
+
+        /// <summary>
+        /// Method for getting collection objects type ContentCartDto
+        /// by user identificator
+        /// </summary>
+        /// <param name="userId">identificator user</param>
+        /// <returns>rezalt operation</returns>
+        IEnumerable<TModel> GetAll(long userId);
 
         /// <summary>
         /// Method for add object type ContentCart

@@ -5,8 +5,9 @@
 namespace MediaShop.DataAccess
 {
     using System.Data.Entity;
-
     using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
     using MediaShop.DataAccess.Context;
     using MediaShop.DataAccess.Repositories;
 
@@ -23,12 +24,13 @@ namespace MediaShop.DataAccess
         /// </summary>
         public override void Load()
         {
+            this.Bind<ICartRepository<ContentCartDto>>().To<CartRepository>();
+            this.Bind<IProductRepository<Product>>().To<ProductRepository>();
             this.Bind<MediaContext>().ToSelf();
             this.Bind<IAccountRepository>().To<AccountRepository>();
             this.Bind<IProfileRepository>().To<ProfileRepository>();
             this.Bind<ISettingsRepository>().To<SettingsRepository>();
             this.Bind<DbContext>().To<MediaContext>();
-            Bind<IProductRepository>().To<ProductRepository>();
         }
     }
 }

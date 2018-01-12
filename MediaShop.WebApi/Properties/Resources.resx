@@ -123,4 +123,7 @@
   <data name="EmptyRegisterDate" xml:space="preserve">
     <value>Data cannot be empty.</value>
   </data>
+  <data name="EmtyData" xml:space="preserve">
+    <value>Data cannot be empty</value>
+  </data>
 </root>

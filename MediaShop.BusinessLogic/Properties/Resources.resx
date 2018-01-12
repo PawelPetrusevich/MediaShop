@@ -126,6 +126,9 @@
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content is not exist in cart</value>
   </data>
+  <data name="NullOrEmptyValueString" xml:space="preserve">
+    <value>String can not be null or empty</value>
+  </data>
   <data name="UpdateContentInCart" xml:space="preserve">
     <value>Content is not update in cart</value>
   </data>
