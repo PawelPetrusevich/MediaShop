@@ -45,8 +45,8 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep = new Mock<IProductRepository>();
             _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(s => s.Delete(It.IsAny<Product>())).Returns(new Product());
-            _rep.Setup(s => s.Delete(It.IsAny<int>())).Returns(new Product());
-            _rep.Setup(s => s.Get(It.IsAny<int>())).Returns(new Product());
+            _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>());
 
