@@ -102,6 +102,8 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string UpdateContentInCart {
             get {
                 return ResourceManager.GetString("UpdateContentInCart", resourceCulture);
+            }
+        }
 
         internal static System.Drawing.Bitmap WaterMark {
             get {

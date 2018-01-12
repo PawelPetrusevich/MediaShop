@@ -11,7 +11,7 @@
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
+    using MediaShop.Common.Models;
 
     /// <summary>
     /// Service for work with cart
@@ -20,14 +20,14 @@
     {
         private readonly ICartRepository<ContentCartDto> repositoryContentCartDto;
 
-        private readonly IProductRepository<Product> repositoryProduct;
+        private readonly IProductRepository repositoryProduct;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
         /// <param name="contentCartDtoRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository<ContentCartDto> contentCartDtoRepository, IProductRepository<Product> productRepository)
+        public CartService(ICartRepository<ContentCartDto> contentCartDtoRepository, IProductRepository productRepository)
         {
             this.repositoryContentCartDto = contentCartDtoRepository;
             this.repositoryProduct = productRepository;

@@ -9,7 +9,6 @@ namespace MediaShop.Common
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Dto.Product;
     using MediaShop.Common.Models.Content;
