@@ -18,6 +18,7 @@ using MediaShop.BusinessLogic.Services;
 using MediaShop.BusinessLogic.Tests.Properties;
 using MediaShop.Common.Dto.Product;
 using System.Drawing;
+using System.Text;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -189,6 +190,56 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
                 }
             }
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Product_GetCompressMusicTest()
+        {
+            FileStream stream = File.OpenRead(@"d:\1.mp3");
+            var sourceMusicByte = new byte[stream.Length];
+            stream.Read(sourceMusicByte, 0, sourceMusicByte.Length);
+            stream.Close();
+
+            var content = Encoding.ASCII.GetString(sourceMusicByte);
+
+            var targetLength = sourceMusicByte.Length / 10;
+            byte[] resultMusicByte = new byte[targetLength];
+            Array.Copy(sourceMusicByte,resultMusicByte,targetLength);
+            
+
+            using (Stream file = File.OpenWrite(@"d:\2.mp3"))
+            {
+                if (!ReferenceEquals(resultMusicByte, null))
+                {
+                    file.Write(resultMusicByte, 0, resultMusicByte.Length);
+                }
+            }
+            Assert.IsNotNull(resultMusicByte);
+        }
+
+        [Test]
+        public void Product_GetCompressVideoTest()
+        {
+            FileStream stream = File.OpenRead(@"d:\1.mp4");
+            var sourceVideoByte = new byte[stream.Length];
+            stream.Read(sourceVideoByte, 0, sourceVideoByte.Length);
+            stream.Close();
+
+            var content = Encoding.ASCII.GetString(sourceVideoByte);
+
+            var targetLength = sourceVideoByte.Length / 10;
+            byte[] resultVideoByte = new byte[targetLength];
+            Array.Copy(sourceVideoByte, resultVideoByte, targetLength);
+
+
+            using (Stream file = File.OpenWrite(@"d:\2.mp4"))
+            {
+                if (!ReferenceEquals(resultVideoByte, null))
+                {
+                    file.Write(resultVideoByte, 0, resultVideoByte.Length);
+                }
+            }
+            Assert.IsNotNull(resultVideoByte);
         }
     }
 }
