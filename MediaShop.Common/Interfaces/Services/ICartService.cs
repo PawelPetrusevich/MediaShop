@@ -10,23 +10,22 @@
     /// </summary>
     /// <typeparam name="TModel">type model2</typeparam>
     public interface ICartService<TModel>
-        where TModel : ContentCart
+        where TModel : ContentCartDto
     {
         /// <summary>
         /// Find items in a cart by user Id and return a items collection
         /// </summary>
         /// <param name="userId">users id</param>
-        /// <param name="contentState">contents state</param>
         /// <returns> shopping cart for a user </returns>
-        IEnumerable<ContentCart> GetInCart(long userId, CartEnums.StateCartContent contentState);
+        IEnumerable<TModel> GetContent(long userId);
 
         /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="userId">users id</param>
+        /// <param name="categoryName">name category for content</param>
         /// <returns>this save item</returns>
-        TModel AddInCart(long contentId, long userId);
+        TModel AddInCart(long contentId, string categoryName);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -51,9 +50,9 @@
         decimal GetPrice(long userId);
 
         /// <summary>
-        /// Get sum price items typeof ContentCart
+        /// Get sum price items typeof ContentCartDto
         /// </summary>
-        /// <param name="cart">Collection ContentCart</param>
+        /// <param name="cart">Collection ContentCartDto</param>
         /// <returns>Sum price</returns>
         decimal GetPrice(IEnumerable<TModel> cart);
 
@@ -67,25 +66,31 @@
         /// <summary>
         /// Get count items
         /// </summary>
-        /// <param name="cart">Collection ContentCart</param>
+        /// <param name="cart">Collection ContentCartDto</param>
         /// <returns>Count Items</returns>
         uint GetCountItems(IEnumerable<TModel> cart);
 
         /// <summary>
         /// Method for deleting selected items
         /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        TModel DeleteContent(TModel model);
+
+        /// <summary>
+        /// Method for deleting selected items
+        /// </summary>
         /// <param name="itemsId">collection users id</param>
         /// <returns>collection of remote objects</returns>
-        ICollection<ContentCart> DeleteOfCart(ICollection<long> itemsId);
+        ICollection<ContentCartDto> DeleteOfCart(ICollection<long> itemsId);
 
         /// <summary>
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
-        ContentCart SetState(
-            long contentId, long userId, CartEnums.StateCartContent contentState);
+        ContentCartDto SetState(
+            long contentId, CartEnums.StateCartContent contentState);
     }
 }
