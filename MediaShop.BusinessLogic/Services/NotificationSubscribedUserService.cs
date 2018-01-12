@@ -13,27 +13,23 @@ namespace MediaShop.BusinessLogic.Services
 {
     public class NotificationSubscribedUserService : INotificationSubscribedUserService
     {
-        private readonly INotificationSubscribedUserRepository _subscribedUserStore;
+        private readonly INotificationSubscribedUserRepository _repository;
 
         public NotificationSubscribedUserService(INotificationSubscribedUserRepository subscribedUserStore)
         {
-            _subscribedUserStore = subscribedUserStore;
+            _repository = subscribedUserStore;
         }
 
         public NotificationSubscribedUserDto Subscribe(NotificationSubscribedUserDto subscribeData)
         {
             var subscribe = GetSubscribe(subscribeData);
-
-            if (subscribe == null)
-            {
-                subscribe = _subscribedUserStore.Add(Mapper.Map<NotificationSubscribedUser>(subscribeData));
-            }
+            subscribe = subscribe ?? _repository.Add(Mapper.Map<NotificationSubscribedUser>(subscribeData));
             return Mapper.Map<NotificationSubscribedUserDto>(subscribe);
         }
 
         private NotificationSubscribedUser GetSubscribe(NotificationSubscribedUserDto subscribeModel)
         {
-            return _subscribedUserStore.Get(subscribeModel.UserId, subscribeModel.DeviceIdentifier);
+            return _repository.Get(subscribeModel.UserId, subscribeModel.DeviceIdentifier);
         }
 
         public bool UserIsSubscribed(NotificationSubscribedUserDto subscribeModel)
