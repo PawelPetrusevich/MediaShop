@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.DataAccess.Repositories.Base;
+
 namespace MediaShop.DataAccess.Repositories
 {
     using System.Data.Entity;
@@ -12,7 +14,7 @@ namespace MediaShop.DataAccess.Repositories
     /// <summary>
     /// Class ProfileRepository.
     /// </summary>
-    /// <seealso cref="MediaShop.DataAccess.Repositories.Repository{AccountProfile}" />
+    /// <seealso cref="Repository{T}" />
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IProfileRepository" />
     public class ProfileRepository : Repository<Profile>, IProfileRepository
     {
