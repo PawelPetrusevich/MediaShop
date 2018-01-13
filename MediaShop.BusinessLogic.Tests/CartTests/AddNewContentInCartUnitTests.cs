@@ -120,7 +120,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ExistContentInCartExceptions))]
+        [ExpectedException(typeof(NotExistProductInDataBaseExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Get_Product()
         {
             // Create object ContentCart
