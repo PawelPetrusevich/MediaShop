@@ -1,19 +1,14 @@
-﻿// <copyright file="UserDto.cs" company="MediaShop">
-// Copyright (c) MediaShop. All rights reserved.
-// </copyright>
-
-using MediaShop.Common.Models;
-using MediaShop.Common.Models.User;
-
-namespace MediaShop.Common.Dto.User
+﻿namespace MediaShop.Common.Dto.User
 {
     using System;
 
+    using MediaShop.Common.Models;
+
     /// <summary>
-    /// Class ProfileDto.
+    /// Class ProfileBL.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
-    public class ProfileDto
+    public class ProfileBl
     {
         /// <summary>
         /// Gets or sets the date of birth.

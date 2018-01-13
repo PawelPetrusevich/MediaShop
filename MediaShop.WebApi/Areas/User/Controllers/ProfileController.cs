@@ -6,6 +6,7 @@ using MediaShop.Common.Models.User;
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
     using System;
+    using System.Web.Services.Description;
 
     using AutoMapper;
 
@@ -61,7 +62,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Profile))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Post([FromBody] ProfileDto data)
+        public IHttpActionResult Post([FromBody] ProfileBl data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -70,11 +71,15 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_profileService.Create(data));
+                var dataDto = Mapper.Map<ProfileDto>(data);
+
+                var result = _profileService.Create(dataDto);
+
+                return Ok(Mapper.Map<ProfileBl>(result));
             }
             catch (ExistingLoginException ex)
             {
-                return BadRequest(string.Empty);
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

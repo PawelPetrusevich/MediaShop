@@ -6,6 +6,8 @@ using MediaShop.Common.Dto.User;
 
 namespace MediaShop.Common
 {
+    using System;
+
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models;
@@ -24,10 +26,14 @@ namespace MediaShop.Common
         /// Initializes a new instance of the <see cref="MapperProfile"/> class.
         /// </summary>
         public MapperProfile()
-        {            
-               this.CreateMap<Product, ContentCart>()
+        {
+            this.CreateMap<Product, ContentCart>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
+            this.CreateMap<ProfileDto, Models.User.Profile>().ForMember(item => item.Id, m => m.Ignore())
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore());
+            this.CreateMap<ProfileBl, ProfileDto>().ReverseMap();
             this.CreateMap<SettingsDto, Settings>().ReverseMap();
         }
     }
