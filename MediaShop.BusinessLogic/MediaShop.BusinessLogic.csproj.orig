@@ -76,15 +76,30 @@
   <ItemGroup>
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\CartService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </Resource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">
       <Project>{70d5d62c-5908-4825-9b59-436fc179c1a9}</Project>
       <Name>MediaShop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaShop.DataAccess\MediaShop.DataAccess.csproj">
+      <Project>{1408409b-0557-40e3-82c6-0df7cc75716b}</Project>
+      <Name>MediaShop.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +206,10 @@
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">

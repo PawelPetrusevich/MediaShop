@@ -5,19 +5,7 @@
     using System.Linq.Expressions;
     using MediaShop.Common.Models.CartModels;
 
-    public interface IProductRepository<TModel>
-        where TModel : Product
+    public interface IProductRepository : IRepository<Product>
     {
-        TModel Get(long id);
-
-        TModel Add(TModel model);
-
-        TModel Update(TModel model);
-
-        TModel Delete(TModel model);
-
-        TModel Delete(long id);
-
-        IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
     }
 }

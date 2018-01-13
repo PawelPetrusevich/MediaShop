@@ -98,7 +98,7 @@
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\Base\Repository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -3,9 +3,12 @@
 // </copyright>
 
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 
 namespace MediaShop.Common
 {
+    using System;
+
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models;
@@ -26,12 +29,26 @@ namespace MediaShop.Common
         public MapperProfile()
         {
 <<<<<<< HEAD
+            this.CreateMap<Product, ContentCart>()
+                .ForMember(item => item.CreatorId, m => m.Ignore());
+
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
-            this.CreateMap<SettingsDto, Settings>().ForMember(x => x.AccountId, opt => opt.MapFrom(m => m.UserId)).ReverseMap();
+
+            this.CreateMap<ProfileDto, Models.User.Profile>().ForMember(item => item.Id, m => m.Ignore())
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore());
+
+            this.CreateMap<AccountDomain, RegisterUserDto>();
+            this.CreateMap<ProfileBl, ProfileDto>().ReverseMap();
+            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
+
+            this.CreateMap<Account, AccountDomain>().ReverseMap();
+            this.CreateMap<Settings, SettingsDomain>();
 =======
             this.CreateMap<UserDto, Account>().ReverseMap();
-               this.CreateMap<Product, ContentCart>()
+               this.CreateMap<Product, ContentCartDto>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
+            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
 >>>>>>> develop
         }
     }

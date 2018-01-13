@@ -24,7 +24,7 @@ namespace MediaShop.BusinessLogic
             Bind<ISettingsService>().To<SettingsService>();
             Bind<IProfileService>().To<ProfileService>();
 
-            this.Bind<ICartService<ContentCart>>().To<CartService>();
-        }
+            Bind<ICartService<ContentCartDto>>().To<CartService>();
+         }
     }
 }
