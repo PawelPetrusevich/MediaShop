@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Resources;
 using System.Web.Http;
+using AutoMapper;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
@@ -13,7 +15,7 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
-    [RoutePrefix("api/settings")]
+    [RoutePrefix("api/userSettings")]
     public class SettingsController : ApiController
     {
         private readonly ISettingsService _settingsService;
@@ -29,15 +31,16 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Settings))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult ModifySettings([FromBody] SettingsDto settings)
+        public IHttpActionResult ModifySettings([FromBody] SettingsDto userSettings)
         {
-            if (settings == null || !ModelState.IsValid)
+            if (userSettings == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmptyRegisterDate);
             }
 
             try
             {
+                var settings = Mapper.Map<SettingsDomain>(userSettings);
                 return Ok(_settingsService.Modify(settings));
             }
             catch (NotFoundUserException ex)

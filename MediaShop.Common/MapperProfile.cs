@@ -3,6 +3,7 @@
 // </copyright>
 
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 
 namespace MediaShop.Common
 {
@@ -29,12 +30,19 @@ namespace MediaShop.Common
         {
             this.CreateMap<Product, ContentCart>()
                 .ForMember(item => item.CreatorId, m => m.Ignore());
+
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
+
             this.CreateMap<ProfileDto, Models.User.Profile>().ForMember(item => item.Id, m => m.Ignore())
                 .ForMember(item => item.CreatedDate, m => m.Ignore())
                 .ForMember(item => item.CreatorId, m => m.Ignore());
+
+            this.CreateMap<AccountDomain, RegisterUserDto>();
             this.CreateMap<ProfileBl, ProfileDto>().ReverseMap();
-            this.CreateMap<SettingsDto, Settings>().ReverseMap();
+            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
+
+            this.CreateMap<Account, AccountDomain>().ReverseMap();
+            this.CreateMap<Settings, SettingsDomain>();
         }
     }
 }

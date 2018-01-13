@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
@@ -19,21 +20,24 @@ namespace MediaShop.BusinessLogic.Services
             _storeAccount = repositoryAccount;
         }
 
-        public Settings Modify(SettingsDto settings)
+        public SettingsDomain Modify(SettingsDomain settings)
         {
-            var user = _storeAccount.Get(settings.UserId);
+            var user = _storeAccount.Get(settings.AccountID);
             
             if (user == null)
             {
                 throw new NotFoundUserException();
             }
 
-            var userSettings = Mapper.Map<Settings>(settings);
+            var userSettings = Mapper.Map<SettingsDomain>(settings);
             userSettings.Id = user.SettingsId;
 
-            var modiffiedSettings = _storeSettings.Update(userSettings);
+            //TODO made for building, we should return and work with SettingsDomain, not Settings
+            var settingsData = Mapper.Map<Settings>(userSettings);
 
-            return modiffiedSettings;
+            var modiffiedSettings = _storeSettings.Update(settingsData);
+
+            return userSettings;
         }
     }
 }

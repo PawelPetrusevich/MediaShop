@@ -1,14 +1,13 @@
-﻿using FluentValidation.Attributes;
-using MediaShop.Common.Dto.User.Validators;
+﻿using MediaShop.Common.Models;
 using MediaShop.Common.Models.User;
 
-namespace MediaShop.Common.Dto.User
+namespace MediaShop.Common.Dto.User.Validators
 {
-    [Validator(typeof(SettingsValidator))]
-    public class SettingsDto
+    public class SettingsDomain : Entity
     {
-        public int AccountId { get; set; }
-
+        /// <summary>
+        /// Identifier timezone of user, default value +0
+        /// </summary>
         public string TimeZoneId { get; set; }
 
         /// <summary>
@@ -20,5 +19,7 @@ namespace MediaShop.Common.Dto.User
         /// Turn on/off notification
         /// </summary>
         public bool NotificationStatus { get; set; }
+
+        public long AccountID { get; set; }
     }
 }
