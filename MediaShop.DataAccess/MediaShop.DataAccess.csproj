@@ -105,6 +105,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">

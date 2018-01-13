@@ -18,18 +18,18 @@
     /// </summary>
     public class CartService : ICartService<ContentCartDto>
     {
-        private readonly ICartRepository<ContentCartDto> repositoryContentCartDto;
+        private readonly ICartRepository repositoryContentCart;
 
         private readonly IProductRepository repositoryProduct;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
-        /// <param name="contentCartDtoRepository">instance repository CartRepository</param>
+        /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository<ContentCartDto> contentCartDtoRepository, IProductRepository productRepository)
+        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository)
         {
-            this.repositoryContentCartDto = contentCartDtoRepository;
+            this.repositoryContentCart = contentCartRepository;
             this.repositoryProduct = productRepository;
         }
 
@@ -55,22 +55,28 @@
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            // Mapping object Entity to object ContentCartDto
+            // Mapping object Product to object ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
 
             // Initialize CreatorId and CategoryName
             contentCartDto.CreatorId = 1; // Need initializing userId
             contentCartDto.CategoryName = categoryName;
 
-            // Save object ContentCartDtoDto in repository
-            var addContentCartDto = this.repositoryContentCartDto.Add(contentCartDto);
+            // Final mapping object ContentCartDto to object ContentCart
+            var contentCart = Mapper.Map<ContentCart>(contentCartDto);
+
+            // Save object ContentCart in repository
+            var addContentCart = this.repositoryContentCart.Add(contentCart);
 
             // If the object is not added to the database
             // return null
-            if (addContentCartDto == null)
+            if (addContentCart == null)
             {
                 throw new AddContentInCartExceptions(Resources.ResourceManager.GetString("AddContentInCart"));
             }
+
+            // Output mapping object ContentCart to object ContentCartDto
+            var addContentCartDto = Mapper.Map<ContentCartDto>(addContentCart);
 
             // Mapping object ContentCartDtoDto to ContentCartDto
             return addContentCartDto;
@@ -88,13 +94,19 @@
                 throw new NullReferenceException();
             }
 
-            var deleteContentCart = this.repositoryContentCartDto.Delete(model);
+            // Final mapping object ContentCartDto to object ContentCart
+            var contentCart = Mapper.Map<ContentCart>(model);
+
+            var deleteContentCart = this.repositoryContentCart.Delete(contentCart);
             if (deleteContentCart == null)
             {
                 throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
             }
 
-            return deleteContentCart;
+            // Output mapping object ContentCart to object ContentCartDto
+            var deleteContentCartDto = Mapper.Map<ContentCartDto>(deleteContentCart);
+
+            return deleteContentCartDto;
         }
 
         /// <summary>
@@ -109,18 +121,18 @@
                 throw new NullReferenceException();
             }
 
-            var collectionContentCartDto = new Collection<ContentCartDto>();
-            foreach (long contentCartDto in collectionId)
+            var collectionContentCart = new Collection<ContentCart>();
+            foreach (long contentCartId in collectionId)
             {
-                var deleteContentCartDto = this.repositoryContentCartDto.Delete(contentCartDto);
-                if (deleteContentCartDto == null)
+                var deleteContentCart = this.repositoryContentCart.Delete(contentCartId);
+                if (deleteContentCart == null)
                 {
                     // To do rollback
-                    if (collectionContentCartDto.Count != 0)
+                    if (collectionContentCart.Count != 0)
                     {
-                        foreach (ContentCartDto content in collectionContentCartDto)
+                        foreach (ContentCart content in collectionContentCart)
                         {
-                            var addContentCartDtoRollback = this.repositoryContentCartDto.Add(content);
+                            var addContentCartRollback = this.repositoryContentCart.Add(content);
                         }
                     }
 
@@ -128,8 +140,18 @@
                 }
                 else
                 {
-                    collectionContentCartDto.Add(deleteContentCartDto);
+                    collectionContentCart.Add(deleteContentCart);
                 }
+            }
+
+            // Final collection object CollectionCartDto
+            var collectionContentCartDto = new Collection<ContentCartDto>();
+
+            // Output mapping ContentCart to ContentCartDto
+            foreach (ContentCart contentCart in collectionContentCart)
+            {
+                var contentCartDto = Mapper.Map<ContentCartDto>(contentCart);
+                collectionContentCartDto.Add(contentCartDto);
             }
 
             return collectionContentCartDto;
@@ -141,7 +163,7 @@
         /// <param name="contentid">content id</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool FindInCart(long contentid) => this.repositoryContentCartDto
+        public bool FindInCart(long contentid) => this.repositoryContentCart
             .Get(contentid) != null;
 
         /// <summary>
@@ -152,37 +174,40 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            var contentInCart = this.repositoryContentCartDto.GetAll(id);
-            return contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
+            //var contentInCart = this.repositoryContentCart.GetAll(id);
+            //return contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="userId">users id</param>
         /// <param name="contentState">contents state</param>
         /// <returns>object with update state</returns>
         public ContentCartDto SetState(long contentId, CartEnums.StateCartContent contentState)
         {
             // Get object by id
-            var contentCartDtoForUpdate = this.repositoryContentCartDto.Get(contentId);
+            var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
 
-            if (contentCartDtoForUpdate == null)
+            if (contentCartForUpdate == null)
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
             // change state object
-            contentCartDtoForUpdate.StateContent = contentState;
+            contentCartForUpdate.StateContent = contentState;
 
             // Update change
-            var contentCartDtoAfterUpdate = this.repositoryContentCartDto.Update(contentCartDtoForUpdate);
+            var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
 
-            if (contentCartDtoAfterUpdate.StateContent != contentState)
+            if (contentCartAfterUpdate.StateContent != contentState)
             {
                 throw new UpdateContentInCartExseptions(Resources.UpdateContentInCart);
             }
+
+            // Output mapping object ContentCart to object ContentCartDto
+            var contentCartDtoAfterUpdate = Mapper.Map<ContentCartDto>(contentCartAfterUpdate);
 
             // Return object ContentCartDto
             return contentCartDtoAfterUpdate;
