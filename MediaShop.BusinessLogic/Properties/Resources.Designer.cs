@@ -79,11 +79,29 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content is not exist in cart.
+        ///   Looks up a localized string similar to Content already exist in cart.
         /// </summary>
         internal static string ExistContentInCart {
             get {
                 return ResourceManager.GetString("ExistContentInCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product is not exist.
+        /// </summary>
+        internal static string ExistProductInDataBase {
+            get {
+                return ResourceManager.GetString("ExistProductInDataBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid content identificator.
+        /// </summary>
+        internal static string InvalidContentId {
+            get {
+                return ResourceManager.GetString("InvalidContentId", resourceCulture);
             }
         }
         

@@ -2,11 +2,17 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
-    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
 
-    public class ContentCartConfiguration : EntityTypeConfiguration<ContentCart>
+    /// <summary>
+    ///     Configuration tables Product
+    /// </summary>
+    public class ProductConfiguration : EntityTypeConfiguration<Product>
     {
-        public ContentCartConfiguration()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductConfiguration" /> class.
+        /// </summary>
+        public ProductConfiguration()
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
@@ -16,17 +22,11 @@
                 .IsRequired()
                 .IsVariableLength()
                 .IsUnicode(true);
-            this.Property(x => x.CategoryName)
-                .IsRequired()
-                .IsVariableLength()
-                .IsUnicode(true);
             this.Property(x => x.DescriptionItem)
                 .IsOptional()
                 .IsVariableLength()
                 .IsUnicode(true);
             this.Property(x => x.PriceItem)
-                .IsRequired();
-            this.Property(x => x.StateContent)
                 .IsRequired();
             this.Property(x => x.CreatorId)
                 .IsRequired();

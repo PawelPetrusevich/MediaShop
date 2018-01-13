@@ -11,7 +11,6 @@
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
 
     /// <summary>
     /// Service for work with cart
@@ -41,25 +40,37 @@
         /// <returns>this save item</returns>
         public ContentCartDto AddInCart(long contentId, string categoryName)
         {
+            // Verify long contentId
+            if (contentId <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidContentId);
+            }
+
             // Verify string categoryName
             if (string.IsNullOrEmpty(categoryName) || string.IsNullOrWhiteSpace(categoryName))
             {
                 throw new FormatException(Resources.NullOrEmptyValueString);
             }
 
-            //// Get object ProductDto by id
+            // Check exist Content in Cart
+            if (this.FindInCart(contentId))
+            {
+                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+            }
+
+            // Get object Product by id
             var product = this.repositoryProduct.Get(contentId);
 
             if (product == null)
             {
-                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+                throw new NotExistProductInDataBaseExceptions(Resources.ExistProductInDataBase);
             }
 
             // Mapping object Product to object ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
 
             // Initialize CreatorId and CategoryName
-            contentCartDto.CreatorId = 1; // Need initializing userId
+            contentCartDto.CreatorId = 1; // Need initializing userId !!!
             contentCartDto.CategoryName = categoryName;
 
             // Final mapping object ContentCartDto to object ContentCart
@@ -76,14 +87,11 @@
             }
 
             // Output mapping object ContentCart to object ContentCartDto
-            var addContentCartDto = Mapper.Map<ContentCartDto>(addContentCart);
-
-            // Mapping object ContentCartDtoDto to ContentCartDto
-            return addContentCartDto;
+            return Mapper.Map<ContentCartDto>(addContentCart);
         }
 
         /// <summary>
-        /// Method for deleting selected contentCart
+        /// Method for deleting selected ContentCart
         /// </summary>
         /// <param name="model">model ContentCartDto for delete</param>
         /// <returns>return deleting  model element</returns>
@@ -187,6 +195,12 @@
         /// <returns>object with update state</returns>
         public ContentCartDto SetState(long contentId, CartEnums.StateCartContent contentState)
         {
+            // Verify long contentId
+            if (contentId <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidContentId);
+            }
+
             // Get object by id
             var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
 
@@ -195,22 +209,26 @@
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            // change state object
+            // Change state object
             contentCartForUpdate.StateContent = contentState;
+
+            // Change ModifiedDate
+            contentCartForUpdate.ModifiedDate = DateTime.Now;
+
+            // Change ModifiedId
+            contentCartForUpdate.ModifierId = 2; // Need initializing userId !!!
 
             // Update change
             var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
 
+            // Check update property StateContent
             if (contentCartAfterUpdate.StateContent != contentState)
             {
                 throw new UpdateContentInCartExseptions(Resources.UpdateContentInCart);
             }
 
             // Output mapping object ContentCart to object ContentCartDto
-            var contentCartDtoAfterUpdate = Mapper.Map<ContentCartDto>(contentCartAfterUpdate);
-
-            // Return object ContentCartDto
-            return contentCartDtoAfterUpdate;
+            return Mapper.Map<ContentCartDto>(contentCartAfterUpdate);
         }
 
         /// <summary>

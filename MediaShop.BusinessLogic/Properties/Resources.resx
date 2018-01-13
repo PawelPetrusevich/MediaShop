@@ -124,7 +124,13 @@
     <value>Content is not delete from cart</value>
   </data>
   <data name="ExistContentInCart" xml:space="preserve">
-    <value>Content is not exist in cart</value>
+    <value>Content already exist in cart</value>
+  </data>
+  <data name="ExistProductInDataBase" xml:space="preserve">
+    <value>Product is not exist</value>
+  </data>
+  <data name="InvalidContentId" xml:space="preserve">
+    <value>Invalid content identificator</value>
   </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>

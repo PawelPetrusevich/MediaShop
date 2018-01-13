@@ -7,9 +7,9 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.DataAccess.Configurations;
     using System.Data.Entity;
     using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
 
     using MediaShop.Common.Models.User;
-    using MediaShop.DataAccess.Configurations;
 
     /// <summary>
     /// Class MediaContext.
@@ -23,9 +23,13 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
+            Database.SetInitializer(new MediaInitializer());
         }
 
+        /// <summary>
+        /// Gets or sets the ContentCart.
+        /// </summary>
+        /// <value>The ContentCart.</value>
         public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
@@ -47,6 +51,12 @@ namespace MediaShop.DataAccess.Context
         public IDbSet<Settings> Settings { get; set; }
 
         /// <summary>
+        /// Gets or sets the Products.
+        /// </summary>
+        /// <value>The Product.</value>
+        public IDbSet<Product> Products { get; set; }
+
+        /// <summary>
         /// Method configuration tables
         /// </summary>
         /// <param name="modelBuilder">modelBuilder</param>
@@ -54,6 +64,7 @@ namespace MediaShop.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ContentCartConfiguration());
+            modelBuilder.Configurations.Add(new ProductConfiguration());
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());

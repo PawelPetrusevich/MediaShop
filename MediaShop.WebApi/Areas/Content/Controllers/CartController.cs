@@ -48,7 +48,15 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return this.Ok(_cartService.AddInCart(contentId, categoryName));
             }
+            catch (ArgumentException error)
+            {
+                return BadRequest(error.Message);
+            }
             catch (FormatException error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (NotExistProductInDataBaseExceptions error)
             {
                 return BadRequest(error.Message);
             }
@@ -57,6 +65,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(error.Message);
             }
             catch (AddContentInCartExceptions error)
+            {
+                return InternalServerError(error);
+            }
+            catch (Exception error)
             {
                 return InternalServerError(error);
             }
@@ -79,6 +91,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(error.Message);
             }
             catch (UpdateContentInCartExseptions error)
+            {
+                return InternalServerError(error);
+            }
+            catch (Exception error)
             {
                 return InternalServerError(error);
             }

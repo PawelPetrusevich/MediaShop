@@ -79,6 +79,7 @@
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExseptions\NotExistProductInDataBaseExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
