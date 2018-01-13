@@ -22,7 +22,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         private Mock<ICartRepository<ContentCartDto>> mock;
 
         // Field for MockProduct
-        private Mock<IProductRepository<Product>> mockProduct;
+        private Mock<IProductRepository> mockProduct;
 
         [TestInitialize]
         public void Initialize()
@@ -36,7 +36,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create Mock
             var _mock = new Mock<ICartRepository<ContentCartDto>>();
             mock = _mock;
-            var _mockProduct = new Mock<IProductRepository<Product>>();
+            var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
         }
 
