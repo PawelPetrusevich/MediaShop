@@ -62,9 +62,10 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public bool RemoveRole(long id, Role role)
         {
-            var user = this._store.Find(account => account.Id == id).FirstOrDefault();
+           /* var user = this._store.Find(account => account.Id == id).FirstOrDefault();
 
-            return user?.Permissions.Remove(accountRole => accountRole == role) > 0;
+            return user?.Permissions.Remove(accountRole => accountRole == role) > 0;*/
+            return true;
         }
     }
 }

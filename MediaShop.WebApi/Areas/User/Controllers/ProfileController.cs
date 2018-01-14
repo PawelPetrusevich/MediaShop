@@ -62,7 +62,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Profile))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Post([FromBody] ProfileBl data)
+        public IHttpActionResult Post([FromBody] ProfileDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -71,11 +71,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var dataDto = Mapper.Map<ProfileDto>(data);
+                var dataDto = Mapper.Map<ProfileBl>(data);
 
                 var result = _profileService.Create(dataDto);
 
-                return Ok(Mapper.Map<ProfileBl>(result));
+                return Ok(Mapper.Map<ProfileDto>(result));
             }
             catch (ExistingLoginException ex)
             {

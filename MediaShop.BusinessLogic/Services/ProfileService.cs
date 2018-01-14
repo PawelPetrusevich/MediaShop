@@ -26,7 +26,7 @@ namespace MediaShop.BusinessLogic.Services
             this.storeAccount = accountRepository;
         }
 
-        public ProfileDto Create(ProfileDto profileModel)
+        public ProfileBl Create(ProfileBl profileModel)
         {
             var existingAccount = this.storeAccount.GetByLogin(profileModel.Login);
 
@@ -42,9 +42,9 @@ namespace MediaShop.BusinessLogic.Services
                 profile.Id = existingAccount.ProfileId;
 
                 var updatingProfile = this.storeProfile.Update(profile);
-                var updatingProfileDto = Mapper.Map<ProfileDto>(profileModel);
+                var updatingProfileBl = Mapper.Map<ProfileBl>(profileModel);
 
-                return updatingProfileDto;
+                return updatingProfileBl;
             }
 
             return null;

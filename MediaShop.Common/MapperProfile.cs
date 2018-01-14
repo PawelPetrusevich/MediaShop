@@ -34,7 +34,7 @@ namespace MediaShop.Common
 
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
 
-            this.CreateMap<ProfileDto, Models.User.Profile>().ForMember(item => item.Id, m => m.Ignore())
+            this.CreateMap<ProfileBl, Models.User.Profile>().ForMember(item => item.Id, m => m.Ignore())
                 .ForMember(item => item.CreatedDate, m => m.Ignore())
                 .ForMember(item => item.CreatorId, m => m.Ignore());
 
