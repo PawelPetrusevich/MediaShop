@@ -11,10 +11,17 @@ using MediaShop.Common.Models.Notification;
 
 namespace MediaShop.BusinessLogic.Services
 {
+    /// <summary>
+    /// Service for subscribe user to receive notifications
+    /// </summary>
     public class NotificationSubscribedUserService : INotificationSubscribedUserService
     {
         private readonly INotificationSubscribedUserRepository _repository;
 
+        /// <summary>
+        /// Initializes a new instance of the  <see cref="NotificationSubscribedUserService"/> class.
+        /// </summary>
+        /// <param name="subscribedUserStore">Subscribed users repository</param>
         public NotificationSubscribedUserService(INotificationSubscribedUserRepository subscribedUserStore)
         {
             _repository = subscribedUserStore;
@@ -27,15 +34,20 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<NotificationSubscribedUserDto>(subscribe);
         }
 
-        private NotificationSubscribedUser GetSubscribe(NotificationSubscribedUserDto subscribeModel)
-        {
-            return _repository.Get(subscribeModel.UserId, subscribeModel.DeviceIdentifier);
-        }
-
         public bool UserIsSubscribed(NotificationSubscribedUserDto subscribeModel)
         {
             var subscribe = GetSubscribe(subscribeModel);
             return subscribe != null;
+        }
+
+        /// <summary>
+        /// Get user subscribe
+        /// </summary>
+        /// <param name="subscribeModel">subscribe model</param>
+        /// <returns>User subscribtion</returns>
+        private NotificationSubscribedUser GetSubscribe(NotificationSubscribedUserDto subscribeModel)
+        {
+            return _repository.Get(subscribeModel.UserId, subscribeModel.DeviceIdentifier);
         }
     }
 }

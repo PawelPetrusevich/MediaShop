@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Notification;
-using System.Net.Http;
-using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MediaShop.BusinessLogic.Services
 {
+    /// <summary>
+    /// Service for send notifications to user
+    /// </summary>
     public class NotificationService : INotificationService
     {
         private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private readonly INotificationRepository _notifcationStore;
 
+        /// <summary>
+        /// Initializes a new instance of the  <see cref="NotificationService"/> class.
+        /// </summary>
+        /// <param name="subscribedUserStore">Repository subscribed users</param>
+        /// <param name="notifcationStore">Repository of notifications</param>
         public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore)
         {
             this._subscribedUserStore = subscribedUserStore;
