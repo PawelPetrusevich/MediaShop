@@ -211,12 +211,6 @@
             // Change state object
             contentCartForUpdate.StateContent = contentState;
 
-            // Change ModifiedDate
-            contentCartForUpdate.ModifiedDate = DateTime.Now;
-
-            // Change ModifiedId
-            contentCartForUpdate.ModifierId = 2; // Need initializing userId !!!
-
             // Update change
             var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
 

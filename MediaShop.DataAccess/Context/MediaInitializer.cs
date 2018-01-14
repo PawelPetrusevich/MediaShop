@@ -13,7 +13,7 @@
         /// <inheritdoc/>
         protected override void Seed(MediaContext context)
         {
-            context.ContentCart.Add(
+            context.ContentCarts.Add(
                 new ContentCart
                 {
                     Id = 8,
@@ -27,7 +27,7 @@
                     CreatorId = 50,
                 });
 
-            context.ContentCart.Add(
+            context.ContentCarts.Add(
                 new ContentCart
                 {
                     Id = 9,
@@ -40,7 +40,7 @@
                     CreatedDate = new DateTime(2018, 01, 10),
                     CreatorId = 50,
                 });
-            context.ContentCart.Add(
+            context.ContentCarts.Add(
                 new ContentCart
                 {
                     Id = 10,

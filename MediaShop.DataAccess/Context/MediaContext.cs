@@ -30,7 +30,7 @@ namespace MediaShop.DataAccess.Context
         /// Gets or sets the ContentCart.
         /// </summary>
         /// <value>The ContentCart.</value>
-        public IDbSet<ContentCart> ContentCart { get; set; }
+        public IDbSet<ContentCart> ContentCarts { get; set; }
 
         /// <summary>
         /// Gets or sets the accounts.
@@ -62,6 +62,7 @@ namespace MediaShop.DataAccess.Context
         /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ContentCartConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
