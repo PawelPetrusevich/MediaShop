@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 namespace MediaShop.Common.Interfaces.Repositories
 {
@@ -7,15 +7,19 @@ namespace MediaShop.Common.Interfaces.Repositories
     using System.Linq.Expressions;
     using MediaShop.Common.Models.Content;
 
-    /// <summary>
-    /// Class IProductRepository.
-    /// </summary>
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository<TModel>
+        where TModel : Product
     {
-        /// <summary>
-        /// Query products.
-        /// </summary>
-        /// <returns>products</returns>
-        IQueryable<Product> Products();
+        TModel Get(long id);
+
+        TModel Add(TModel model);
+
+        TModel Update(TModel model);
+
+        TModel Delete(TModel model);
+
+        TModel Delete(long id);
+
+        IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
     }
 }
