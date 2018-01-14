@@ -135,5 +135,10 @@ namespace MediaShop.DataAccess.Repositories
 
             return this.set.Where(criteria);
         }
+
+        public void Dispose()
+        {
+            сontext?.Dispose();
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace MediaShop.DataAccess.Repositories
+﻿using System.Data.Entity;
+using MediaShop.DataAccess.Repositories.Base;
+
+namespace MediaShop.DataAccess.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +14,16 @@
     /// <summary>
     /// Class ProductRepository.
     /// </summary>
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
-        
+        public ProductRepository(DbContext context)
+            : base(context)
+        {
+        }
+
+        public IEnumerable<Product> Products()
+        {
+            return this.DbSet.AsEnumerable();
+        }
     }
 }
