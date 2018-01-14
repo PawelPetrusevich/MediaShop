@@ -182,9 +182,8 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            //var contentInCart = this.repositoryContentCart.GetAll(id);
-            //return contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
-            throw new NotImplementedException();
+            var contentInCart = this.repositoryContentCart.GetAll(id);
+            return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart));
         }
 
         /// <summary>

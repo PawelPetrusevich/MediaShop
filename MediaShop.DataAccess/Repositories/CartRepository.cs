@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using AutoMapper;
     using MediaShop.Common.Interfaces.Repositories;
@@ -24,6 +25,58 @@
         }
 
         /// <summary>
+        /// Method for update object type ContentCart
+        /// </summary>
+        /// <param name="model">updating object</param>
+        /// <returns>rezalt operation</returns>
+        public override ContentCart Update(ContentCart model)
+        {
+            model.ModifiedDate = DateTime.Now;
+            model.ModifierId = model.CreatorId; // get ModifaerId from token
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChanges();
+            return model;
+        }
+
+        /// <summary>
+        /// Method for delete object type ContentCart
+        /// </summary>
+        /// <param name="model">object for delete</param>
+        /// <returns>rezalt operation</returns>
+        public override ContentCart Delete(ContentCart model)
+        {
+            var result = this.DbSet.Remove(model);
+            this.Context.SaveChanges();
+            return result;
+        }
+
+        /// <summary>
+        /// Method for delete object type ContentCart
+        /// </summary>
+        /// <param name="id">id for delete</param>
+        /// <returns>rezalt operation</returns>
+        public override ContentCart Delete(long id)
+        {
+            var contentCart = this.DbSet.Where(x => x.Id == id
+                && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
+            var result = this.DbSet.Remove(contentCart);
+            this.Context.SaveChanges();
+            return result;
+        }
+
+        /// <summary>
+        /// Method for getting object type ContentCart
+        /// by identificator
+        /// </summary>
+        /// <param name="id">identificator</param>
+        /// <returns>rezalt operation</returns>
+        public override ContentCart Get(long id)
+        {
+            var result = this.DbSet.Where(x => x.Id == id).SingleOrDefault();
+            return result;
+        }
+
+        /// <summary>
         /// Method for getting collection objects type ContentCart
         /// by user identificator
         /// </summary>
@@ -32,7 +85,7 @@
         public IEnumerable<ContentCart> GetAll(long userId)
         {
             var result = this.DbSet.Where(x => x.CreatorId == userId);
-            return Mapper.Map<IEnumerable<ContentCart>, IEnumerable<ContentCart>>(result);
+            return result;
         }
     }
 }

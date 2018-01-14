@@ -49,7 +49,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
                 new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
             };
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
 
             // Create CartService with mock.Object and mockProduct.Object
@@ -65,7 +65,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Get_EmptyCart()
         {
             var collectionItem = new Collection<ContentCart>();
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItem);
 
             // Create CartService with mock.Object and mockProduct.Object
@@ -86,13 +86,13 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
                 new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
             };
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
 
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
 
-            var price = service.GetPrice(5);
+            var price = service.GetPrice(1);
             Assert.AreEqual(new decimal(11.50),price);           
         }
 
@@ -100,7 +100,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Get_Price_emptyCart()
         {
             var collectionItems = new Collection<ContentCart>();
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
@@ -117,11 +117,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
                 new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
             };
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
-            var count = service.GetCountItems(5);
+            var count = service.GetCountItems(1);
             Assert.AreEqual((uint)3, count);
         }
 
@@ -129,11 +129,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Get_Count_Items_in_emptyCart()
         {
             var collectionItems = new Collection<ContentCart>();
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+            mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
-            var count = service.GetCountItems(5);
+            var count = service.GetCountItems(1);
             Assert.AreEqual((uint)0, count);
         }
 
