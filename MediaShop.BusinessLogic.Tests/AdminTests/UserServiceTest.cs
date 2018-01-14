@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.User;
@@ -21,11 +22,11 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     public class UserServiceTest
     {
         private Mock<IAccountRepository> _store;
-        private RegisterUserDto _user;
+        private AccountDomain _user;
 
         public UserServiceTest()
         {
-            Mapper.Initialize(config => config.CreateMap<RegisterUserDto, Account>());
+            Mapper.Initialize(config => config.CreateMap<RegisterUserDto, AccountDomain>());
         }
 
         [SetUp]
@@ -34,10 +35,14 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var mockRepository =  new Mock<IAccountRepository>();
             _store = mockRepository;
 
-            _user = new RegisterUserDto()
+            _user = new AccountDomain()
             {                
                 Login = "User",
-                Password = "12345",                
+                Password = "12345",  
+                Email = "12345",
+                Permissions = new List<Role>(),
+                Profile = new ProfileBl(),
+                Settings = new SettingsDomain()
             };
         }
 
@@ -52,7 +57,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Login = "Ivan",
                 Password = "111",
                 Profile = profile,
-                Permissions = permissions
+                Permissions = new List<Permission>()
             };
 
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(account);
@@ -73,7 +78,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Login = "User",
                 Password = "12345",
                 Profile = profile,
-                Permissions = permissions
+                Permissions = new List<Permission>()
             };
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new Account());

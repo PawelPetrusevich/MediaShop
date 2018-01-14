@@ -39,7 +39,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_userService.Register(data));
+                var account = Mapper.Map<AccountDomain>(data);
+                return Ok(_userService.Register(account));
             }
             catch (ExistingLoginException ex)
             {

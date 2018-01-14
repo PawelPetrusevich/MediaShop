@@ -20,7 +20,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        Account Register(RegisterUserDto userModel);
+        AccountDomain Register(AccountDomain userModel);
 
         /// <summary>
         /// Removes the role from the user's permission list.

@@ -23,21 +23,18 @@ namespace MediaShop.BusinessLogic.Services
         public SettingsDomain Modify(SettingsDomain settings)
         {
             var user = _storeAccount.Get(settings.AccountID);
-            
+
             if (user == null)
             {
                 throw new NotFoundUserException();
             }
+            
+            var settingsData = Mapper.Map<Settings>(settings);
+            settingsData.Id = user.ProfileId;
 
-            var userSettings = Mapper.Map<SettingsDomain>(settings);
-            userSettings.Id = user.SettingsId;
+            var settedSettings = _storeSettings.Update(settingsData);
 
-            //TODO made for building, we should return and work with SettingsDomain, not Settings
-            var settingsData = Mapper.Map<Settings>(userSettings);
-
-            var modiffiedSettings = _storeSettings.Update(settingsData);
-
-            return userSettings;
+            return Mapper.Map<SettingsDomain>(settedSettings);
         }
     }
 }

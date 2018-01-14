@@ -43,7 +43,7 @@ namespace MediaShop.Common
             this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
 
             this.CreateMap<Account, AccountDomain>().ReverseMap();
-            this.CreateMap<Settings, SettingsDomain>();
+            this.CreateMap<Settings, SettingsDomain>().ReverseMap();
         }
     }
 }
