@@ -8,7 +8,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     {
         List<string> GetUserDeviceTokens(long userId);
 
-        bool IsExists(long userId, string deviceToken);
+        bool IsExists(long userId, string deviceId);
 
         NotificationSubscribedUser Get(long userId, string deviceId);
     }
