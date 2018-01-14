@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MediaShop.Common;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
@@ -26,7 +27,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         public UserServiceTest()
         {
-            Mapper.Initialize(config => config.CreateMap<RegisterUserDto, AccountDomain>());
+            Mapper.Initialize(x =>  x.AddProfile<MapperProfile>());
         }
 
         [SetUp]
@@ -40,7 +41,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Login = "User",
                 Password = "12345",  
                 Email = "12345",
-                Permissions = new List<Role>(),
+                Permissions = new List<PermissionDomain>(),
                 Profile = new ProfileBl(),
                 Settings = new SettingsDomain()
             };
@@ -48,8 +49,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         [Test]
         public void TestRegistrationSuccessfull()
-        {
-            var permissions = new SortedSet<Role> { Role.User };
+        {            
             var profile = new Profile { Id = 1 };
             var account = new Account
             {
@@ -57,11 +57,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Login = "Ivan",
                 Password = "111",
                 Profile = profile,
-                Permissions = new List<Permission>()
+                Permissions = new List<Permission>() { new Permission() }
             };
 
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(account);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns((IEnumerable<Account>)null); ;
+            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>()))
+                .Returns((IEnumerable<Account>)null); 
 
             var userService = new UserService(_store.Object);           
 
@@ -78,7 +79,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Login = "User",
                 Password = "12345",
                 Profile = profile,
-                Permissions = new List<Permission>()
+                Permissions = new List<Permission>() { new Permission() }
             };
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new Account());

@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
+    <Compile Include="Configurations\PermissionConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
   </ItemGroup>

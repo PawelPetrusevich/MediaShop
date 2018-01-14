@@ -19,8 +19,8 @@ namespace MediaShop.DataAccess.Configurations
         public AccountConfiguration()
         {
             HasRequired(c => c.Profile);
-
             HasRequired(c => c.Settings);
+
             HasKey(p => p.Id);
 
             Property(p => p.Login).IsRequired();

@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\AccountDomain.cs" />
+    <Compile Include="Dto\User\PermissionDomain.cs" />
     <Compile Include="Dto\User\ProfileBl.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />

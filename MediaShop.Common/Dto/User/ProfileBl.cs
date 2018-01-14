@@ -14,7 +14,7 @@
         /// Gets or sets the date of birth.
         /// </summary>
         /// <value>The date of birth.</value>
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the first name.
