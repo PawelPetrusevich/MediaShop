@@ -62,7 +62,6 @@ namespace MediaShop.DataAccess.Context
         /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ContentCartConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
