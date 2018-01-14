@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.DataAccess.Repositories.Base;
+
 namespace MediaShop.DataAccess.Repositories
 {
     using System;
@@ -14,7 +16,7 @@ namespace MediaShop.DataAccess.Repositories
     /// <summary>
     /// Class AccountRepository.
     /// </summary>
-    /// <seealso cref="Repositories.Repository{Account}" />
+    /// <seealso cref="Repository{T}" />
     /// <seealso cref="IAccountRepository" />
     public class AccountRepository : Repository<Account>, IAccountRepository
     {

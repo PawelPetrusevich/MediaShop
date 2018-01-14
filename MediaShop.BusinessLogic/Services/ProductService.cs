@@ -48,9 +48,9 @@ namespace MediaShop.BusinessLogic.Services
             var data = Mapper.Map<Product>(uploadModels);
             var validsType = new string[]
             {
-                "image/gif",
-                "image/jpeg",
-                "image/pjpeg",
+                "image / gif",
+                "image / jpeg",
+                "image / pjpeg",
                 "image / png",
                 "image / svg + xml",
                 "image / tiff",

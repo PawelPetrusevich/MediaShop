@@ -89,6 +89,7 @@
     <Compile Include="Configurations\ProfileConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ContentCartConfiguration.cs" />
     <Compile Include="Context\MediaContext.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\Base\Repository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
   </ItemGroup>

@@ -2,24 +2,24 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-namespace MediaShop.DataAccess.Repositories
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using AutoMapper;
-    using Common.Interfaces.Repositories;
-    using Common.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using AutoMapper;
+using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Models;
 
+namespace MediaShop.DataAccess.Repositories.Base
+{
     /// <summary>
     /// Class Repository.
     /// </summary>
     /// <typeparam name="T">Entity</typeparam>
     /// <seealso cref="System.IDisposable" />
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRepository{T}" />
-    public class Repository<T> : IDisposable, IRepository<T>
+    public class Repository<T> : IRepository<T>
         where T : Entity
     {
         /// <summary>
@@ -57,8 +57,13 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>db entry</returns>
-        public T Get(long id)
+        public virtual T Get(long id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException("message!");
+            }
+
             return DbSet.SingleOrDefault(entity => entity.Id == id);
         }
 
@@ -68,7 +73,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">model user</param>
         /// <returns>db entry</returns>
         /// <exception cref="ArgumentNullException">if model = null</exception>
-        public T Add(T model)
+        public virtual T Add(T model)
         {
             if (model == null)
             {
@@ -88,13 +93,14 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="model">Model to update</param>
         /// <returns>Updated model</returns>
-        public T Update(T model)
+        public virtual T Update(T model)
         {
             using (Context)
             {
                 T entity = Get(model.Id);
 
                 entity = Mapper.Map(model, entity);
+                Context.Entry(entity).State = EntityState.Modified;
 
                 Context.SaveChanges();
                 return entity;
@@ -106,7 +112,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="model">Model to delete</param>
         /// <returns>Instance of deleted model</returns>
-        public T Delete(T model)
+        public virtual T Delete(T model)
         {
             if (DbSet.Contains(model))
             {
@@ -126,8 +132,9 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">Id of deleting model</param>
         /// <returns>Deleted model</returns>
-        public T Delete(long id)
+        public virtual T Delete(long id)
         {
+            // todo id check
             var model = DbSet.SingleOrDefault(entity => entity.Id == id);
 
             if (model != null)
@@ -149,7 +156,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="filter">Filter criteria</param>
         /// <returns>Suitable entities</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public IEnumerable<T> Find(Expression<Func<T, bool>> filter)
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> filter)
         {
             if (filter == null)
             {

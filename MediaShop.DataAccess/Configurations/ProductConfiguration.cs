@@ -22,12 +22,9 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public ProductConfiguration()
         {
-            this.HasRequired(s => s.OriginalProduct)
-                .WithRequiredPrincipal(x => x.Product);
-            this.HasRequired(s => s.CompressedProduct)
-                .WithRequiredPrincipal(x => x.Product);
-            this.HasRequired(s => s.ProtectedProduct)
-                .WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.OriginalProduct).WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.CompressedProduct).WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.ProtectedProduct).WithRequiredPrincipal(x => x.Product);
         }
     }
 }
