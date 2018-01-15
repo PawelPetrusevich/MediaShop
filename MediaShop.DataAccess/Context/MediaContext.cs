@@ -2,6 +2,8 @@
 using MediaShop.Common.Models.Notification;
 using MediaShop.DataAccess.Configurations;
 
+using MediaShop.DataAccess.Migrations;
+
 namespace MediaShop.DataAccess.Context
 {
     using MediaShop.DataAccess.Configurations;
@@ -23,7 +25,7 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MediaContext, Configuration>());
         }
 
         public IDbSet<Notification> Notifications { get; set; }
