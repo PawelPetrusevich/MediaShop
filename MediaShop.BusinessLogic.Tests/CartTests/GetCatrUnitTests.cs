@@ -93,7 +93,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object);
 
             var price = service.GetPrice(5);
-            Assert.AreEqual(new decimal(11.50),price);           
+            Assert.AreEqual(new decimal(11.50), price);
         }
 
         [TestMethod]
