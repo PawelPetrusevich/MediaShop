@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.DataAccess.Migrations;
+
 namespace MediaShop.DataAccess.Context
 {
     using MediaShop.DataAccess.Configurations;
@@ -22,8 +24,8 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public MediaContext()
             : base("MediaShopConnection")
-        {   //DropCreateDatabaseAlways DropCreateDatabaseIfModelChanges 
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MediaContext>());
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MediaContext, Configuration>());
         }
 
         public IDbSet<ContentCart> ContentCart { get; set; }
