@@ -18,7 +18,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         private Mock<ICartRepository<ContentCartDto>> mock;
 
         // Field for MockProduct
-        private Mock<IProductRepository<Product>> mockProduct;
+        private Mock<IProductRepository> mockProduct;
 
         [TestInitialize]
         public void Initialize()
@@ -32,7 +32,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create Mock
             var _mock = new Mock<ICartRepository<ContentCartDto>>();
             mock = _mock;
-            var _mockProduct = new Mock<IProductRepository<Product>>();
+            var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
         }
 
@@ -94,7 +94,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ ExpectedException(typeof(AddContentInCartExceptions))]
+        [ExpectedException(typeof(AddContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
             // Create object ContentCartDto
