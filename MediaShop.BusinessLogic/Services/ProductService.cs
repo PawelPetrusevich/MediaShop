@@ -3,8 +3,10 @@
 // </copyright>
 
 using System.Linq;
+using System.Text;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.Common.Dto.Product;
+using MediaShop.Common.Enums;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -26,7 +28,7 @@ namespace MediaShop.BusinessLogic.Services
     /// </summary>
     public class ProductService : IProductService
     {
-        private readonly IProductRepository repository;
+        private readonly IProductRepository _repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
@@ -34,7 +36,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="repository">repository</param>
         public ProductService(IProductRepository repository)
         {
-            this.repository = repository;
+            this._repository = repository;
         }
 
         /// <summary>
@@ -46,96 +48,28 @@ namespace MediaShop.BusinessLogic.Services
         {
             var returnProducts = new List<ProductDto>();
             var data = Mapper.Map<Product>(uploadModels);
-            var validsType = new string[]
-            {
-                "image / gif",
-                "image / jpeg",
-                "image / pjpeg",
-                "image / png",
-                "image / svg + xml",
-                "image / tiff",
-                "image / vnd.microsoft.icon",
-                "image / vnd.wap.wbmp",
-                "image / webp"
-            };
+            var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
+            data.ProductType = uploadProductInByte.GetMimeFromFile();
 
-            if (uploadModels.UploadProduct == null || uploadModels.UploadProduct.ContentLength == 0)
+            if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
-                throw new ArgumentNullException();
-            }
-            else if (!validsType.Contains(uploadModels.UploadProduct.ContentType))
-            {
-                throw new ArgumentException();
+                throw new ArgumentNullException(Resources.NullOrEmptyContent);
             }
             else
             {
-                try
+                switch (data.ProductType)
                 {
-                    byte[] tempProduct = null;
-
-                    using (var br = new BinaryReader(uploadModels.UploadProduct.InputStream))
-                    {
-                        tempProduct = br.ReadBytes(uploadModels.UploadProduct.ContentLength);
-                    }
-
-                    data.OriginalProduct = new OriginalProduct()
-                    {
-                        File = tempProduct
-                    };
-
-                    data.ProtectedProduct =
-                        new ProtectedProduct()
-                        {
-                            File = ExtensionProductMethods.GetProtectedImage(tempProduct)
-                        };
-
-                    data.CompressedProduct =
-                        new CompressedProduct()
-                        {
-                            File = ExtensionProductMethods.GetCompressedImage(tempProduct)
-                        };
-                }
-                catch (Exception e)
-                {
-                    throw;
+                    case ProductType.Image:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
+                        break;
+                    case ProductType.unknow:
+                        throw new ArgumentException(Resources.UnknowProductType);
                 }
             }
 
-            var result = repository.Add(data);
-
-            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
-        }
-
-        /// <summary>
-        /// метод добовления продукта
-        /// </summary>
-        /// <param name="product">принимае экземпляр product</param>
-        /// <returns>возрощаем product</returns>
-        public ProductDto Add(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            var result = this.repository.Add(product);
-
-            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
-        }
-
-        /// <summary>
-        /// метод удаления продукта
-        /// </summary>
-        /// <param name="product">передаем product</param>
-        /// <returns>возвращаем product</returns>
-        public ProductDto Delete(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            var result = this.repository.Delete(product);
+            var result = this._repository.Add(data);
 
             return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
@@ -147,7 +81,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>возрощаем product</returns>
         public ProductDto Delete(long id)
         {
-            var result = this.repository.Delete(id);
+            var result = this._repository.Delete(id);
 
             return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
@@ -159,7 +93,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>возрощаем список product</returns>
         public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
-            return this.repository.Find(filter);
+            return this._repository.Find(filter);
         }
 
         /// <summary>
@@ -169,7 +103,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>возращаем product</returns>
         public Product Get(long id)
         {
-            return this.repository.Get(id);
+            return this._repository.Get(id);
         }
 
         /// <summary>
@@ -184,78 +118,9 @@ namespace MediaShop.BusinessLogic.Services
                 throw new NullReferenceException();
             }
 
-            var result = this.repository.Update(product);
+            var result = this._repository.Update(product);
 
             return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
-        }
-
-        /// <summary>
-        /// получаем список продуктов
-        /// </summary>
-        /// <returns>список product</returns>
-        public IEnumerable<Product> Products()
-        {
-            return this.repository.Products();
-        }
-
-        /// <summary>
-        /// добовляем список продуктов в таблицу
-        /// </summary>
-        /// <param name="products">передаем список продуктов</param>
-        /// <returns>возрощаем статус код</returns>
-        public IEnumerable<ProductDto> Add(IEnumerable<Product> products)
-        {
-            if (products == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            ICollection<ProductDto> resultsCollection = new List<ProductDto>();
-            foreach (var product in products)
-            {
-                var result = this.repository.Add(product);
-
-                if (result != null)
-                {
-                    resultsCollection.Add(Mapper.Map<Product, ProductDto>(result));
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            return resultsCollection;
-        }
-
-        /// <summary>
-        /// удаляем список продуктов
-        /// </summary>
-        /// <param name="products">передаем  список продуктов</param>
-        /// <returns>возрощаем статус код</returns>
-        public IEnumerable<ProductDto> Delete(IEnumerable<Product> products)
-        {
-            if (products == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            ICollection<ProductDto> resultsCollection = new List<ProductDto>();
-            foreach (var product in products)
-            {
-                var result = this.repository.Delete(product);
-
-                if (result != null)
-                {
-                    resultsCollection.Add(Mapper.Map<Product, ProductDto>(result));
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            return resultsCollection;
         }
     }
 }

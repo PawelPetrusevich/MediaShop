@@ -4,20 +4,25 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using MediaShop.BusinessLogic.Properties;
+using MediaShop.Common.Enums;
 
 namespace MediaShop.BusinessLogic.ExtensionMethods
 {
+    /// <summary>
+    /// Class with Methods for file processing
+    /// </summary>
     public static class ExtensionProductMethods
     {
         /// <summary>
         /// Get protected copy of image in original size
         /// </summary>
-        /// <param name="originalImageByte"></param>
-        /// <returns></returns>
-        public static byte[] GetProtectedImage(byte[] originalImageByte)
+        /// <param name="originalImageByte">original file in byte[]</param>
+        /// <returns>Protected file</returns>
+        public static byte[] GetProtectedImage(this byte[] originalImageByte)
         {
             byte[] fileByte = new byte[1];
             if (!ReferenceEquals(originalImageByte, null))
@@ -60,9 +65,9 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         /// <summary>
         /// Get compressed copy of image
         /// </summary>
-        /// <param name="originalImageByte"></param>
-        /// <returns></returns>
-        public static byte[] GetCompressedImage(byte[] originalImageByte)
+        /// <param name="originalImageByte">original file in byte[]</param>
+        /// <returns>compressed file</returns>
+        public static byte[] GetCompressedImage(this byte[] originalImageByte)
         {
             byte[] fileByte = new byte[1];
             if (!ReferenceEquals(originalImageByte, null))
@@ -111,5 +116,124 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
 
             return comressedImageByte;
         }
+
+        /// <summary>
+        /// Determine the type of file and this MIME
+        /// </summary>
+        /// <param name="data">upload file in byte[]</param>
+        /// <returns>Product Type</returns>
+        public static ProductType GetMimeFromFile(this byte[] data)
+        {
+            var imageType = new string[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png",
+                "image/svg + xml",
+                "image/tiff",
+                "image/vnd.microsoft.icon",
+                "image/vnd.wap.wbmp",
+                "image/webp"
+            };
+
+            var musicType = new string[]
+            {
+                "audio/basic",
+                "audio/L24",
+                "audio/mp4",
+                "audio/aac",
+                "audio/mpeg",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/x - ms - wma",
+                "audio/x - ms - wax",
+                "audio/vnd.rn - realaudio",
+                "audio/vnd.wave",
+                "audio/webm"
+            };
+
+            var videoType = new string[]
+            {
+                "video/mpeg",
+                "video/mp4",
+                "video/ogg",
+                "video/quicktime",
+                "video/webm",
+                "video/x - ms - wmv",
+                "video/x - flv",
+                "video/3gpp",
+                "video/3gpp2"
+            };
+
+            if (data == null)
+            {
+                throw new FileNotFoundException(data + " not found");
+            }
+
+            const int MAX_CONTENT = 256;
+
+            var buffer = new byte[MAX_CONTENT];
+            MemoryStream ms = new MemoryStream(data, 0, data.Length);
+            if (ms.Length >= MAX_CONTENT)
+            {
+                ms.Read(buffer, 0, MAX_CONTENT);
+            }
+            else
+            {
+                ms.Read(buffer, 0, (int)ms.Length);
+            }
+
+            var mimeTypePtr = IntPtr.Zero;
+            try
+            {
+                var result = FindMimeFromData(IntPtr.Zero, null, buffer, MAX_CONTENT, null, 0, out mimeTypePtr, 0);
+                if (result != 0)
+                {
+                    Marshal.FreeCoTaskMem(mimeTypePtr);
+                    throw Marshal.GetExceptionForHR(result);
+                }
+
+                var mime = Marshal.PtrToStringUni(mimeTypePtr);
+                Marshal.FreeCoTaskMem(mimeTypePtr);
+
+                if (imageType.Contains(mime))
+                {
+                    return ProductType.Image;
+                }
+
+                if (videoType.Contains(mime))
+                {
+                    return ProductType.Video;
+                }
+
+                if (musicType.Contains(mime))
+                {
+                    return ProductType.Music;
+                }
+
+                return ProductType.unknow;
+            }
+            catch (Exception)
+            {
+                if (mimeTypePtr != IntPtr.Zero)
+                {
+                    Marshal.FreeCoTaskMem(mimeTypePtr);
+                }
+
+                return ProductType.unknow;
+            }
+        }
+
+        [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
+        private static extern int FindMimeFromData(
+            IntPtr pbcIntPtr,
+            [MarshalAs(UnmanagedType.LPWStr)] string pwzUrl,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.I1, SizeParamIndex = 3)] byte[] pbcBuffer,
+            int pbcSize,
+            [MarshalAs(UnmanagedType.LPWStr)] string pwzMimeProposed,
+            int dwcMimeFlags,
+            out IntPtr ppwzMimeOut,
+            int dwcReserved);
     }
 }

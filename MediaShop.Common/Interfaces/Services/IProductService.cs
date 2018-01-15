@@ -26,13 +26,6 @@ namespace MediaShop.Common.Interfaces.Services
         Product Get(long id);
 
         /// <summary>
-        /// Add method.
-        /// </summary>
-        /// <param name="model">product model</param>
-        /// <returns>result</returns>
-        ProductDto Add(Product model);
-
-        /// <summary>
         /// Upload products.
         /// </summary>
         /// <param name="model">product model</param>
@@ -47,13 +40,6 @@ namespace MediaShop.Common.Interfaces.Services
         ProductDto Update(Product model);
 
         /// <summary>
-        /// Update method.
-        /// </summary>
-        /// <param name="model">product model</param>
-        /// <returns>result</returns>
-        ProductDto Delete(Product model);
-
-        /// <summary>
         /// DElete method.
         /// </summary>
         /// <param name="id">product id</param>
@@ -66,25 +52,5 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="filter">filter</param>
         /// <returns>product</returns>
         IEnumerable<Product> Find(Expression<Func<Product, bool>> filter);
-
-        /// <summary>
-        /// IEnumerable Products.
-        /// </summary>
-        /// <returns>products</returns>
-        IEnumerable<Product> Products();
-
-        /// <summary>
-        /// Add method.
-        /// </summary>
-        /// <param name="products">products</param>
-        /// <returns>product</returns>
-        IEnumerable<ProductDto> Add(IEnumerable<Product> products);
-
-        /// <summary>
-        /// Delete method.
-        /// </summary>
-        /// <param name="products">products</param>
-        /// <returns>product</returns>
-        IEnumerable<ProductDto> Delete(IEnumerable<Product> products);
     }
 }
