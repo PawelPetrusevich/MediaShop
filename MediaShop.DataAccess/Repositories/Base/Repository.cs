@@ -101,7 +101,7 @@ namespace MediaShop.DataAccess.Repositories.Base
 
                 entity = Mapper.Map(model, entity);
                 Context.Entry(entity).State = EntityState.Modified;
-
+                
                 Context.SaveChanges();
                 return entity;
             }

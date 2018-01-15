@@ -42,7 +42,7 @@ namespace MediaShop.BusinessLogic.Services
                 profile.Id = existingAccount.ProfileId;
 
                 var updatingProfile = this.storeProfile.Update(profile);
-                var updatingProfileBl = Mapper.Map<ProfileBl>(profileModel);
+                var updatingProfileBl = Mapper.Map<ProfileBl>(updatingProfile);
 
                 return updatingProfileBl;
             }

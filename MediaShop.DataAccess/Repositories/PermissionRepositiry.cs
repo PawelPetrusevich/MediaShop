@@ -2,6 +2,7 @@
 {
     using System.Data.Entity;
 
+    using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models.User;
     using MediaShop.DataAccess.Repositories.Base;
 

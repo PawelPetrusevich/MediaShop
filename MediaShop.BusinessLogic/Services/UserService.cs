@@ -60,12 +60,29 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        public bool RemoveRole(long id, Role role)
+        public bool RemoveRole(AccountDomain accountBLmodel, Role role)
         {
            /* var user = this._store.Find(account => account.Id == id).FirstOrDefault();
 
             return user?.Permissions.Remove(accountRole => accountRole == role) > 0;*/
             return true;
+        }
+
+        public AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag)
+        {
+            var existingAccount = this._store.GetByLogin(accountBLmodel.Login);
+
+            if (existingAccount == null)
+            {
+                throw new ExistingLoginException(accountBLmodel.Login);
+            }
+
+            existingAccount.IsBanned = flag;
+
+            var updatingAccount = this._store.Update(existingAccount);
+            var updatingAccountBl = Mapper.Map<AccountDomain>(updatingAccount);
+
+            return updatingAccountBl;
         }
     }
 }

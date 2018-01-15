@@ -22,7 +22,7 @@ namespace MediaShop.DataAccess.Context
         /// </summary>
         public MediaContext()
             : base("MediaShopConnection")
-        {   //DropCreateDatabaseAlways
+        {   //DropCreateDatabaseAlways DropCreateDatabaseIfModelChanges 
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MediaContext>());
         }
 

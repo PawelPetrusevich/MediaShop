@@ -1,7 +1,6 @@
-﻿namespace MediaShop.DataAccess.Repositories
+﻿namespace MediaShop.Common.Interfaces.Repositories
 {
-    using MediaShop.Common.Interfaces.Repositories;
-    using MediaShop.Common.Models.User;
+ using MediaShop.Common.Models.User;
 
     public interface IPermissionRepository : IRepository<Permission>
     {
