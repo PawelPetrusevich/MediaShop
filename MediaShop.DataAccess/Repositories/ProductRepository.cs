@@ -1,4 +1,7 @@
-﻿namespace MediaShop.DataAccess.Repositories
+﻿using System.Data.Entity;
+using MediaShop.DataAccess.Repositories.Base;
+
+namespace MediaShop.DataAccess.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -9,36 +12,10 @@
     /// <summary>
     /// Class ProductRepository
     /// </summary>
-    public class ProductRepository : IProductRepository<Product>
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
-        public Product Add(Product model)
+        public ProductRepository(DbContext context) : base(context)
         {
-            throw new NotImplementedException();
-        }
-
-        public Product Delete(Product model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product Delete(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product Get(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product Update(Product model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

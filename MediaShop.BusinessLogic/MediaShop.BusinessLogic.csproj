@@ -80,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\NotificationSubscribedUserService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
