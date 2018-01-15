@@ -94,7 +94,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
-        [ ExpectedException(typeof(AddContentInCartExceptions))]
+        [ExpectedException(typeof(AddContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
             // Create object ContentCart

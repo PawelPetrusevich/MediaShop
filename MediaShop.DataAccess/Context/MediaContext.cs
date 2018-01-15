@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.DataAccess.Migrations;
+
 namespace MediaShop.DataAccess.Context
 {
     using MediaShop.DataAccess.Configurations;
@@ -10,6 +12,7 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.Common.Models.CartModels;
 
     using MediaShop.Common.Models.User;
+    using MediaShop.DataAccess.Configurations;
 
     /// <summary>
     /// Class MediaContext.
@@ -23,14 +26,10 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
-            Database.SetInitializer(new MediaInitializer());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
         }
 
-        /// <summary>
-        /// Gets or sets the ContentCart.
-        /// </summary>
-        /// <value>The ContentCart.</value>
-        public IDbSet<ContentCart> ContentCarts { get; set; }
+        public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
         /// Gets or sets the accounts.
