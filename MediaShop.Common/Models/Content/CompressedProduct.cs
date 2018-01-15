@@ -10,7 +10,6 @@ namespace MediaShop.Common.Models.Content
     {
         public byte[] Content { get; set; }
 
-        [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
         public long ProductId { get; set; }

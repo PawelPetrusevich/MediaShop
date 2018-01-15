@@ -95,10 +95,13 @@
     <Compile Include="Migrations\201801151757061_Initial.Designer.cs">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801152223237_Version_2.cs" />
+    <Compile Include="Migrations\201801152223237_Version_2.Designer.cs">
+      <DependentUpon>201801152223237_Version_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Context\UserContext.cs" />    
     <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
@@ -110,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801151757061_Initial.resx">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801152223237_Version_2.resx">
+      <DependentUpon>201801152223237_Version_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

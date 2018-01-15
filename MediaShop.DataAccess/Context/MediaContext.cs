@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Models;
+using MediaShop.Common.Models.Content;
 using MediaShop.DataAccess.Migrations;
 
 namespace MediaShop.DataAccess.Context
@@ -62,7 +64,7 @@ namespace MediaShop.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ContentCartConfiguration());
-
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
             modelBuilder.Configurations.Add(new SettingsConfiguration());
