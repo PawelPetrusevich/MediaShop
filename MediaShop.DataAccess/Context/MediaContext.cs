@@ -2,7 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-using MediaShop.Common.Models.Content;
+using MediaShop.DataAccess.Migrations;
 
 namespace MediaShop.DataAccess.Context
 {
@@ -23,8 +23,10 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MediaContext, Configuration>());
         }
+
+        public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
         /// Gets or sets the accounts.
@@ -59,9 +61,11 @@ namespace MediaShop.DataAccess.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new ContentCartConfiguration());
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
+            modelBuilder.Configurations.Add(new SettingsConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
         }
     }
