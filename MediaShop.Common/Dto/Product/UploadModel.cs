@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using FluentValidation.Attributes;
+using MediaShop.Common.Dto.Product.ProductValidators;
 using MediaShop.Common.Enums;
 
 namespace MediaShop.Common.Dto.Product
 {
+    [Validator(typeof(UploadModelValidator))]
     public class UploadModel
     {
         /// <summary>
