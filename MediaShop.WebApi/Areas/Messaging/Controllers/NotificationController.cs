@@ -45,13 +45,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             {
                 return this.InternalServerError();
             }
-        }
-
-        [HttpPut]
-        public IHttpActionResult UpdateNotification([FromBody]NotificationDto notification)
-        {
-            return this.Ok();
-        }
+        }        
 
         [HttpDelete]
         public IHttpActionResult Delete([FromBody]long id)

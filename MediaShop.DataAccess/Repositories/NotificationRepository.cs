@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Notification;
 using MediaShop.DataAccess.Context;
+using System.Data.Entity;
 
 namespace MediaShop.DataAccess.Repositories
 {
-    public class NotificationRepository : INotificationRepository, IDisposable
+    public class NotificationRepository : INotificationRepository
     {
-        private bool _disposedValue = false;
-        private MediaContext _notificationContext = new MediaContext();
+        private bool _disposedValue;
 
-        public NotificationRepository(MediaContext notificationContext)
+        private DbContext _notificationContext;
+
+        private DbSet<Notification> _notifications;
+
+        public NotificationRepository(DbContext context)
         {
-            _notificationContext = notificationContext;
+            _notificationContext = context;
+            _notifications = _notificationContext.Set<Notification>();
         }
 
         ~NotificationRepository()
@@ -29,12 +34,12 @@ namespace MediaShop.DataAccess.Repositories
         {
             if (ReferenceEquals(model, null))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(); //TODO: write message
             }
 
             using (this._notificationContext)
             {
-                var currentNotification = this._notificationContext.Notifications.Add(model);
+                var currentNotification = this._notifications.Add(model);
                 this._notificationContext.SaveChanges();
                 return currentNotification;
             }
@@ -44,12 +49,12 @@ namespace MediaShop.DataAccess.Repositories
         {
             if (ReferenceEquals(model, null))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(); //TODO: write message
             }
 
             using (this._notificationContext)
             {
-                var currentNotification = this._notificationContext.Notifications.Remove(model);
+                var currentNotification = this._notifications.Remove(model);
                 this._notificationContext.SaveChanges();
                 return currentNotification;
             }
@@ -57,7 +62,7 @@ namespace MediaShop.DataAccess.Repositories
 
         public Notification Delete(long id)
         {
-            var model = this._notificationContext.Notifications.Single(n => n.Id == id);
+            var model = this._notifications.Single(n => n.Id == id);
             return this.Delete(model);
         }
 
@@ -65,26 +70,30 @@ namespace MediaShop.DataAccess.Repositories
         {
             using (this._notificationContext)
             {
-                var searchResult = this._notificationContext.Notifications.Where(filter).ToList();
+                var searchResult = this._notifications.Where(filter).ToList();
                 return searchResult;
             }
         }
 
         public Notification Get(long id)
         {
-            return this._notificationContext.Notifications.Single(n => n.Id == id);
+            if (id < 0)
+            {
+                throw new ArgumentException("message"); //TODO: write message
+            }
+            return this._notifications.Single(n => n.Id == id);
         }
 
         public Notification Update(Notification model)
         {
             if (ReferenceEquals(model, null))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(); //TODO: write message
             }
 
             using (this._notificationContext)
             {
-                var currentNotification = this._notificationContext.Notifications.Single(n => n.Id == model.Id);
+                var currentNotification = this._notifications.Single(n => n.Id == model.Id);
                 currentNotification = model;
                 this._notificationContext.SaveChanges();
                 return currentNotification;

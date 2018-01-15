@@ -26,7 +26,7 @@ namespace MediaShop.DataAccess.Context
             Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
         }
 
-        public DbSet<Notification> Notifications { get; set; }
+        public IDbSet<Notification> Notifications { get; set; }
 
         public IDbSet<ContentCart> ContentCart { get; set; }
 
