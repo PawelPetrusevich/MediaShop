@@ -23,14 +23,16 @@ namespace MediaShop.BusinessLogic.Services
     public class UserService : IUserService
     {
         private readonly IAccountRepository _store;
+        private readonly IPermissionRepository _storePermission;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public UserService(IAccountRepository repository)
+        public UserService(IAccountRepository repository, IPermissionRepository repositoryPermission)
         {
             this._store = repository;
+            this._storePermission = repositoryPermission;
         }
 
         /// <summary>
@@ -62,10 +64,23 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public bool RemoveRole(AccountDomain accountBLmodel, Role role)
         {
-           /* var user = this._store.Find(account => account.Id == id).FirstOrDefault();
+            /* var user = this._store.Find(account => account.Id == id).FirstOrDefault();
 
-            return user?.Permissions.Remove(accountRole => accountRole == role) > 0;*/
-            return true;
+             return user?.Permissions.Remove(accountRole => accountRole == role) > 0;*/
+            var existingAccount = this._store.GetByLogin(accountBLmodel.Login);
+            if (existingAccount == null)
+            {
+                throw new NotFoundUserException();
+            }
+            
+            var existingRoles = this._storePermission.GetByAccount(existingAccount).SingleOrDefault(p => p.Role == role);
+            if (existingRoles != null)
+            {
+                _storePermission.Delete(existingRoles);
+                return true;
+            }
+
+            return false;
         }
 
         public AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag)
@@ -81,7 +96,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var updatingAccount = this._store.Update(existingAccount);
             var updatingAccountBl = Mapper.Map<AccountDomain>(updatingAccount);
-
+            
             return updatingAccountBl;
         }
     }
