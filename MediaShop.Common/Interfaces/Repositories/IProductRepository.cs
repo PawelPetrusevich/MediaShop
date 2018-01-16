@@ -9,6 +9,5 @@ namespace MediaShop.Common.Interfaces.Repositories
 
     public interface IProductRepository : IRepository<Product>
     {
-        IEnumerable<Product> Products();
     }
 }

@@ -85,7 +85,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestMethod]
         public void Delete_Content_From_Cart()
         {
-            // collection for rezalt as return method 
+            // collection for rezalt as return method
             var collectionItems = new Collection<ContentCartDto>()
             {
                 new ContentCartDto { Id = 5, CreatorId = 10 },
@@ -124,7 +124,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [ExpectedException(typeof(DeleteContentInCartExseptions))]
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {
-            // collection for rezalt as return method 
+            // collection for rezalt as return method
             var collectionItems = new Collection<ContentCartDto>()
             {
                 new ContentCartDto { Id = 5, CreatorId = 10 },
@@ -155,7 +155,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [ExpectedException(typeof(NullReferenceException))]
         public void Delete_Content_From_Cart_If_Argument_Is_Null()
         {
-            // collection for rezalt as return method 
+            // collection for rezalt as return method
             var collectionItems = new Collection<ContentCartDto>()
             {
                 new ContentCartDto { Id = 5, CreatorId = 10 },

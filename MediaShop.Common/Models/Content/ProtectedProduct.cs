@@ -7,9 +7,8 @@ namespace MediaShop.Common.Models.Content
     /// </summary>
     public class ProtectedProduct : Entity
     {
-        public byte[] File { get; set; }
+        public byte[] Content { get; set; }
 
-        [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
         public long ProductId { get; set; }

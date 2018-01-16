@@ -20,10 +20,5 @@ namespace MediaShop.DataAccess.Repositories
             : base(context)
         {
         }
-
-        public IEnumerable<Product> Products()
-        {
-            return this.DbSet.AsEnumerable();
-        }
     }
 }

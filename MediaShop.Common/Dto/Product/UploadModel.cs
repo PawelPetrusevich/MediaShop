@@ -32,6 +32,6 @@ namespace MediaShop.Common.Dto.Product
         /// <summary>
         /// Загружаемый файл
         /// </summary>
-        public HttpPostedFileBase UploadProduct { get; set; }
+        public string UploadProduct { get; set; }
     }
 }
