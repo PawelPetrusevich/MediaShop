@@ -60,6 +60,7 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
             modelBuilder.Configurations.Add(new SettingsConfiguration());
+            modelBuilder.Configurations.Add(new PermissionConfiguration());
         }
     }
 }
