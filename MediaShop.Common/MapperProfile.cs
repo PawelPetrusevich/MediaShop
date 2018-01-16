@@ -32,6 +32,7 @@ namespace MediaShop.Common
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadModel, Product>().ReverseMap();
             this.CreateMap<UploadModel, ProductDto>().ReverseMap();
+            this.CreateMap<ProductContentDTO, Product>().ReverseMap();
         }
     }
 }

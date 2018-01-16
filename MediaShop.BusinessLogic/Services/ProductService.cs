@@ -46,7 +46,6 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>Возрощаем модель для отоброжения</returns>
         public ProductDto UploadProducts(UploadModel uploadModels)
         {
-            var returnProducts = new List<ProductDto>();
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
             data.ProductType = uploadProductInByte.GetMimeFromFile();
@@ -75,35 +74,106 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
-        /// метод удаления продукта по id
+        /// метод удаления продукта
         /// </summary>
-        /// <param name="id">передаем id product</param>
-        /// <returns>возрощаем product</returns>
-        public ProductDto Delete(long id)
+        /// <param name="id">id of product</param>
+        /// <returns>ProductDto</returns>
+        public ProductDto DeleteProduct(long id)
         {
+            if (id <= 0)
+            {
+                throw new InvalidOperationException(Resources.DeleteWithNullId);
+            }
+
             var result = this._repository.Delete(id);
 
             return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
-        /// поиск согласно уловию
+        /// поиск согласно уловию - еще не написан
         /// </summary>
         /// <param name="filter">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
         public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         {
+            //еще не написан
             return this._repository.Find(filter);
         }
 
         /// <summary>
-        /// найти продукт по id
+        /// Получить оригинальный контент по id
         /// </summary>
         /// <param name="id">передаем id</param>
-        /// <returns>возращаем product</returns>
-        public Product Get(long id)
+        /// <returns>возращаем ProductContentDTO</returns>
+        public ProductContentDTO GetOriginalProduct(long id)
         {
-            return this._repository.Get(id);
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.GetWithNullId);
+            }
+
+            var result = this._repository.GetOriginalProduct(id);
+
+            if (result is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var productContent = Mapper.Map<Product, ProductContentDTO>(result);
+            productContent.Content = Convert.ToBase64String(result.OriginalProduct.Content);
+
+            return productContent;
+        }
+
+        /// <summary>
+        /// Получить защищенный контент по id
+        /// </summary>
+        /// <param name="id">передаем id</param>
+        /// <returns>возращаем ProductContentDTO</returns>
+        public ProductContentDTO GetProtectedProduct(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.GetWithNullId);
+            }
+
+            var result = this._repository.GetProtectedProduct(id);
+
+            if (result is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var productContent = Mapper.Map<Product, ProductContentDTO>(result);
+            productContent.Content = Convert.ToBase64String(result.ProtectedProduct.Content);
+
+            return productContent;
+        }
+
+        /// <summary>
+        /// Получить уменьшенную копию контента по id
+        /// </summary>
+        /// <param name="id">передаем id</param>
+        /// <returns>возращаем ProductContentDTO</returns>
+        public ProductContentDTO GetCompressedProduct(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.GetWithNullId);
+            }
+
+            var result = this._repository.GetCompressedProduct(id);
+
+            if (result is null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var productContent = Mapper.Map<Product, ProductContentDTO>(result);
+            productContent.Content = Convert.ToBase64String(result.CompressedProduct.Content);
+
+            return productContent;
         }
 
         /// <summary>

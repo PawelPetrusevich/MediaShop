@@ -120,10 +120,16 @@
   <data name="ContentUploadError" xml:space="preserve">
     <value>Content upload error.</value>
   </data>
+  <data name="DeleteWithNullId" xml:space="preserve">
+    <value>An attempt to delete with a null identifier</value>
+  </data>
   <data name="EmptyRegisterDate" xml:space="preserve">
     <value>Data cannot be empty.</value>
   </data>
   <data name="EmtyData" xml:space="preserve">
     <value>Data cannot be empty</value>
+  </data>
+  <data name="GetWithNullId" xml:space="preserve">
+    <value>An attempt to get with a null identifier</value>
   </data>
 </root>

@@ -123,8 +123,14 @@
   <data name="DeleteContentFromCart" xml:space="preserve">
     <value>Content is not delete from cart</value>
   </data>
+  <data name="DeleteWithNullId" xml:space="preserve">
+    <value>An attempt to delete with a null identifier</value>
+  </data>
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content is not exist in cart</value>
+  </data>
+  <data name="GetWithNullId" xml:space="preserve">
+    <value>An attempt to get with a null identifier</value>
   </data>
   <data name="NullOrEmptyContent" xml:space="preserve">
     <value>Content can not be null</value>

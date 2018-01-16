@@ -23,7 +23,21 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
-        Product Get(long id);
+        ProductContentDTO GetOriginalProduct(long id);
+
+        /// <summary>
+        /// Get method.
+        /// </summary>
+        /// <param name="id">product Id</param>
+        /// <returns>result</returns>
+        ProductContentDTO GetProtectedProduct(long id);
+
+        /// <summary>
+        /// Get method.
+        /// </summary>
+        /// <param name="id">product Id</param>
+        /// <returns>result</returns>
+        ProductContentDTO GetCompressedProduct(long id);
 
         /// <summary>
         /// Upload products.
@@ -44,7 +58,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        ProductDto Delete(long id);
+        ProductDto DeleteProduct(long id);
 
         /// <summary>
         /// Find method.

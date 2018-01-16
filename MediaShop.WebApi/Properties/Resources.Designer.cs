@@ -19,7 +19,7 @@ namespace MediaShop.WebApi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,6 +61,24 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content upload error..
+        /// </summary>
+        internal static string ContentUploadError {
+            get {
+                return ResourceManager.GetString("ContentUploadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An attempt to delete with a null identifier.
+        /// </summary>
+        internal static string DeleteWithNullId {
+            get {
+                return ResourceManager.GetString("DeleteWithNullId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty..
         /// </summary>
         internal static string EmptyRegisterDate {
@@ -68,7 +86,7 @@ namespace MediaShop.WebApi.Properties {
                 return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
             }
         }
-       
+        
         /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty.
         /// </summary>
@@ -77,13 +95,13 @@ namespace MediaShop.WebApi.Properties {
                 return ResourceManager.GetString("EmtyData", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Data cannot be empty..
+        ///   Looks up a localized string similar to An attempt to get with a null identifier.
         /// </summary>
-        internal static string ContentUploadError {
+        internal static string GetWithNullId {
             get {
-                return ResourceManager.GetString("ContentUploadError", resourceCulture);
+                return ResourceManager.GetString("GetWithNullId", resourceCulture);
             }
         }
     }

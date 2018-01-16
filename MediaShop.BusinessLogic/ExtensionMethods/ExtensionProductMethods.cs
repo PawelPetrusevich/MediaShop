@@ -130,6 +130,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 "image/jpeg",
                 "image/pjpeg",
                 "image/png",
+                "image/x-png",
                 "image/svg + xml",
                 "image/tiff",
                 "image/vnd.microsoft.icon",

@@ -44,7 +44,7 @@ namespace MediaShop.Common.Models.Content
         /// <summary>
         /// Gets or sets file original product
         /// </summary>
-        public OriginalProduct OriginalProduct { get; set; } = new OriginalProduct();
+        public OriginalProduct OriginalProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file id of original product
@@ -54,7 +54,7 @@ namespace MediaShop.Common.Models.Content
         /// <summary>
         /// Gets or sets file of protected product
         /// </summary>
-        public ProtectedProduct ProtectedProduct { get; set; } = new ProtectedProduct();
+        public ProtectedProduct ProtectedProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file id of protected product
@@ -64,7 +64,7 @@ namespace MediaShop.Common.Models.Content
         /// <summary>
         /// Gets or sets file of compressed product 
         /// </summary>
-        public CompressedProduct CompressedProduct { get; set; } = new CompressedProduct();
+        public CompressedProduct CompressedProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file id of compressed product 
