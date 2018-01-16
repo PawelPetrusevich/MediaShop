@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaShop.Common.Models;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Models.Notification
 {
@@ -26,5 +27,7 @@ namespace MediaShop.Common.Models.Notification
         /// Gets or sets identifier of user who sent notification
         /// </summary>
         public long ReceiverId { get; set; }
+
+        public Account Receiver { get; set; }
     }
 }

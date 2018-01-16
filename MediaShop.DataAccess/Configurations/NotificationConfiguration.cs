@@ -27,6 +27,10 @@ namespace MediaShop.DataAccess.Configurations
                 .IsRequired();
             this.Property(n => n.ReceiverId)
                 .IsRequired();
+
+            this.HasRequired(n => n.Receiver)               //requried userId
+                .WithMany()                                 //1 user can use many devices
+                .HasForeignKey(user => user.ReceiverId);    //foreignkey
         }
     }
 }

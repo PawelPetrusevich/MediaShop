@@ -30,6 +30,8 @@ namespace MediaShop.DataAccess.Context
 
         public IDbSet<Notification> Notifications { get; set; }
 
+        public IDbSet<NotificationSubscribedUser> NotificationSubscribedUsers { get; set; }
+
         public IDbSet<ContentCart> ContentCart { get; set; }
 
         /// <summary>
