@@ -23,6 +23,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     public class UserServiceTest
     {
         private Mock<IAccountRepository> _store;
+        private Mock<IPermissionRepository> _storePermission;
         private AccountDomain _user;
 
         public UserServiceTest()
@@ -34,7 +35,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void Init()
         {
             var mockRepository =  new Mock<IAccountRepository>();
+            var mockPermitionRepository = new Mock<IPermissionRepository>();
             _store = mockRepository;
+            _storePermission = mockPermitionRepository;
 
             _user = new AccountDomain()
             {                
@@ -64,7 +67,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>()))
                 .Returns((IEnumerable<Account>)null); 
 
-            var userService = new UserService(_store.Object);           
+            var userService = new UserService(_store.Object,_storePermission.Object);           
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -84,7 +87,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new Account());
 
-            var userService = new UserService(_store.Object);
+            var userService = new UserService(_store.Object,_storePermission.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
@@ -94,7 +97,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.Add(It.IsAny<Account>())).Returns((Account)null);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns((IEnumerable<Account>)null);
 
-            var userService = new UserService(_store.Object);
+            var userService = new UserService(_store.Object,_storePermission.Object);
 
             Assert.IsNull(userService.Register(_user));
         }
