@@ -25,6 +25,23 @@
         }
 
         /// <summary>
+        /// Method for add object type ContentCart
+        /// </summary>
+        /// <param name="model">updating object</param>
+        /// <returns>rezalt operation</returns>
+        public override ContentCart Add(ContentCart model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var result = this.DbSet.Add(model);
+            this.Context.SaveChanges();
+            return result;
+        }
+
+        /// <summary>
         /// Method for update object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>
@@ -45,9 +62,9 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Delete(ContentCart model)
         {
-            var result = this.DbSet.Remove(model);
+            this.Context.Entry(model).State = EntityState.Deleted;
             this.Context.SaveChanges();
-            return result;
+            return model;
         }
 
         /// <summary>
@@ -72,7 +89,7 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Get(long id)
         {
-            var result = this.DbSet.Where(x => x.Id == id).SingleOrDefault();
+            var result = this.DbSet.AsNoTracking().Where(x => x.Id == id).SingleOrDefault();
             return result;
         }
 
@@ -84,7 +101,7 @@
         /// <returns>rezalt operation</returns>
         public IEnumerable<ContentCart> GetAll(long userId)
         {
-            var result = this.DbSet.Where(x => x.CreatorId == userId);
+            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId);
             return result;
         }
     }
