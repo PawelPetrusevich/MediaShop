@@ -36,9 +36,17 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var result = this.DbSet.Add(model);
-            this.Context.SaveChanges();
-            return result;
+            try
+            {
+                this.Context.Configuration.AutoDetectChangesEnabled = false;
+                var result = this.DbSet.Add(model);
+                this.Context.SaveChanges();
+                return result;
+            }
+            finally
+            {
+                this.Context.Configuration.AutoDetectChangesEnabled = true;
+            }
         }
 
         /// <summary>
