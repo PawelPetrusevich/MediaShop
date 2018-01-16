@@ -12,7 +12,6 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.Common.Models.CartModels;
 
     using MediaShop.Common.Models.User;
-    using MediaShop.DataAccess.Configurations;
 
     /// <summary>
     /// Class MediaContext.
@@ -26,10 +25,14 @@ namespace MediaShop.DataAccess.Context
         public MediaContext()
             : base("MediaShopConnection")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MediaContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MediaContext, Configuration>());
         }
 
-        public IDbSet<ContentCart> ContentCart { get; set; }
+        /// <summary>
+        /// Gets or sets the ContentCarts.
+        /// </summary>
+        /// <value>The Product.</value>
+        public IDbSet<ContentCart> ContentCarts { get; set; }
 
         /// <summary>
         /// Gets or sets the accounts.

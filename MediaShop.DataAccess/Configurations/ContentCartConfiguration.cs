@@ -6,6 +6,9 @@
 
     public class ContentCartConfiguration : EntityTypeConfiguration<ContentCart>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentCartConfiguration" /> class.
+        /// </summary>
         public ContentCartConfiguration()
         {
             this.HasKey(x => x.Id);
