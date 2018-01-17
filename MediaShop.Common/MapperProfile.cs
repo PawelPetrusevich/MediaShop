@@ -33,6 +33,7 @@ namespace MediaShop.Common
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
 
             this.CreateMap<RegisterUserDto, Account>().ReverseMap();
+            this.CreateMap<RoleUserDto, RoleUserBl>();
 
             this.CreateMap<ProfileBl, Models.User.Profile>()
                 .ForMember(item => item.Id, m => m.Ignore())

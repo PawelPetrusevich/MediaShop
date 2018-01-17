@@ -86,7 +86,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemoveFlagIsBanned([FromBody] RegisterUserDto data)
+        public IHttpActionResult RemoveFlagIsBanned([FromBody]RegisterUserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemoveRole([FromBody] RegisterUserDto data)
+        public IHttpActionResult RemoveRole([FromBody] RoleUserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -123,8 +123,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = Mapper.Map<AccountDomain>(data);
-                return Ok(_userService.RemoveRole(account, (Role)1));
+                var roleUserBl = Mapper.Map<RoleUserBl>(data);
+                return Ok(_userService.RemoveRole(roleUserBl));
             }
             catch (ExistingLoginException ex)
             {

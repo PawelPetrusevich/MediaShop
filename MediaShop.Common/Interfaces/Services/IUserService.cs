@@ -28,7 +28,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        bool RemoveRole(AccountDomain accountBLmodel, Role role);
+        bool RemoveRole(RoleUserBl roleUserBl);
 
         AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag);
     }

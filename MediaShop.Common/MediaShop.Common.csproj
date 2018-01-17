@@ -78,6 +78,8 @@
     <Compile Include="Dto\User\PermissionDomain.cs" />
     <Compile Include="Dto\User\ProfileBl.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\RoleUserBl.cs" />
+    <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />

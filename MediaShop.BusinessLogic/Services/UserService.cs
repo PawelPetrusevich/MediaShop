@@ -62,21 +62,19 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">The identifier of the user.</param>
         /// <param name="role">The role to remove.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        public bool RemoveRole(AccountDomain accountBLmodel, Role role)
+        public bool RemoveRole(RoleUserBl roleUserBl)
         {
-            /* var user = this._store.Find(account => account.Id == id).FirstOrDefault();
-
-             return user?.Permissions.Remove(accountRole => accountRole == role) > 0;*/
-            var existingAccount = this._store.GetByLogin(accountBLmodel.Login);
+            var existingAccount = this._store.GetByLogin(roleUserBl.Login);
             if (existingAccount == null)
             {
                 throw new NotFoundUserException();
             }
-            
-            var existingRoles = this._storePermission.GetByAccount(existingAccount).SingleOrDefault(p => p.Role == role);
-            if (existingRoles != null)
+
+            var existingRoles = this._storePermission.GetByAccount(existingAccount);
+            var existingRole = existingRoles.SingleOrDefault(p => p.Role == (Role)roleUserBl.Role);
+            if (existingRole != null)
             {
-                _storePermission.Delete(existingRoles);
+                this._storePermission.Delete(existingRole);
                 return true;
             }
 
@@ -89,7 +87,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (existingAccount == null)
             {
-                throw new ExistingLoginException(accountBLmodel.Login);
+                throw new NotFoundUserException();
             }
 
             existingAccount.IsBanned = flag;

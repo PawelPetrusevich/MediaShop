@@ -14,6 +14,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     using System.Linq.Expressions;
 
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Dto.User;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models.User;
 
@@ -27,21 +28,32 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     [TestFixture]
     public class UserServiceRemoveRoleTests
     {
-        [TestCase(5ul, Role.User)]
-        [TestCase(5ul, Role.Admin)]
+        [TestCase(0)]
+        [TestCase(1)]
 
-        public void TestMethodRemoveRoleIsTrue(long n, Role role)
+        public void TestMethodRemoveRoleIsTrue(int role)
         {
-            /*var storage = new Mock<IAccountRepository>();
+            var storage = new Mock<IAccountRepository>();
+            var storagePermission = new Mock<IPermissionRepository>();
+            var permissions = new List<Permission>
+                                  {
+                                      new Permission() { Role = Role.Admin },
+                                      new Permission() { Role = Role.User }
+                                  };
+            var profile = new Profile { Id = 1 };
+            var user = new Account
+                           {
+                               Id = 1,
+                               Login = "User",
+                               Password = "123",
+                               Profile = profile,
+                           };
+            var roleUserBl = new RoleUserBl { Login = "User", Role = role };
+            storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            var listRoles = new SortedSet<Role> { Role.Admin, Role.User };
-            var profile = new Profile { Id = n };
-            var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
-
-            var list = new List<Account> { user };
-            storage.Setup(s => s.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(list);
-            var userService = new UserService(storage.Object);
-            Assert.IsTrue(userService.RemoveRole(n, role));*/
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<Account>())).Returns(permissions);
+            var userService = new UserService(storage.Object, storagePermission.Object);
+            Assert.IsTrue(userService.RemoveRole(roleUserBl));
         }
 
         /// <summary>
@@ -49,20 +61,27 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5ul, Role.User)]
+        [TestCase(1)]
 
-        public void TestMethodRemoveRoleIsFalse(long n, Role role)
+        public void TestMethodRemoveRoleIsFalse(int role)
         {
-            /*var storage = new Mock<IAccountRepository>();
+            var storage = new Mock<IAccountRepository>();
+            var storagePermission = new Mock<IPermissionRepository>();
+            var permissions = new List<Permission>{new Permission() { Role = Role.Admin }};
+            var profile = new Profile { Id = 1 };
+            var user = new Account
+                           {
+                               Id = 1,
+                               Login = "User",
+                               Password = "123",
+                               Profile = profile,
+                           };
+            var roleUserBl = new RoleUserBl { Login = "User", Role = role };
+            storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            var listRoles = new SortedSet<Role> { Role.Admin };
-            var profile = new Profile { Id = n };
-            var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
-
-            var list = new List<Account> { user };
-            storage.Setup(s => s.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(list);
-            var userService = new UserService(storage.Object);
-            Assert.IsFalse(userService.RemoveRole(n, role));*/
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<Account>())).Returns(permissions);
+            var userService = new UserService(storage.Object, storagePermission.Object);
+            Assert.IsFalse(userService.RemoveRole(roleUserBl));
         }
     }
 }
