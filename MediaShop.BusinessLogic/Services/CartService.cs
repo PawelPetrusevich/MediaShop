@@ -205,7 +205,7 @@
 
             if (contentCartForUpdate == null)
             {
-                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+                throw new ExistContentInCartExceptions(Resources.NotExistContentInCart);
             }
 
             // Change state object

@@ -132,6 +132,9 @@
   <data name="InvalidContentId" xml:space="preserve">
     <value>Invalid content identificator</value>
   </data>
+  <data name="NotExistContentInCart" xml:space="preserve">
+    <value>Content is not exist in Cart</value>
+  </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
   </data>

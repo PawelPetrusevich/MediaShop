@@ -106,6 +106,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content is not exist in Cart.
+        /// </summary>
+        internal static string NotExistContentInCart {
+            get {
+                return ResourceManager.GetString("NotExistContentInCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
         internal static string NullOrEmptyValueString {
