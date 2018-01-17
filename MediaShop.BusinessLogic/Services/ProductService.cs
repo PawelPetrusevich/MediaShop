@@ -56,6 +56,10 @@ namespace MediaShop.BusinessLogic.Services
             }
             else
             {
+                data.OriginalProduct = new OriginalProduct();
+                data.CompressedProduct = new CompressedProduct();
+                data.ProtectedProduct = new ProtectedProduct();
+
                 switch (data.ProductType)
                 {
                     case ProductType.Image:
@@ -99,6 +103,24 @@ namespace MediaShop.BusinessLogic.Services
         {
             //еще не написан
             return this._repository.Find(filter);
+        }
+
+
+        /// <summary>
+        /// метод удаления продукта
+        /// </summary>
+        /// <param name="id">id of product</param>
+        /// <returns>ProductDto</returns>
+        public ProductDto GetProduct(long id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidOperationException(Resources.GetWithNullId);
+            }
+
+            var result = this._repository.Get(id);
+
+            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>

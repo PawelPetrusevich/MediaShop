@@ -33,11 +33,16 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         private ProductService _productService;
 
-        private List<Product> _newProducts;
+        private List<UploadModel> _newProducts;
 
         public ProductServiceTest()
         {
-            Mapper.Initialize(config => config.CreateMap<Product, ProductDto>());
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Product, ProductDto>().ReverseMap();
+                config.CreateMap<Product, UploadModel>().ReverseMap();
+                config.CreateMap<Product, ProductContentDTO>().ReverseMap();
+            });
         }
 
         [SetUp]
@@ -45,9 +50,10 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         {
             _rep = new Mock<IProductRepository>();
             _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
-            _rep.Setup(s => s.Delete(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
-            _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.GetCompressedProduct(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.GetProtectedProduct(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.GetOriginalProduct(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>());
 
@@ -56,105 +62,74 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _productService = new ProductService(_mockRep);
 
             var productGenerator = Generator
-                .For<Product>()
-                .For(x => x.Id)
-                .CreateUsing(() => new Random().Next())
-                .For(x => x.CreatedDate)
-                .CreateUsing(() => DateTime.Now)
-                .For(x => x.CreatorId)
-                .CreateUsing(() => new Random().Next())
+                .For<UploadModel>()
                 .For(x => x.ProductName)
                 .ChooseFrom(StaticData.FirstNames)
                 .For(x => x.ProductPrice)
                 .CreateUsing(() => new Random().Next())
-                .For(x => x.IsFavorite)
-                .CreateUsing(() => false)
-                .For(x => x.IsPremium)
-                .CreateUsing(() => false);
+                .For(x => x.Description)
+                .ChooseFrom(StaticData.LastNames)
+                .For(x => x.UploadProduct)
+                .ChooseFrom(StaticData.LoremIpsum);
 
             _newProducts = productGenerator.Generate(10).ToList();
         }
 
-       //[Test]
-       // public void Product_AddProductTest()
-       // {  
-       //     var returnProduct = _productService.Add(_newProducts[0]);
+        [Test]
+        public void Product_UploadProductTest()
+        {
+            ImageConverter converter = new ImageConverter();
+            var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
+            var sourceImageString = Convert.ToBase64String(sourceImageByte);
 
-       //     Assert.IsNotNull(returnProduct);
-       // }
+            var currentProduct = new UploadModel()
+            {
+                ProductName = "Name 1"    
+            };
+            currentProduct.UploadProduct = sourceImageString;
 
-       // [Test]
-       // public void Product_AddProductListTest()
-       // {
-       //     var returnProductList = _productService.Add(_newProducts);
+            var returnProduct = _productService.UploadProducts(currentProduct);
 
-       //     foreach (var returnProduct in returnProductList)
-       //     {
-       //         Assert.IsNotNull(returnProduct);
-       //     }
-       // }
+            Assert.IsNotNull(returnProduct);
+        }
 
-       // [Test]
-       // public void Product_GetProductTest()
-       // {
-       //     _productService.Add(_newProducts[0]);
-       //     var returnProduct = _productService.Get(0);
+       [Test]
+        public void Product_GetProductTest()
+        {
+            _productService.UploadProducts(_newProducts[0]);
+            var returnProduct = _productService.GetProduct(0);
 
-       //     Assert.IsNotNull(returnProduct);
-       // }
+            Assert.IsNotNull(returnProduct);
+        }
 
-       // [Test]
-       // public void Product_DeleteProductTest()
-       // {
-       //     _productService.Add(_newProducts[0]);
-       //     var returnProduct = _productService.Delete(_productService.Get((long)0));
+        [Test]
+        public void Product_DeleteProductByIdTest()
+        {
+            _productService.UploadProducts(_newProducts[0]);
+            var returnProduct = _productService.DeleteProduct(0);
 
-       //     Assert.IsNotNull(returnProduct);
+            Assert.IsNotNull(returnProduct);
+        }
 
-       // }
 
-       // [Test]
-       // public void Product_DeleteProductListTest()
-       // {
-       //     var returnProductList = _productService.Add(_newProducts);
 
-       //     foreach (var returnProduct in returnProductList)
-       //     {
-       //         Assert.IsNotNull(returnProduct);
-       //     }
+        [Test]
+        public void Product_UpdateProductTest()
+        {
+            _productService.UploadProducts(_newProducts[0]);
+            var returnProduct = _productService.Update(Mapper.Map<Product>(_productService.GetProduct(0)));
 
-       // }
+            Assert.IsNotNull(returnProduct);
+        }
 
-       // [Test]
-       // public void Product_DeleteProductByIdTest()
-       // {
-       //     _productService.Add(_newProducts[0]);
-       //     var returnProduct = _productService.Delete(0);
+        [Test]
+        public void Product_FindProductTest()
+        {
+            Expression<Func<Product, bool>> filter = product => product.ProductName == "Image 1";
+            var returnProducts = _productService.Find(filter);
 
-       //     Assert.IsNotNull(returnProduct);
-       // }
-
-        
-
-       // [Test]
-       // public void Product_UpdateProductTest()
-       // {
-       //     _productService.Add(_newProducts[0]);
-       //     var returnProduct = _productService.Update(_productService.Get(0));
-
-       //     Assert.IsNotNull(returnProduct);
-       // }
-
-       // [Test]
-       // public void Product_FindProductTest()
-       // {
-       //     _productService.Add(new Product(){ProductName = "Image1"});
-
-       //     Expression<Func<Product, bool>> filter = product => product.ProductName == "Image 1";
-       //     var returnProducts = _productService.Find(filter);
-
-       //     Assert.Less(0,returnProducts.Count());
-       // }
+            Assert.Less(0, returnProducts.Count());
+        }
 
         [Test]
         public void Product_GetProtectedImageTest()
@@ -164,7 +139,8 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
             var result = ExtensionProductMethods.GetProtectedImage(sourceImageByte);
 
-            using (Stream file = File.OpenWrite(@"d:\ImageWithWatermark.jpg"))
+            var currentPath = String.Format(@"{p}\ImageWithWatermark.jpg", Path.GetTempPath());
+            using (Stream file = File.OpenWrite(currentPath))
             {
                 if (!ReferenceEquals(result, null))
                 {
@@ -182,7 +158,8 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
             var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
             var sb = new StringBuilder();
-            using (Stream file = File.OpenWrite(@"d:\ResizedImage.jpg"))
+            var currentPath = String.Format(@"{p}\ResizedImage.jpg", Path.GetTempPath());
+            using (Stream file = File.OpenWrite(currentPath))
             {
                 if (!ReferenceEquals(result, null))
                 {
@@ -192,54 +169,54 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             Assert.IsNotNull(result);
         }
 
-        [Test]
-        public void Product_GetCompressMusicTest()
-        {
-            FileStream stream = File.OpenRead(@"d:\1.mp3");
-            var sourceMusicByte = new byte[stream.Length];
-            stream.Read(sourceMusicByte, 0, sourceMusicByte.Length);
-            stream.Close();
+        //[Test]
+        //public void Product_GetCompressMusicTest()
+        //{
+        //    FileStream stream = File.OpenRead(@"d:\1.mp3");
+        //    var sourceMusicByte = new byte[stream.Length];
+        //    stream.Read(sourceMusicByte, 0, sourceMusicByte.Length);
+        //    stream.Close();
 
-            var content = Encoding.ASCII.GetString(sourceMusicByte);
+        //    var content = Encoding.ASCII.GetString(sourceMusicByte);
 
-            var targetLength = sourceMusicByte.Length / 10;
-            byte[] resultMusicByte = new byte[targetLength];
-            Array.Copy(sourceMusicByte,resultMusicByte,targetLength);
+        //    var targetLength = sourceMusicByte.Length / 10;
+        //    byte[] resultMusicByte = new byte[targetLength];
+        //    Array.Copy(sourceMusicByte,resultMusicByte,targetLength);
             
 
-            using (Stream file = File.OpenWrite(@"d:\2.mp3"))
-            {
-                if (!ReferenceEquals(resultMusicByte, null))
-                {
-                    file.Write(resultMusicByte, 0, resultMusicByte.Length);
-                }
-            }
-            Assert.IsNotNull(resultMusicByte);
-        }
+        //    using (Stream file = File.OpenWrite(@"d:\2.mp3"))
+        //    {
+        //        if (!ReferenceEquals(resultMusicByte, null))
+        //        {
+        //            file.Write(resultMusicByte, 0, resultMusicByte.Length);
+        //        }
+        //    }
+        //    Assert.IsNotNull(resultMusicByte);
+        //}
 
-        [Test]
-        public void Product_GetCompressVideoTest()
-        {
-            FileStream stream = File.OpenRead(@"d:\1.mp4");
-            var sourceVideoByte = new byte[stream.Length];
-            stream.Read(sourceVideoByte, 0, sourceVideoByte.Length);
-            stream.Close();
+        //[Test]
+        //public void Product_GetCompressVideoTest()
+        //{
+        //    FileStream stream = File.OpenRead(@"d:\1.mp4");
+        //    var sourceVideoByte = new byte[stream.Length];
+        //    stream.Read(sourceVideoByte, 0, sourceVideoByte.Length);
+        //    stream.Close();
 
-            var content = Encoding.ASCII.GetString(sourceVideoByte);
+        //    var content = Encoding.ASCII.GetString(sourceVideoByte);
 
-            var targetLength = sourceVideoByte.Length / 10;
-            byte[] resultVideoByte = new byte[targetLength];
-            Array.Copy(sourceVideoByte, resultVideoByte, targetLength);
+        //    var targetLength = sourceVideoByte.Length / 10;
+        //    byte[] resultVideoByte = new byte[targetLength];
+        //    Array.Copy(sourceVideoByte, resultVideoByte, targetLength);
 
 
-            using (Stream file = File.OpenWrite(@"d:\2.mp4"))
-            {
-                if (!ReferenceEquals(resultVideoByte, null))
-                {
-                    file.Write(resultVideoByte, 0, resultVideoByte.Length);
-                }
-            }
-            Assert.IsNotNull(resultVideoByte);
-        }
+        //    using (Stream file = File.OpenWrite(@"d:\2.mp4"))
+        //    {
+        //        if (!ReferenceEquals(resultVideoByte, null))
+        //        {
+        //            file.Write(resultVideoByte, 0, resultVideoByte.Length);
+        //        }
+        //    }
+        //    Assert.IsNotNull(resultVideoByte);
+        //}
     }
 }

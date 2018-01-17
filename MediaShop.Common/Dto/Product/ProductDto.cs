@@ -12,6 +12,12 @@ namespace MediaShop.Common.Dto.Product
     public class ProductDto
     {
         /// <summary>
+        /// Gets or sets the identifier. 
+        /// </summary>
+        /// <value>The identifier.</value>
+        public long Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the ProductName.
         /// </summary>
         public string ProductName { get; set; }

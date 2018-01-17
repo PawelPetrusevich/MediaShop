@@ -23,6 +23,13 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
+        ProductDto GetProduct(long id);
+
+        /// <summary>
+        /// Get method.
+        /// </summary>
+        /// <param name="id">product Id</param>
+        /// <returns>result</returns>
         ProductContentDTO GetOriginalProduct(long id);
 
         /// <summary>
