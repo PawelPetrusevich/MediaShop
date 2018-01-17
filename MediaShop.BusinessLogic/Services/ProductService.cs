@@ -74,7 +74,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Add(data);
 
-            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Delete(id);
 
-            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Get(id);
 
-            return result is null ? throw new InvalidOperationException() : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<Product, ProductDto>(result);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (result is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(Resources.GetProductError);
             }
 
             var productContent = Mapper.Map<Product, ProductContentDTO>(result);
@@ -164,7 +164,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (result is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(Resources.GetProductError);
             }
 
             var productContent = Mapper.Map<Product, ProductContentDTO>(result);
@@ -189,7 +189,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (result is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(Resources.GetProductError);
             }
 
             var productContent = Mapper.Map<Product, ProductContentDTO>(result);
@@ -207,7 +207,7 @@ namespace MediaShop.BusinessLogic.Services
         {
             if (product == null)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException(Resources.UpdateProductError);
             }
 
             var result = this._repository.Update(product);

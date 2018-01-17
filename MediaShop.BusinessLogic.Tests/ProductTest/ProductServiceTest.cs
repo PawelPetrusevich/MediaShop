@@ -51,6 +51,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep = new Mock<IProductRepository>();
             _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.GetCompressedProduct(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.GetProtectedProduct(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.GetOriginalProduct(It.IsAny<long>())).Returns(new Product());
@@ -73,22 +74,21 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
                 .ChooseFrom(StaticData.LoremIpsum);
 
             _newProducts = productGenerator.Generate(10).ToList();
+
+            ImageConverter converter = new ImageConverter();
+            var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
+            var sourceImageString = Convert.ToBase64String(sourceImageByte);
+
+            foreach (var product in _newProducts)
+            {
+                product.UploadProduct = sourceImageString;
+            }
         }
 
         [Test]
         public void Product_UploadProductTest()
         {
-            ImageConverter converter = new ImageConverter();
-            var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
-            var sourceImageString = Convert.ToBase64String(sourceImageByte);
-
-            var currentProduct = new UploadModel()
-            {
-                ProductName = "Name 1"    
-            };
-            currentProduct.UploadProduct = sourceImageString;
-
-            var returnProduct = _productService.UploadProducts(currentProduct);
+            var returnProduct = _productService.UploadProducts(_newProducts[0]);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -97,7 +97,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_GetProductTest()
         {
             _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.GetProduct(0);
+            var returnProduct = _productService.GetProduct(1);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -106,7 +106,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_DeleteProductByIdTest()
         {
             _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.DeleteProduct(0);
+            var returnProduct = _productService.DeleteProduct(1);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -117,7 +117,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_UpdateProductTest()
         {
             _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.Update(Mapper.Map<Product>(_productService.GetProduct(0)));
+            var returnProduct = _productService.Update(Mapper.Map<Product>(_productService.GetProduct(1)));
 
             Assert.IsNotNull(returnProduct);
         }
@@ -128,7 +128,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             Expression<Func<Product, bool>> filter = product => product.ProductName == "Image 1";
             var returnProducts = _productService.Find(filter);
 
-            Assert.Less(0, returnProducts.Count());
+            Assert.IsNotNull(returnProducts);
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
             var result = ExtensionProductMethods.GetProtectedImage(sourceImageByte);
 
-            var currentPath = String.Format(@"{p}\ImageWithWatermark.jpg", Path.GetTempPath());
+            var currentPath = String.Format(@"{0}ImageWithWatermark.jpg", Path.GetTempPath());
             using (Stream file = File.OpenWrite(currentPath))
             {
                 if (!ReferenceEquals(result, null))
@@ -158,7 +158,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
             var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
             var sb = new StringBuilder();
-            var currentPath = String.Format(@"{p}\ResizedImage.jpg", Path.GetTempPath());
+            var currentPath = String.Format(@"{0}ResizedImage.jpg", Path.GetTempPath());
             using (Stream file = File.OpenWrite(currentPath))
             {
                 if (!ReferenceEquals(result, null))

@@ -79,6 +79,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete product error.
+        /// </summary>
+        internal static string DeleteProductError {
+            get {
+                return ResourceManager.GetString("DeleteProductError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An attempt to delete with a null identifier.
         /// </summary>
         internal static string DeleteWithNullId {
@@ -93,6 +102,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string ExistContentInCart {
             get {
                 return ResourceManager.GetString("ExistContentInCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error retrieving product by ID.
+        /// </summary>
+        internal static string GetProductError {
+            get {
+                return ResourceManager.GetString("GetProductError", resourceCulture);
             }
         }
         
@@ -138,6 +156,24 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string UpdateContentInCart {
             get {
                 return ResourceManager.GetString("UpdateContentInCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update  product error.
+        /// </summary>
+        internal static string UpdateProductError {
+            get {
+                return ResourceManager.GetString("UpdateProductError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload product error.
+        /// </summary>
+        internal static string UploadProductError {
+            get {
+                return ResourceManager.GetString("UploadProductError", resourceCulture);
             }
         }
         
