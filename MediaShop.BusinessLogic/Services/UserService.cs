@@ -81,6 +81,36 @@ namespace MediaShop.BusinessLogic.Services
             return false;
         }
 
+        /// <summary>
+        /// Adds the role to the user's permission list.
+        /// </summary>
+        /// <param name="role">The role to add</param>
+        /// <returns><c>Permission</c> if role added
+        /// <c>null</c> otherwise</returns>
+        public PermissionDomain AddRole(RoleUserBl role)
+        {
+            var account = this._store.GetByLogin(role.Login);
+
+            if (account == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            var existingPermission = account.Permissions.SingleOrDefault(x => (int)x.Role == role.Role);
+
+            // User allready has this Role
+            if (existingPermission != null)
+            {
+                return null;
+            }
+
+            var permission = Mapper.Map<Permission>(role);
+            permission.Account = account;
+            var addedPermission = _storePermission.Add(permission);
+
+            return Mapper.Map<PermissionDomain>(addedPermission);
+        }
+
         public AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag)
         {
             var existingAccount = this._store.GetByLogin(accountBLmodel.Login);
@@ -94,7 +124,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var updatingAccount = this._store.Update(existingAccount);
             var updatingAccountBl = Mapper.Map<AccountDomain>(updatingAccount);
-            
+
             return updatingAccountBl;
         }
     }

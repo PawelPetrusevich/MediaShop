@@ -28,7 +28,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDomain))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult RegisterUser([FromBody] RegisterUserDto data)
         {
@@ -127,6 +127,34 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return Ok(_userService.RemoveRole(roleUserBl));
             }
             catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("addRole")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(PermissionDomain))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult AddRole([FromBody] RoleUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var roleDomain = Mapper.Map<RoleUserBl>(data);
+                return Ok(_userService.AddRole(roleDomain));
+            }
+            catch (NotFoundUserException ex)
             {
                 return BadRequest(ex.Message);
             }

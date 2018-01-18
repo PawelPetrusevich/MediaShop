@@ -30,6 +30,14 @@ namespace MediaShop.Common.Interfaces.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         bool RemoveRole(RoleUserBl roleUserBl);
 
+        /// <summary>
+        /// Adds the role to the user's permission list.
+        /// </summary>
+        /// <param name="role">The role to add</param>
+        /// <returns><c>Permission</c> if role added
+        /// <c>null</c> otherwise</returns>
+        PermissionDomain AddRole(RoleUserBl role);
+
         AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag);
     }
 }
