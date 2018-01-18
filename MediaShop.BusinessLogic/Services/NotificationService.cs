@@ -1,10 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Notification;
 using System.Collections.Generic;
 using System.Linq;
+using MediaShop.BusinessLogic.Properties;
+using MediaShop.Common.Exceptions;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -29,15 +32,38 @@ namespace MediaShop.BusinessLogic.Services
 
         public NotificationDto Notify(NotificationDto notification)
         {
+            if (string.IsNullOrWhiteSpace(notification.Title))
+            {
+                notification.Title = Resources.DefaultNotificationTitle;
+            }
+
+            if (string.IsNullOrWhiteSpace(notification.Message))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(notification.Message));
+            }
+
+            if (notification.ReceiverId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.ReceiverId));
+            }
+
+            if (notification.SenderId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.SenderId));
+            }
+
             var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
+            if (!tokens.Any())
+            {
+                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
+            }
+
             var notify = _notifcationStore
-                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message && n.Title == notification.Title)
+                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message &&
+                           n.Title == notification.Title)
                 .FirstOrDefault();
 
-            if (tokens.Count > 0 && notify == null)
-            {
-                notify = _notifcationStore.Add(Mapper.Map<Notification>(notification));
-            }
+            notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
 
             return Mapper.Map<NotificationDto>(notify);
         }

@@ -25,7 +25,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>List subscriber user devices</returns>
         public List<string> GetUserDeviceTokens(long userId)
         {
-            if (userId < 0)
+            if (userId < 1)
             {
                 throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(userId));
             }
@@ -41,12 +41,12 @@ namespace MediaShop.DataAccess.Repositories
         /// <returns>True - user device subscribed</returns>
         public bool IsExists(long userId, string deviceId)
         {
-            if (userId < 0)
+            if (userId < 1)
             {
                 throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(userId));
             }
 
-            if (string.IsNullOrEmpty(deviceId))
+            if (string.IsNullOrWhiteSpace(deviceId))
             {
                 throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(deviceId));
             }

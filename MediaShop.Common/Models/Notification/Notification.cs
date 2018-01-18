@@ -27,7 +27,7 @@ namespace MediaShop.Common.Models.Notification
         /// Gets or sets identifier of user who sent notification
         /// </summary>
         public long ReceiverId { get; set; }
-
-        public Account Receiver { get; set; }
+        
+        public virtual Account Receiver { get; set; }
     }
 }

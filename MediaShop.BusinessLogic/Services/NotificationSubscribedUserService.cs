@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
@@ -29,6 +30,21 @@ namespace MediaShop.BusinessLogic.Services
 
         public NotificationSubscribedUserDto Subscribe(NotificationSubscribedUserDto subscribeData)
         {
+            if (subscribeData == null)
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(subscribeData));
+            }
+
+            if (subscribeData.UserId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(subscribeData.UserId));
+            }
+
+            if (string.IsNullOrWhiteSpace(subscribeData.DeviceIdentifier))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(subscribeData.DeviceIdentifier));
+            }
+
             var subscribe = GetSubscribe(subscribeData);
             subscribe = subscribe ?? _repository.Add(Mapper.Map<NotificationSubscribedUser>(subscribeData));
             return Mapper.Map<NotificationSubscribedUserDto>(subscribe);
@@ -36,6 +52,21 @@ namespace MediaShop.BusinessLogic.Services
 
         public bool UserIsSubscribed(NotificationSubscribedUserDto subscribeModel)
         {
+            if (subscribeModel == null)
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(subscribeModel));
+            }
+
+            if (subscribeModel.UserId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(subscribeModel.UserId));
+            }
+
+            if (string.IsNullOrWhiteSpace(subscribeModel.DeviceIdentifier))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(subscribeModel.DeviceIdentifier));
+            }
+
             var subscribe = GetSubscribe(subscribeModel);
             return subscribe != null;
         }
