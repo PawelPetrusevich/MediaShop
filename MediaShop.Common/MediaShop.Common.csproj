@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Product\FindDto.cs" />
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
     <Compile Include="Dto\Product\ProductContentDTO.cs" />
     <Compile Include="Dto\Product\UploadModel.cs" />

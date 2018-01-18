@@ -130,6 +130,33 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Find")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(List<ProductDto>))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        public IHttpActionResult FindProducts([FromBody] List<FindDto> conditionsList)
+        {
+            if (conditionsList.Count <= 0)
+            {
+                return BadRequest("Пустой список условий");
+            }
+
+            try
+            {
+                return Ok(_productService.Find(conditionsList));
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(Resources.GetWithNullId);
+            }
+            catch (Exception exception)
+            {
+                return InternalServerError();
+            }
+        }
+
         [HttpPut]
         public IHttpActionResult Put()
         {

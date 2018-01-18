@@ -99,10 +99,54 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="filter">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
+        //public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
+        public IEnumerable<ProductDto> Find(List<FindDto> conditionsList)
         {
-            //еще не написан
-            return this._repository.Find(filter);
+            var operations = new List<BinaryExpression>();
+            var parameters = new List<ParameterExpression>();
+
+            foreach (var condition in conditionsList)
+            {
+                ParameterExpression parameter;
+                ConstantExpression value;
+
+                if (condition.Name == "Name")
+                {
+                    parameter = Expression.Parameter(typeof(string), condition.Name);
+                    value = Expression.Constant((string)condition.Value);
+                }
+                else if (condition.Name == "Price")
+                {
+                    parameter = Expression.Parameter(typeof(int), condition.Name);
+                    value = Expression.Constant((int)condition.Value);
+                }
+                else
+                {
+                    throw new ArgumentException("Неверное поля для поиска");
+                }
+
+                parameters.Add(parameter);
+
+                if (condition.Op == "=")
+                {
+                    operations.Add(Expression.Equal(parameter, value));
+                }
+                else if (condition.Op == ">")
+                {
+                    operations.Add(Expression.GreaterThan(parameter, value));
+                }
+                else if (condition.Op == "<")
+                {
+                    operations.Add(Expression.LessThan(parameter, value));
+                }
+            }
+
+            var resultFilter = operations.Aggregate(Expression.And);
+
+            var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameters);
+
+            return Mapper.Map<List<ProductDto>>(this._repository.Find(lambda));
+            //return new List<Product>();
         }
 
 
