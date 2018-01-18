@@ -32,6 +32,11 @@ namespace MediaShop.BusinessLogic.Services
 
         public NotificationDto Notify(NotificationDto notification)
         {
+            if (notification == null)
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(notification));
+            }
+
             if (string.IsNullOrWhiteSpace(notification.Title))
             {
                 notification.Title = Resources.DefaultNotificationTitle;
