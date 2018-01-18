@@ -100,55 +100,39 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="filter">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
         //public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
-        public IEnumerable<ProductDto> Find(List<FindDto> conditionsList)
+        public IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<BinaryExpression>();
-            var parameters = new List<ParameterExpression>();
+            var parameterExpr = Expression.Parameter(typeof(Product));
 
             foreach (var condition in conditionsList)
             {
-                ParameterExpression parameter;
-                ConstantExpression value;
+                var parameter = Expression.Property(parameterExpr, condition.LeftValue);
 
-                if (condition.Name == "Name")
-                {
-                    parameter = Expression.Parameter(typeof(string), condition.Name);
-                    value = Expression.Constant((string)condition.Value);
-                }
-                else if (condition.Name == "Price")
-                {
-                    parameter = Expression.Parameter(typeof(int), condition.Name);
-                    value = Expression.Constant((int)condition.Value);
-                }
-                else
-                {
-                    throw new ArgumentException("Неверное поля для поиска");
-                }
+                var propType = typeof(Product).GetProperty(condition.LeftValue).PropertyType;
+                var castValue = Convert.ChangeType(condition.RightValue, propType);
+                ConstantExpression constant = Expression.Constant(castValue);
 
-                parameters.Add(parameter);
-
-                if (condition.Op == "=")
+                if (condition.Operand == "=")
                 {
-                    operations.Add(Expression.Equal(parameter, value));
+                    operations.Add(Expression.Equal(parameter, constant));
                 }
-                else if (condition.Op == ">")
+                else if (condition.Operand == ">")
                 {
-                    operations.Add(Expression.GreaterThan(parameter, value));
+                    operations.Add(Expression.GreaterThan(parameter, constant));
                 }
-                else if (condition.Op == "<")
+                else if (condition.Operand == "<")
                 {
-                    operations.Add(Expression.LessThan(parameter, value));
+                    operations.Add(Expression.LessThan(parameter, constant));
                 }
             }
 
             var resultFilter = operations.Aggregate(Expression.And);
 
-            var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameters);
+            var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
             return Mapper.Map<List<ProductDto>>(this._repository.Find(lambda));
-            //return new List<Product>();
         }
-
 
         /// <summary>
         /// метод удаления продукта

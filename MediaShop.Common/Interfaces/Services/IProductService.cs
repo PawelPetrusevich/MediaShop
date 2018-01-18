@@ -73,6 +73,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="filter">filter</param>
         /// <returns>product</returns>
         //IEnumerable<Product> Find(Expression<Func<Product, bool>> filter);
-        IEnumerable<ProductDto> Find(List<FindDto> conditionsList);
+        IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
     }
 }

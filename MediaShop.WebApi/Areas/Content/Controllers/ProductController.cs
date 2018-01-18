@@ -136,7 +136,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult FindProducts([FromBody] List<FindDto> conditionsList)
+        public IHttpActionResult FindProducts([FromBody] List<ProductSearchModel> conditionsList)
         {
             if (conditionsList.Count <= 0)
             {

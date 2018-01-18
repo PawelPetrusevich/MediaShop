@@ -122,14 +122,17 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             Assert.IsNotNull(returnProduct);
         }
 
-        //[Test]
-        //public void Product_FindProductTest()
-        //{
-        //    Expression<Func<Product, bool>> filter = product => product.ProductName == "Image 1";
-        //    var returnProducts = _productService.Find(filter);
+        [Test]
+        public void Product_FindProductTest()
+        {
+            var filter = new List<ProductSearchModel>() {
+                new ProductSearchModel() {LeftValue = "ProductPrice", Operand = ">", RightValue = 100},
+            };
 
-        //    Assert.IsNotNull(returnProducts);
-        //}
+            var returnProducts = _productService.Find(filter);
+
+            Assert.IsNotNull(returnProducts);
+        }
 
         [Test]
         public void Product_GetProtectedImageTest()
@@ -167,20 +170,6 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
                 }
             }
             Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void Product_FindTest()
-        {
-            var f = new List<FindDto>() {
-                new FindDto() {Name = "ProductPrice", Op = ">", Value = 100},
-                new FindDto() { Name = "ProductPrice", Op = "<", Value = 200 },
-                new FindDto() { Name = "Name", Op = "=", Value = "pic"}
-            };
-
-            _productService.Find(f);
-
-            Assert.IsNotNull(0);
         }
 
         //[Test]
