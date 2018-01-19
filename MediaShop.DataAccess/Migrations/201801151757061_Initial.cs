@@ -27,7 +27,7 @@ namespace MediaShop.DataAccess.Migrations
                 "dbo.Profiles",
                 c => new
                 {
-                    Id = c.Long(nullable: false),
+                    Id = c.Long(nullable: false, identity: true),
                     Email = c.String(nullable: false, maxLength: 30),
                     DateOfBirth = c.DateTime(nullable: false),
                     FirstName = c.String(maxLength: 30),
@@ -47,7 +47,7 @@ namespace MediaShop.DataAccess.Migrations
                 "dbo.Settings",
                 c => new
                 {
-                    Id = c.Long(nullable: false),
+                    Id = c.Long(nullable: false, identity: true),
                     TimeZoneId = c.String(),
                     InterfaceLanguage = c.Byte(nullable: false),
                     NotificationStatus = c.Boolean(nullable: false),
