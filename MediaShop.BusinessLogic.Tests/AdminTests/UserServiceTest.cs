@@ -24,7 +24,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     {
         private Mock<IAccountRepository> _store;
         private Mock<IPermissionRepository> _storePermission;
-        private AccountDomain _user;
+        private Account _user;
 
         public UserServiceTest()
         {
@@ -39,7 +39,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store = mockRepository;
             _storePermission = mockPermitionRepository;
 
-            _user = new AccountDomain()
+            _user = new Account()
             {                
                 Login = "User",
                 Password = "12345",  
@@ -54,7 +54,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void TestRegistrationSuccessfull()
         {            
             var profile = new Profile { Id = 1 };
-            var account = new Account
+            var account = new AccountDbModel
             {
                 Id = 2,
                 Login = "Ivan",
@@ -63,11 +63,11 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Permissions = new List<Permission>() { new Permission() }
             };
 
-            _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(account);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>()))
-                .Returns((IEnumerable<Account>)null); 
+            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(account);
+            _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>()))
+                .Returns((IEnumerable<AccountDbModel>)null); 
 
-            var userService = new UserService(_store.Object,_storePermission.Object);           
+            var userService = new AccountService(_store.Object,_storePermission.Object);           
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -77,27 +77,27 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var permissions = new SortedSet<Role> { Role.User };
             var profile = new Profile { Id = 1 };
-            var account = new Account
+            var account = new AccountDbModel
             {
                 Login = "User",
                 Password = "12345",
                 Profile = profile,
                 Permissions = new List<Permission>() { new Permission() }
             };
-            _store.Setup(x => x.Add(It.IsAny<Account>())).Returns(new Account());
-            _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new Account());
+            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
+            _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());
 
-            var userService = new UserService(_store.Object,_storePermission.Object);
+            var userService = new AccountService(_store.Object,_storePermission.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
         [Test]
         public void TestRegistraionFailInRepository()
         {
-            _store.Setup(x => x.Add(It.IsAny<Account>())).Returns((Account)null);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns((IEnumerable<Account>)null);
+            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);
+            _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>())).Returns((IEnumerable<AccountDbModel>)null);
 
-            var userService = new UserService(_store.Object,_storePermission.Object);
+            var userService = new AccountService(_store.Object,_storePermission.Object);
 
             Assert.IsNull(userService.Register(_user));
         }

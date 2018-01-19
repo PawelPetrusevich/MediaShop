@@ -34,7 +34,7 @@ namespace MediaShop.DataAccess.Context
         /// Gets or sets the accounts.
         /// </summary>
         /// <value>The accounts.</value>
-        public IDbSet<Account> Accounts { get; set; }
+        public IDbSet<AccountDbModel> Accounts { get; set; }
 
         /// <summary>
         /// Gets or sets the profiles.

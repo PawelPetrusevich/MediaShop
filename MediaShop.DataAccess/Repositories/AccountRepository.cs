@@ -20,7 +20,7 @@ namespace MediaShop.DataAccess.Repositories
     /// </summary>
     /// <seealso cref="Repository{T}" />
     /// <seealso cref="IAccountRepository" />
-    public class AccountRepository : Repository<Account>, IAccountRepository
+    public class AccountRepository : Repository<AccountDbModel>, IAccountRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountRepository"/> class.
@@ -38,7 +38,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="id">user id</param>
         /// <returns>accounty</returns>
         /// <exception cref="ArgumentException">if id = 0</exception>
-        public override Account Get(long id)
+        public override AccountDbModel Get(long id)
         {
             if (id == 0)
             {
@@ -54,26 +54,17 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">model account</param>
         /// <returns>account</returns>
         /// <exception cref="ArgumentNullException">if model = null</exception>
-        public override Account Add(Account model)
+        public override AccountDbModel Add(AccountDbModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            try
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = false;
+            var account = this.DbSet.Add(model);
+            this.Context.SaveChanges();
 
-                var account = this.DbSet.Add(model);
-                this.Context.SaveChanges();
-
-                return account;
-            }
-            finally
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = true;
-            }
+            return account;
         }
 
         /// <summary>
@@ -82,7 +73,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">Account to update</param>
         /// <returns>Updated account</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override Account Update(Account model)
+        public override AccountDbModel Update(AccountDbModel model)
         {
             if (model == null)
             {
@@ -104,7 +95,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="filter">Filter criteria</param>
         /// <returns>Suitable accounts</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override IEnumerable<Account> Find(Expression<Func<Account, bool>> filter)
+        public override IEnumerable<AccountDbModel> Find(Expression<Func<AccountDbModel, bool>> filter)
         {
             if (filter == null)
             {
@@ -120,7 +111,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">Account to delete</param>
         /// <returns>Deleted account</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override Account Delete(Account model)
+        public override AccountDbModel Delete(AccountDbModel model)
         {
             if (model == null)
             {
@@ -146,7 +137,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">account  Id</param>
         /// <returns>Deleted account</returns>
-        public override Account Delete(long id)
+        public override AccountDbModel Delete(long id)
         {
             if (id == 0)
             {
@@ -175,7 +166,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="login">The login.</param>
         /// <returns>Account</returns>
         /// <exception cref="ArgumentException">if login is null or empty string</exception>
-        public Account GetByLogin(string login)
+        public AccountDbModel GetByLogin(string login)
         {
             if (string.IsNullOrEmpty(login))
             {

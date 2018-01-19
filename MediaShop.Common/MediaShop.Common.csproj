@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\UpdateModelDto.cs" />
-    <Compile Include="Dto\User\AccountDomain.cs" />
+    <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\PermissionDomain.cs" />
     <Compile Include="Dto\User\ProfileBl.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
+    <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Dto\User\SettingsDomain.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
-    <Compile Include="Interfaces\Services\IUserService.cs" />
+    <Compile Include="Interfaces\Services\IAccountService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\ISettingsService.cs" />
@@ -108,7 +109,7 @@
     <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\User\Account.cs" />
+    <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\Permission.cs" />
     <Compile Include="Models\User\Settings.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />

@@ -1,4 +1,4 @@
-// <copyright file="IUserService.cs" company="MediaShop">
+// <copyright file="IAccountService.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -11,16 +11,16 @@ namespace MediaShop.Common.Interfaces.Services
     using MediaShop.Common.Models.User;
 
     /// <summary>
-    /// Interface IUserService
+    /// Interface IAccountService
     /// </summary>
-    public interface IUserService
+    public interface IAccountService
     {
         /// <summary>
         /// Registers the user.
         /// </summary>
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        AccountDomain Register(AccountDomain userModel);
+        Account Register(RegisterUserDto userModel);
 
         /// <summary>
         /// Removes the role from the user's permission list.
@@ -38,6 +38,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// <c>null</c> otherwise</returns>
         PermissionDomain AddRole(RoleUserBl role);
 
-        AccountDomain SetRemoveFlagIsBanned(AccountDomain accountBLmodel, bool flag);
+        Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
     }
 }

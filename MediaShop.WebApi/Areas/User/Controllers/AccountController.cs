@@ -17,18 +17,18 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IAccountService accountService)
         {
-            _userService = userService;
+            _accountService = accountService;
         }
 
         [HttpPost]
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDomain))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult RegisterUser([FromBody] RegisterUserDto data)
         {
@@ -39,24 +39,28 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = Mapper.Map<AccountDomain>(data);
-                return Ok(_userService.Register(account));
+                var result = _accountService.Register(data);
+                return Ok(result);
             }
             catch (ExistingLoginException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        }
+
+        [HttpGet]
+        [Route("confirm/{email}/{id}")]
+        public IHttpActionResult Confirm(string email, long id)
+        {
+            // todo confirm email, create profile, create settings, login
+            return Ok();
         }
 
         [HttpPost]
         [Route("SetBanned")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult SetFlagIsBanned([FromBody] RegisterUserDto data)
         {
@@ -67,8 +71,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = Mapper.Map<AccountDomain>(data);
-                return Ok(_userService.SetRemoveFlagIsBanned(account, true));
+                var account = Mapper.Map<Account>(data);
+                return Ok(_accountService.SetRemoveFlagIsBanned(account, true));
             }
             catch (ExistingLoginException ex)
             {
@@ -84,7 +88,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("RemoveBanned")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult RemoveFlagIsBanned([FromBody]RegisterUserDto data)
         {
@@ -95,8 +99,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = Mapper.Map<AccountDomain>(data);
-                return Ok(_userService.SetRemoveFlagIsBanned(account, false));
+                var account = Mapper.Map<Account>(data);
+                return Ok(_accountService.SetRemoveFlagIsBanned(account, false));
             }
             catch (ExistingLoginException ex)
             {
@@ -112,7 +116,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("removeRole")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult RemoveRole([FromBody] RoleUserDto data)
         {
@@ -124,7 +128,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var roleUserBl = Mapper.Map<RoleUserBl>(data);
-                return Ok(_userService.RemoveRole(roleUserBl));
+                return Ok(_accountService.RemoveRole(roleUserBl));
             }
             catch (ExistingLoginException ex)
             {
@@ -152,7 +156,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var roleDomain = Mapper.Map<RoleUserBl>(data);
-                return Ok(_userService.AddRole(roleDomain));
+                return Ok(_accountService.AddRole(roleDomain));
             }
             catch (NotFoundUserException ex)
             {

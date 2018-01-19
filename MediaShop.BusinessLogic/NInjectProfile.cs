@@ -20,7 +20,7 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            Bind<IUserService>().To<UserService>();
+            Bind<IAccountService>().To<AccountService>();
             Bind<ISettingsService>().To<SettingsService>();
             Bind<IProfileService>().To<ProfileService>();
 

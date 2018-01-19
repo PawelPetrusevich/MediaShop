@@ -32,7 +32,7 @@ namespace MediaShop.Common
              .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
 
-            this.CreateMap<RegisterUserDto, Account>().ReverseMap();
+            this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, RoleUserBl>();
 
             this.CreateMap<ProfileBl, Models.User.Profile>()
@@ -41,11 +41,11 @@ namespace MediaShop.Common
                 .ForMember(item => item.CreatorId, m => m.Ignore())
                 .ReverseMap().ForMember(item => item.Login, m => m.Ignore());
 
-            this.CreateMap<AccountDomain, RegisterUserDto>().ReverseMap();
+            this.CreateMap<Account, RegisterUserDto>().ReverseMap();
             this.CreateMap<ProfileBl, ProfileDto>().ReverseMap();
             this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
 
-            this.CreateMap<AccountDomain, Account>()
+            this.CreateMap<Account, AccountDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<Settings, SettingsDomain>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<Permission, PermissionDomain>().ReverseMap();

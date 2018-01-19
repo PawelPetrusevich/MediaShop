@@ -36,7 +36,7 @@ namespace MediaShop.Common.Models.User
         /// <value>The phone.</value>
         public string Phone { get; set; }
 
-        //public virtual Account AccountOf { get; set; }
+        //public virtual AccountDbModel AccountOf { get; set; }
 
         //public long AccountId { get; set; }
     }

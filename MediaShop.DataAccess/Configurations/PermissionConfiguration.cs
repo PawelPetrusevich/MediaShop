@@ -11,7 +11,7 @@ namespace MediaShop.DataAccess.Configurations
     {
         public PermissionConfiguration()
         {
-            HasRequired<Account>(c => c.Account).WithMany(x => x.Permissions);
+            HasRequired<AccountDbModel>(c => c.AccountDbModel).WithMany(x => x.Permissions);
 
             HasKey(p => p.Id);
 

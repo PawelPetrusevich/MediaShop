@@ -6,6 +6,6 @@
 
     public interface IPermissionRepository : IRepository<Permission>
     {
-        IEnumerable<Permission> GetByAccount(Account account);
+        IEnumerable<Permission> GetByAccount(AccountDbModel accountDbModel);
     }
 }

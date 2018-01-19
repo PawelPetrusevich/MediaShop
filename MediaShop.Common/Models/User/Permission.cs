@@ -20,6 +20,6 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets Account.
         /// </summary>
         /// <value>The account.</value>
-        public virtual Account Account { get; set; }
+        public virtual AccountDbModel AccountDbModel { get; set; }
     }
 }

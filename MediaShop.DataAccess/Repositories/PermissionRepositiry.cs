@@ -15,9 +15,9 @@
         {
         }
 
-        public IEnumerable<Permission> GetByAccount(Account account)
+        public IEnumerable<Permission> GetByAccount(AccountDbModel accountDbModel)
         {
-            return this.DbSet.Where(p => p.Account == account);
+            return this.DbSet.Where(p => p.AccountDbModel == accountDbModel);
         }
     }
 }

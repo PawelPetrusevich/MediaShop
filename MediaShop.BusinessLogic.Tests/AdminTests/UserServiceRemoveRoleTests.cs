@@ -41,7 +41,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                                       new Permission() { Role = Role.User }
                                   };
             var profile = new Profile { Id = 1 };
-            var user = new Account
+            var user = new AccountDbModel
                            {
                                Id = 1,
                                Login = "User",
@@ -51,8 +51,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var roleUserBl = new RoleUserBl { Login = "User", Role = role };
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            storagePermission.Setup(s => s.GetByAccount(It.IsAny<Account>())).Returns(permissions);
-            var userService = new UserService(storage.Object, storagePermission.Object);
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
+            var userService = new AccountService(storage.Object, storagePermission.Object);
             Assert.IsTrue(userService.RemoveRole(roleUserBl));
         }
 
@@ -69,7 +69,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var storagePermission = new Mock<IPermissionRepository>();
             var permissions = new List<Permission>{new Permission() { Role = Role.Admin }};
             var profile = new Profile { Id = 1 };
-            var user = new Account
+            var user = new AccountDbModel
                            {
                                Id = 1,
                                Login = "User",
@@ -79,8 +79,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var roleUserBl = new RoleUserBl { Login = "User", Role = role };
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            storagePermission.Setup(s => s.GetByAccount(It.IsAny<Account>())).Returns(permissions);
-            var userService = new UserService(storage.Object, storagePermission.Object);
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
+            var userService = new AccountService(storage.Object, storagePermission.Object);
             Assert.IsFalse(userService.RemoveRole(roleUserBl));
         }
     }

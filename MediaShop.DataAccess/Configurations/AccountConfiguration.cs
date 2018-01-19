@@ -11,7 +11,7 @@ namespace MediaShop.DataAccess.Configurations
     /// <summary>
     ///     Configuration connect account with other tables
     /// </summary>
-    public class AccountConfiguration : EntityTypeConfiguration<Account>
+    public class AccountConfiguration : EntityTypeConfiguration<AccountDbModel>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="AccountConfiguration" /> class.
