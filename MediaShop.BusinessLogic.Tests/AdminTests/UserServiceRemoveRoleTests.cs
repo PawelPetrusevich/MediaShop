@@ -35,12 +35,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var storage = new Mock<IAccountRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
-            var permissions = new List<Permission>
+            var permissions = new List<PermissionDbModel>
                                   {
-                                      new Permission() { Role = Role.Admin },
-                                      new Permission() { Role = Role.User }
+                                      new PermissionDbModel() { Role = Role.Admin },
+                                      new PermissionDbModel() { Role = Role.User }
                                   };
-            var profile = new Profile { Id = 1 };
+            var profile = new ProfileDbModel { Id = 1 };
             var user = new AccountDbModel
                            {
                                Id = 1,
@@ -67,8 +67,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var storage = new Mock<IAccountRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
-            var permissions = new List<Permission>{new Permission() { Role = Role.Admin }};
-            var profile = new Profile { Id = 1 };
+            var permissions = new List<PermissionDbModel>{new PermissionDbModel() { Role = Role.Admin }};
+            var profile = new ProfileDbModel { Id = 1 };
             var user = new AccountDbModel
                            {
                                Id = 1,

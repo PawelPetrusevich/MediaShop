@@ -19,7 +19,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     using Swashbuckle.Swagger.Annotations;
 
-    using Profile = MediaShop.Common.Models.User.Profile;
+    using ProfileDbModel = MediaShop.Common.Models.User.ProfileDbModel;
 
     [RoutePrefix("api/profile")]
     public class ProfileController : ApiController
@@ -34,20 +34,20 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return this.Ok(new List<Profile>());
+            return this.Ok(new List<ProfileDbModel>());
         }
 
         [HttpGet]
         [Route("GetById")]
         public IHttpActionResult GetById(long id)
         {
-            return this.Ok(new Profile());
+            return this.Ok(new ProfileDbModel());
         }
 
         [HttpPut]
-        public IHttpActionResult Put([FromBody]Profile profile)
+        public IHttpActionResult Put([FromBody]ProfileDbModel profile)
         {
-            return this.Ok(new Profile());
+            return this.Ok(new ProfileDbModel());
         }
 
         [HttpDelete]
@@ -60,7 +60,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Profile))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(ProfileDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Post([FromBody] ProfileDto data)
         {
@@ -71,7 +71,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var dataDto = Mapper.Map<ProfileBl>(data);
+                var dataDto = Mapper.Map<Common.Dto.User.Profile>(data);
 
                 var result = _profileService.Create(dataDto);
 

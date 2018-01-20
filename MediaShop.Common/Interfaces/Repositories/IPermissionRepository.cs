@@ -4,8 +4,8 @@
 
     using MediaShop.Common.Models.User;
 
-    public interface IPermissionRepository : IRepository<Permission>
+    public interface IPermissionRepository : IRepository<PermissionDbModel>
     {
-        IEnumerable<Permission> GetByAccount(AccountDbModel accountDbModel);
+        IEnumerable<PermissionDbModel> GetByAccount(AccountDbModel accountDbModel);
     }
 }

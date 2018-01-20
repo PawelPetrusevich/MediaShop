@@ -131,7 +131,7 @@ namespace MediaShop.BusinessLogic.Services
                 return null;
             }
 
-            var permission = Mapper.Map<Permission>(role);
+            var permission = Mapper.Map<PermissionDbModel>(role);
             permission.AccountDbModel = account;
             var addedPermission = _storePermission.Add(permission);
 

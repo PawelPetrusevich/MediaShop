@@ -17,7 +17,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
     using MediaShop.BusinessLogic.Services;
 
-    using Profile = MediaShop.Common.Models.User.Profile;
+    using ProfileDbModel = MediaShop.Common.Models.User.ProfileDbModel;
 
     [TestFixture]
     public class UserServiceTest
@@ -45,7 +45,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Password = "12345",  
                 Email = "12345",
                 Permissions = new List<PermissionDomain>(),
-                Profile = new ProfileBl(),
+                Profile = new Common.Dto.User.Profile(),
                 Settings = new SettingsDomain()
             };
         }
@@ -53,14 +53,14 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void TestRegistrationSuccessfull()
         {            
-            var profile = new Profile { Id = 1 };
+            var profile = new ProfileDbModel { Id = 1 };
             var account = new AccountDbModel
             {
                 Id = 2,
                 Login = "Ivan",
                 Password = "111",
                 Profile = profile,
-                Permissions = new List<Permission>() { new Permission() }
+                Permissions = new List<PermissionDbModel>() { new PermissionDbModel() }
             };
 
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(account);
@@ -76,13 +76,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void TestExistingLogin()
         {
             var permissions = new SortedSet<Role> { Role.User };
-            var profile = new Profile { Id = 1 };
+            var profile = new ProfileDbModel { Id = 1 };
             var account = new AccountDbModel
             {
                 Login = "User",
                 Password = "12345",
                 Profile = profile,
-                Permissions = new List<Permission>() { new Permission() }
+                Permissions = new List<PermissionDbModel>() { new PermissionDbModel() }
             };
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());

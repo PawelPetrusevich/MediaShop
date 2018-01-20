@@ -7,7 +7,7 @@ using MediaShop.Common.Models.User;
 
 namespace MediaShop.DataAccess.Configurations
 {
-    public class PermissionConfiguration : EntityTypeConfiguration<Permission>
+    public class PermissionConfiguration : EntityTypeConfiguration<PermissionDbModel>
     {
         public PermissionConfiguration()
         {

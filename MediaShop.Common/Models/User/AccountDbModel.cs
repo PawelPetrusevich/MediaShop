@@ -33,45 +33,51 @@ namespace MediaShop.Common.Models.User
         public string Email { get; set; }
 
         /// <summary>
+        /// Get or sets flag Confirmed
+        /// </summary>
+        /// <value>true - user is confirmed by email</value>
+        public bool IsConfirmed { get; set; }
+
+        /// <summary>
         /// Get or sets flag isBanned
         /// </summary>
         /// <value>true - user is banned</value>
-        public bool IsBanned { get; set; } = false;
+        public bool IsBanned { get; set; }
 
         /// <summary>
         /// Get or sets flag isDeleted
         /// </summary>
         /// <value>true - user unregistered</value>
-        public bool IsDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the profile identifier.
         /// </summary>
         /// <value>The profile identifier.</value>
-        public long ProfileId { get; set; }
+        public long? ProfileId { get; set; }
 
         /// <summary>
         /// Gets or sets the settings identifier.
         /// </summary>
         /// <value>The settings identifier.</value>
-        public long SettingsId { get; set; }
+        public long? SettingsId { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.
         /// </summary>
         /// <value>The profile.</value>
-        public virtual Profile Profile { get; set; } = new Profile();
+        public virtual ProfileDbModel Profile { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public virtual Settings Settings { get; set; } = new Settings();
+        public virtual SettingsDbModel Settings { get; set; } 
 
         /// <summary>
         /// Gets or sets the permissions.
         /// </summary>
         /// <value>The permissions.</value>
-        public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission> { new Permission() };
+        public virtual ICollection<PermissionDbModel> Permissions { get; set; } = new List<PermissionDbModel> { new PermissionDbModel() };
     }
 }

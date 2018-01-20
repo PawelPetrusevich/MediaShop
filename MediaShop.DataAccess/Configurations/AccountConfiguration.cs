@@ -18,8 +18,8 @@ namespace MediaShop.DataAccess.Configurations
         /// </summary>
         public AccountConfiguration()
         {
-            HasRequired(c => c.Profile);
-            HasRequired(c => c.Settings);
+            HasOptional(c => c.Profile);
+            HasOptional(c => c.Settings);
 
             HasKey(p => p.Id);
 

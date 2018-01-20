@@ -8,7 +8,7 @@ namespace MediaShop.Common.Models.User
     /// Class Permission
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
-    public class Permission : Entity
+    public class PermissionDbModel : Entity
     {
         /// <summary>
         /// Gest or sets role

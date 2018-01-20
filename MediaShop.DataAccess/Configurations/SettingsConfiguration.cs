@@ -10,7 +10,7 @@ namespace MediaShop.DataAccess.Configurations
     /// <summary>
     /// Class SettingsConfiguration.
     /// </summary>
-    public class SettingsConfiguration : EntityTypeConfiguration<Settings>
+    public class SettingsConfiguration : EntityTypeConfiguration<SettingsDbModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsConfiguration"/> class.

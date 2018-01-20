@@ -1,14 +1,16 @@
-﻿namespace MediaShop.Common.Dto.User
+﻿// <copyright file="Profile.cs" company="MediaShop">
+// Copyright (c) MediaShop. All rights reserved.
+// </copyright>
+
+namespace MediaShop.Common.Models.User
 {
     using System;
 
-    using MediaShop.Common.Models;
-
     /// <summary>
-    /// Class ProfileBL.
+    /// Class Profile.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
-    public class ProfileBl
+    public class ProfileDbModel : Entity
     {
         /// <summary>
         /// Gets or sets the date of birth.
@@ -34,10 +36,8 @@
         /// <value>The phone.</value>
         public string Phone { get; set; }
 
-        /// <summary>
-        /// Gets or sets the login.
-        /// </summary>
-        /// <value>The login.</value>
-        public string Login { get; set; }
+        //public virtual AccountDbModel AccountOf { get; set; }
+
+        //public long AccountId { get; set; }
     }
 }

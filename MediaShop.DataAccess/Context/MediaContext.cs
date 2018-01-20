@@ -40,13 +40,13 @@ namespace MediaShop.DataAccess.Context
         /// Gets or sets the profiles.
         /// </summary>
         /// <value>The profiles.</value>
-        public IDbSet<Profile> Profiles { get; set; }
+        public IDbSet<ProfileDbModel> Profiles { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public IDbSet<Settings> Settings { get; set; }
+        public IDbSet<SettingsDbModel> Settings { get; set; }
 
         /// <summary>
         /// Method configuration tables

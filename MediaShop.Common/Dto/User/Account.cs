@@ -44,7 +44,7 @@ namespace MediaShop.Common.Dto.User
         /// Gets or sets the profile.
         /// </summary>
         /// <value>The profile.</value>
-        public ProfileBl Profile { get; set; } = new ProfileBl();
+        public Profile Profile { get; set; } = new Profile();
 
         /// <summary>
         /// Gets or sets the settings.

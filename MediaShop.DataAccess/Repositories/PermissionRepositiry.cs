@@ -8,14 +8,14 @@
     using MediaShop.Common.Models.User;
     using MediaShop.DataAccess.Repositories.Base;
 
-    public class PermissionRepository : Repository<Permission>, IPermissionRepository
+    public class PermissionRepository : Repository<PermissionDbModel>, IPermissionRepository
     {
         public PermissionRepository(DbContext context)
             : base(context)
         {
         }
 
-        public IEnumerable<Permission> GetByAccount(AccountDbModel accountDbModel)
+        public IEnumerable<PermissionDbModel> GetByAccount(AccountDbModel accountDbModel)
         {
             return this.DbSet.Where(p => p.AccountDbModel == accountDbModel);
         }

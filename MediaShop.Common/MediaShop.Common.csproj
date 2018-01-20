@@ -76,7 +76,7 @@
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\PermissionDomain.cs" />
-    <Compile Include="Dto\User\ProfileBl.cs" />
+    <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\RoleUserBl.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
-    <Compile Include="Dto\User\SettingsDomain.cs" />
+    <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
     <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
@@ -110,10 +110,10 @@
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
-    <Compile Include="Models\User\Permission.cs" />
-    <Compile Include="Models\User\Settings.cs" />
+    <Compile Include="Models\User\PermissionDbModel.cs" />
+    <Compile Include="Models\User\SettingsDbModel.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />
-    <Compile Include="Models\User\Profile.cs" />
+    <Compile Include="Models\User\ProfileDbModel.cs" />
     <Compile Include="Enums\Languages.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />

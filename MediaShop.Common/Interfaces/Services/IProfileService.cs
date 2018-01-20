@@ -5,6 +5,6 @@
 
     public interface IProfileService
     {
-        ProfileBl Create(ProfileBl profileModel);
+        Profile Create(Profile profileModel);
     }
 }

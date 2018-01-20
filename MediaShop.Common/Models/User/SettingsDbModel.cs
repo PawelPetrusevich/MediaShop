@@ -10,7 +10,7 @@ namespace MediaShop.Common.Models.User
     /// <summary>
     /// Class describes personal user settings
     /// </summary>
-    public class Settings : Entity
+    public class SettingsDbModel : Entity
     {
         /// <summary>
         /// Identifier timezone of user, default value +0

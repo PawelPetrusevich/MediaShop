@@ -29,8 +29,8 @@ namespace MediaShop.BusinessLogic.Services
                 throw new NotFoundUserException();
             }
             
-            var settingsData = Mapper.Map<Settings>(settings);
-            settingsData.Id = user.ProfileId;
+            var settingsData = Mapper.Map<SettingsDbModel>(settings);
+            settingsData.Id = user.SettingsId ?? 0;
 
             var settedSettings = _storeSettings.Update(settingsData);
 

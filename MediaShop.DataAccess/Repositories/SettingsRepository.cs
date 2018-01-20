@@ -21,7 +21,7 @@ namespace MediaShop.DataAccess.Repositories
     /// </summary>
     /// <seealso cref="Repository{T}" />
     /// <seealso cref="ISettingsRepository" />
-    public class SettingsRepository : Repository<Settings>, ISettingsRepository
+    public class SettingsRepository : Repository<SettingsDbModel>, ISettingsRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsRepository"/> class.
@@ -39,7 +39,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="id">settings id</param>
         /// <returns>settings</returns>
         /// <exception cref="ArgumentException">if id = 0</exception>
-        public override Settings Get(long id)
+        public override SettingsDbModel Get(long id)
         {
             if (id == 0)
             {
@@ -55,7 +55,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">model settings</param>
         /// <returns>settings</returns>
         /// <exception cref="ArgumentNullException">if model = null</exception>
-        public override Settings Add(Settings model)
+        public override SettingsDbModel Add(SettingsDbModel model)
         {
             if (model == null)
             {
@@ -83,7 +83,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">Settings to update</param>
         /// <returns>Updated settings</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override Settings Update(Settings model)
+        public override SettingsDbModel Update(SettingsDbModel model)
         {
             if (model == null)
             {
@@ -105,7 +105,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="filter">Filter criteria</param>
         /// <returns>Suitable settings</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override IEnumerable<Settings> Find(Expression<Func<Settings, bool>> filter)
+        public override IEnumerable<SettingsDbModel> Find(Expression<Func<SettingsDbModel, bool>> filter)
         {
             if (filter == null)
             {
@@ -121,7 +121,7 @@ namespace MediaShop.DataAccess.Repositories
         /// <param name="model">Account to delete</param>
         /// <returns>Deleted settings</returns>
         /// <exception cref="ArgumentNullException">filter</exception>
-        public override Settings Delete(Settings model)
+        public override SettingsDbModel Delete(SettingsDbModel model)
         {
             if (model == null)
             {
@@ -147,7 +147,7 @@ namespace MediaShop.DataAccess.Repositories
         /// </summary>
         /// <param name="id">settings  Id</param>
         /// <returns>Deleted settings</returns>
-        public override Settings Delete(long id)
+        public override SettingsDbModel Delete(long id)
         {
             if (id == 0)
             {

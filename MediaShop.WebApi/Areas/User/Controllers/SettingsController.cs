@@ -28,7 +28,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [HttpPost]
         [Route("modify")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Settings))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(SettingsDbModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult ModifySettings([FromBody] SettingsDto userSettings)
