@@ -36,9 +36,8 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents identifier</param>
-        /// <param name="categoryName">name category content</param>
         /// <returns>this save item</returns>
-        public ContentCartDto AddInCart(long contentId, string categoryName)
+        public ContentCartDto AddInCart(long contentId)
         {
             // Verify long contentId
             if (contentId <= 0)
@@ -46,14 +45,8 @@
                 throw new ArgumentException(Resources.InvalidContentId);
             }
 
-            // Verify string categoryName
-            if (string.IsNullOrEmpty(categoryName) || string.IsNullOrWhiteSpace(categoryName))
-            {
-                throw new FormatException(Resources.NullOrEmptyValueString);
-            }
-
             // Check exist Content in Cart
-            if (this.FindInCart(contentId))
+            if (this.ExistInCart(contentId))
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
@@ -71,7 +64,6 @@
 
             // Initialize CreatorId and CategoryName
             contentCartDto.CreatorId = 1; // Need initializing userId !!!
-            contentCartDto.CategoryName = categoryName;
 
             // Final mapping object ContentCartDto to object ContentCart
             var contentCart = Mapper.Map<ContentCart>(contentCartDto);
@@ -171,7 +163,7 @@
         /// <param name="contentid">content id</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool FindInCart(long contentid) => this.repositoryContentCart
+        public bool ExistInCart(long contentid) => this.repositoryContentCart
             .Get(contentid) != null;
 
         /// <summary>

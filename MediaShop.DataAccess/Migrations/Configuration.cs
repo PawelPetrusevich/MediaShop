@@ -18,15 +18,14 @@ namespace MediaShop.DataAccess.Migrations
 
         protected override void Seed(MediaContext context)
         {
-            var rez = context.ContentCarts.FirstOrDefault(x => x.Id == 8 || x.Id == 9 || x.Id == 10);
+            var rez = context.ContentCarts.FirstOrDefault(x => x.ContentId == 8 || x.ContentId == 9 || x.ContentId == 10);
             if (rez == null)
             {
                 context.ContentCarts.Add(
                     new ContentCart
                     {
-                        Id = 8,
+                        ContentId = 8,
                         ContentName = "Song1",
-                        CategoryName = "Music",
                         CreatorName = "Dick Trump",
                         DescriptionItem = "Date create 03.05.2016",
                         PriceItem = 50,
@@ -40,9 +39,8 @@ namespace MediaShop.DataAccess.Migrations
                 context.ContentCarts.Add(
                     new ContentCart
                     {
-                        Id = 9,
+                        ContentId = 9,
                         ContentName = "Song2",
-                        CategoryName = "Music",
                         CreatorName = "Dick Trump",
                         DescriptionItem = "Date create 03.08.2016",
                         PriceItem = 50,
@@ -55,9 +53,8 @@ namespace MediaShop.DataAccess.Migrations
                 context.ContentCarts.Add(
                     new ContentCart
                     {
-                        Id = 10,
+                        ContentId = 10,
                         ContentName = "Song3",
-                        CategoryName = "Music",
                         CreatorName = "Dick Trump",
                         DescriptionItem = "Date create 03.07.2016",
                         PriceItem = 50,

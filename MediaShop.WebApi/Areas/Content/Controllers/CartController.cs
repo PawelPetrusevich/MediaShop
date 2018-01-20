@@ -37,22 +37,18 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         [HttpPost]
-        [Route("addContent")]
+        [Route("add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Post(long contentId, string categoryName)
+        public IHttpActionResult Post(long contentId)
         {
             try
             {
-                return this.Ok(_cartService.AddInCart(contentId, categoryName));
+                return this.Ok(_cartService.AddInCart(contentId));
             }
             catch (ArgumentException error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (FormatException error)
             {
                 return BadRequest(error.Message);
             }

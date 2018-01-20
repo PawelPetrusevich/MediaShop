@@ -8,17 +8,16 @@
     public class ContentCart : Entity
     {
         /// <summary>
+        /// Gets or sets the content id in the shopping cart
+        /// </summary>
+        public long ContentId { get; set; }
+
+        /// <summary>
         /// Gets or sets the content name in the shopping cart
         /// </summary>
         public string ContentName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the theme of the selected
-        /// content group at the user's choice
-        /// </summary>
-        public string CategoryName { get; set; }
-
-        /// <summary>
+         /// <summary>
         /// Gets or sets cart creator name
         /// </summary>
         public string CreatorName { get; set; }

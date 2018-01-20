@@ -13,13 +13,10 @@
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
-                .IsRequired()
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .IsRequired();
+            this.Property(x => x.ContentId)
+                .IsRequired();
             this.Property(x => x.ContentName)
-                .IsRequired()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(x => x.CategoryName)
                 .IsRequired()
                 .IsVariableLength()
                 .IsUnicode(true);

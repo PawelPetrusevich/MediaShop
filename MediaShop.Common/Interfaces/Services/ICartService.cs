@@ -23,9 +23,8 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
-        /// <param name="categoryName">name category for content</param>
         /// <returns>this save item</returns>
-        TModel AddInCart(long contentId, string categoryName);
+        TModel AddInCart(long contentId);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -33,7 +32,7 @@
         /// <param name="contentId">content identificator</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        bool FindInCart(long contentId);
+        bool ExistInCart(long contentId);
 
         /// <summary>
         /// Get created Cart model object

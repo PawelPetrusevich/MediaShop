@@ -13,7 +13,7 @@ namespace MediaShop.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201801161843258_Cart_1"; }
+            get { return "201801202047311_Cart_1"; }
         }
         
         string IMigrationMetadata.Source

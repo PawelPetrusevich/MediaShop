@@ -97,7 +97,7 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Get(long id)
         {
-            var result = this.DbSet.AsNoTracking().Where(x => x.Id == id).SingleOrDefault();
+            var result = this.DbSet.AsNoTracking().Where(x => x.ContentId == id).SingleOrDefault();
             return result;
         }
 
