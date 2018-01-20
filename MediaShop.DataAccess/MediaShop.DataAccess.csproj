@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201801151757061_Initial.Designer.cs">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801200002308_MigrationPermissions.cs" />
+    <Compile Include="Migrations\201801200002308_MigrationPermissions.Designer.cs">
+      <DependentUpon>201801200002308_MigrationPermissions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +118,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801151757061_Initial.resx">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801200002308_MigrationPermissions.resx">
+      <DependentUpon>201801200002308_MigrationPermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

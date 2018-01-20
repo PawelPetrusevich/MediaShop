@@ -11,17 +11,17 @@ namespace MediaShop.Common.Dto.User.Validators
 
         public ExistingUserVaildator(IAccountRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
 
         public ExistingUserVaildator()
         {
-            this.RuleFor(m => m.Email).Must(CheckExistingUser).WithMessage((model) => $"User exists with email {model.Email}");
+            this.RuleFor(m => m.Email).Must(this.CheckExistingUser).WithMessage((model) => $"User exists with email {model.Email}");
         }
 
         private bool CheckExistingUser(string email)
         {
-            return !_repository.Find(m => m.Email.Equals(email, StringComparison.OrdinalIgnoreCase)).Any();
+            return !this._repository.Find(m => m.Email.Equals(email, StringComparison.OrdinalIgnoreCase)).Any();
         }
     }
 }

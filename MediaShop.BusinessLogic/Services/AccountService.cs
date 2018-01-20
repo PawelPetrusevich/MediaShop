@@ -73,14 +73,14 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             // 2. create account
-            var dbModel = Mapper.Map<AccountDbModel>(userModel);
-            _store.Add(dbModel);
+            var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            this._store.Add(modelDbModel);
 
             // 3. send email confirmation
             // email service -> sendConfirmation (email, id)
 
             // 4. return account
-            return Mapper.Map<Account>(dbModel);
+            return Mapper.Map<Account>(modelDbModel);
         }
 
         /// <summary>
