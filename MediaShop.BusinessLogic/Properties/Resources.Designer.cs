@@ -88,11 +88,38 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MedaiShopMailPassword {
+            get {
+                return ResourceManager.GetString("MedaiShopMailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
+        /// </summary>
+        internal static string MediaShopMailAddress {
+            get {
+                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
         internal static string NullOrEmptyValueString {
             get {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s registration message from Media shop.
+        /// </summary>
+        internal static string RegisterUserMailBody {
+            get {
+                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
             }
         }
         

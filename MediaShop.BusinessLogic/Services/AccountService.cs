@@ -78,7 +78,7 @@ namespace MediaShop.BusinessLogic.Services
 
             // 3. send email confirmation
             // email service -> sendConfirmation (email, id)
-
+            //EmailService.SendConfirmation(modelDbModel.Email,modelDbModel.Id);
             // 4. return account
             return Mapper.Map<Account>(modelDbModel);
         }

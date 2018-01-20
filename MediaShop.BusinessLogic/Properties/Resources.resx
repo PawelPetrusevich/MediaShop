@@ -126,8 +126,17 @@
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content is not exist in cart</value>
   </data>
+  <data name="MedaiShopMailPassword" xml:space="preserve">
+    <value>ayTYh?2-3xtUB26j</value>
+  </data>
+  <data name="MediaShopMailAddress" xml:space="preserve">
+    <value>noreply.mediashop@gmail.com</value>
+  </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
+  </data>
+  <data name="RegisterUserMailBody" xml:space="preserve">
+    <value>It's registration message from Media shop</value>
   </data>
   <data name="UpdateContentInCart" xml:space="preserve">
     <value>Content is not update in cart</value>
