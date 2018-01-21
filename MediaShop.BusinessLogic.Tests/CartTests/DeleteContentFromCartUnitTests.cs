@@ -26,6 +26,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestInitialize]
         public void Initialize()
         {
+            Mapper.Reset();
             // Create Mapper for testing
             Mapper.Initialize(x =>
             {

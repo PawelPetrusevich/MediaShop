@@ -32,8 +32,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5ul, Role.User)]
-        [TestCase(5ul, Role.Admin)]
+        [TestCase(5l, Role.User)]
+        [TestCase(5l, Role.Admin)]
 
         public void TestMethodRemoveRoleIsTrue(long n, Role role)
         {
@@ -54,7 +54,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5ul, Role.User)]
+        [TestCase(5l, Role.User)]
 
         public void TestMethodRemoveRoleIsFalse(long n, Role role)
         {
