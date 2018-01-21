@@ -13,9 +13,9 @@
         public virtual CartModels.Product Product { get; set; }
 
         /// <summary>
-        /// Gets or sets cart creator name
+        /// Gets or sets productId
         /// </summary>
-        public string CreatorName { get; set; }
+        public long ProductId { get; set; }
 
         /// <summary>
         /// Gets or sets a state of contents in cart

@@ -4,6 +4,7 @@ using System;
 using MediaShop.Common.Enums;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
@@ -41,6 +42,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             return this.Ok(cart);
         }
 
+        /// <summary>
+        /// Method for add content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>IHttpActionResult</returns>
         [HttpPost]
         [Route("add")]
         [SwaggerResponseRemoveDefaults]
@@ -75,23 +81,40 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
+        /// <summary>
+        /// Method for buy content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>IHttpActionResult</returns>
         [HttpPut]
-        [Route("changeStateContent")]
+        [Route("bay")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Put(long contentId, CartEnums.StateCartContent contentState)
+        public IHttpActionResult Put(long contentId)
         {
             try
             {
-                return this.Ok(_cartService.SetState(contentId, contentState));
+                return this.Ok(_cartService.BuyContent(contentId));
+            }
+            catch (ArgumentException error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (NotExistProductInDataBaseExceptions error)
+            {
+                return BadRequest(error.Message);
             }
             catch (ExistContentInCartExceptions error)
             {
                 return BadRequest(error.Message);
             }
             catch (UpdateContentInCartExseptions error)
+            {
+                return InternalServerError(error);
+            }
+            catch (InvalidTransactionException error)
             {
                 return InternalServerError(error);
             }

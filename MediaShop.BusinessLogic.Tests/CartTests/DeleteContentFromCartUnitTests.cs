@@ -4,12 +4,15 @@ using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using AutoMapper;
+using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 using MediaShop.Common.Models.CartModels;
+using MediaShop.Common.Models.PaymentModel;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Enums;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
@@ -23,9 +26,13 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for MockProduct
         private Mock<IProductRepository> mockProduct;
 
+        // Field for MockPayment
+        private Mock<IPaymentService> mockPayment;
+
         [TestInitialize]
         public void Initialize()
         {
+            Mapper.Reset();
             // Create Mapper for testing
             Mapper.Initialize(x =>
             {
@@ -37,6 +44,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
+            var _mockPayment = new Mock<IPaymentService>();
+            mockPayment = _mockPayment;
         }
 
         [TestMethod]
@@ -53,7 +62,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objContentCart);
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InBought);
 
@@ -75,7 +84,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objContentCart);
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InPaid);
 
@@ -108,7 +117,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var collectionId = new Collection<long>() { 5, 6 };
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);
@@ -143,7 +152,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Throws(new InvalidOperationException());
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             // Collection object`s id for delete
             var collectionId = new Collection<long>() { 5, 6, 7 };
@@ -172,13 +181,177 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Throws(new InvalidOperationException());
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             // Collection object`s id for delete
             Collection<long> collectionId = null;
 
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);
+        }
+
+        [TestMethod]
+        public void Bay_Content()
+        {
+            // Create ProductDto object
+            var objProduct = new Product() { Id = 1 };
+            var actual1 = objProduct.Id;
+            
+            // Setup mockProduct
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
+                .Returns(() => objProduct);
+
+            // collection for rezalt as return method 
+            var collectionFindItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 }
+            };
+
+            var content = new ContentCart() { Id = 1 };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => null);
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
+                 .Returns(() => content);
+            mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
+                .Returns(() => content);
+
+            // Object for Setup mockPayment
+            var objectTransaction = new BayContentTransaction() { Id = 1 };
+            var actual2 = objectTransaction.Id;
+
+            // Setup mockPayment
+            mockPayment.Setup(x => x.PaymentBayer(It.IsAny<long>()))
+                .Returns(() => objectTransaction);
+
+            // Collection for Setup method GetAll
+            var collectionItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
+            };
+            var actual3 = collectionItems.Count;
+            mock.Setup(item => item.GetAll(1))
+                .Returns(() => collectionItems);
+
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+
+            var actual4 = service.BuyContent(1);
+
+            Assert.AreEqual((long)1, actual1);
+            Assert.AreEqual((long)1, actual2);
+            Assert.AreEqual(3, actual3);
+            Assert.AreEqual((uint)3, actual4.CountItemsInCollection);
+            Assert.AreEqual(new decimal(11.50), actual4.PriceAllItemsCollection);
+            Assert.IsNotNull(actual4.ContentCartDtoCollection);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotExistProductInDataBaseExceptions))]
+        public void Bay_Content_If_Product_Is_Not_Exist_In_DataBase()
+        {
+            // Create ProductDto object
+            var objProduct = new Product() { Id = 1 };
+            var actual1 = objProduct.Id;
+
+            // Setup mockProduct
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
+                .Returns(() => null);
+
+            // collection for rezalt as return method 
+            var collectionFindItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 }
+            };
+
+            var content = new ContentCart() { Id = 1 };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => null);
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
+                 .Returns(() => content);
+            mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
+                .Returns(() => content);
+
+            // Object for Setup mockPayment
+            var objectTransaction = new BayContentTransaction() { Id = 1 };
+            var actual2 = objectTransaction.Id;
+
+            // Setup mockPayment
+            mockPayment.Setup(x => x.PaymentBayer(It.IsAny<long>()))
+                .Returns(() => objectTransaction);
+
+            // Collection for Setup method GetAll
+            var collectionItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
+            };
+            var actual3 = collectionItems.Count;
+            mock.Setup(item => item.GetAll(1))
+                .Returns(() => collectionItems);
+
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+
+            var actual4 = service.BuyContent(1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidTransactionException))]
+        public void Bay_Content_If_Invalid_Transaction_Buy_Content()
+        {
+            // Create ProductDto object
+            var objProduct = new Product() { Id = 1 };
+            var actual1 = objProduct.Id;
+
+            // Setup mockProduct
+            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
+                .Returns(() => objProduct);
+
+            // collection for rezalt as return method 
+            var collectionFindItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 }
+            };
+
+            var content = new ContentCart() { Id = 1 };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => null);
+            // Setup object moc
+            mock.Setup(repo => repo.Get(It.IsAny<long>()))
+                 .Returns(() => content);
+            mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
+                .Returns(() => content);
+
+            // Setup mockPayment
+            mockPayment.Setup(x => x.PaymentBayer(It.IsAny<long>()))
+                .Returns(() => null);
+
+            // Collection for Setup method GetAll
+            var collectionItems = new Collection<ContentCart>()
+            {
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
+            };
+            var actual3 = collectionItems.Count;
+            mock.Setup(item => item.GetAll(1))
+                .Returns(() => collectionItems);
+
+            // Create CartService with mock.Object and mockProduct.Object
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+
+            var actual4 = service.BuyContent(1);
         }
     }
 }

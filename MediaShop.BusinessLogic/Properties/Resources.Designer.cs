@@ -115,6 +115,33 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purchase transaction is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionBuyContent {
+            get {
+                return ResourceManager.GetString("InvalidTransactionBuyContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reward seller transaction is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionRewardSeller {
+            get {
+                return ResourceManager.GetString("InvalidTransactionRewardSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write down persentage for store is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionWriteDownPersentageStore {
+            get {
+                return ResourceManager.GetString("InvalidTransactionWriteDownPersentageStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value can not be less than or equal zerro.
         /// </summary>
         internal static string LessThanOrEqualToZeroValue {

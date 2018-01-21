@@ -156,4 +156,13 @@
   <data name="StateContentError" xml:space="preserve">
     <value>Satate of Content is not valid</value>
   </data>
+  <data name="InvalidTransactionBuyContent" xml:space="preserve">
+    <value>Purchase transaction is not successfully</value>
+  </data>
+  <data name="InvalidTransactionRewardSeller" xml:space="preserve">
+    <value>Reward seller transaction is not successfully</value>
+  </data>
+  <data name="InvalidTransactionWriteDownPersentageStore" xml:space="preserve">
+    <value>Write down persentage for store is not successfully</value>
+  </data>
 </root>

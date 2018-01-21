@@ -11,6 +11,7 @@
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
+    using MediaShop.Common.Exceptions.PaymentExceptions;
 
     /// <summary>
     /// Service for work with cart
@@ -21,15 +22,18 @@
 
         private readonly IProductRepository repositoryProduct;
 
+        private readonly IPaymentService servicePayment;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
         /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository)
+        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository, IPaymentService paymentService)
         {
             this.repositoryContentCart = contentCartRepository;
             this.repositoryProduct = productRepository;
+            this.servicePayment = paymentService;
         }
 
         /// <summary>
@@ -165,11 +169,11 @@
         /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
-        /// <param name="contentid">content id</param>
+        /// <param name="contentId">content id</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool ExistInCart(long contentid) => this.repositoryContentCart
-            .Get(contentid) != null;
+        public bool ExistInCart(long contentId) => this.repositoryContentCart
+            .Find(item => item.ProductId == contentId) != null;
 
         /// <summary>
         /// Find items in a cart by user Id and return a item collection
@@ -278,6 +282,50 @@
         public decimal GetPrice(IEnumerable<ContentCartDto> cart)
         {
             return cart == null ? 0 : cart.Sum(x => x.PriceItem);
+        }
+
+        /// <summary>
+        /// Method for buy content
+        /// </summary>
+        /// <param name="contentId">content`s identificator</param>
+        /// <returns>renew cart after buy content</returns>
+        public Cart BuyContent(long contentId)
+        {
+            // 1. Verify long contentId
+            if (contentId <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidContentId);
+            }
+
+            // 2. Get object Product by id
+            var product = this.repositoryProduct.Get(contentId);
+
+            if (product == null)
+            {
+                throw new NotExistProductInDataBaseExceptions(Resources.ExistProductInDataBase);
+            }
+
+            // 3. Change state content in cart on InBought
+            var content = this.SetState(contentId, CartEnums.StateCartContent.InBought);
+
+            // 4. Payment for the content by the buyer
+            // Notification seller send in PaymentService
+            var transactBuyContent = this.servicePayment.PaymentBayer(contentId);
+            if (transactBuyContent == null)
+            {
+                // 4.1. Change state content in cart on InCart
+                var contentRollBack = this.SetState(contentId, CartEnums.StateCartContent.InCart);
+                throw new InvalidTransactionException(Resources.InvalidTransactionBuyContent);
+            }
+
+            // 5. Change state content in cart on InPaid
+            var contentPaid = this.SetState(contentId, CartEnums.StateCartContent.InPaid);
+
+            // 6. Open content for download
+
+            // 7. Return new Cart without buy content
+            var cartWithoutBuyContent = this.GetCart(1); // Need initialize accountId
+            return cartWithoutBuyContent;
         }
     }
 }
