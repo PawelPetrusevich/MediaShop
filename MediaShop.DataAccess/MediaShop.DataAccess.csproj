@@ -146,10 +146,7 @@
     <EmbeddedResource Include="Migrations\201801201814052_MigrationRenamedDbModels.resx">
       <DependentUpon>201801201814052_MigrationRenamedDbModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

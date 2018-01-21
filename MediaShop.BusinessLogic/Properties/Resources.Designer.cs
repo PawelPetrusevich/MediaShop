@@ -114,14 +114,6 @@ namespace MediaShop.BusinessLogic.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to String can not be null or empty.
-        /// </summary>
-        internal static string NullOrEmptyValueString {
-            get {
-                return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to It&apos;s registration message from Media shop.
