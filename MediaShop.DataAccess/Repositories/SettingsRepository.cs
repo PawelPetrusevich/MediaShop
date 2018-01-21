@@ -62,19 +62,10 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            try
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = false;
+            var settings = this.DbSet.Add(model);
+            this.Context.SaveChanges();
 
-                var account = this.DbSet.Add(model);
-                this.Context.SaveChanges();
-
-                return account;
-            }
-            finally
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = true;
-            }
+            return settings;
         }
 
         /// <summary>
@@ -90,13 +81,10 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            using (this.Context)
-            {
-                this.Context.Entry(model).State = EntityState.Modified;
-                this.Context.SaveChanges();
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChanges();
 
-                return model;
-            }
+            return model;
         }
 
         /// <summary>
@@ -130,13 +118,10 @@ namespace MediaShop.DataAccess.Repositories
 
             if (this.DbSet.Contains(model))
             {
-                using (this.Context)
-                {
-                    this.Context.Entry(model).State = EntityState.Deleted;
-                    this.Context.SaveChanges();
+                this.Context.Entry(model).State = EntityState.Deleted;
+                this.Context.SaveChanges();
 
-                    return model;
-                }
+                return model;
             }
 
             return null;
@@ -158,13 +143,10 @@ namespace MediaShop.DataAccess.Repositories
 
             if (model != null)
             {
-                using (this.Context)
-                {
-                    this.Context.Entry(model).State = EntityState.Deleted;
-                    this.Context.SaveChanges();
+                this.Context.Entry(model).State = EntityState.Deleted;
+                this.Context.SaveChanges();
 
-                    return model;
-                }
+                return model;
             }
 
             return null;

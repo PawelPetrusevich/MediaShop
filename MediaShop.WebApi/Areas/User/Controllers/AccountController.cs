@@ -50,10 +50,60 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
         [HttpGet]
         [Route("confirm/{email}/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Confirm(string email, long id)
         {
-            // todo confirm email, create profile, create settings, login
-            return Ok();
+            if (string.IsNullOrEmpty(email) || id == 0)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var account = _accountService.ConfirmRegistration(email, id);
+
+                //TODO redirect to login
+                return Ok(account);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("login")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult Login([FromBody] LoginDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var authorizedUser = _accountService.Login(data);
+                return Ok(authorizedUser);
+            }
+            catch (IncorrectPasswordException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [HttpPost]

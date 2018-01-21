@@ -23,6 +23,21 @@ namespace MediaShop.Common.Interfaces.Services
         Account Register(RegisterUserDto userModel);
 
         /// <summary>
+        /// Confirm user registration
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="id">id user</param>
+        /// <returns><c>account</c> if succeeded</returns>
+        Account ConfirmRegistration(string email, long id);
+
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <param name="data">Login data</param>
+        /// <returns><c>Authorised user</c></returns>
+        AuthorizedUser Login(LoginDto data);
+
+        /// <summary>
         /// Removes the role from the user's permission list.
         /// </summary>
         /// <param name="id">The identifier of the user.</param>

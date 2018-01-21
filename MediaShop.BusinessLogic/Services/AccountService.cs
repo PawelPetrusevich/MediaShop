@@ -2,6 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
@@ -23,7 +24,7 @@ namespace MediaShop.BusinessLogic.Services
     /// <seealso cref="IAccountService" />
     public class AccountService : IAccountService
     {
-        private readonly IAccountRepository _store;
+        private readonly IAccountRepository _storeAccounts;
         private readonly IPermissionRepository _storePermission;
         private readonly IEmailService _emailService;
         private readonly AbstractValidator<RegisterUserDto> _validator;
@@ -34,7 +35,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="repository">The repository.</param>
         public AccountService(IAccountRepository repository, IPermissionRepository repositoryPermission, IEmailService emailService, AbstractValidator<RegisterUserDto> validator)
         {
-            this._store = repository;
+            this._storeAccounts = repository;
             this._storePermission = repositoryPermission;
             this._emailService = emailService;
             this._validator = validator;
@@ -46,31 +47,10 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="userModel">The user to register.</param>
         /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
         /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
-        public Account Register(Account userModel)
-        {
-            var existingAccount = this._store.GetByLogin(userModel.Login);
-            if (existingAccount != null)
-            {
-                throw new ExistingLoginException(userModel.Login);
-            }
-
-            var account = Mapper.Map<AccountDbModel>(userModel);
-
-            var createdAccount = this._store.Add(account);
-
-            return Mapper.Map<Account>(createdAccount);
-        }
-
-        /// <summary>
-        /// Registers the user.
-        /// </summary>
-        /// <param name="userModel">The user to register.</param>
-        /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
-        /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(RegisterUserDto userModel)
         {
             // 1. validate todo move to injector
-            //var validator = new ExistingUserValidator(_store);
+            //var validator = new ExistingUserValidator(_storeAccounts);
             var result = _validator.Validate(userModel);
 
             if (!result.IsValid)
@@ -80,7 +60,7 @@ namespace MediaShop.BusinessLogic.Services
 
             // 2. create account
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-            this._store.Add(modelDbModel);
+            this._storeAccounts.Add(modelDbModel);
 
             // 3. send email confirmation
             // email service -> sendConfirmation (email, id)
@@ -101,7 +81,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public bool RemoveRole(RoleUserBl roleUserBl)
         {
-            var existingAccount = this._store.GetByLogin(roleUserBl.Login);
+            var existingAccount = this._storeAccounts.GetByLogin(roleUserBl.Login);
             if (existingAccount == null)
             {
                 throw new NotFoundUserException();
@@ -119,6 +99,51 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Confirm user registration
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="id">id user</param>
+        /// <returns><c>account</c> if succeeded</returns>
+        public Account ConfirmRegistration(string email, long id)
+        {
+            var user = this._storeAccounts.Get(id);
+
+            if (user == null || user.Email != email)
+            {
+                throw new NotFoundUserException();
+            }
+
+            user.IsConfirmed = true;
+            user.Profile = new ProfileDbModel();
+            user.Settings = new SettingsDbModel();
+
+            var confirmedUser = this._storeAccounts.Update(user);
+
+            return Mapper.Map<Account>(confirmedUser);
+        }
+
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <param name="data">Login data</param>
+        /// <returns><c>Authorised user</c></returns>
+        public AuthorizedUser Login(LoginDto data)
+        {
+            var user = _storeAccounts.GetByLogin(data.Login);
+
+            if (user.Password != data.Password)
+            {
+                throw new IncorrectPasswordException();
+            }
+
+            //TODO generate token-string write to DB  - id,token
+            var authorizedUser = Mapper.Map<AuthorizedUser>(user);
+            authorizedUser.Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+
+            return authorizedUser;
+        }
+
+        /// <summary>
         /// Adds the role to the user's permission list.
         /// </summary>
         /// <param name="role">The role to add</param>
@@ -126,7 +151,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <c>null</c> otherwise</returns>
         public PermissionDomain AddRole(RoleUserBl role)
         {
-            var account = this._store.GetByLogin(role.Login);
+            var account = this._storeAccounts.GetByLogin(role.Login);
 
             if (account == null)
             {
@@ -150,7 +175,7 @@ namespace MediaShop.BusinessLogic.Services
 
         public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)
         {
-            var existingAccount = this._store.GetByLogin(accountBLmodel.Login);
+            var existingAccount = this._storeAccounts.GetByLogin(accountBLmodel.Login);
 
             if (existingAccount == null)
             {
@@ -159,7 +184,7 @@ namespace MediaShop.BusinessLogic.Services
 
             existingAccount.IsBanned = flag;
 
-            var updatingAccount = this._store.Update(existingAccount);
+            var updatingAccount = this._storeAccounts.Update(existingAccount);
             var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
 
             return updatingAccountBl;

@@ -27,7 +27,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     {
         private Mock<IAccountRepository> _store;
         private Mock<IPermissionRepository> _storePermission;
-        private Account _user;
+        private RegisterUserDto _user;
         private Mock<IEmailService> _emailService;
         private Mock<AbstractValidator<RegisterUserDto>> _validator;
 
@@ -49,14 +49,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _emailService = mockEmailService;
             _validator = mockValidator;
 
-            _user = new Account()
+            _user = new RegisterUserDto()
             {                
                 Login = "User",
                 Password = "12345",  
-                Email = "12345",
-                Permissions = new List<PermissionDomain>(),
-                Profile = new Common.Dto.User.Profile(),
-                Settings = new SettingsDomain()
+                ConfirmPassword = "12345",
+                Email = "12345",               
             };
         }
 

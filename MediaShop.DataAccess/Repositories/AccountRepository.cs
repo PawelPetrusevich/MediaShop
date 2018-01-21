@@ -80,13 +80,10 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(model));
             }
 
-            using (this.Context)
-            {
-                this.Context.Entry(model).State = EntityState.Modified;
-                this.Context.SaveChanges();
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChanges();
 
-                return model;
-            }
+            return model;
         }
 
         /// <summary>
@@ -120,13 +117,10 @@ namespace MediaShop.DataAccess.Repositories
 
             if (this.DbSet.Contains(model))
             {
-                using (this.Context)
-                {
-                    this.Context.Entry(model).State = EntityState.Deleted;
-                    this.Context.SaveChanges();
+                this.Context.Entry(model).State = EntityState.Deleted;
+                this.Context.SaveChanges();
 
-                    return model;
-                }
+                return model;
             }
 
             return null;
@@ -144,17 +138,14 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
 
-            var model = this.DbSet.AsNoTracking().SingleOrDefault(entity => entity.Id == id);
+            var model = this.DbSet.SingleOrDefault(entity => entity.Id == id);
 
             if (model != null)
             {
-                using (this.Context)
-                {
-                    this.Context.Entry(model).State = EntityState.Deleted;
-                    this.Context.SaveChanges();
+                this.Context.Entry(model).State = EntityState.Deleted;
+                this.Context.SaveChanges();
 
-                    return model;
-                }
+                return model;
             }
 
             return null;

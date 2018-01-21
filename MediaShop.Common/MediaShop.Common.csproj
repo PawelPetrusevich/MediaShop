@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -75,6 +75,8 @@
   <ItemGroup>
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
+    <Compile Include="Dto\User\AuthorizedUser.cs" />
+    <Compile Include="Dto\User\LoginDto.cs" />
     <Compile Include="Dto\User\PermissionDomain.cs" />
     <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
@@ -85,7 +87,9 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Dto\User\Validators\LoginUserValidator.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Exceptions\User\IncorrectPasswordException.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -118,7 +122,7 @@
     <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
-<Compile Include="Models\Notification\Notification.cs" />
+    <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\PermissionDbModel.cs" />
