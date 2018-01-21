@@ -15,7 +15,10 @@ using NUnit.Framework;
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
+    using FluentValidation;
+
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Interfaces.Services;
 
     using ProfileDbModel = MediaShop.Common.Models.User.ProfileDbModel;
 
@@ -25,6 +28,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         private Mock<IAccountRepository> _store;
         private Mock<IPermissionRepository> _storePermission;
         private Account _user;
+        private Mock<IEmailService> _emailService;
+        private Mock<AbstractValidator<RegisterUserDto>> _validator;
 
         public UserServiceTest()
         {
@@ -36,8 +41,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var mockRepository =  new Mock<IAccountRepository>();
             var mockPermitionRepository = new Mock<IPermissionRepository>();
+            var mockEmailService = new Mock<IEmailService>();
+            var mockValidator = new Mock<AbstractValidator<RegisterUserDto>>();
+
             _store = mockRepository;
             _storePermission = mockPermitionRepository;
+            _emailService = mockEmailService;
+            _validator = mockValidator;
 
             _user = new Account()
             {                
@@ -65,9 +75,10 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(account);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>()))
+
                 .Returns((IEnumerable<AccountDbModel>)null); 
 
-            var userService = new AccountService(_store.Object,_storePermission.Object);           
+            var userService = new AccountService(_store.Object,_storePermission.Object, _emailService.Object, this._validator.Object);           
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -87,7 +98,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());
 
-            var userService = new AccountService(_store.Object,_storePermission.Object);
+            var userService = new AccountService(_store.Object,_storePermission.Object,this._emailService.Object, this._validator.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
@@ -97,7 +108,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>())).Returns((IEnumerable<AccountDbModel>)null);
 
-            var userService = new AccountService(_store.Object,_storePermission.Object);
+            var userService = new AccountService(_store.Object,_storePermission.Object,this._emailService.Object, this._validator.Object);
 
             Assert.IsNull(userService.Register(_user));
         }

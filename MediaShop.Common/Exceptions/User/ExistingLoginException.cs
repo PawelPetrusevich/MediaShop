@@ -3,6 +3,8 @@ using System.Runtime.Serialization;
 
 namespace MediaShop.Common.Exceptions
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Exception arising when user registres with existing login
     /// </summary>
@@ -13,26 +15,20 @@ namespace MediaShop.Common.Exceptions
         {
         }
 
-        public ExistingLoginException(string login) : base("Login already exists")
+        public ExistingLoginException(string message) : base(message)
         {
-            this.Login = login;
         }
 
-        public ExistingLoginException(string message, string login, Exception innerException) : base(message, innerException)
+        public ExistingLoginException(IEnumerable<string> errors) : base(string.Join(", ", errors))
         {
-            this.Login = login;
         }
 
-        public ExistingLoginException(string message, string login) : base(message)
+        public ExistingLoginException(string message, Exception innerException) : base(message, innerException)
         {
-            this.Login = login;
         }
 
-        protected ExistingLoginException(string login, SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ExistingLoginException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            this.Login = login;
         }
-
-        public string Login { get; private set; }
     }
 }

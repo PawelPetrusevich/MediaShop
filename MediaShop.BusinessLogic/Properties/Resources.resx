@@ -126,11 +126,11 @@
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content is not exist in cart</value>
   </data>
-  <data name="MedaiShopMailPassword" xml:space="preserve">
-    <value>ayTYh?2-3xtUB26j</value>
-  </data>
   <data name="MediaShopMailAddress" xml:space="preserve">
     <value>noreply.mediashop@gmail.com</value>
+  </data>
+  <data name="MediaShopMailPassword" xml:space="preserve">
+    <value>ayTYh?2-3xtUB26j</value>
   </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>

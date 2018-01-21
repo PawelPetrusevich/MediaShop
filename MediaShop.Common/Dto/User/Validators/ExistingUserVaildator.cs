@@ -5,18 +5,17 @@ using MediaShop.Common.Interfaces.Repositories;
 
 namespace MediaShop.Common.Dto.User.Validators
 {
-    public class ExistingUserVaildator : AbstractValidator<RegisterUserDto>
+    public class ExistingUserValidator : AbstractValidator<RegisterUserDto>
     {
         private readonly IAccountRepository _repository;
 
-        public ExistingUserVaildator(IAccountRepository repository)
+        public ExistingUserValidator(IAccountRepository repository)
         {
             this._repository = repository;
-        }
 
-        public ExistingUserVaildator()
-        {
-            this.RuleFor(m => m.Email).Must(this.CheckExistingUser).WithMessage((model) => $"User exists with email {model.Email}");
+            this.RuleFor(m => m.Email).Must(this.CheckExistingUser).WithMessage(model => $"User exists with email {model.Email}");
+            this.RuleFor(m => m.Password).Equal(m => m.ConfirmPassword).WithMessage("Passwords must match");
+            this.RuleFor(m => m.Email).EmailAddress();
         }
 
         private bool CheckExistingUser(string email)

@@ -13,9 +13,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
+    using FluentValidation;
+
     using MediaShop.BusinessLogic.Services;
     using MediaShop.Common.Dto.User;
     using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.User;
 
     using Moq;
@@ -35,7 +38,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var storage = new Mock<IAccountRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
-            var permissions = new List<PermissionDbModel>
+            var storageEmailService = new Mock<IEmailService>();
+            var validator = new Mock<AbstractValidator<RegisterUserDto>>();
+        var permissions = new List<PermissionDbModel>
                                   {
                                       new PermissionDbModel() { Role = Role.Admin },
                                       new PermissionDbModel() { Role = Role.User }
@@ -52,7 +57,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
             storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
-            var userService = new AccountService(storage.Object, storagePermission.Object);
+            var userService = new AccountService(storage.Object, storagePermission.Object, storageEmailService.Object,validator.Object);
             Assert.IsTrue(userService.RemoveRole(roleUserBl));
         }
 
@@ -67,6 +72,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var storage = new Mock<IAccountRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
+            var storageEmailService = new Mock<IEmailService>();
+            var validator = new Mock<AbstractValidator<RegisterUserDto>>();
+
             var permissions = new List<PermissionDbModel>{new PermissionDbModel() { Role = Role.Admin }};
             var profile = new ProfileDbModel { Id = 1 };
             var user = new AccountDbModel
@@ -80,7 +88,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
             storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
-            var userService = new AccountService(storage.Object, storagePermission.Object);
+            var userService = new AccountService(storage.Object, storagePermission.Object, storageEmailService.Object,validator.Object);
             Assert.IsFalse(userService.RemoveRole(roleUserBl));
         }
     }

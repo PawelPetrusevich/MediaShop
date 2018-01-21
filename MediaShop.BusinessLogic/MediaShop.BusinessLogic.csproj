@@ -90,11 +90,11 @@
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">

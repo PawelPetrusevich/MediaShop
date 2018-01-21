@@ -88,20 +88,20 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
-        /// </summary>
-        internal static string MedaiShopMailPassword {
-            get {
-                return ResourceManager.GetString("MedaiShopMailPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
         /// </summary>
         internal static string MediaShopMailAddress {
             get {
                 return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MediaShopMailPassword {
+            get {
+                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
             }
         }
         

@@ -2,7 +2,6 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-using System;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
@@ -11,8 +10,9 @@ namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
     using AutoMapper;
-    using MediaShop.Common.Dto;
-    using MediaShop.Common.Helpers;
+
+    using FluentValidation;
+
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.User;
@@ -25,15 +25,19 @@ namespace MediaShop.BusinessLogic.Services
     {
         private readonly IAccountRepository _store;
         private readonly IPermissionRepository _storePermission;
+        private readonly IEmailService _emailService;
+        private readonly AbstractValidator<RegisterUserDto> _validator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public AccountService(IAccountRepository repository, IPermissionRepository repositoryPermission)
+        public AccountService(IAccountRepository repository, IPermissionRepository repositoryPermission, IEmailService emailService, AbstractValidator<RegisterUserDto> validator)
         {
             this._store = repository;
             this._storePermission = repositoryPermission;
+            this._emailService = emailService;
+            this._validator = validator;
         }
 
         /// <summary>
@@ -58,18 +62,20 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
-        ///
+        /// Registers the user.
         /// </summary>
-        /// <param name="userModel"></param>
-        /// <returns></returns>
+        /// <param name="userModel">The user to register.</param>
+        /// <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
+        /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(RegisterUserDto userModel)
         {
             // 1. validate todo move to injector
-            var validator = new ExistingUserVaildator(_store);
-            var result = validator.Validate(userModel);
+            //var validator = new ExistingUserValidator(_store);
+            var result = _validator.Validate(userModel);
+
             if (!result.IsValid)
             {
-                throw new ExistingLoginException(result.Errors.SelectMany(m => m.ErrorMessage).ToString());
+                throw new ExistingLoginException(result.Errors.Select(m => m.ErrorMessage));
             }
 
             // 2. create account
@@ -78,7 +84,11 @@ namespace MediaShop.BusinessLogic.Services
 
             // 3. send email confirmation
             // email service -> sendConfirmation (email, id)
-            //EmailService.SendConfirmation(modelDbModel.Email,modelDbModel.Id);
+            if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
+            {
+                throw new CanNotSendEmailException();
+            }
+
             // 4. return account
             return Mapper.Map<Account>(modelDbModel);
         }

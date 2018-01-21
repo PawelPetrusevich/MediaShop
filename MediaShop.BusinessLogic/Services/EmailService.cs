@@ -1,37 +1,32 @@
 ﻿namespace MediaShop.BusinessLogic.Services
 {
-    using System.Linq.Expressions;
     using System.Net;
     using System.Net.Mail;
-    using System.Reflection;
-    using System.Resources;
 
     using MediaShop.BusinessLogic.Properties;
+    using MediaShop.Common.Interfaces.Services;
 
-    public static class EmailService
+    public class EmailService : IEmailService
     {
-        public static void SendConfirmation(string email, long id)
+        public bool SendConfirmation(string email, long id)
         {
             try
             {
-                //ResourceManager rm = new ResourceManager("MediaShop.BusinessLogic.Properties.Resources", Assembly.GetExecutingAssembly());
                 MailMessage mail =
-                    new MailMessage(new MailAddress(Resources.ResourceManager.GetString("MediaShopMailAddress")), new MailAddress(email))
-                        {
-                            Subject =
-                                "Registration message"
-                        };
-
-                mail.IsBodyHtml = true;
-                mail.Body = Resources.RegisterUserMailBody;
+                    new MailMessage(new MailAddress(Resources.MediaShopMailAddress), new MailAddress(email))
+                    {
+                        Subject = "Registration message",
+                        IsBodyHtml = true,
+                        Body = Resources.RegisterUserMailBody
+                    };
 
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                                            {
-                                                Credentials = new NetworkCredential(
-                                                    Resources.ResourceManager.GetString("MediaShopMailAddress"),
-                                                    Resources.ResourceManager.GetString("MedaiShopMailPassword")),
-                                                EnableSsl = true
-                                            };
+                {
+                    Credentials = new NetworkCredential(
+                        Resources.MediaShopMailAddress,
+                        Resources.MediaShopMailPassword),
+                    EnableSsl = true
+                };
 
                 smtpClient.Send(mail);
             }
@@ -39,9 +34,11 @@
             {
                 if (ex.StatusCode != SmtpStatusCode.Ok)
                 {
-                    return;
+                    return false;
                 }
             }
+
+            return true;
         }
     }
 }
