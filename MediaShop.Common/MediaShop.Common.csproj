@@ -83,6 +83,11 @@
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
+    <Compile Include="Dto\NotificationDto.cs" />
+    <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
@@ -92,6 +97,8 @@
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IPermissionRepository.cs" />
+    <Compile Include="Interfaces\Services\INotificationService.cs" />
+    <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
@@ -109,6 +116,8 @@
     <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\CartModels\Product.cs" />
     <Compile Include="Models\Entity.cs" />
+<Compile Include="Models\Notification\Notification.cs" />
+    <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\PermissionDbModel.cs" />
     <Compile Include="Models\User\SettingsDbModel.cs" />

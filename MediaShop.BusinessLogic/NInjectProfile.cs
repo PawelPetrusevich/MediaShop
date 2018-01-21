@@ -23,7 +23,7 @@ namespace MediaShop.BusinessLogic
             Bind<IAccountService>().To<AccountService>();
             Bind<ISettingsService>().To<SettingsService>();
             Bind<IProfileService>().To<ProfileService>();
-
+            Bind<INotificationService>().To<NotificationService>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
          }
     }
