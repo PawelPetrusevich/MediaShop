@@ -132,4 +132,7 @@
   <data name="GetWithNullId" xml:space="preserve">
     <value>An attempt to get with a null identifier</value>
   </data>
+  <data name="UnknowProductType" xml:space="preserve">
+    <value>Product has unknow type</value>
+  </data>
 </root>

@@ -104,5 +104,14 @@ namespace MediaShop.WebApi.Properties {
                 return ResourceManager.GetString("GetWithNullId", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product has unknow type.
+        /// </summary>
+        internal static string UnknowProductType {
+            get {
+                return ResourceManager.GetString("UnknowProductType", resourceCulture);
+            }
+        }
     }
 }
