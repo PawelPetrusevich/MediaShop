@@ -70,6 +70,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Media shop.
+        /// </summary>
+        internal static string DefaultNotificationTitle {
+            get {
+                return ResourceManager.GetString("DefaultNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content is not delete from cart.
         /// </summary>
         internal static string DeleteContentFromCart {
@@ -88,7 +97,7 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product is not exist.
+	///   Looks up a localized string similar to Product is not exist.
         /// </summary>
         internal static string ExistProductInDataBase {
             get {
@@ -114,8 +123,35 @@ namespace MediaShop.BusinessLogic.Properties {
             }
         }
         
+	/// <summary>
+        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
+        /// </summary>
+        internal static string LessThanOrEqualToZeroValue {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
+        
         /// <summary>
-        ///   Looks up a localized string similar to String can not be null or empty.
+        ///   Looks up a localized string similar to User has not been subscribed to receive notification.
+        /// </summary>
+        internal static string NotSubscribedUserMessage {
+            get {
+                return ResourceManager.GetString("NotSubscribedUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value can not be null.
+        /// </summary>
+        internal static string NullOrEmptyValue {
+            get {
+                return ResourceManager.GetString("NullOrEmptyValue", resourceCulture);
+            }
+        }
+
+        /// <summary>        
+	///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
         internal static string NullOrEmptyValueString {
             get {

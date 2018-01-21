@@ -117,40 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddContentInCart" xml:space="preserve">
-    <value>Content is not add in cart</value>
-  </data>
-  <data name="DefaultNotificationTitle" xml:space="preserve">
-    <value>Media shop</value>
-  </data>
-  <data name="DeleteContentFromCart" xml:space="preserve">
-    <value>Content is not delete from cart</value>
-  </data>
-  <data name="ExistContentInCart" xml:space="preserve">
-    <value>Content already exist in cart</value>
-  </data>
-  <data name="ExistProductInDataBase" xml:space="preserve">
-    <value>Product is not exist</value>
-  </data>
-  <data name="InvalidContentId" xml:space="preserve">
-    <value>Invalid content identificator</value>
-  </data>
-  <data name="NotExistContentInCart" xml:space="preserve">
-    <value>Content is not exist in Cart</value>
-  </data>
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
   </data>
-  <data name="NotSubscribedUserMessage" xml:space="preserve">
-    <value>User has not been subscribed to receive notification</value>
-  </data>
-  <data name="NullOrEmptyValue" xml:space="preserve">
-    <value>Value can not be null</value>
-  </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
-  </data>
-  <data name="UpdateContentInCart" xml:space="preserve">
-    <value>Content is not update in cart</value>
   </data>
 </root>
