@@ -32,7 +32,10 @@ namespace MediaShop.Common
                 .ForMember(item => item.Id, y => y.Ignore())
                 .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
                 .ForMember(item => item.CreatorId, m => m.Ignore());
-            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
+            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap()
+                .ForMember(item => item.ContentName, x => x.MapFrom(y => y.Product.ContentName))
+                .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.PriceItem))
+                .ForMember(item => item.DescriptionItem, x => x.MapFrom(y => y.Product.DescriptionItem));
             this.CreateMap<Notification, NotificationDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));

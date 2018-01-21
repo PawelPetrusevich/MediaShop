@@ -45,9 +45,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 , PriceItem = new decimal (9.99) },
-                new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
-                new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
@@ -82,9 +82,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 , PriceItem = new decimal (9.99) },
-                new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
-                new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
@@ -113,9 +113,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 , PriceItem = new decimal (9.99) },
-                new ContentCart { Id = 2, CreatorId = 1 , PriceItem = new decimal (0.50) },
-                new ContentCart { Id = 3, CreatorId = 1 , PriceItem = new decimal (1.01) }
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product (){ ContentName = "Prod3", Id = 3, PriceItem = new decimal (1.01) } }
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);

@@ -91,13 +91,13 @@
 
         /// <summary>
         /// Method for getting object type ContentCart
-        /// by identificator
+        /// by Id
         /// </summary>
         /// <param name="id">identificator</param>
         /// <returns>rezalt operation</returns>
         public override ContentCart Get(long id)
         {
-            var result = this.DbSet.AsNoTracking().Where(x => x.ContentId == id).SingleOrDefault();
+            var result = this.DbSet.AsNoTracking().Where(x => x.Id == id).SingleOrDefault();
             return result;
         }
 

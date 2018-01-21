@@ -97,7 +97,7 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-	///   Looks up a localized string similar to Product is not exist.
+        ///   Looks up a localized string similar to Product is not exist.
         /// </summary>
         internal static string ExistProductInDataBase {
             get {
@@ -115,20 +115,20 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content is not exist in Cart.
-        /// </summary>
-        internal static string NotExistContentInCart {
-            get {
-                return ResourceManager.GetString("NotExistContentInCart", resourceCulture);
-            }
-        }
-        
-	/// <summary>
         ///   Looks up a localized string similar to Value can not be less than or equal zerro.
         /// </summary>
         internal static string LessThanOrEqualToZeroValue {
             get {
                 return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content is not exist in Cart.
+        /// </summary>
+        internal static string NotExistContentInCart {
+            get {
+                return ResourceManager.GetString("NotExistContentInCart", resourceCulture);
             }
         }
         
@@ -149,13 +149,22 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("NullOrEmptyValue", resourceCulture);
             }
         }
-
-        /// <summary>        
-	///   Looks up a localized string similar to String can not be null or empty.
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
         internal static string NullOrEmptyValueString {
             get {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Satate of Content is not valid.
+        /// </summary>
+        internal static string StateContentError {
+            get {
+                return ResourceManager.GetString("StateContentError", resourceCulture);
             }
         }
         

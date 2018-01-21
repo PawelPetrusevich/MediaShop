@@ -14,18 +14,6 @@
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
                 .IsRequired();
-            this.Property(x => x.ContentId)
-                .IsRequired();
-            this.Property(x => x.ContentName)
-                .IsRequired()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(x => x.DescriptionItem)
-                .IsOptional()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(x => x.PriceItem)
-                .IsRequired();
             this.Property(x => x.StateContent)
                 .IsRequired();
             this.Property(x => x.CreatorId)

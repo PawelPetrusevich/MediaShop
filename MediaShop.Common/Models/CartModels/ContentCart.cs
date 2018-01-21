@@ -8,29 +8,14 @@
     public class ContentCart : Entity
     {
         /// <summary>
-        /// Gets or sets the content id in the shopping cart
+        /// Gets or sets Product in the shopping cart
         /// </summary>
-        public long ContentId { get; set; }
+        public virtual CartModels.Product Product { get; set; }
 
         /// <summary>
-        /// Gets or sets the content name in the shopping cart
-        /// </summary>
-        public string ContentName { get; set; }
-
-         /// <summary>
         /// Gets or sets cart creator name
         /// </summary>
         public string CreatorName { get; set; }
-
-        /// <summary>
-        /// Gets or sets description media content
-        /// </summary>
-        public string DescriptionItem { get; set; }
-
-        /// <summary>
-        /// Gets or sets price media content
-        /// </summary>
-        public decimal PriceItem { get; set; }
 
         /// <summary>
         /// Gets or sets a state of contents in cart

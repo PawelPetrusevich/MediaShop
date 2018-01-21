@@ -20,8 +20,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             this._cartService = cartService;
         }
 
+        /// <summary>
+        /// Get Cart for User
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>Cart</returns>
         [HttpGet]
-        [Route("GetCart")]
+        [Route("getcart")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(string))]
@@ -96,7 +101,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete content from Cart
+        /// </summary>
+        /// <param name="data">Content for delete</param>
+        /// <returns></returns>
         [HttpDelete]
+        [Route("deletecontent")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]

@@ -94,6 +94,11 @@
                 throw new NullReferenceException();
             }
 
+            if (model.StateContent != CartEnums.StateCartContent.InCart)
+            {
+                throw new DeleteContentInCartExseptions(Resources.StateContentError);
+            }
+
             // Final mapping object ContentCartDto to object ContentCart
             var contentCart = Mapper.Map<ContentCart>(model);
 

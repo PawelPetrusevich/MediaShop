@@ -153,4 +153,7 @@
   <data name="UpdateContentInCart" xml:space="preserve">
     <value>Content is not update in cart</value>
   </data>
+  <data name="StateContentError" xml:space="preserve">
+    <value>Satate of Content is not valid</value>
+  </data>
 </root>
