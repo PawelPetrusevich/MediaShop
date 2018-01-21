@@ -80,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\NotificationSubscribedUserService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
@@ -88,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="Services\NotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">

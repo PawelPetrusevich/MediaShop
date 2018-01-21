@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MediaShop.WebApi.Properties {
+namespace MediaShop.DataAccess.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MediaShop.WebApi.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaShop.WebApi.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaShop.DataAccess.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,20 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data cannot be empty..
+        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
         /// </summary>
-        internal static string EmptyRegisterDate {
+        internal static string LessThanOrEqualToZeroValue {
             get {
-                return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
+                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data cannot be empty.
+        ///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
-        internal static string EmtyData {
+        internal static string NullOrEmptyValueString {
             get {
-                return ResourceManager.GetString("EmtyData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notifications for user with this id not found.
-        /// </summary>
-        internal static string NotFoundNotification {
-            get {
-                return ResourceManager.GetString("NotFoundNotification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notification is not valid.
-        /// </summary>
-        internal static string NotValidNotification {
-            get {
-                return ResourceManager.GetString("NotValidNotification", resourceCulture);
+                return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
             }
         }
     }

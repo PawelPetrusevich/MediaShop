@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
+    <value>Value can not be less than or equal zerro</value>
+  </data>
+  <data name="NullOrEmptyValueString" xml:space="preserve">
+    <value>String can not be null or empty</value>
+  </data>
 </root>

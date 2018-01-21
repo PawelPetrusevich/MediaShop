@@ -2,8 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-using MediaShop.Common.Models;
-using MediaShop.Common.Models.User;
+    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Dto.User
 {
