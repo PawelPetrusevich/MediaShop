@@ -90,6 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ContentCartConfiguration.cs" />
+    <Compile Include="Configurations\NotificationConfiguration.cs" />
+    <Compile Include="Configurations\SubscribeNotificationConfiguration.cs" />
     <Compile Include="Context\MediaContext.cs" />
     <Compile Include="Migrations\201801151757061_Initial.cs" />
     <Compile Include="Migrations\201801151757061_Initial.Designer.cs">
@@ -103,6 +105,10 @@
     <Compile Include="Migrations\201801201814052_MigrationRenamedDbModels.Designer.cs">
       <DependentUpon>201801201814052_MigrationRenamedDbModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801181449163_Notification_1.cs" />
+    <Compile Include="Migrations\201801181449163_Notification_1.Designer.cs">
+      <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,12 +118,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\PermissionRepositiry.cs" />
+    <Compile Include="Repositories\Notification\NotificationSubscribedUserRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Repositories\Notification\NotificationRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801181449163_Notification_1.resx">
+      <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801151757061_Initial.resx">
@@ -129,10 +146,7 @@
     <EmbeddedResource Include="Migrations\201801201814052_MigrationRenamedDbModels.resx">
       <DependentUpon>201801201814052_MigrationRenamedDbModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -122,5 +122,11 @@
   </data>
   <data name="InvalidLoginValue" xml:space="preserve">
     <value>Login is null or empty string</value>
+  </data>
+ <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
+    <value>Value can not be less than or equal zerro</value>
+  </data>
+  <data name="NullOrEmptyValueString" xml:space="preserve">
+    <value>String can not be null or empty</value>
   </data>
 </root>
