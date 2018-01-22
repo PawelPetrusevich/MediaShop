@@ -5,7 +5,6 @@
     /// </summary>
     public class ProductContentDTO
     {
-
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>

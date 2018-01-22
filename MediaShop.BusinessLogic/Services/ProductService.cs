@@ -43,7 +43,7 @@ namespace MediaShop.BusinessLogic.Services
         /// Загрузка файла на сервер
         /// </summary>
         /// <param name="uploadModels">Модель формы загрузки</param>
-        /// <returns>Возрощаем модель для отоброжения</returns>
+        /// <returns>Возвращаем модель для отображения</returns>
         public ProductDto UploadProducts(UploadModel uploadModels)
         {
             var data = Mapper.Map<Product>(uploadModels);

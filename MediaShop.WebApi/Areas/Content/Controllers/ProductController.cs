@@ -43,6 +43,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.ContentUploadError);
             }
+            catch (ArgumentException e)
+            {
+                return BadRequest(Resources.UnknowProductType);
+            }
             catch (Exception exception)
             {
                 return InternalServerError();
