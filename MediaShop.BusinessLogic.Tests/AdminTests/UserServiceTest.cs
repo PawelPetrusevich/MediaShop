@@ -50,9 +50,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator = mockValidator;
 
             _user = new RegisterUserDto()
-            {                
+            {
                 Login = "User",
-                Password = "12345",  
+                Password = "12345",
                 ConfirmPassword = "12345",
                 Email = "12345",               
             };
@@ -60,7 +60,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         [Test]
         public void TestRegistrationSuccessfull()
-        {            
+        {
             var profile = new ProfileDbModel { Id = 1 };
             var account = new AccountDbModel
             {
