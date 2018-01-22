@@ -84,6 +84,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\NotificationSubscribedUserService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
@@ -91,7 +92,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Services\NotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaShop.Common\MediaShop.Common.csproj">
@@ -106,7 +109,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\WM.png" />
-    <Content Include="Settings.StyleCop" />
+    <Content Include="Settings.StyleCop">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

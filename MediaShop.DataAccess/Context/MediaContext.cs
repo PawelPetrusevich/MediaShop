@@ -1,6 +1,6 @@
-﻿// <copyright file="MediaContext.cs" company="MediaShop">
-// Copyright (c) MediaShop. All rights reserved.
-// </copyright>
+﻿using System.Data.Entity;
+using MediaShop.Common.Models.Notification;
+using MediaShop.DataAccess.Configurations;
 
 using MediaShop.Common.Models;
 using MediaShop.Common.Models.Content;
@@ -27,6 +27,10 @@ namespace MediaShop.DataAccess.Context
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MediaContext, Configuration>());
         }
+
+        public IDbSet<Notification> Notifications { get; set; }
+
+        public IDbSet<NotificationSubscribedUser> NotificationSubscribedUsers { get; set; }
 
         public IDbSet<ContentCart> ContentCart { get; set; }
 
@@ -68,6 +72,8 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
             modelBuilder.Configurations.Add(new SettingsConfiguration());
+            modelBuilder.Configurations.Add(new NotificationConfiguration());
+            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
         }
     }

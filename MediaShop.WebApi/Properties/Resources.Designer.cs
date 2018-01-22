@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MediaShop.WebApi.Properties {
+namespace MediaShop.WebApi.Properties
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,99 +20,117 @@ namespace MediaShop.WebApi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder",
+        "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        
+    internal class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance",
+            "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaShop.WebApi.Properties.Resources", typeof(Resources).Assembly);
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState
+            .Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+                    global::System.Resources.ResourceManager temp =
+                        new global::System.Resources.ResourceManager("MediaShop.WebApi.Properties.Resources",
+                            typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
-                return resourceCulture;
-            }
-            set {
-                resourceCulture = value;
-            }
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState
+            .Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get { return resourceCulture; }
+            set { resourceCulture = value; }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Content upload error..
         /// </summary>
-        internal static string ContentUploadError {
-            get {
-                return ResourceManager.GetString("ContentUploadError", resourceCulture);
-            }
+        internal static string ContentUploadError
+        {
+            get { return ResourceManager.GetString("ContentUploadError", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An attempt to delete with a null identifier.
         /// </summary>
-        internal static string DeleteWithNullId {
-            get {
-                return ResourceManager.GetString("DeleteWithNullId", resourceCulture);
-            }
+        internal static string DeleteWithNullId
+        {
+            get { return ResourceManager.GetString("DeleteWithNullId", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty..
         /// </summary>
-        internal static string EmptyRegisterDate {
-            get {
-                return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
-            }
+        internal static string EmptyRegisterDate
+        {
+            get { return ResourceManager.GetString("EmptyRegisterDate", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty.
         /// </summary>
-        internal static string EmtyData {
-            get {
-                return ResourceManager.GetString("EmtyData", resourceCulture);
-            }
+        internal static string EmtyData
+        {
+            get { return ResourceManager.GetString("EmtyData", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An attempt to get with a null identifier.
         /// </summary>
-        internal static string GetWithNullId {
-            get {
-                return ResourceManager.GetString("GetWithNullId", resourceCulture);
-            }
+        internal static string GetWithNullId
+        {
+            get { return ResourceManager.GetString("GetWithNullId", resourceCulture); }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Product has unknow type.
         /// </summary>
-        internal static string UnknowProductType {
-            get {
-                return ResourceManager.GetString("UnknowProductType", resourceCulture);
-            }
+        internal static string UnknowProductType
+        {
+            get { return ResourceManager.GetString("UnknowProductType", resourceCulture); }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications for user with this id not found.
+        /// </summary>
+        internal static string NotFoundNotification
+        {
+            get { return ResourceManager.GetString("NotFoundNotification", resourceCulture); }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Notification is not valid.
+        /// </summary>
+        internal static string NotValidNotification
+        {
+            get { return ResourceManager.GetString("NotValidNotification", resourceCulture); }
         }
     }
 }

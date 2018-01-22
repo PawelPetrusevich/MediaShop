@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
