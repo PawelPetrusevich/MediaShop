@@ -99,7 +99,6 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="filter">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        //public IEnumerable<Product> Find(Expression<Func<Product, bool>> filter)
         public IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<BinaryExpression>();
