@@ -37,6 +37,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         public ProductServiceTest()
         {
+            Mapper.Reset();
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, ProductDto>().ReverseMap();
