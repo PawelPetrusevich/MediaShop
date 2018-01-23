@@ -49,8 +49,6 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ExistingLoginException">Throws when user with such login already exists</exception>
         public Account Register(RegisterUserDto userModel)
         {
-            // 1. validate todo move to injector
-            //var validator = new ExistingUserValidator(_storeAccounts);
             var result = _validator.Validate(userModel);
 
             if (!result.IsValid)
@@ -58,18 +56,14 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ExistingLoginException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            // 2. create account
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
             this._storeAccounts.Add(modelDbModel);
 
-            // 3. send email confirmation
-            // email service -> sendConfirmation (email, id)
             if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
             {
                 throw new CanNotSendEmailException();
             }
 
-            // 4. return account
             return Mapper.Map<Account>(modelDbModel);
         }
 

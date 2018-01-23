@@ -34,7 +34,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public UserServiceTest()
         {
             Mapper.Reset();
-            Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
+           // Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
         }
 
         [SetUp]

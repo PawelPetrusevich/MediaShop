@@ -14,6 +14,6 @@ namespace MediaShop.Common.Models.Notification
 
         public string DeviceIdentifier { get; set; }
 
-        public virtual Account Account { get; set; }
+        public virtual AccountDbModel Account { get; set; }
     }
 }

@@ -95,7 +95,16 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("ExistContentInCart", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
+        /// </summary>
+        internal static string LessThanOrEqualToZeroValue {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
         /// </summary>
@@ -111,25 +120,6 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string MediaShopMailPassword {
             get {
                 return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
-            }
-        }
-        
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It&apos;s registration message from Media shop.
-        /// </summary>
-        internal static string RegisterUserMailBody {
-            get {
-                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
-        /// </summary>
-        internal static string LessThanOrEqualToZeroValue {
-            get {
-                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
             }
         }
         
@@ -150,7 +140,7 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("NullOrEmptyValue", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to String can not be null or empty.
         /// </summary>
@@ -159,7 +149,16 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s registration message from Media shop. Follow the link to continue: {0}.
+        /// </summary>
+        internal static string RegisterUserMailBody {
+            get {
+                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Content is not update in cart.
         /// </summary>
