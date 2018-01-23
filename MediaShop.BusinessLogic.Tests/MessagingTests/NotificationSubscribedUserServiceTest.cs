@@ -20,6 +20,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
 
         public NotificationSubscribedUserServiceTest()
         {
+            Mapper.Reset();
             Mapper.Initialize(config =>
                 config.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
                     .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
