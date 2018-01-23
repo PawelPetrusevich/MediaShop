@@ -16,8 +16,7 @@
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
-                .IsRequired()
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .IsRequired();
             this.Property(x => x.ContentName)
                 .IsRequired()
                 .IsVariableLength()

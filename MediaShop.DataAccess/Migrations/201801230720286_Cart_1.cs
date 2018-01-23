@@ -11,7 +11,7 @@ namespace MediaShop.DataAccess.Migrations
                 "dbo.Products",
                 c => new
                     {
-                        Id = c.Long(nullable: false),
+                        Id = c.Long(nullable: false, identity: true),
                         ContentName = c.String(nullable: false),
                         CreatorName = c.String(),
                         DescriptionItem = c.String(),
@@ -23,14 +23,26 @@ namespace MediaShop.DataAccess.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            AddColumn("dbo.ContentCarts", "ContentId", c => c.Long(nullable: false));
+            AddColumn("dbo.ContentCarts", "ProductId", c => c.Long(nullable: false));
+            CreateIndex("dbo.ContentCarts", "ProductId");
+            AddForeignKey("dbo.ContentCarts", "ProductId", "dbo.Products", "Id", cascadeDelete: true);
+            DropColumn("dbo.ContentCarts", "ContentName");
             DropColumn("dbo.ContentCarts", "CategoryName");
+            DropColumn("dbo.ContentCarts", "CreatorName");
+            DropColumn("dbo.ContentCarts", "DescriptionItem");
+            DropColumn("dbo.ContentCarts", "PriceItem");
         }
         
         public override void Down()
         {
+            AddColumn("dbo.ContentCarts", "PriceItem", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AddColumn("dbo.ContentCarts", "DescriptionItem", c => c.String());
+            AddColumn("dbo.ContentCarts", "CreatorName", c => c.String());
             AddColumn("dbo.ContentCarts", "CategoryName", c => c.String(nullable: false));
-            DropColumn("dbo.ContentCarts", "ContentId");
+            AddColumn("dbo.ContentCarts", "ContentName", c => c.String(nullable: false));
+            DropForeignKey("dbo.ContentCarts", "ProductId", "dbo.Products");
+            DropIndex("dbo.ContentCarts", new[] { "ProductId" });
+            DropColumn("dbo.ContentCarts", "ProductId");
             DropTable("dbo.Products");
         }
     }

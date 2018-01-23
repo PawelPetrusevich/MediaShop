@@ -24,6 +24,9 @@
                 .IsOptional();
             this.Property(x => x.ModifiedDate)
                 .IsOptional();
+            this.HasRequired(x => x.Product)
+                .WithMany()
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }

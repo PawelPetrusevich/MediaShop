@@ -58,13 +58,6 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(repo => repo.Add(It.IsAny<ContentCart>()))
                 .Returns(() => objContentCart).Callback(() => objContentCart.Id++);
 
-            // Create ProductDto object
-            var objProduct = new Product() { Id = 5 };
-            var actual2 = objProduct.Id;
-
-            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
-                .Returns(() => objProduct);
-
             // Create CartService object with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
@@ -73,7 +66,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((long)5, actual1);
-            Assert.AreEqual((long)5, actual2);
+            //Assert.AreEqual((long)5, actual2);
             Assert.AreEqual((long)6, actual3.Id);
         }
 
@@ -86,51 +79,15 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var actual1 = objContentCart.Id;
 
             // Setup mock object
-            // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
                 .Returns(() => null);
             mock.Setup(repo => repo.Add(It.IsAny<ContentCart>()))
                 .Returns(() => null);
-
-            // Create ProductDto object
-            var objProduct = new Product() { Id = 5 };
-            var actual2 = objProduct.Id;
-
-            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
-                .Returns(() => objProduct);
 
             // Create CartService object with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
-            var actual3 = service.AddInCart(objContentCart.Id);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotExistProductInDataBaseExceptions))]
-        public void Add_New_Content_In_Cart_If_Not_Get_Product()
-        {
-            // Create object ContentCart
-            var objContentCart = new ContentCart() { Id = 5 };
-            var actual1 = objContentCart.Id;
-
-            // Setup mock object
-            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
-            mock.Setup(repo => repo.Add(It.IsAny<ContentCart>()))
-                .Returns(() => objContentCart);
-
-            // Create ProductDto object
-            var objProduct = new Product() { Id = 5 };
-            var actual2 = objProduct.Id;
-
-            mockProduct.Setup(repo => repo.Get(It.IsAny<long>()))
-                .Returns(() => null);
-
-            // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
-
-            // Write rezalt method AddNewContentInCart in actual1
             var actual3 = service.AddInCart(objContentCart.Id);
         }
 

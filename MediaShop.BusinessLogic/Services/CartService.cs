@@ -8,10 +8,10 @@
     using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Enums;
     using MediaShop.Common.Exceptions.CartExseptions;
+    using MediaShop.Common.Exceptions.PaymentExceptions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Exceptions.PaymentExceptions;
 
     /// <summary>
     /// Service for work with cart
@@ -55,22 +55,7 @@
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            // Get object Product by id
-            var product = this.repositoryProduct.Get(contentId);
-
-            if (product == null)
-            {
-                throw new NotExistProductInDataBaseExceptions(Resources.ExistProductInDataBase);
-            }
-
-            // Mapping object Product to object ContentCartDto
-            var contentCartDto = Mapper.Map<ContentCartDto>(product);
-
-            // Initialize CreatorId and CategoryName
-            contentCartDto.CreatorId = 1; // Need initializing userId !!!
-
-            // Final mapping object ContentCartDto to object ContentCart
-            var contentCart = Mapper.Map<ContentCart>(contentCartDto);
+            var contentCart = new ContentCart() { Id = 1, CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
 
             // Save object ContentCart in repository
             var addContentCart = this.repositoryContentCart.Add(contentCart);
@@ -173,7 +158,7 @@
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
         public bool ExistInCart(long contentId) => this.repositoryContentCart
-            .Find(item => item.ProductId == contentId) != null;
+            .Find(item => item.Product.Id == contentId) != null;
 
         /// <summary>
         /// Find items in a cart by user Id and return a item collection

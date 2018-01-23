@@ -13,7 +13,7 @@
         public virtual CartModels.Product Product { get; set; }
 
         /// <summary>
-        /// Gets or sets productId
+        /// Gets or sets cart creator name
         /// </summary>
         public long ProductId { get; set; }
 

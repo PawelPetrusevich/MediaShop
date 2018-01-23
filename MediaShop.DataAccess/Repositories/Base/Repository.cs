@@ -163,7 +163,7 @@ namespace MediaShop.DataAccess.Repositories.Base
                 throw new ArgumentNullException(nameof(filter));
             }
 
-            return DbSet.Where(filter);
+            return DbSet.Where(filter).ToList();
         }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
