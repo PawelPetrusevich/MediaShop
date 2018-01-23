@@ -26,6 +26,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestInitialize]
         public void Initialize()
         {
+            Mapper.Reset();
             // Create Mapper for testing
             Mapper.Initialize(x =>
             {
@@ -50,7 +51,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
                 .Returns(() => collectionItems);
-
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
 
@@ -87,7 +89,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
                 .Returns(() => collectionItems);
-
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
 
@@ -118,6 +121,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCartDto, bool>>>()))
                 .Returns(() => collectionItems);
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object);
             var count = service.GetCountItems(5);

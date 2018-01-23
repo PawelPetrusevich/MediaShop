@@ -30,6 +30,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
 
         public NotificationServiceTest()
         {
+            Mapper.Reset();
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Notification, NotificationDto>().ReverseMap()
