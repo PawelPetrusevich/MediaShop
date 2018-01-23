@@ -58,7 +58,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
-
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
@@ -95,7 +96,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
-
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
@@ -126,6 +128,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             };
             mock.Setup(item => item.GetAll(1))
                 .Returns(() => collectionItems);
+            mock.Setup(item => item.GetAll(It.IsAny<long>()))
+                .Returns(collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
             var count = service.GetCountItems(1);
