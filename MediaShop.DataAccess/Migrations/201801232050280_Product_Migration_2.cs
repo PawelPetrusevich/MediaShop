@@ -2,8 +2,8 @@ namespace MediaShop.DataAccess.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
-    public partial class Version_2 : DbMigration
+
+    public partial class Product_Migration_2 : DbMigration
     {
         public override void Up()
         {
@@ -22,7 +22,7 @@ namespace MediaShop.DataAccess.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Products", t => t.Id)
                 .Index(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Products",
                 c => new
@@ -43,7 +43,7 @@ namespace MediaShop.DataAccess.Migrations
                         ModifierId = c.Long(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.OriginalProducts",
                 c => new
@@ -59,7 +59,7 @@ namespace MediaShop.DataAccess.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Products", t => t.Id)
                 .Index(t => t.Id);
-            
+
             CreateTable(
                 "dbo.ProtectedProducts",
                 c => new

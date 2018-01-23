@@ -8,7 +8,7 @@ using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Dto.Product.ProductValidators
 {
-    public class UploadModelValidator : AbstractValidator<UploadModel>
+    public class UploadModelValidator : AbstractValidator<UploadProductModel>
     {
         public UploadModelValidator()
         {

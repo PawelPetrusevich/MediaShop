@@ -12,7 +12,7 @@ using MediaShop.Common.Enums;
 namespace MediaShop.Common.Dto.Product
 {
     [Validator(typeof(UploadModelValidator))]
-    public class UploadModel
+    public class UploadProductModel
     {
         /// <summary>
         /// Gets or sets the ProductName.

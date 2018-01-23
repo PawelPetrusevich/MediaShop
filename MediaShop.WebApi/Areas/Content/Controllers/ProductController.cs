@@ -25,10 +25,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [HttpPost]
         [Route("add")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(UploadModel))]
+        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(UploadProductModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult AddProduct([FromBody] UploadModel data)
+        public IHttpActionResult AddProduct([FromBody] UploadProductModel data)
         {
             if (data == null)
             {
@@ -46,87 +46,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             catch (ArgumentException e)
             {
                 return BadRequest(Resources.UnknowProductType);
-            }
-            catch (Exception exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [HttpPost]
-        [Route("GetOriginal")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductContentDTO))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult GetOriginalProduct([FromBody] long id)
-        {
-            if (id <= 0)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-
-            try
-            {
-                return Ok(_productService.GetOriginalProduct(id));
-            }
-            catch (InvalidOperationException e)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-            catch (Exception exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [HttpPost]
-        [Route("GetProtected")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductContentDTO))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult GetProtectedProduct([FromBody] long id)
-        {
-            if (id <= 0)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-
-            try
-            {
-                return Ok(_productService.GetProtectedProduct(id));
-            }
-            catch (InvalidOperationException e)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-            catch (Exception exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [HttpPost]
-        [Route("GetCompressed")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductContentDTO))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult GetCompressedProduct([FromBody] long id)
-        {
-            if (id <= 0)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-
-            try
-            {
-                return Ok(_productService.GetCompressedProduct(id));
-            }
-            catch (InvalidOperationException e)
-            {
-                return BadRequest(Resources.GetWithNullId);
             }
             catch (Exception exception)
             {

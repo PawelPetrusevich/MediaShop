@@ -33,14 +33,15 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         private ProductService _productService;
 
-        private List<UploadModel> _newProducts;
+        private List<UploadProductModel> _newProducts;
 
         public ProductServiceTest()
         {
+            Mapper.Reset();
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, ProductDto>().ReverseMap();
-                config.CreateMap<Product, UploadModel>().ReverseMap();
+                config.CreateMap<Product, UploadProductModel>().ReverseMap();
                 config.CreateMap<Product, ProductContentDTO>().ReverseMap();
             });
         }
@@ -63,7 +64,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _productService = new ProductService(_mockRep);
 
             var productGenerator = Generator
-                .For<UploadModel>()
+                .For<UploadProductModel>()
                 .For(x => x.ProductName)
                 .ChooseFrom(StaticData.FirstNames)
                 .For(x => x.ProductPrice)
@@ -113,14 +114,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
 
 
-        [Test]
-        public void Product_UpdateProductTest()
-        {
-            _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.Update(Mapper.Map<Product>(_productService.GetProduct(1)));
-
-            Assert.IsNotNull(returnProduct);
-        }
+       
 
         [Test]
         public void Product_FindProductTest()
