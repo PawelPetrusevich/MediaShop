@@ -39,8 +39,8 @@ namespace MediaShop.Common
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
             this.CreateMap<ProductDto, Product>().ReverseMap();
-            this.CreateMap<UploadModel, Product>().ReverseMap();
-            this.CreateMap<UploadModel, ProductDto>().ReverseMap();
+            this.CreateMap<UploadProductModel, Product>().ReverseMap();
+            this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
             this.CreateMap<ProductContentDTO, Product>().ReverseMap();
         }
     }

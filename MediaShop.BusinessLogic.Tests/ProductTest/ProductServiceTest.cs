@@ -33,7 +33,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         private ProductService _productService;
 
-        private List<UploadModel> _newProducts;
+        private List<UploadProductModel> _newProducts;
 
         public ProductServiceTest()
         {
@@ -41,7 +41,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, ProductDto>().ReverseMap();
-                config.CreateMap<Product, UploadModel>().ReverseMap();
+                config.CreateMap<Product, UploadProductModel>().ReverseMap();
                 config.CreateMap<Product, ProductContentDTO>().ReverseMap();
             });
         }
@@ -53,9 +53,6 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
-            _rep.Setup(s => s.GetCompressedProduct(It.IsAny<long>())).Returns(new Product());
-            _rep.Setup(s => s.GetProtectedProduct(It.IsAny<long>())).Returns(new Product());
-            _rep.Setup(s => s.GetOriginalProduct(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>());
 
@@ -64,7 +61,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _productService = new ProductService(_mockRep);
 
             var productGenerator = Generator
-                .For<UploadModel>()
+                .For<UploadProductModel>()
                 .For(x => x.ProductName)
                 .ChooseFrom(StaticData.FirstNames)
                 .For(x => x.ProductPrice)
@@ -114,14 +111,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
 
 
-        [Test]
-        public void Product_UpdateProductTest()
-        {
-            _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.Update(Mapper.Map<Product>(_productService.GetProduct(1)));
-
-            Assert.IsNotNull(returnProduct);
-        }
+       
 
         [Test]
         public void Product_FindProductTest()

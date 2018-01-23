@@ -101,9 +101,9 @@
     <Compile Include="Migrations\201801181449163_Notification_1.Designer.cs">
       <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801152223237_Version_2.cs" />
-    <Compile Include="Migrations\201801152223237_Version_2.Designer.cs">
-      <DependentUpon>201801152223237_Version_2.cs</DependentUpon>
+    <Compile Include="Migrations\201801232050280_Product_Migration_2.cs" />
+    <Compile Include="Migrations\201801232050280_Product_Migration_2.Designer.cs">
+      <DependentUpon>201801232050280_Product_Migration_2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NInjectProfile.cs" />
@@ -127,6 +127,9 @@
     <EmbeddedResource Include="Migrations\201801181449163_Notification_1.resx">
       <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801232050280_Product_Migration_2.resx">
+      <DependentUpon>201801232050280_Product_Migration_2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,9 +138,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801151757061_Initial.resx">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801152223237_Version_2.resx">
-      <DependentUpon>201801152223237_Version_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -7,13 +7,13 @@ namespace MediaShop.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Version_2 : IMigrationMetadata
+    public sealed partial class Product_Migration_2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Version_2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Product_Migration_2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801152223237_Version_2"; }
+            get { return "201801232050280_Product_Migration_2"; }
         }
         
         string IMigrationMetadata.Source

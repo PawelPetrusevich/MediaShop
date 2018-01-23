@@ -26,39 +26,11 @@ namespace MediaShop.Common.Interfaces.Services
         ProductDto GetProduct(long id);
 
         /// <summary>
-        /// Get method.
-        /// </summary>
-        /// <param name="id">product Id</param>
-        /// <returns>result</returns>
-        ProductContentDTO GetOriginalProduct(long id);
-
-        /// <summary>
-        /// Get method.
-        /// </summary>
-        /// <param name="id">product Id</param>
-        /// <returns>result</returns>
-        ProductContentDTO GetProtectedProduct(long id);
-
-        /// <summary>
-        /// Get method.
-        /// </summary>
-        /// <param name="id">product Id</param>
-        /// <returns>result</returns>
-        ProductContentDTO GetCompressedProduct(long id);
-
-        /// <summary>
         /// Upload products.
         /// </summary>
         /// <param name="model">product model</param>
         /// <returns>result</returns>
-        ProductDto UploadProducts(UploadModel model);
-
-        /// <summary>
-        /// Update method.
-        /// </summary>
-        /// <param name="model">product model</param>
-        /// <returns>result</returns>
-        ProductDto Update(Product model);
+        ProductDto UploadProducts(UploadProductModel model);
 
         /// <summary>
         /// DElete method.
@@ -70,7 +42,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <summary>
         /// Find method.
         /// </summary>
-        /// <param name="filter">filter</param>
+        /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
         IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
     }
