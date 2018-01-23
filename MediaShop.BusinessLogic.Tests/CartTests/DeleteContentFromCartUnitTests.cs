@@ -131,6 +131,51 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         }
 
         [TestMethod]
+        public void Delete_of_Cart()
+        {
+            var collectionItems = new Collection<ContentCartDto>()
+            {
+                new ContentCartDto { Id = 1, CreatorId = 1 },
+                new ContentCartDto { Id = 2, CreatorId = 1 }
+            };
+
+            var cart = new Cart()
+            {
+                ContentCartDtoCollection = collectionItems
+            };
+
+            mock.SetupSequence(item => item.Delete(It.IsAny<ContentCart>()))
+                .Returns(new ContentCart { Id = 1, CreatorId = 1 })
+                .Returns(new ContentCart { Id = 2, CreatorId = 1 })
+                .Throws(new InvalidOperationException());
+            var collectionId = new Collection<long>() { 1, 2 };
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var result = service.DeleteOfCart(cart);
+
+            Assert.AreEqual((uint)0,  result.CountItemsInCollection);
+            Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Delete_of_Cart_is_null()
+        {
+            Cart cart = null;
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var result = service.DeleteOfCart(cart);
+        }
+
+        [TestMethod]
+        public void Delete_of_Cart_is_empty()
+        {
+            Cart cart = new Cart();
+            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var result = service.DeleteOfCart(cart);
+            Assert.AreEqual((uint)0, result.CountItemsInCollection);
+            Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(DeleteContentInCartExseptions))]
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {

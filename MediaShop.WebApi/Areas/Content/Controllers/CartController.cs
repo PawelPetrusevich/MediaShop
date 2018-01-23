@@ -156,5 +156,38 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        /// <summary>
+        /// Delete all content from Cart
+        /// </summary>
+        /// <param name="data">Cart</param>
+        /// <returns>Cart</returns>
+        [HttpDelete]
+        [Route("clearcart")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public IHttpActionResult Delete([FromBody] Cart data)
+        {
+            if (data == null)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var result = _cartService.DeleteOfCart(data);
+                return this.Ok(result);
+            }
+            catch (DeleteContentInCartExseptions ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

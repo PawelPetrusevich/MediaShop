@@ -84,6 +84,13 @@
         ICollection<ContentCartDto> DeleteOfCart(ICollection<long> itemsId);
 
         /// <summary>
+        /// Method for deleting Content from cart
+        /// </summary>
+        /// <param name="cart">Cart</param>
+        /// <returns>Cart after clearing</returns>
+        Cart DeleteOfCart(Cart cart);
+
+        /// <summary>
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>

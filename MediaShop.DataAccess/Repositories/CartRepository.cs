@@ -36,17 +36,9 @@
                 throw new ArgumentNullException(nameof(model));
             }
 
-            try
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = false;
-                var result = this.DbSet.Add(model);
-                this.Context.SaveChanges();
-                return result;
-            }
-            finally
-            {
-                this.Context.Configuration.AutoDetectChangesEnabled = true;
-            }
+            var result = this.DbSet.Add(model);
+            this.Context.SaveChanges();
+            return result;
         }
 
         /// <summary>
@@ -109,7 +101,7 @@
         /// <returns>rezalt operation</returns>
         public IEnumerable<ContentCart> GetAll(long userId)
         {
-            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId);
+            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId).ToList();
             return result;
         }
     }

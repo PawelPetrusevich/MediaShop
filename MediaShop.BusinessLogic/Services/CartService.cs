@@ -80,7 +80,7 @@
         {
             if (model == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(model));
             }
 
             if (model.StateContent != CartEnums.StateCartContent.InCart)
@@ -152,6 +152,31 @@
         }
 
         /// <summary>
+        /// Method for deleting Content from cart
+        /// </summary>
+        /// <param name="cart">Cart</param>
+        /// <returns>Cart after clearing</returns>
+        public Cart DeleteOfCart(Cart cart)
+        {
+            if (cart == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+            }
+
+            long id = 0;
+            if (cart.ContentCartDtoCollection != null)
+            {
+                foreach (var content in cart.ContentCartDtoCollection)
+                {
+                    var deleteContentCart = this.DeleteContent(content);
+                    id = content.CreatorId; // Get user Id from Token
+                }
+            }
+
+            return this.GetCart(id);
+        }
+
+        /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content id</param>
@@ -168,8 +193,8 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            var contentInCart = this.repositoryContentCart.GetAll(id);
-            return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart.Where(x => x.StateContent == CartEnums.StateCartContent.InCart));
+            var contentInCart = this.repositoryContentCart.GetAll(id).Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
+            return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart);
         }
 
         /// <summary>
