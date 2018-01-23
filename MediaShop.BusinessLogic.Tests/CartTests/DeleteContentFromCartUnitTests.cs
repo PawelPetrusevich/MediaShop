@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -51,44 +52,52 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestMethod]
         public void Set_State_Content_Is_Bought()
         {
-            // Object ContentCartDtoDto
-            var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InCart };
-            var actual1 = objContentCart.StateContent;
+            //// Object ContentCartDtoDto
+            //var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InBought };
 
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<long>()))
-                 .Returns(() => objContentCart);
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>()
+            {
+                new ContentCart() { Id = 1, CreatorId =1, StateContent = CartEnums.StateCartContent.InCart  }
+            };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => contentCartList);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
-                .Returns(() => objContentCart);
+                .Returns(() => contentCartList[0]);
 
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InBought);
 
-            Assert.AreEqual(CartEnums.StateCartContent.InCart, actual1);
             Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2.StateContent);
         }
 
         [TestMethod]
         public void Set_State_Content_Is_Paid()
         {
-            // Object ContentCartDtoDto
-            var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InBought };
-            var actual1 = objContentCart.StateContent;
+            //// Object ContentCartDtoDto
+            //var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InPaid };
 
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<long>()))
-                 .Returns(() => objContentCart);
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>()
+            {
+                new ContentCart() { Id = 1, CreatorId =1, StateContent = CartEnums.StateCartContent.InBought  }
+            };
+
+            // Setup mock object
+            mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
+                .Returns(() => contentCartList);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
-                .Returns(() => objContentCart);
+                .Returns(() => contentCartList[0]);
 
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InPaid);
 
-            Assert.AreEqual(CartEnums.StateCartContent.InBought, actual1);
             Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2.StateContent);
         }
 
@@ -249,19 +258,16 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // collection for rezalt as return method 
             var collectionFindItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 }
+                new ContentCart { Id = 1, CreatorId = 1, StateContent = CartEnums.StateCartContent.InCart }
             };
 
             var content = new ContentCart() { Id = 1 };
 
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<long>()))
-                 .Returns(() => content);
+                .Returns(() => collectionFindItems);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
-                .Returns(() => content);
+                .Returns(() => collectionFindItems[0]);
 
             // Object for Setup mockPayment
             var objectTransaction = new BayContentTransaction() { Id = 1 };
@@ -272,7 +278,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objectTransaction);
 
             // Collection for Setup method GetAll
-            var collectionItems = new Collection<ContentCart>()
+            List<ContentCart> collectionItems = new List<ContentCart>()
             {
                 new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
                 new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
@@ -310,19 +316,16 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // collection for rezalt as return method 
             var collectionFindItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 }
+                new ContentCart { Id = 1, CreatorId = 1, StateContent = CartEnums.StateCartContent.InCart }
             };
 
             var content = new ContentCart() { Id = 1 };
 
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<long>()))
-                 .Returns(() => content);
+                .Returns(() => collectionFindItems);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
-                .Returns(() => content);
+                .Returns(() => collectionFindItems[0]);
 
             // Object for Setup mockPayment
             var objectTransaction = new BayContentTransaction() { Id = 1 };
@@ -333,7 +336,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objectTransaction);
 
             // Collection for Setup method GetAll
-            var collectionItems = new Collection<ContentCart>()
+            List<ContentCart> collectionItems = new List<ContentCart>()
             {
                 new ContentCart { Id = 1, CreatorId = 1 , Product = new Product (){ ContentName = "Prod1", Id = 1, PriceItem = new decimal (9.99) } },
                 new ContentCart { Id = 2, CreatorId = 1 , Product = new Product (){ ContentName = "Prod2", Id = 2, PriceItem = new decimal (0.50) } },
@@ -364,19 +367,16 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // collection for rezalt as return method 
             var collectionFindItems = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 }
+                new ContentCart { Id = 1, CreatorId = 1, StateContent = CartEnums.StateCartContent.InCart }
             };
 
             var content = new ContentCart() { Id = 1 };
 
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
-            // Setup object moc
-            mock.Setup(repo => repo.Get(It.IsAny<long>()))
-                 .Returns(() => content);
+                .Returns(() => collectionFindItems);
             mock.Setup(item => item.Update(It.IsAny<ContentCart>()))
-                .Returns(() => content);
+                .Returns(() => collectionFindItems[0]);
 
             // Setup mockPayment
             mockPayment.Setup(x => x.PaymentBayer(It.IsAny<long>()))

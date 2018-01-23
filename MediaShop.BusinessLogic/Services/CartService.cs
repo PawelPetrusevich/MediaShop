@@ -49,13 +49,19 @@
                 throw new ArgumentException(Resources.InvalidContentId);
             }
 
+            // Check exist Product in repository
+            if (this.repositoryProduct.Get(contentId) == null)
+            {
+                throw new ExistContentInCartExceptions(Resources.ExistProductInDataBase);
+            }
+
             // Check exist Content in Cart
             if (this.ExistInCart(contentId))
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            var contentCart = new ContentCart() { Id = 1, CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
+            var contentCart = new ContentCart() { CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
 
             // Save object ContentCart in repository
             var addContentCart = this.repositoryContentCart.Add(contentCart);
@@ -183,7 +189,7 @@
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
         public bool ExistInCart(long contentId) => this.repositoryContentCart
-            .Find(item => item.Product.Id == contentId) != null;
+            .Find(item => item.ProductId == contentId).Count() != 0;
 
         /// <summary>
         /// Find items in a cart by user Id and return a item collection
@@ -211,19 +217,18 @@
                 throw new ArgumentException(Resources.InvalidContentId);
             }
 
-            // Get object by id
-            var contentCartForUpdate = this.repositoryContentCart.Get(contentId);
+            // Get object by contentId
+            var contentCartForUpdateList = this.repositoryContentCart.Find(item => item.ProductId == contentId).ToList();
 
-            if (contentCartForUpdate == null)
+            if (contentCartForUpdateList.Count() == 0)
             {
                 throw new ExistContentInCartExceptions(Resources.NotExistContentInCart);
             }
 
-            // Change state object
-            contentCartForUpdate.StateContent = contentState;
+            contentCartForUpdateList[0].StateContent = contentState;
 
             // Update change
-            var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdate);
+            var contentCartAfterUpdate = this.repositoryContentCart.Update(contentCartForUpdateList[0]);
 
             // Check update property StateContent
             if (contentCartAfterUpdate.StateContent != contentState)

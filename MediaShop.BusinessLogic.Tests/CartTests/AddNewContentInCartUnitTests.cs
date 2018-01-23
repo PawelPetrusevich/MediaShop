@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Moq;
 using AutoMapper;
@@ -48,13 +49,23 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestMethod]
         public void Add_New_Content_In_Cart()
         {
+            // Create object Product
+            var product = new Product() { Id = 1 };
+
+            // Setup Mock Product
+            mockProduct.Setup(item => item.Get(It.IsAny<long>()))
+                .Returns(() => product);
+
             // Create object ContentCart
             var objContentCart = new ContentCart() { Id = 5 };
             var actual1 = objContentCart.Id;
 
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>();
+
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
+                .Returns(() => contentCartList);
             mock.Setup(repo => repo.Add(It.IsAny<ContentCart>()))
                 .Returns(() => objContentCart).Callback(() => objContentCart.Id++);
 
@@ -74,13 +85,23 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [ExpectedException(typeof(AddContentInCartExceptions))]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
+            // Create object Product
+            var product = new Product() { Id = 1 };
+
+            // Setup Mock Product
+            mockProduct.Setup(item => item.Get(It.IsAny<long>()))
+                .Returns(() => product);
+
             // Create object ContentCart
             var objContentCart = new ContentCart() { Id = 5 };
             var actual1 = objContentCart.Id;
 
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>();
+
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
+                .Returns(() => contentCartList);
             mock.Setup(repo => repo.Add(It.IsAny<ContentCart>()))
                 .Returns(() => null);
 
@@ -94,15 +115,15 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestMethod]
         public void Get_Content_In_Cart_If_Exist_In_Cart()
         {
-            // collection for rezalt as return method 
-            var collectionFindItems = new Collection<ContentCart>()
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 }
+                new ContentCart() { Id = 1, CreatorId = 1 }
             };
 
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => collectionFindItems);
+                .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
@@ -116,9 +137,12 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [TestMethod]
         public void Get_Content_In_Cart_If_Not_Exist_In_Cart()
         {
+            // Create List for search by content.Id
+            List<ContentCart> contentCartList = new List<ContentCart>();
+
             // Setup mock object
             mock.Setup(item => item.Find(It.IsAny<Expression<Func<ContentCart, bool>>>()))
-                .Returns(() => null);
+                .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
