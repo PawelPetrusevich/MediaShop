@@ -31,8 +31,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     [TestFixture]
     public class UserServiceRemoveRoleTests
     {
-        [TestCase(0)]
-        [TestCase(1)]
+        /// <summary>
+        /// Tests the method remove role is true.
+        /// </summary>
+        /// <param name="n">The n.</param>
+        /// <param name="role">The role.</param>
+        [TestCase(5l, Role.User)]
+        [TestCase(5l, Role.Admin)]
 
         public void TestMethodRemoveRoleIsTrue(int role)
         {
@@ -66,7 +71,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(1)]
+        [TestCase(5ul, Role.User)]
 
         public void TestMethodRemoveRoleIsFalse(int role)
         {

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -33,7 +33,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
         public UserServiceTest()
         {
-            Mapper.Initialize(x =>  x.AddProfile<MapperProfile>());
+            Mapper.Reset();
+            Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
         }
 
         [SetUp]
