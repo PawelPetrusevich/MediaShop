@@ -89,6 +89,7 @@
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Dto\User\Validators\LoginUserValidator.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Exceptions\User\AddAccountRepositoryException.cs" />
     <Compile Include="Exceptions\User\IncorrectPasswordException.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />

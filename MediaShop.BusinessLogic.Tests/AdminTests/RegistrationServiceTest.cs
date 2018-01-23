@@ -2,10 +2,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using MediaShop.Common;
-using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
-using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.User;
@@ -23,18 +20,22 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     using ProfileDbModel = MediaShop.Common.Models.User.ProfileDbModel;
 
     [TestFixture]
-    public class UserServiceTest
+    public class RegistrationServiceTest
     {
         private Mock<IAccountRepository> _store;
         private Mock<IPermissionRepository> _storePermission;
         private RegisterUserDto _user;
         private Mock<IEmailService> _emailService;
-        private Mock<AbstractValidator<RegisterUserDto>> _validator;
+        private Mock<IValidator<RegisterUserDto>> _validator;
 
-        public UserServiceTest()
+        public RegistrationServiceTest()
         {
             Mapper.Reset();
-           // Mapper.Initialize(config => config.CreateMap<UserDto, Account>());
+           Mapper.Initialize(config =>
+           {
+               config.CreateMap<RegisterUserDto, AccountDbModel>();
+               config.CreateMap<Account, AccountDbModel>();
+           });
         }
 
         [SetUp]
@@ -43,7 +44,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var mockRepository =  new Mock<IAccountRepository>();
             var mockPermitionRepository = new Mock<IPermissionRepository>();
             var mockEmailService = new Mock<IEmailService>();
-            var mockValidator = new Mock<AbstractValidator<RegisterUserDto>>();
+            var mockValidator = new Mock<IValidator<RegisterUserDto>>();
 
             _store = mockRepository;
             _storePermission = mockPermitionRepository;
@@ -74,10 +75,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(account);
             _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>()))
+                .Returns((IEnumerable<AccountDbModel>) null);
+            _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
 
-                .Returns((IEnumerable<AccountDbModel>)null); 
-
-            var userService = new AccountService(_store.Object,_storePermission.Object, _emailService.Object, this._validator.Object);           
+            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
+                this._validator.Object);         
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -85,31 +88,39 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void TestExistingLogin()
         {
-            var permissions = new SortedSet<Role> { Role.User };
-            var profile = new ProfileDbModel { Id = 1 };
-            var account = new AccountDbModel
-            {
-                Login = "User",
-                Password = "12345",
-                Profile = profile,
-                Permissions = new List<PermissionDbModel>() { new PermissionDbModel() }
-            };
             _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());
+            _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(false);
 
-            var userService = new AccountService(_store.Object,_storePermission.Object,this._emailService.Object, this._validator.Object);
+            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
+                this._validator.Object);
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
         [Test]
         public void TestRegistraionFailInRepository()
         {
-            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);
-            _store.Setup(x => x.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>())).Returns((IEnumerable<AccountDbModel>)null);
+            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);            
+            _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
 
-            var userService = new AccountService(_store.Object,_storePermission.Object,this._emailService.Object, this._validator.Object);
+            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
+                _validator.Object);
 
-            Assert.IsNull(userService.Register(_user));
+            Assert.Throws<AddAccountRepositoryException>(() => userService.Register(_user));
+        }
+
+        [Test]
+        public void TestRegistraionFailSendConfirmation()
+        {
+            _store.Setup(x => x.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
+            _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(false);
+
+            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
+                _validator.Object);
+
+            Assert.Throws<CanNotSendEmailException>(() => userService.Register(_user));
         }
     }
 }

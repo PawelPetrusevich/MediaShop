@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Exceptions
 {
     public class IncorrectPasswordException : Exception
     {
-        public IncorrectPasswordException() : base("Incorrect password")
+        public IncorrectPasswordException() : base(Resources.IncorrectPassword)
         {
         }
 

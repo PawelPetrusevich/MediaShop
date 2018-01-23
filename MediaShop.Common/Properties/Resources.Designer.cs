@@ -77,5 +77,14 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("IncorrectPassword", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect password.
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
     }
 }

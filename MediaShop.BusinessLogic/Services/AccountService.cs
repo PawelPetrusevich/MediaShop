@@ -27,13 +27,13 @@ namespace MediaShop.BusinessLogic.Services
         private readonly IAccountRepository _storeAccounts;
         private readonly IPermissionRepository _storePermission;
         private readonly IEmailService _emailService;
-        private readonly AbstractValidator<RegisterUserDto> _validator;
+        private readonly IValidator<RegisterUserDto> _validator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public AccountService(IAccountRepository repository, IPermissionRepository repositoryPermission, IEmailService emailService, AbstractValidator<RegisterUserDto> validator)
+        public AccountService(IAccountRepository repository, IPermissionRepository repositoryPermission, IEmailService emailService, IValidator<RegisterUserDto> validator)
         {
             this._storeAccounts = repository;
             this._storePermission = repositoryPermission;
@@ -57,7 +57,12 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-            this._storeAccounts.Add(modelDbModel);
+            var account = this._storeAccounts.Add(modelDbModel);
+
+            if (account == null)
+            {
+                throw new AddAccountRepositoryException();
+            }
 
             if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
             {
