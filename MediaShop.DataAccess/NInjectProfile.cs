@@ -30,6 +30,7 @@ namespace MediaShop.DataAccess
             this.Bind<IProfileRepository>().To<ProfileRepository>();
             this.Bind<ISettingsRepository>().To<SettingsRepository>();
             this.Bind<IPermissionRepository>().To<PermissionRepository>();
+            this.Bind<IStatisticRepository>().To<StatisticRepository>();
             this.Bind<DbContext>().To<MediaContext>();
             this.Bind<INotificationRepository>().To<NotificationRepository>();
         }

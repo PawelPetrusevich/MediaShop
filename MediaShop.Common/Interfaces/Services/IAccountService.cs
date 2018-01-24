@@ -35,7 +35,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="data">Login data</param>
         /// <returns><c>Authorised user</c></returns>
-        AuthorizedUser Login(LoginDto data);
+        Account Login(LoginDto data);
 
         /// <summary>
         /// Removes the role from the user's permission list.

@@ -70,20 +70,20 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect password.
+        ///   Looks up a localized string similar to Login is empty.
         /// </summary>
-        internal static string IncorrectPassword {
+        internal static string IncorrectLogin {
             get {
-                return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+                return ResourceManager.GetString("IncorrectLogin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Incorrect password.
         /// </summary>
-        internal static string String1 {
+        internal static string IncorrectPassword {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("IncorrectPassword", resourceCulture);
             }
         }
     }

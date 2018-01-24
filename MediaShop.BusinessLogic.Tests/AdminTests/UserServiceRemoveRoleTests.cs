@@ -36,13 +36,16 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5l, Role.User)]
-        [TestCase(5l, Role.Admin)]
+        [TestCase(Role.User)]
+        [TestCase(Role.Admin)]
 
         public void TestMethodRemoveRoleIsTrue(int role)
         {
             var storage = new Mock<IAccountRepository>();
+            var storageRepositoryProfile = new Mock<IProfileRepository>();
+            var storageRepositorySettings = new Mock<ISettingsRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
+            var storageStatistic = new Mock<IStatisticRepository>();
             var storageEmailService = new Mock<IEmailService>();
             var validator = new Mock<AbstractValidator<RegisterUserDto>>();
         var permissions = new List<PermissionDbModel>
@@ -62,7 +65,10 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
             storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
-            var userService = new AccountService(storage.Object, storagePermission.Object, storageEmailService.Object,validator.Object);
+            var userService = new AccountService(storage.Object, storageRepositoryProfile.Object,
+                storageRepositorySettings.Object, storagePermission.Object, storageStatistic.Object,
+                storageEmailService.Object, validator.Object);
+
             Assert.IsTrue(userService.RemoveRole(roleUserBl));
         }
 
@@ -71,12 +77,15 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5ul, Role.User)]
+        [TestCase(Role.User)]
 
         public void TestMethodRemoveRoleIsFalse(int role)
         {
             var storage = new Mock<IAccountRepository>();
+            var mockRepositoryProfile = new Mock<IProfileRepository>();
+            var mockRepositorySettings = new Mock<ISettingsRepository>();
             var storagePermission = new Mock<IPermissionRepository>();
+            var storageStatistic = new Mock<IStatisticRepository>();
             var storageEmailService = new Mock<IEmailService>();
             var validator = new Mock<AbstractValidator<RegisterUserDto>>();
 
@@ -93,7 +102,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
             storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
-            var userService = new AccountService(storage.Object, storagePermission.Object, storageEmailService.Object,validator.Object);
+            var userService = new AccountService(storage.Object, mockRepositoryProfile.Object,
+                mockRepositorySettings.Object, storagePermission.Object, storageStatistic.Object,
+                storageEmailService.Object, validator.Object);
             Assert.IsFalse(userService.RemoveRole(roleUserBl));
         }
     }

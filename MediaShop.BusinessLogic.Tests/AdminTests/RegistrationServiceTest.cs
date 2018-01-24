@@ -14,16 +14,17 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
     using FluentValidation;
 
-    using MediaShop.BusinessLogic.Services;
-    using MediaShop.Common.Interfaces.Services;
-
-    using ProfileDbModel = MediaShop.Common.Models.User.ProfileDbModel;
+    using Services;
+    using Common.Interfaces.Services;
 
     [TestFixture]
     public class RegistrationServiceTest
     {
         private Mock<IAccountRepository> _store;
+        private Mock<IProfileRepository> _storeProfile;
+        private Mock<ISettingsRepository> _storeSettings;
         private Mock<IPermissionRepository> _storePermission;
+        private Mock<IStatisticRepository> _storeStatistic;
         private RegisterUserDto _user;
         private Mock<IEmailService> _emailService;
         private Mock<IValidator<RegisterUserDto>> _validator;
@@ -42,12 +43,18 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void Init()
         {
             var mockRepository =  new Mock<IAccountRepository>();
+            var mockRepositoryProfile = new Mock<IProfileRepository>();
+            var mockRepositorySettings = new Mock<ISettingsRepository>();
             var mockPermitionRepository = new Mock<IPermissionRepository>();
+            var mockStatisticRepository = new Mock<IStatisticRepository>();
             var mockEmailService = new Mock<IEmailService>();
             var mockValidator = new Mock<IValidator<RegisterUserDto>>();
 
             _store = mockRepository;
+            _storeProfile = mockRepositoryProfile;
+            _storeSettings = mockRepositorySettings;
             _storePermission = mockPermitionRepository;
+            _storeStatistic = mockStatisticRepository;
             _emailService = mockEmailService;
             _validator = mockValidator;
 
@@ -79,8 +86,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
 
-            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
-                this._validator.Object);         
+            var userService = new AccountService(_store.Object, _storeProfile.Object, _storeSettings.Object,
+                _storePermission.Object, _storeStatistic.Object, _emailService.Object, this._validator.Object);
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -92,8 +99,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _store.Setup(x => x.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(false);
 
-            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
-                this._validator.Object);
+            var userService = new AccountService(_store.Object, _storeProfile.Object, _storeSettings.Object,
+                _storePermission.Object, _storeStatistic.Object, _emailService.Object, this._validator.Object);
+           
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
@@ -104,10 +112,10 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
 
-            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
-                _validator.Object);
-
-            Assert.Throws<AddAccountRepositoryException>(() => userService.Register(_user));
+            var userService = new AccountService(_store.Object, _storeProfile.Object, _storeSettings.Object,
+                _storePermission.Object, _storeStatistic.Object, _emailService.Object, this._validator.Object);
+            
+            Assert.Throws<AddAccountException>(() => userService.Register(_user));
         }
 
         [Test]
@@ -117,9 +125,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(false);
 
-            var userService = new AccountService(_store.Object, _storePermission.Object, _emailService.Object,
-                _validator.Object);
-
+            var userService = new AccountService(_store.Object, _storeProfile.Object, _storeSettings.Object,
+                _storePermission.Object, _storeStatistic.Object, _emailService.Object, this._validator.Object);
+            
             Assert.Throws<CanNotSendEmailException>(() => userService.Register(_user));
         }
     }

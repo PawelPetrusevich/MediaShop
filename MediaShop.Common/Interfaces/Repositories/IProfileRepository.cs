@@ -9,7 +9,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// <summary>
     /// Interface IProfileRepository
     /// </summary>
-    /// <seealso cref="IRepository{Profile}" />
+    /// <seealso cref="IRepository{ProfileDbModel}" />
     public interface IProfileRepository : IRepository<ProfileDbModel>
     {
     }

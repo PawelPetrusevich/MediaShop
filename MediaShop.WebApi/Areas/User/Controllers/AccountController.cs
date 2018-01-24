@@ -46,6 +46,18 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CanNotSendEmailException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [HttpGet]
@@ -64,11 +76,21 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var account = _accountService.ConfirmRegistration(email, id);
-
-                //TODO redirect to login
                 return Ok(account);
             }
             catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddProfileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddSettingsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -78,7 +100,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("login")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -93,10 +115,22 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var authorizedUser = _accountService.Login(data);
-                return Ok(authorizedUser);
+                var user = _accountService.Login(data);
+                return Ok(user);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (IncorrectPasswordException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddStatisticException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -107,7 +141,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("SetBanned")]
+        [Route("setBanned")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -135,7 +169,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("RemoveBanned")]
+        [Route("removeBanned")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]

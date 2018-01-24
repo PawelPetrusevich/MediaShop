@@ -7,7 +7,7 @@ namespace MediaShop.Common.Models.User
     using System;
 
     /// <summary>
-    /// Class Profile.
+    /// Class ProfileDbModel.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
     public class ProfileDbModel : Entity

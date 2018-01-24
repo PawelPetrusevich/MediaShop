@@ -54,8 +54,7 @@ this.CreateMap<Notification, NotificationDto>().ReverseMap()
             this.CreateMap<RoleUserDto, RoleUserBl>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
-            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
-            this.CreateMap<AuthorizedUser, Account>().ReverseMap();
+            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();           
         }
     }
 }

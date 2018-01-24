@@ -79,5 +79,11 @@ namespace MediaShop.Common.Models.User
         /// </summary>
         /// <value>The permissions.</value>
         public virtual ICollection<PermissionDbModel> Permissions { get; set; } = new List<PermissionDbModel> { new PermissionDbModel() };
+
+        /// <summary>
+        /// Gets or sets the statistics.
+        /// </summary>
+        /// <value>The statistics.</value>
+        public virtual ICollection<StatisticDbModel> Statistics { get; set; } = new List<StatisticDbModel>();
     }
 }

@@ -15,7 +15,7 @@ namespace MediaShop.Common.Dto.User.Validators
             this._repository = repository;
 
             this.RuleFor(m => m.Login).Must(this.CheckExistingUser).WithMessage(model => $"User exists with login {model.Login}");
-            this.RuleFor(m => m.Password).NotEmpty().MinimumLength(5).WithMessage(Resources.IncorrectPassword);
+            this.RuleFor(m => m.Password).NotEmpty().MinimumLength(3).WithMessage(Resources.IncorrectPassword);
         }
 
         private bool CheckExistingUser(string login)
