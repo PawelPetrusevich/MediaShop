@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Exceptions
 {
     public class NotFoundUserException : Exception
     {
-        public NotFoundUserException() : base("User not found")
+        public NotFoundUserException() : base(Resources.UserNotFound)
         {
         }
 

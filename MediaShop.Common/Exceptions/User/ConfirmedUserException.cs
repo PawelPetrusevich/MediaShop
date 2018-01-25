@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Exceptions.CartExseptions
 {
     [Serializable]
     public class ConfirmedUserException : Exception
     {
-        public ConfirmedUserException() : base("User is already verified")
+        public ConfirmedUserException() : base(Resources.ConfirmedUser)
         {
         }
 

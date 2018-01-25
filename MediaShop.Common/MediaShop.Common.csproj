@@ -86,8 +86,7 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
-    <Compile Include="Dto\User\Validators\LoginUserValidator.cs" />
-    <Compile Include="Exceptions\CartExseptions\ConfirmedUserException.cs" />
+    <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
     <Compile Include="Exceptions\User\AddProfileException.cs" />
