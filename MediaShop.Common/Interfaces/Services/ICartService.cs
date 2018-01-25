@@ -98,12 +98,5 @@
         /// <returns>update objects state</returns>
         ContentCartDto SetState(
             long contentId, CartEnums.StateCartContent contentState);
-
-        /// <summary>
-        /// Method for buy product
-        /// </summary>
-        /// <param name="contentId">content`s identificator</param>
-        /// <returns>renew cart after buy content</returns>
-        Cart BuyContent(long contentId);
     }
 }

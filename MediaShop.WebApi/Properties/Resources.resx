@@ -122,7 +122,7 @@
   </data>
   <data name="EmtyData" xml:space="preserve">
     <value>Data cannot be empty</value>
-    </data>
+  </data>
   <data name="NotFoundNotification" xml:space="preserve">
     <value>Notifications for user with this id not found</value>
   </data>

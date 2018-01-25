@@ -3,7 +3,7 @@
     /// <summary>
     /// Class transaction of payment
     /// </summary>
-    public abstract class PaymentTransaction : Entity
+    public class PaymentTransaction : Entity
     {
         /// <summary>
         /// Gets or sets bank account number bayer

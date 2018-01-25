@@ -4,7 +4,6 @@ using System;
 using MediaShop.Common.Enums;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Exceptions.CartExseptions;
-using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
@@ -87,36 +86,16 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// <param name="contentId">content id</param>
         /// <returns>IHttpActionResult</returns>
         [HttpPut]
-        [Route("bay")]
+        [Route("buy")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
-        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Put(long contentId)
+        [SwaggerResponse(statusCode: HttpStatusCode.Found, description: "")]
+        [SwaggerResponse(statusCode: HttpStatusCode.NotFound, description: "", type: typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult Put([FromUri] long contentId)
         {
             try
             {
-                return this.Ok(_cartService.BuyContent(contentId));
-            }
-            catch (ArgumentException error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (NotExistProductInDataBaseExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (ExistContentInCartExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (UpdateContentInCartExseptions error)
-            {
-                return InternalServerError(error);
-            }
-            catch (InvalidTransactionException error)
-            {
-                return InternalServerError(error);
+                return this.Ok();
             }
             catch (Exception error)
             {

@@ -79,7 +79,6 @@
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
-    <Compile Include="Exceptions\PaymentExceptions\InvalidTransactionException.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -108,10 +107,7 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
-    <Compile Include="Models\PaymentModel\BayContentTransaction.cs" />
-    <Compile Include="Models\PaymentModel\RewardSellerTransaction.cs" />
     <Compile Include="Models\PaymentModel\PaymentTransaction.cs" />
-    <Compile Include="Models\PaymentModel\WriteDownPercentageStoreTransaction.cs" />
     <Compile Include="Models\User\Account.cs" />
     <Compile Include="Models\User\Constants.cs" />
     <Compile Include="Models\User\Settings.cs" />
