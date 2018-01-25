@@ -6,6 +6,7 @@ using System;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
+using MediaShop.Common.Exceptions.CartExseptions;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -88,6 +89,11 @@ namespace MediaShop.BusinessLogic.Services
                 throw new NotFoundUserException();
             }
 
+            if (user.IsConfirmed)
+            {
+                throw new ConfirmedUserException();
+            }
+
             var profile = this._storeProfile.Add(new ProfileDbModel()) ?? throw new AddProfileException();
             var settings = this._storeSettings.Add(new SettingsDbModel()) ?? throw new AddSettingsException();
 
@@ -115,9 +121,8 @@ namespace MediaShop.BusinessLogic.Services
                 throw new IncorrectPasswordException();
             }
 
-            var statistic = new StatisticDbModel() { AccountDbModel = user };
+            var statistic = new StatisticDbModel() { AccountId = user.Id };
             var result = this._storeStatistic.Add(statistic) ?? throw new AddStatisticException();          
-            user.Statistics.Add(result);
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
@@ -153,7 +158,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="role">The role to add</param>
         /// <returns><c>Permission</c> if role added
         /// <c>null</c> otherwise</returns>
-        public PermissionDomain AddRole(RoleUserBl role)
+        public Permission AddRole(RoleUserBl role)
         {
             var account = this._storeAccounts.GetByLogin(role.Login);
 
@@ -174,7 +179,7 @@ namespace MediaShop.BusinessLogic.Services
             permission.AccountDbModel = account;
             var addedPermission = _storePermission.Add(permission);
 
-            return Mapper.Map<PermissionDomain>(addedPermission);
+            return Mapper.Map<Permission>(addedPermission);
         }
 
         public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)

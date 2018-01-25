@@ -14,21 +14,21 @@ namespace MediaShop.DataAccess.Migrations
                         Id = c.Long(nullable: false, identity: true),
                         DateLogIn = c.DateTime(nullable: false),
                         DateLogOut = c.DateTime(),
+                        AccountId = c.Long(nullable: false),
                         CreatedDate = c.DateTime(nullable: false),
                         CreatorId = c.Long(nullable: false),
                         ModifiedDate = c.DateTime(),
                         ModifierId = c.Long(),
-                        AccountDbModel_Id = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AccountDbModels", t => t.AccountDbModel_Id, cascadeDelete: true)
-                .Index(t => t.AccountDbModel_Id);
+                .ForeignKey("dbo.AccountDbModels", t => t.AccountId, cascadeDelete: true)
+                .Index(t => t.AccountId);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.StatisticDbModels", "AccountDbModel_Id", "dbo.AccountDbModels");
-            DropIndex("dbo.StatisticDbModels", new[] { "AccountDbModel_Id" });
+            DropForeignKey("dbo.StatisticDbModels", "AccountId", "dbo.AccountDbModels");
+            DropIndex("dbo.StatisticDbModels", new[] { "AccountId" });
             DropTable("dbo.StatisticDbModels");
         }
     }

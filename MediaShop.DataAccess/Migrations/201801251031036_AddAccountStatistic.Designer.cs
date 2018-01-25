@@ -13,7 +13,7 @@ namespace MediaShop.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201801242225576_AddAccountStatistic"; }
+            get { return "201801251031036_AddAccountStatistic"; }
         }
         
         string IMigrationMetadata.Source

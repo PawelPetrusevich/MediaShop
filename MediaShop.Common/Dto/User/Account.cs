@@ -56,6 +56,6 @@ namespace MediaShop.Common.Dto.User
         /// Gets or sets the permissions.
         /// </summary>
         /// <value>The permissions.</value>
-        public ICollection<PermissionDomain> Permissions { get; set; } = new List<PermissionDomain> { new PermissionDomain() };
+        public ICollection<Permission> Permissions { get; set; } = new List<Permission> { new Permission() };
     }
 }

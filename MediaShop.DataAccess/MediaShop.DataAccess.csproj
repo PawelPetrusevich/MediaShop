@@ -87,9 +87,9 @@
     <Compile Include="Configurations\PermissionConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
-    <Compile Include="Migrations\201801242225576_AddAccountStatistic.cs" />
-    <Compile Include="Migrations\201801242225576_AddAccountStatistic.Designer.cs">
-      <DependentUpon>201801242225576_AddAccountStatistic.cs</DependentUpon>
+    <Compile Include="Migrations\201801251031036_AddAccountStatistic.cs" />
+    <Compile Include="Migrations\201801251031036_AddAccountStatistic.Designer.cs">
+      <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -144,8 +144,8 @@
     <EmbeddedResource Include="Migrations\201801232253137_MigrationNotification.resx">
       <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801242225576_AddAccountStatistic.resx">
-      <DependentUpon>201801242225576_AddAccountStatistic.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801251031036_AddAccountStatistic.resx">
+      <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

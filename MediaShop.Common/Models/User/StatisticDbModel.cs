@@ -18,6 +18,8 @@ namespace MediaShop.Common.Models.User
         /// </summary>
         public DateTime? DateLogOut { get; set; }
 
+        public long AccountId { get; set; }
+
         /// <summary>
         /// Gets or sets Account.
         /// </summary>

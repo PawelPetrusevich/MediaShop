@@ -76,7 +76,7 @@
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\LoginDto.cs" />
-    <Compile Include="Dto\User\PermissionDomain.cs" />
+    <Compile Include="Dto\User\Permission.cs" />
     <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\RoleUserBl.cs" />
@@ -87,6 +87,7 @@
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Dto\User\Validators\LoginUserValidator.cs" />
+    <Compile Include="Exceptions\CartExseptions\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
     <Compile Include="Exceptions\User\AddProfileException.cs" />

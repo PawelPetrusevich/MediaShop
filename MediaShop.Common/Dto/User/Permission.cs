@@ -2,7 +2,7 @@
 
 namespace MediaShop.Common.Dto.User
 {
-    public class PermissionDomain
+    public class Permission
     {
         /// <summary>
         /// Gest or sets role

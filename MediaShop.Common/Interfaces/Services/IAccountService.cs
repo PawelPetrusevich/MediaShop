@@ -51,7 +51,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="role">The role to add</param>
         /// <returns><c>Permission</c> if role added
         /// <c>null</c> otherwise</returns>
-        PermissionDomain AddRole(RoleUserBl role);
+        Permission AddRole(RoleUserBl role);
 
         Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
     }

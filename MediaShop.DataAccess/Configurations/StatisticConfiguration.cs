@@ -12,7 +12,7 @@ namespace MediaShop.DataAccess.Configurations
         public StatisticConfiguration()
         {
             HasRequired<AccountDbModel>(c => c.AccountDbModel)
-                .WithMany(x => x.Statistics);
+                .WithMany(x => x.Statistics).HasForeignKey(k => k.AccountId);
                 
             HasKey(p => p.Id);
 

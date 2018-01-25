@@ -7,6 +7,7 @@ using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
+using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Properties;
@@ -79,6 +80,10 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return Ok(account);
             }
             catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmedUserException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -228,7 +233,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("addRole")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(PermissionDomain))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Permission))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult AddRole([FromBody] RoleUserDto data)
         {
