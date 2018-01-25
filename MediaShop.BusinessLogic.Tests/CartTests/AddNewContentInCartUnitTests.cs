@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -12,10 +11,11 @@ using MediaShop.Common.Models;
 using MediaShop.Common;
 using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.BusinessLogic.Services;
+using NUnit.Framework;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {
-    [TestClass]
+    [TestFixture]
     public class AddNewContentInCartUnitTests
     {
         // Field for Mock
@@ -27,8 +27,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for MockPayment
         private Mock<IPaymentService> mockPayment;
 
-        [TestInitialize]
-        public void Initialize()
+        public AddNewContentInCartUnitTests()
         {
             Mapper.Reset();
             // Create Mapper for testing
@@ -36,7 +35,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             {
                 x.AddProfile<MapperProfile>();
             });
+        }
 
+        [SetUp]
+        public void Initialize()
+        {
             // Create Mock
             var _mock = new Mock<ICartRepository>();
             mock = _mock;
@@ -46,7 +49,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mockPayment = _mockPayment;
         }
 
-        [TestMethod]
+        [Test]
         public void Add_New_Content_In_Cart()
         {
             // Create object Product
@@ -81,8 +84,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.AreEqual((long)6, actual3.Id);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(AddContentInCartExceptions))]
+        [Test]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
             // Create object Product
@@ -109,10 +111,10 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
-            var actual3 = service.AddInCart(objContentCart.Id);
+            Assert.Throws<AddContentInCartExceptions>(() => service.AddInCart(objContentCart.Id));
         }
 
-        [TestMethod]
+        [Test]
         public void Get_Content_In_Cart_If_Exist_In_Cart()
         {
             // Create List for search by content.Id
@@ -134,7 +136,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.IsTrue(actual1);
         }
 
-        [TestMethod]
+        [Test]
         public void Get_Content_In_Cart_If_Not_Exist_In_Cart()
         {
             // Create List for search by content.Id

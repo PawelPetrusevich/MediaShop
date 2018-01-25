@@ -2,20 +2,23 @@
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using AutoMapper;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
+using MediaShop.Common.Models.CartModels;
+using MediaShop.Common.Models.PaymentModel;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Enums;
+using NUnit.Framework;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {
-    [TestClass]
+    [TestFixture]
     public class DeleteContentFromCartUnitTests
     {
         // Field for Mock
@@ -27,8 +30,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for MockPayment
         private Mock<IPaymentService> mockPayment;
 
-        [TestInitialize]
-        public void Initialize()
+        public DeleteContentFromCartUnitTests()
         {
             Mapper.Reset();
             // Create Mapper for testing
@@ -36,7 +38,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             {
                 x.AddProfile<MapperProfile>();
             });
+        }
 
+        [SetUp]
+        public void Initialize()
+        {
             // Create Mock
             var _mock = new Mock<ICartRepository>();
             mock = _mock;
@@ -46,7 +52,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mockPayment = _mockPayment;
         }
 
-        [TestMethod]
+        [Test]
         public void Set_State_Content_Is_Bought()
         {
             //// Object ContentCartDtoDto
@@ -72,7 +78,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2.StateContent);
         }
 
-        [TestMethod]
+        [Test]
         public void Set_State_Content_Is_Paid()
         {
             //// Object ContentCartDtoDto
@@ -98,7 +104,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2.StateContent);
         }
 
-        [TestMethod]
+        [Test]
         public void Delete_Content_From_Cart()
         {
             // collection for rezalt as return method 
@@ -136,7 +142,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Verify(item => item.Delete(It.IsAny<long>()), Times.Exactly(2));
         }
 
-        [TestMethod]
+        [Test]
         public void Delete_of_Cart()
         {
             var collectionItems = new Collection<ContentCartDto>()
@@ -162,16 +168,15 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void Delete_of_Cart_is_null()
         {
             Cart cart = null;
             var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
-            var result = service.DeleteOfCart(cart);
+            Assert.Throws<ArgumentNullException>(() => service.DeleteOfCart(cart));
         }
 
-        [TestMethod]
+        [Test]
         public void Delete_of_Cart_is_empty()
         {
             Cart cart = new Cart();
@@ -181,8 +186,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DeleteContentInCartExseptions))]
+        [Test]
         public void Delete_Content_From_Cart_If_Not_All_Delete()
         {
             // collection for rezalt as return method 
@@ -209,11 +213,11 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var collectionId = new Collection<long>() { 5, 6, 7 };
 
             // Delete content
-            var actual5 = service.DeleteOfCart(collectionId);
+            Assert.Throws<DeleteContentInCartExseptions>(() => service.DeleteOfCart(collectionId));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [Test]
+        // [ExpectedException(typeof(NullReferenceException))]
         public void Delete_Content_From_Cart_If_Argument_Is_Null()
         {
             // collection for rezalt as return method 
@@ -238,7 +242,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             Collection<long> collectionId = null;
 
             // Delete content
-            var actual5 = service.DeleteOfCart(collectionId);
+            Assert.Throws<NullReferenceException>(() => service.DeleteOfCart(collectionId));
         }
     }
 }
