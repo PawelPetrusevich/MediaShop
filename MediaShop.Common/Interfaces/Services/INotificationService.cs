@@ -16,6 +16,13 @@ namespace MediaShop.Common.Interfaces.Services
         NotificationDto Notify(NotificationDto notification);
 
         /// <summary>
+        /// Create notification of adding content to cart
+        /// </summary>
+        /// <param name="data">Data for notification</param>
+        /// <returns>notification</returns>
+        NotificationDto AddToCartNotify(AddToCartNotifyDto data);
+
+        /// <summary>
         /// Get user notifications
         /// </summary>
         /// <param name="userId">User id</param>

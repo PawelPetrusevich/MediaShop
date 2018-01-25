@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Notification;
 using Moq;
@@ -31,15 +33,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         public NotificationServiceTest()
         {
             Mapper.Reset();
-            Mapper.Initialize(config =>
-            {
-                config.CreateMap<Notification, NotificationDto>().ReverseMap()
-                    .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
-                    .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
-                config.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
-                    .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
-                    .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
-            });
+            Mapper.Initialize(x => { x.AddProfile<MapperProfile>(); });
         }
 
         [SetUp]
@@ -102,7 +96,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         }
 
         [Test]
-        public void SndNoTitleNotification()
+        public void SendNoTitleNotification()
         {
             _notificationSubscrubedUserMock.Setup(r => r.GetUserDeviceTokens(It.IsAny<long>())).Returns(_testTokens);
             _notificationRepoMock.Setup(r => r.Find(It.IsAny<Expression<Func<Notification, bool>>>()))
@@ -120,6 +114,27 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             Assert.IsNotNull(notificationActual);
             Assert.AreEqual(1, notificationActual.ReceiverId);
             Assert.AreEqual("test", notificationActual.Message);
+            Assert.AreEqual(BLResources.DefaultNotificationTitle, notificationActual.Title);
+        }
+
+        [Test]
+        public void SendAddToCartNotification()
+        {
+            _notificationSubscrubedUserMock.Setup(r => r.GetUserDeviceTokens(It.IsAny<long>())).Returns(_testTokens);
+            _notificationRepoMock.Setup(r => r.Find(It.IsAny<Expression<Func<Notification, bool>>>()))
+                .Returns(new List<Notification>());
+
+            _notificationRepoMock.Setup(r => r.Add(It.IsAny<Notification>()))
+                .Returns<Notification>(n => n);
+            var notificationActual = _service.AddToCartNotify(new AddToCartNotifyDto()
+            {
+                ReceiverId = 1,
+                ProductName = "test"
+            });
+
+            Assert.IsNotNull(notificationActual);
+            Assert.AreEqual(1, notificationActual.ReceiverId);
+            Assert.AreEqual(NotificationHelper.FormatAddProductToCartMessage("test"), notificationActual.Message);
             Assert.AreEqual(BLResources.DefaultNotificationTitle, notificationActual.Title);
         }
 

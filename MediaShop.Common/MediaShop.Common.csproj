@@ -73,12 +73,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\AddToCartNotifyDto.cs" />
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />

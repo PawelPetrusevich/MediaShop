@@ -3,6 +3,7 @@
 // </copyright>
 
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Helpers;
 
 namespace MediaShop.Common
 {
@@ -13,7 +14,6 @@ namespace MediaShop.Common
     using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
-
     using Profile = AutoMapper.Profile;
 
     /// <summary>
@@ -29,7 +29,7 @@ namespace MediaShop.Common
         {
             this.CreateMap<UserDto, Account>().ReverseMap();
             this.CreateMap<Product, ContentCartDto>()
-             .ForMember(item => item.CreatorId, m => m.Ignore());
+                .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
             this.CreateMap<Notification, NotificationDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
@@ -37,6 +37,11 @@ namespace MediaShop.Common
             this.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
+            this.CreateMap<AddToCartNotifyDto, NotificationDto>()
+                .ForMember(
+                    n => n.Message,
+                    obj => obj.ResolveUsing(d => NotificationHelper.FormatAddProductToCartMessage(d.ProductName)))
+                .ForMember(n => n.SenderId, obj => obj.MapFrom(s => s.ReceiverId));
         }
     }
 }

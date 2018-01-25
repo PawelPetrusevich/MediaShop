@@ -73,6 +73,42 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<NotificationDto>(notify);
         }
 
+        public NotificationDto AddToCartNotify(AddToCartNotifyDto data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(data));
+            }
+
+            if (string.IsNullOrWhiteSpace(data.ProductName))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(data.ProductName));
+            }
+
+            if (data.ReceiverId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(data.ReceiverId));
+            }
+
+            var tokens = _subscribedUserStore.GetUserDeviceTokens(data.ReceiverId);
+            if (!tokens.Any())
+            {
+                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
+            }
+
+            var notification = Mapper.Map<NotificationDto>(data);
+            notification.Title = Resources.DefaultNotificationTitle;
+
+            var notify = _notifcationStore
+                .Find(n => n.ReceiverId == data.ReceiverId && n.Message == notification.Message &&
+                           n.Title == notification.Title)
+                .FirstOrDefault();
+
+            notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
+
+            return Mapper.Map<NotificationDto>(notify);
+        }
+
         public IEnumerable<NotificationDto> GetByUserId(long userId)
         {
             var result = _notifcationStore.Find(n => n.ReceiverId == userId);

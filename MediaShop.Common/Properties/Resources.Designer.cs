@@ -59,5 +59,14 @@ namespace MediaShop.Common.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product &quot;{0}&quot; was added to cart.
+        /// </summary>
+        internal static string AddContentToCartNotificationTemplate {
+            get {
+                return ResourceManager.GetString("AddContentToCartNotificationTemplate", resourceCulture);
+            }
+        }
     }
 }
