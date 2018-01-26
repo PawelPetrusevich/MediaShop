@@ -61,29 +61,47 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This field cannot be empty..
+        ///   Looks up a localized string similar to User is already confirmed.
         /// </summary>
-        internal static string EmptyFieldMessage {
+        internal static string ConfirmedUser {
             get {
-                return ResourceManager.GetString("EmptyFieldMessage", resourceCulture);
+                return ResourceManager.GetString("ConfirmedUser", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Discription cannot be greater than 300 symbols..
+        ///   Looks up a localized string similar to UTC.
         /// </summary>
-        internal static string FailedEnteringDescription {
+        internal static string DefaultTimeZoneId {
             get {
-                return ResourceManager.GetString("FailedEnteringDescription", resourceCulture);
+                return ResourceManager.GetString("DefaultTimeZoneId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Name shold be greter than 5 and less than 50 symbols..
+        ///   Looks up a localized string similar to Login is empty.
         /// </summary>
-        internal static string FailedEnteringProducName {
+        internal static string IncorrectLogin {
             get {
-                return ResourceManager.GetString("FailedEnteringProducName", resourceCulture);
+                return ResourceManager.GetString("IncorrectLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect password.
+        /// </summary>
+        internal static string IncorrectPassword {
+            get {
+                return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found.
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

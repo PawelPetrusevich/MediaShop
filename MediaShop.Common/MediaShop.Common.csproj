@@ -75,6 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\UpdateModelDto.cs" />
+    <Compile Include="Dto\User\Account.cs" />
+    <Compile Include="Dto\User\LoginDto.cs" />
+    <Compile Include="Dto\User\Permission.cs" />
+    <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\Product\ProductSearchModel.cs" />
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
     <Compile Include="Dto\Product\ProductContentDTO.cs" />
@@ -82,17 +87,35 @@
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />
+    <Compile Include="Dto\User\RoleUserBl.cs" />
+    <Compile Include="Dto\User\RoleUserDto.cs" />
+    <Compile Include="Dto\User\SettingsDto.cs" />
+    <Compile Include="Dto\User\ProfileDto.cs" />
+    <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Exceptions\User\AddAccountException.cs" />
+    <Compile Include="Exceptions\User\AddProfileException.cs" />
+    <Compile Include="Exceptions\User\AddSettingsException.cs" />
+    <Compile Include="Exceptions\User\AddStatisticException.cs" />
+    <Compile Include="Exceptions\User\IncorrectPasswordException.cs" />
+    <Compile Include="Exceptions\User\UpdateAccountException.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
+    <Compile Include="Dto\User\Settings.cs" />
+    <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
     <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
     <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
+    <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IPermissionRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
@@ -100,9 +123,12 @@
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
     <Compile Include="Dto\Product\ProductDto.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
-    <Compile Include="Interfaces\Services\IUserService.cs" />
+    <Compile Include="Interfaces\Services\IAccountService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
+    <Compile Include="Interfaces\Services\IEmailService.cs" />
+    <Compile Include="Interfaces\Services\ISettingsService.cs" />
+    <Compile Include="Interfaces\Services\IProfileService.cs" />
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
@@ -117,14 +143,15 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
-    <Compile Include="Models\User\Account.cs" />
-    <Compile Include="Models\User\Constants.cs" />
-    <Compile Include="Models\User\Settings.cs" />
-    <Compile Include="Exceptions\ExistingLoginException.cs" />
-    <Compile Include="Models\User\Profile.cs" />
+    <Compile Include="Models\User\AccountDbModel.cs" />
+    <Compile Include="Models\User\PermissionDbModel.cs" />
+    <Compile Include="Models\User\SettingsDbModel.cs" />
+    <Compile Include="Exceptions\User\ExistingLoginException.cs" />
+    <Compile Include="Models\User\ProfileDbModel.cs" />
     <Compile Include="Enums\Languages.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
+    <Compile Include="Models\User\StatisticDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -141,6 +168,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

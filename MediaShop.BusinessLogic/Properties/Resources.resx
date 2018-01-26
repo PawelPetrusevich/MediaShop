@@ -135,27 +135,38 @@
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content is not exist in cart</value>
   </data>
+  <data name="MediaShopMailAddress" xml:space="preserve">
+    <value>noreply.mediashop@gmail.com</value>
+  </data>
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
-    </data>
+  </data>
   <data name="GetProductError" xml:space="preserve">
     <value>Error retrieving product by ID</value>
   </data>
-    <data name="NotSubscribedUserMessage" xml:space="preserve">
+  <data name="NotSubscribedUserMessage" xml:space="preserve">
     <value>User has not been subscribed to receive notification</value>
-    </data>
+  </data>
   <data name="GetWithNullId" xml:space="preserve">
     <value>An attempt to get with a null identifier</value>
   </data>
-    <data name="NullOrEmptyValue" xml:space="preserve">
+  <data name="NullOrEmptyValue" xml:space="preserve">
     <value>Value can not be null</value>
-    </data>
+  </data>
+  <data name="MediaShopMailPassword" xml:space="preserve">
+    <value>ayTYh?2-3xtUB26j</value>
+</data>
+<data>
   <data name="NullOrEmptyContent" xml:space="preserve">
     <value>Content can not be null</value>
   </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
   </data>
+  <data name="RegisterUserMailBody" xml:space="preserve">
+    <value>It's registration message from Media shop. Follow the link to continue: {0}</value>
+</data>
+<data>
   <data name="UnknowProductType" xml:space="preserve">
     <value>Product has unknow type</value>
   </data>
