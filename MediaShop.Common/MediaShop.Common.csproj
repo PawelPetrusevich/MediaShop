@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\AddToCartNotifyDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\NotificationDtoValidator.cs" />
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UserDto.cs" />

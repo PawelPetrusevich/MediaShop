@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Exceptions;
+using MediaShop.Common.Dto.Messaging;
 
 namespace MediaShop.BusinessLogic.Services
 {

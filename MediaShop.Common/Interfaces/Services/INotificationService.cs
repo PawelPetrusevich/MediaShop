@@ -1,4 +1,5 @@
 ﻿using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Messaging;
 using System.Collections.Generic;
 
 namespace MediaShop.Common.Interfaces.Services

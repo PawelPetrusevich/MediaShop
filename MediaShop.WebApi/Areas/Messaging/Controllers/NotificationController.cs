@@ -1,5 +1,6 @@
 ﻿using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Properties;

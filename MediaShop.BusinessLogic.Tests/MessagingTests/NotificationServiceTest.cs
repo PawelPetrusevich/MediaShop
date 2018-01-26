@@ -12,6 +12,7 @@ using MediaShop.Common.Models.Notification;
 using Moq;
 using NUnit.Framework;
 using BLResources = MediaShop.BusinessLogic.Properties.Resources;
+using MediaShop.Common.Dto.Messaging;
 
 namespace MediaShop.BusinessLogic.Tests.MessagingTests
 {
