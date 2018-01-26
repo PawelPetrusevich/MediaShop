@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using MediaShop.Common.Dto.Product;
 
 namespace MediaShop.Common.Interfaces.Repositories
 {

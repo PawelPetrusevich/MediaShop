@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using MediaShop.Common.Dto.Product;
 using MediaShop.DataAccess.Repositories.Base;
 
 namespace MediaShop.DataAccess.Repositories
@@ -19,27 +20,6 @@ namespace MediaShop.DataAccess.Repositories
         public ProductRepository(DbContext context)
             : base(context)
         {
-        }
-
-        public override Product Delete(long id)
-        {
-            var model = DbSet
-                .Include(entity => entity.CompressedProduct)
-                .Include(entity => entity.ProtectedProduct)
-                .Include(entity => entity.OriginalProduct)
-                .SingleOrDefault(entity => entity.Id == id);
-
-            if (model != null)
-            {
-                using (Context)
-                {
-                    DbSet.Remove(model);
-                    Context.SaveChanges();
-                    return model;
-                }
-            }
-
-            return default(Product);
         }
     }
 }

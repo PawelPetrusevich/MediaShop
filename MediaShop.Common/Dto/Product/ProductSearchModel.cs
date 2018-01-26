@@ -18,10 +18,10 @@ namespace MediaShop.Common.Dto.Product
         ///  Gets or setst = or >= or  something else
         /// </summary>
         public string Operand { get; set; }
-        
+
         /// <summary>
         /// Gets or setst value to search
         /// </summary>
-        public dynamic RightValue { get; set; } 
+        public dynamic RightValue { get; set; }
     }
 }

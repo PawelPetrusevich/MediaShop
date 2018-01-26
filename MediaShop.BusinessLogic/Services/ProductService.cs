@@ -101,7 +101,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>возрощаем список product</returns>
         public IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList)
         {
-            var operations = new List<BinaryExpression>();
+            var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(Product));
 
             foreach (var condition in conditionsList)
@@ -123,6 +123,11 @@ namespace MediaShop.BusinessLogic.Services
                 else if (condition.Operand == "<")
                 {
                     operations.Add(Expression.LessThan(parameter, constant));
+                }
+                else if (condition.Operand == "Contains")
+                {
+                    var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                    operations.Add(Expression.Call(parameter, method, constant));
                 }
             }
 
