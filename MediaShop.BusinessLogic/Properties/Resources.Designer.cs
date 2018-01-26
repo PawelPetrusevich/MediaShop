@@ -104,13 +104,22 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("ExistProductInDataBase", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid content identificator.
         /// </summary>
         internal static string InvalidContentId {
             get {
                 return ResourceManager.GetString("InvalidContentId", resourceCulture);
+            }
+        }
+
+	    /// <summary>
+        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
+        /// </summary>
+        internal static string MediaShopMailAddress {
+            get {
+                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
             }
         }
         
@@ -122,7 +131,17 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("InvalidTransactionBuyContent", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MediaShopMailPassword {
+            get {
+                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
+                    }
+        }
+
+
         /// <summary>
         ///   Looks up a localized string similar to Reward seller transaction is not successfully.
         /// </summary>
@@ -194,8 +213,16 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("StateContentError", resourceCulture);
             }
         }
-        
-        /// <summary>
+
+	/// <summary>
+        ///   Looks up a localized string similar to It&apos;s registration message from Media shop. Follow the link to continue: {0}.
+        /// </summary>
+        internal static string RegisterUserMailBody {
+            get {
+                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
+            }
+        }
+
         ///   Looks up a localized string similar to Content is not update in cart.
         /// </summary>
         internal static string UpdateContentInCart {

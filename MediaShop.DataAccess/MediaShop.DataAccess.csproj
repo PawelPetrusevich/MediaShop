@@ -84,18 +84,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
+    <Compile Include="Configurations\PermissionConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
+    <Compile Include="Migrations\201801251031036_AddAccountStatistic.cs" />
+    <Compile Include="Migrations\201801251031036_AddAccountStatistic.Designer.cs">
+      <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ContentCartConfiguration.cs" />
     <Compile Include="Configurations\NotificationConfiguration.cs" />
+    <Compile Include="Configurations\StatisticConfiguration.cs" />
     <Compile Include="Configurations\SubscribeNotificationConfiguration.cs" />
     <Compile Include="Context\MediaContext.cs" />
     <Compile Include="Migrations\201801151757061_Initial.cs" />
     <Compile Include="Migrations\201801151757061_Initial.Designer.cs">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801200002308_MigrationPermissions.cs" />
+    <Compile Include="Migrations\201801200002308_MigrationPermissions.Designer.cs">
+      <DependentUpon>201801200002308_MigrationPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801201814052_MigrationRenamedDbModels.cs" />
+    <Compile Include="Migrations\201801201814052_MigrationRenamedDbModels.Designer.cs">
+      <DependentUpon>201801201814052_MigrationRenamedDbModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201801181449163_Notification_1.cs" />
     <Compile Include="Migrations\201801181449163_Notification_1.Designer.cs">
@@ -105,6 +120,10 @@
     <Compile Include="Migrations\201801230720286_Cart_1.Designer.cs">
       <DependentUpon>201801230720286_Cart_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801232253137_MigrationNotification.cs" />
+    <Compile Include="Migrations\201801232253137_MigrationNotification.Designer.cs">
+      <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NInjectProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +132,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\PermissionRepositiry.cs" />
     <Compile Include="Repositories\Notification\NotificationSubscribedUserRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
@@ -129,12 +149,26 @@
     <EmbeddedResource Include="Migrations\201801230720286_Cart_1.resx">
       <DependentUpon>201801230720286_Cart_1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801232253137_MigrationNotification.resx">
+      <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801251031036_AddAccountStatistic.resx">
+      <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Migrations\201801151757061_Initial.resx">
       <DependentUpon>201801151757061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801200002308_MigrationPermissions.resx">
+      <DependentUpon>201801200002308_MigrationPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801201814052_MigrationRenamedDbModels.resx">
+      <DependentUpon>201801201814052_MigrationRenamedDbModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

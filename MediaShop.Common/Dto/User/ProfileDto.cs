@@ -1,23 +1,20 @@
-﻿// <copyright file="Profile.cs" company="MediaShop">
+﻿// <copyright file="UserDto.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-namespace MediaShop.Common.Models.User
+using MediaShop.Common.Models;
+using MediaShop.Common.Models.User;
+
+namespace MediaShop.Common.Dto.User
 {
     using System;
 
     /// <summary>
-    /// Class Profile.
+    /// Class ProfileDto.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
-    public class Profile : Entity
+    public class ProfileDto
     {
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        /// <value>The email.</value>
-        public string Email { get; set; }
-
         /// <summary>
         /// Gets or sets the date of birth.
         /// </summary>
@@ -43,15 +40,9 @@ namespace MediaShop.Common.Models.User
         public string Phone { get; set; }
 
         /// <summary>
-        /// Gets or sets the connected account.
+        /// Gets or sets the login.
         /// </summary>
-        /// <value>The account.</value>
-        public virtual Account AccountOf { get; set; }
-
-        /// <summary>
-        /// Gets or sets the account identifier.
-        /// </summary>
-        /// <value>The account identifier.</value>
-        public long AccountId { get; set; }
+        /// <value>The login.</value>
+        public string Login { get; set; }
     }
 }

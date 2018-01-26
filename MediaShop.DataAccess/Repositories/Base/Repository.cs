@@ -2,12 +2,12 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using AutoMapper;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 
@@ -60,7 +60,7 @@ namespace MediaShop.DataAccess.Repositories.Base
         public virtual T Get(long id)
         {
             if (id <= 0)
-            {
+        {
                 throw new ArgumentException("message!");
             }
 
@@ -101,7 +101,7 @@ namespace MediaShop.DataAccess.Repositories.Base
 
                 entity = Mapper.Map(model, entity);
                 Context.Entry(entity).State = EntityState.Modified;
-
+                
                 Context.SaveChanges();
                 return entity;
             }

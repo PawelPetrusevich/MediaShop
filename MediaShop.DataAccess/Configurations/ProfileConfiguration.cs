@@ -10,21 +10,19 @@ namespace MediaShop.DataAccess.Configurations
     /// <summary>
     /// Configuration connect accountProfile with  table account
     /// </summary>
-    public class ProfileConfiguration : EntityTypeConfiguration<Profile>
+    public class ProfileConfiguration : EntityTypeConfiguration<ProfileDbModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileConfiguration"/> class.
         /// </summary>
         public ProfileConfiguration()
         {
-            this.HasRequired(c => c.AccountOf).WithRequiredDependent(p => p.Profile);
+            //this.HasRequired(c => c.AccountId).WithRequiredDependent(p => p.Profile);
 
             this.HasKey(profile => profile.Id);
 
-            this.Property(p => p.Email).IsRequired();
             this.Property(p => p.FirstName).HasMaxLength(30);
             this.Property(p => p.LastName).HasMaxLength(30);
-            this.Property(p => p.Email).HasMaxLength(30);
             this.Property(p => p.Phone).HasMaxLength(30);
         }
     }

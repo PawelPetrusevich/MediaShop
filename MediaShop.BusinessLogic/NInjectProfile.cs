@@ -4,7 +4,11 @@
 
 namespace MediaShop.BusinessLogic
 {
+    using FluentValidation;
+
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Dto.User;
+    using MediaShop.Common.Dto.User.Validators;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
     using Ninject.Modules;
@@ -20,10 +24,14 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            this.Bind<IUserService>().To<UserService>();
-            this.Bind<INotificationService>().To<NotificationService>();
-            this.Bind<ICartService<ContentCartDto>>().To<CartService>();
-            this.Bind<IPaymentService>().To<PaymentService>();
-         }
+            Bind<IAccountService>().To<AccountService>();
+            Bind<ISettingsService>().To<SettingsService>();
+            Bind<IProfileService>().To<ProfileService>();
+            Bind<INotificationService>().To<NotificationService>();
+            Bind<IEmailService>().To<EmailService>();
+            Bind<ICartService<ContentCartDto>>().To<CartService>();
+            Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
+            Bind<IPaymentService>().To<PaymentService>();
+        }
     }
 }
