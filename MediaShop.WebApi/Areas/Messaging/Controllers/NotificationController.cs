@@ -1,7 +1,9 @@
 ﻿using MediaShop.BusinessLogic.Services;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Properties;
+using System;
 using System.Net;
 using System.Web.Http;
 
@@ -41,16 +43,14 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             {
                 return this.Ok(_notificationService.Notify(notification));
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
-                return this.InternalServerError();
+                return this.InternalServerError(ex);
+            }
+            catch (NotSubscribedUserException ex)
+            {
+                return this.InternalServerError(ex);
             }
         }        
-
-        [HttpDelete]
-        public IHttpActionResult Delete([FromBody]long id)
-        {
-            return this.Ok();
-        }
     }
 }
