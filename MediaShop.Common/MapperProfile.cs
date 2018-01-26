@@ -30,7 +30,6 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-            this.CreateMap<UserDto, Account>().ReverseMap();
             this.CreateMap<Product, ContentCartDto>()
              .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
