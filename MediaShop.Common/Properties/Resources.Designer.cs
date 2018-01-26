@@ -104,5 +104,37 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to This field cannot be empty..
+        /// </summary>
+        internal static string EmptyFieldMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("EmptyFieldMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Discription cannot be greater than 300 symbols..
+        /// </summary>
+        internal static string FailedEnteringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("FailedEnteringDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Name shold be greter than 5 and less than 50 symbols..
+        /// </summary>
+        internal static string FailedEnteringProducName
+        {
+            get
+            {
+                return ResourceManager.GetString("FailedEnteringProducName", resourceCulture);
+            }
+        }
     }
 }

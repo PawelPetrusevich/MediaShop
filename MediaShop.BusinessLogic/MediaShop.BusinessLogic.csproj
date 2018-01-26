@@ -92,7 +92,6 @@
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\NotificationSubscribedUserService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +118,7 @@
     <Content Include="Settings.StyleCop">
       <SubType>Designer</SubType>
     </Content>
-<None Include="stylecop.json" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

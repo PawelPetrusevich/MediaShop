@@ -103,7 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminTests\RegistrationServiceTest.cs" />
-    <Compile Include="AdminTests\UserServiceTest.cs" />
     <Compile Include="AdminTests\UserServiceRemoveRoleTests.cs" />
     <Compile Include="ProductTest\ProductServiceTest.cs" />
     <Compile Include="CartTests\AddNewContentInCartUnitTests.cs" />

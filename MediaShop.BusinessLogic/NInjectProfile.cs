@@ -24,7 +24,6 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            this.Bind<IUserService>().To<UserService>();            
             this.Bind<INotificationService>().To<NotificationService>();
             this.Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IAccountService>().To<AccountService>();
