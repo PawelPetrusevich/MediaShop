@@ -38,19 +38,19 @@ namespace MediaShop.DataAccess.Context
         /// Gets or sets the accounts.
         /// </summary>
         /// <value>The accounts.</value>
-        public IDbSet<Account> Accounts { get; set; }
+        public IDbSet<AccountDbModel> Accounts { get; set; }
 
         /// <summary>
         /// Gets or sets the profiles.
         /// </summary>
         /// <value>The profiles.</value>
-        public IDbSet<Profile> Profiles { get; set; }
+        public IDbSet<ProfileDbModel> Profiles { get; set; }
 
         /// <summary>
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public IDbSet<Settings> Settings { get; set; }
+        public IDbSet<SettingsDbModel> Settings { get; set; }
 
         /// <summary>
         /// Method configuration tables
@@ -64,8 +64,10 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
             modelBuilder.Configurations.Add(new SettingsConfiguration());
+            modelBuilder.Configurations.Add(new PermissionConfiguration());
+            modelBuilder.Configurations.Add(new StatisticConfiguration());
             modelBuilder.Configurations.Add(new NotificationConfiguration());
-            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
+            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());            
         }
     }
 }

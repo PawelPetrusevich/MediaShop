@@ -106,6 +106,24 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
+        /// </summary>
+        internal static string MediaShopMailAddress {
+            get {
+                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MediaShopMailPassword {
+            get {
+                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User has not been subscribed to receive notification.
         /// </summary>
         internal static string NotSubscribedUserMessage {
@@ -129,6 +147,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string NullOrEmptyValueString {
             get {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s registration message from Media shop. Follow the link to continue: {0}.
+        /// </summary>
+        internal static string RegisterUserMailBody {
+            get {
+                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
             }
         }
         

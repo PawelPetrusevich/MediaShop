@@ -13,8 +13,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
+    using FluentValidation;
+
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Dto.User;
     using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.User;
 
     using Moq;
@@ -32,21 +36,40 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5l, Role.User)]
-        [TestCase(5l, Role.Admin)]
+        [TestCase(Role.User)]
+        [TestCase(Role.Admin)]
 
-        public void TestMethodRemoveRoleIsTrue(long n, Role role)
+        public void TestMethodRemoveRoleIsTrue(int role)
         {
             var storage = new Mock<IAccountRepository>();
+            var storageRepositoryProfile = new Mock<IProfileRepository>();
+            var storageRepositorySettings = new Mock<ISettingsRepository>();
+            var storagePermission = new Mock<IPermissionRepository>();
+            var storageStatistic = new Mock<IStatisticRepository>();
+            var storageEmailService = new Mock<IEmailService>();
+            var validator = new Mock<AbstractValidator<RegisterUserDto>>();
+        var permissions = new List<PermissionDbModel>
+                                  {
+                                      new PermissionDbModel() { Role = Role.Admin },
+                                      new PermissionDbModel() { Role = Role.User }
+                                  };
+            var profile = new ProfileDbModel { Id = 1 };
+            var user = new AccountDbModel
+                           {
+                               Id = 1,
+                               Login = "User",
+                               Password = "123",
+                               Profile = profile,
+                           };
+            var roleUserBl = new RoleUserBl { Login = "User", Role = role };
+            storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            var listRoles = new SortedSet<Role> { Role.Admin, Role.User };
-            var profile = new Profile { Id = n };
-            var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
+            var userService = new AccountService(storage.Object, storageRepositoryProfile.Object,
+                storageRepositorySettings.Object, storagePermission.Object, storageStatistic.Object,
+                storageEmailService.Object, validator.Object);
 
-            var list = new List<Account> { user };
-            storage.Setup(s => s.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(list);
-            var userService = new UserService(storage.Object);
-            Assert.IsTrue(userService.RemoveRole(n, role));
+            Assert.IsTrue(userService.RemoveRole(roleUserBl));
         }
 
         /// <summary>
@@ -54,20 +77,35 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         /// </summary>
         /// <param name="n">The n.</param>
         /// <param name="role">The role.</param>
-        [TestCase(5l, Role.User)]
+        [TestCase(Role.User)]
 
-        public void TestMethodRemoveRoleIsFalse(long n, Role role)
+        public void TestMethodRemoveRoleIsFalse(int role)
         {
             var storage = new Mock<IAccountRepository>();
+            var mockRepositoryProfile = new Mock<IProfileRepository>();
+            var mockRepositorySettings = new Mock<ISettingsRepository>();
+            var storagePermission = new Mock<IPermissionRepository>();
+            var storageStatistic = new Mock<IStatisticRepository>();
+            var storageEmailService = new Mock<IEmailService>();
+            var validator = new Mock<AbstractValidator<RegisterUserDto>>();
 
-            var listRoles = new SortedSet<Role> { Role.Admin };
-            var profile = new Profile { Id = n };
-            var user = new Account { Login = "User", Password = "123", Profile = profile, Permissions = listRoles };
+            var permissions = new List<PermissionDbModel>{new PermissionDbModel() { Role = Role.Admin }};
+            var profile = new ProfileDbModel { Id = 1 };
+            var user = new AccountDbModel
+                           {
+                               Id = 1,
+                               Login = "User",
+                               Password = "123",
+                               Profile = profile,
+                           };
+            var roleUserBl = new RoleUserBl { Login = "User", Role = role };
+            storage.Setup(s => s.GetByLogin(It.IsAny<string>())).Returns(user);
 
-            var list = new List<Account> { user };
-            storage.Setup(s => s.Find(It.IsAny<Expression<Func<Account, bool>>>())).Returns(list);
-            var userService = new UserService(storage.Object);
-            Assert.IsFalse(userService.RemoveRole(n, role));
+            storagePermission.Setup(s => s.GetByAccount(It.IsAny<AccountDbModel>())).Returns(permissions);
+            var userService = new AccountService(storage.Object, mockRepositoryProfile.Object,
+                mockRepositorySettings.Object, storagePermission.Object, storageStatistic.Object,
+                storageEmailService.Object, validator.Object);
+            Assert.IsFalse(userService.RemoveRole(roleUserBl));
         }
     }
 }

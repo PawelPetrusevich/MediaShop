@@ -21,7 +21,7 @@ namespace MediaShop.Common.Models
         /// Gets or sets the created date.
         /// </summary>
         /// <value>The created date.</value>
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Gets or sets the creator identifier.

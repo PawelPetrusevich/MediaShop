@@ -59,5 +59,50 @@ namespace MediaShop.Common.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is already confirmed.
+        /// </summary>
+        internal static string ConfirmedUser {
+            get {
+                return ResourceManager.GetString("ConfirmedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UTC.
+        /// </summary>
+        internal static string DefaultTimeZoneId {
+            get {
+                return ResourceManager.GetString("DefaultTimeZoneId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login is empty.
+        /// </summary>
+        internal static string IncorrectLogin {
+            get {
+                return ResourceManager.GetString("IncorrectLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect password.
+        /// </summary>
+        internal static string IncorrectPassword {
+            get {
+                return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found.
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
     }
 }
