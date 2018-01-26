@@ -75,7 +75,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\LoginDto.cs" />
     <Compile Include="Dto\User\Permission.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
-    <Compile Include="Dto\User\UserDto.cs" />
     <Compile Include="Dto\User\RoleUserBl.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />

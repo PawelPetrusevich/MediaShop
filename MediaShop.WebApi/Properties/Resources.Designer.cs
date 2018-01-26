@@ -52,14 +52,13 @@ namespace MediaShop.WebApi.Properties
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
-                return resourceCulture;
-            }
-            set {
-                resourceCulture = value;
-            }
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState
+            .Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get { return resourceCulture; }
+            set { resourceCulture = value; }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to An attempt to delete with a null identifier.
@@ -72,18 +71,18 @@ namespace MediaShop.WebApi.Properties
         /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty..
         /// </summary>
-        internal static string EmptyRegisterDate {
-            get {
-                return ResourceManager.GetString("EmptyRegisterDate", resourceCulture);
-            }
+        internal static string EmptyRegisterDate
+        {
+            get { return ResourceManager.GetString("EmptyRegisterDate", resourceCulture); }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to Data cannot be empty.
         /// </summary>
-        internal static string EmtyData {
-            get {
-                return ResourceManager.GetString("EmtyData", resourceCulture);
-            }
+        internal static string EmtyData
+        {
+            get { return ResourceManager.GetString("EmtyData", resourceCulture); }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to An attempt to get with a null identifier.

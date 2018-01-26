@@ -142,7 +142,25 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User has not been subscribed to receive notification.
+        ///   Ищет локализованную строку, похожую на noreply.mediashop@gmail.com.
+        /// </summary>
+        internal static string MediaShopMailAddress {
+            get {
+                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MediaShopMailPassword {
+            get {
+                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на User has not been subscribed to receive notification.
         /// </summary>
         internal static string NotSubscribedUserMessage {
             get {
@@ -178,7 +196,25 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content is not update in cart.
+        ///   Ищет локализованную строку, похожую на It&apos;s registration message from Media shop. Follow the link to continue: {0}.
+        /// </summary>
+        internal static string RegisterUserMailBody {
+            get {
+                return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Product has unknow type.
+        /// </summary>
+        internal static string UnknowProductType {
+            get {
+                return ResourceManager.GetString("UnknowProductType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Content is not update in cart.
         /// </summary>
         internal static string UpdateContentInCart {
             get {
@@ -211,40 +247,6 @@ namespace MediaShop.BusinessLogic.Properties {
             get {
                 object obj = ResourceManager.GetObject("WaterMark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        ///   Ищет локализованную строку, похожую на Product has unknow type.
-        /// </summary>
-        internal static string UnknowProductType {
-            get {
-                return ResourceManager.GetString("UnknowProductType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
-        /// </summary>
-        internal static string LessThanOrEqualToZeroValue {
-            get {
-                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
-        /// </summary>
-        internal static string MediaShopMailAddress {
-            get {
-                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
-        /// </summary>
-        internal static string MediaShopMailPassword {
-            get {
-                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
             }
         }
     }

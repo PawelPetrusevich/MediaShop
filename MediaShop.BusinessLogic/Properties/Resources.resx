@@ -156,7 +156,6 @@
   <data name="MediaShopMailPassword" xml:space="preserve">
     <value>ayTYh?2-3xtUB26j</value>
 </data>
-<data>
   <data name="NullOrEmptyContent" xml:space="preserve">
     <value>Content can not be null</value>
   </data>
@@ -166,7 +165,6 @@
   <data name="RegisterUserMailBody" xml:space="preserve">
     <value>It's registration message from Media shop. Follow the link to continue: {0}</value>
 </data>
-<data>
   <data name="UnknowProductType" xml:space="preserve">
     <value>Product has unknow type</value>
   </data>

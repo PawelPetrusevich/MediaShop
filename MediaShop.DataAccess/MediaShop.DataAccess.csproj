@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
+    <Compile Include="Configurations\PermissionConfiguration.cs" />
+    <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
     <Compile Include="Migrations\201801251031036_AddAccountStatistic.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Migrations\201801232050280_Product_Migration_2.cs" />
     <Compile Include="Migrations\201801232050280_Product_Migration_2.Designer.cs">
       <DependentUpon>201801232050280_Product_Migration_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201801232253137_MigrationNotification.cs" />
     <Compile Include="Migrations\201801232253137_MigrationNotification.Designer.cs">
       <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
@@ -139,7 +142,6 @@
     <Compile Include="Repositories\Notification\NotificationRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801181449163_Notification_1.resx">
@@ -147,7 +149,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801232050280_Product_Migration_2.resx">
       <DependentUpon>201801232050280_Product_Migration_2.cs</DependentUpon>
-</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801232253137_MigrationNotification.resx">
       <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
     </EmbeddedResource>

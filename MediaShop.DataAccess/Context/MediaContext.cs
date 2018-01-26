@@ -1,8 +1,4 @@
-﻿using System.Data.Entity;
-using MediaShop.Common.Models.Notification;
-using MediaShop.DataAccess.Configurations;
-
-using MediaShop.Common.Models;
+﻿using MediaShop.Common.Models.Notification;
 using MediaShop.Common.Models.Content;
 using MediaShop.DataAccess.Migrations;
 
@@ -13,7 +9,6 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.Common.Models;
 
     using MediaShop.Common.Models.User;
-    using MediaShop.DataAccess.Configurations;
 
     /// <summary>
     /// Class MediaContext.
@@ -79,7 +74,7 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new NotificationConfiguration());
             modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
-            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());            
+            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
         }
     }
 }
