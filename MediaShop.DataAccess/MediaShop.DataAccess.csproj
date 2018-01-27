@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201801251031036_AddAccountStatistic.Designer.cs">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801270817526_Cart_1.cs" />
+    <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,10 +119,6 @@
     <Compile Include="Migrations\201801181449163_Notification_1.cs" />
     <Compile Include="Migrations\201801181449163_Notification_1.Designer.cs">
       <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801230720286_Cart_1.cs" />
-    <Compile Include="Migrations\201801230720286_Cart_1.Designer.cs">
-      <DependentUpon>201801230720286_Cart_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201801232253137_MigrationNotification.cs" />
     <Compile Include="Migrations\201801232253137_MigrationNotification.Designer.cs">
@@ -146,14 +146,14 @@
     <EmbeddedResource Include="Migrations\201801181449163_Notification_1.resx">
       <DependentUpon>201801181449163_Notification_1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801230720286_Cart_1.resx">
-      <DependentUpon>201801230720286_Cart_1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801232253137_MigrationNotification.resx">
       <DependentUpon>201801232253137_MigrationNotification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801251031036_AddAccountStatistic.resx">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
