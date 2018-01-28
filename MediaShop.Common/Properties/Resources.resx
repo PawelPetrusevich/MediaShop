@@ -120,4 +120,19 @@
   <data name="AddContentToCartNotificationTemplate" xml:space="preserve">
     <value>Product "{0}" was added to cart</value>
   </data>
+  <data name="ConfirmedUser" xml:space="preserve">
+    <value>User is already confirmed</value>
+  </data>
+  <data name="DefaultTimeZoneId" xml:space="preserve">
+    <value>UTC</value>
+  </data>
+  <data name="IncorrectLogin" xml:space="preserve">
+    <value>Login is empty</value>
+  </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Incorrect password</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
 </root>

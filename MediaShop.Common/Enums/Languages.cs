@@ -8,16 +8,16 @@
         /// <summary>
         /// English
         /// </summary>
-        Eng = 0,
+        Eng = 1,
 
         /// <summary>
         /// Russian
         /// </summary>
-        Rus = 1,
+        Rus = 2,
 
         /// <summary>
         /// Belorussian
         /// </summary>
-        Bel = 2
+        Bel = 3
     }
 }

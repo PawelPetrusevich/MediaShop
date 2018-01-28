@@ -10,7 +10,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// Interface ISettingsRepository
     /// </summary>
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRepository{Settings}" />
-    public interface ISettingsRepository : IRepository<Settings>
+    public interface ISettingsRepository : IRepository<SettingsDbModel>
     {
     }
 }

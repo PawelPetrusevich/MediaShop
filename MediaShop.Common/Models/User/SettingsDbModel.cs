@@ -3,18 +3,19 @@
 // </copyright>
 
 using System;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Models.User
 {
     /// <summary>
     /// Class describes personal user settings
     /// </summary>
-    public class Settings : Entity
+    public class SettingsDbModel : Entity
     {
         /// <summary>
         /// Identifier timezone of user, default value +0
         /// </summary>
-        public string TimeZoneId { get; set; } = Constants.DefaultTimeZoneId;
+        public string TimeZoneId { get; set; } = Resources.DefaultTimeZoneId;
 
         /// <summary>
         /// Languae of userinterface
@@ -25,15 +26,5 @@ namespace MediaShop.Common.Models.User
         /// Turn on/off notification
         /// </summary>
         public bool NotificationStatus { get; set; } = true;
-
-        /// <summary>
-        /// reference to account table
-        /// </summary>
-        public virtual Account AccountOf { get; set; }
-
-        /// <summary>
-        /// id from table Account
-        /// </summary>
-        public long AccountId { get; set; }
     }
 }

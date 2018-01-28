@@ -7,6 +7,7 @@ using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
+using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Properties;
@@ -17,24 +18,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IAccountService accountService)
         {
-            _userService = userService;
-        }
-
-        [HttpGet]
-        public IHttpActionResult Get()
-        {
-            return this.Ok(new List<Account>());
-        }
-
-        [HttpGet]
-        [Route("GetById")]
-        public IHttpActionResult GetById(long id)
-        {
-            return this.Ok(new Account());
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -52,11 +40,20 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_userService.Register(Mapper.Map<UserDto>(data)));
+                var result = _accountService.Register(data);
+                return Ok(result);
             }
             catch (ExistingLoginException ex)
             {
-                return BadRequest(string.Empty);
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CanNotSendEmailException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -64,23 +61,200 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
         }
 
-        [HttpPatch]
-        [Route("patch")]
-        public IHttpActionResult SmallUpdate([FromBody]UpdateModelDto model)
+        [HttpGet]
+        [Route("confirm/{email}/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult Confirm(string email, long id)
         {
-            return Ok();
+            if (string.IsNullOrEmpty(email) || id == 0)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var account = _accountService.ConfirmRegistration(email, id);
+                return Ok(account);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmedUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddProfileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddSettingsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        [HttpPut]
-        public IHttpActionResult Put([FromBody]Account account)
+        [HttpPost]
+        [Route("login")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult Login([FromBody] LoginDto data)
         {
-            return this.Ok(new Account());
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var user = _accountService.Login(data);
+                return Ok(user);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (IncorrectPasswordException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddStatisticException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        [HttpDelete]
-        public IHttpActionResult Delete([FromBody]long id)
+        [HttpPost]
+        [Route("setBanned")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult SetFlagIsBanned([FromBody] RegisterUserDto data)
         {
-            return this.Ok();
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                var account = Mapper.Map<Account>(data);
+                return Ok(_accountService.SetRemoveFlagIsBanned(account, true));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("removeBanned")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RemoveFlagIsBanned([FromBody]RegisterUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                var account = Mapper.Map<Account>(data);
+                return Ok(_accountService.SetRemoveFlagIsBanned(account, false));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("removeRole")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RemoveRole([FromBody] RoleUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                var roleUserBl = Mapper.Map<RoleUserBl>(data);
+                return Ok(_accountService.RemoveRole(roleUserBl));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("addRole")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Permission))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult AddRole([FromBody] RoleUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var roleDomain = Mapper.Map<RoleUserBl>(data);
+                return Ok(_accountService.AddRole(roleDomain));
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MediaShop.DataAccess.Repositories
     /// </summary>
     /// <seealso cref="Repository{T}" />
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IProfileRepository" />
-    public class ProfileRepository : Repository<Profile>, IProfileRepository
+    public class ProfileRepository : Repository<ProfileDbModel>, IProfileRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileRepository"/> class.
