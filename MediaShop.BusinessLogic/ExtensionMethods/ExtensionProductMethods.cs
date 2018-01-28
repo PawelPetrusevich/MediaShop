@@ -41,7 +41,9 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             var watermarkBitmap = Resources.WaterMark;
             using (Graphics gr = Graphics.FromImage(originalImageBitmap))
             {
-                float opacity = (float)0.5;
+                float opacity = 0;
+                float.TryParse(Resources.WatermarkOpacity, out opacity);
+
                 ImageAttributes attr = new ImageAttributes();
                 ColorMatrix matrix = new ColorMatrix(new float[][]
                 {
@@ -83,10 +85,11 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 originalImageBitmap = (Bitmap)Image.FromStream(ms);
             }
 
-            int maxWidth = 300;
-            int maxHeight = 300;
-            int newWidth;
-            int newHeight;
+            int maxWidth = 0, maxHeight = 0;
+            int.TryParse(Resources.MaxWidthCompressedImage, out maxWidth);
+            int.TryParse(Resources.MaxHeightCompressedImage, out maxHeight);
+
+            int newWidth, newHeight;
 
             if (originalImageBitmap.Width < maxWidth && originalImageBitmap.Height < maxHeight)
             {
@@ -169,7 +172,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
 
             if (data == null)
             {
-                throw new FileNotFoundException(data + " not found");
+                throw new FileNotFoundException(Resources.ErrorGettingMime);
             }
 
             const int MAX_CONTENT = 256;

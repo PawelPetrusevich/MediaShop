@@ -134,14 +134,6 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
             var result = ExtensionProductMethods.GetProtectedImage(sourceImageByte);
 
-            var currentPath = String.Format(@"{0}ImageWithWatermark.jpg", Path.GetTempPath());
-            using (Stream file = File.OpenWrite(currentPath))
-            {
-                if (!ReferenceEquals(result, null))
-                {
-                    file.Write(result, 0, result.Length);
-                }
-            }
             Assert.IsNotNull(result);
         }
 
@@ -152,15 +144,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
 
             var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
-            var sb = new StringBuilder();
-            var currentPath = String.Format(@"{0}ResizedImage.jpg", Path.GetTempPath());
-            using (Stream file = File.OpenWrite(currentPath))
-            {
-                if (!ReferenceEquals(result, null))
-                {
-                    file.Write(result, 0, result.Length);
-                }
-            }
+            
             Assert.IsNotNull(result);
         }
     }

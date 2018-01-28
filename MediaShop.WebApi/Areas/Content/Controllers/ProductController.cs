@@ -30,7 +30,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
         public IHttpActionResult AddProduct([FromBody] UploadProductModel data)
         {
-            if (data == null)
+            if (data == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.ContentUploadError);
             }
@@ -61,9 +61,14 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
         public IHttpActionResult FindProducts([FromBody] List<ProductSearchModel> conditionsList)
         {
+            if (conditionsList == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyConditionList);
+            }
+
             if (conditionsList.Count <= 0)
             {
-                return BadRequest("Пустой список условий");
+                return BadRequest(Resources.EmptyConditionList);
             }
 
             try

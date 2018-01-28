@@ -131,7 +131,7 @@
   </data>
   <data name="EmtyData" xml:space="preserve">
     <value>Data cannot be empty</value>
-    </data>
+  </data>
   <data name="NotFoundNotification" xml:space="preserve">
     <value>Notifications for user with this id not found</value>
   </data>
@@ -143,5 +143,8 @@
   </data>
   <data name="UnknowProductType" xml:space="preserve">
     <value>Product has unknow type</value>
+  </data>
+  <data name="EmptyConditionList" xml:space="preserve">
+    <value>Empty condition list</value>
   </data>
 </root>

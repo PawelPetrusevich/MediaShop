@@ -111,23 +111,23 @@ namespace MediaShop.BusinessLogic.Services
                 var propType = typeof(Product).GetProperty(condition.LeftValue).PropertyType;
                 var castValue = Convert.ChangeType(condition.RightValue, propType);
                 ConstantExpression constant = Expression.Constant(castValue);
-
-                if (condition.Operand == "=")
+                switch (condition.Operand)
                 {
-                    operations.Add(Expression.Equal(parameter, constant));
-                }
-                else if (condition.Operand == ">")
-                {
-                    operations.Add(Expression.GreaterThan(parameter, constant));
-                }
-                else if (condition.Operand == "<")
-                {
-                    operations.Add(Expression.LessThan(parameter, constant));
-                }
-                else if (condition.Operand == "Contains")
-                {
+                    case "=":
+                        operations.Add(Expression.Equal(parameter, constant));
+                        break;
+                    case ">":
+                        operations.Add(Expression.GreaterThan(parameter, constant));
+                        break;
+                    case "<":
+                        operations.Add(Expression.LessThan(parameter, constant));
+                        break;
+                    case "Contains":
+                        {
                     var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
                     operations.Add(Expression.Call(parameter, method, constant));
+                            break;
+                        }
                 }
             }
 
