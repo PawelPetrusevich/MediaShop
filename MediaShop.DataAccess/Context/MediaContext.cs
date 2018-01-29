@@ -74,7 +74,9 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new NotificationConfiguration());
             modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
-            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
+            modelBuilder.Configurations.Add(new ProtectedProductConfiguration());
+            modelBuilder.Configurations.Add(new CompressedProductConfiguration());
+            modelBuilder.Configurations.Add(new OriginalProductConfiguration());
         }
     }
 }

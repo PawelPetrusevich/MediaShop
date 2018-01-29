@@ -23,9 +23,9 @@ namespace MediaShop.DataAccess.Context
         public ProductConfiguration()
         {
             this.HasKey(k => k.Id);
-            this.HasRequired(s => s.OriginalProduct).WithRequiredPrincipal(x => x.Product);
-            this.HasRequired(s => s.CompressedProduct).WithRequiredPrincipal(x => x.Product);
-            this.HasRequired(s => s.ProtectedProduct).WithRequiredPrincipal(x => x.Product);
+            this.HasRequired(s => s.OriginalProduct).WithRequiredDependent(x => x.Product);
+            this.HasRequired(s => s.CompressedProduct).WithRequiredDependent(x => x.Product);
+            this.HasRequired(s => s.ProtectedProduct).WithRequiredDependent(x => x.Product);
         }
     }
 }

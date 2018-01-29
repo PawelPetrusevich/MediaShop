@@ -5,12 +5,12 @@ namespace MediaShop.Common.Models.Content
     /// <summary>
     /// Защищенная копия контента
     /// </summary>
-    public class ProtectedProduct : Entity
+    public class ProtectedProduct
     {
         public byte[] Content { get; set; }
 
         public Product Product { get; set; }
 
-        public long ProductId { get; set; }
+        public long ProtectedProductId { get; set; }
     }
 }

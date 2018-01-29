@@ -193,4 +193,48 @@
   <data name="WatermarkOpacity" xml:space="preserve">
     <value>0.5</value>
   </data>
+  <data name="MAX_CONTENT" xml:space="preserve">
+    <value>256</value>
+    <comment>размер заголовка файла</comment>
+  </data>
+  <data name="imageType" xml:space="preserve">
+    <value>"image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png",
+                "image/x-png",
+                "image/svg + xml",
+                "image/tiff",
+                "image/vnd.microsoft.icon",
+                "image/vnd.wap.wbmp",
+                "image/webp"</value>
+    <comment>mime type for image</comment>
+  </data>
+  <data name="musicType" xml:space="preserve">
+    <value>"audio/basic",
+                "audio/L24",
+                "audio/mp4",
+                "audio/aac",
+                "audio/mpeg",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/x - ms - wma",
+                "audio/x - ms - wax",
+                "audio/vnd.rn - realaudio",
+                "audio/vnd.wave",
+                "audio/webm"</value>
+    <comment>mime type for music</comment>
+  </data>
+  <data name="videoType" xml:space="preserve">
+    <value>"video/mpeg",
+                "video/mp4",
+                "video/ogg",
+                "video/quicktime",
+                "video/webm",
+                "video/x - ms - wmv",
+                "video/x - flv",
+                "video/3gpp",
+                "video/3gpp2"</value>
+    <comment>mime type for video</comment>
+  </data>
 </root>

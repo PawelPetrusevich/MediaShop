@@ -5,12 +5,12 @@ namespace MediaShop.Common.Models.Content
     /// <summary>
     /// Загруженный файл контента в оригинальном размере
     /// </summary>
-    public class OriginalProduct : Entity
+    public class OriginalProduct
     {
         public byte[] Content { get; set; }
 
         public Product Product { get; set; }
 
-        public long ProductId { get; set; }
+        public long OriginalProductId { get; set; }
     }
 }

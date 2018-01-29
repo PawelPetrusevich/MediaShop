@@ -127,61 +127,16 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         /// <returns>Product Type</returns>
         public static ProductType GetMimeFromFile(this byte[] data)
         {
-            var imageType = new string[]
-            {
-                "image/gif",
-                "image/jpeg",
-                "image/pjpeg",
-                "image/png",
-                "image/x-png",
-                "image/svg + xml",
-                "image/tiff",
-                "image/vnd.microsoft.icon",
-                "image/vnd.wap.wbmp",
-                "image/webp"
-            };
-
-            var musicType = new string[]
-            {
-                "audio/basic",
-                "audio/L24",
-                "audio/mp4",
-                "audio/aac",
-                "audio/mpeg",
-                "audio/ogg",
-                "audio/vorbis",
-                "audio/x - ms - wma",
-                "audio/x - ms - wax",
-                "audio/vnd.rn - realaudio",
-                "audio/vnd.wave",
-                "audio/webm"
-            };
-
-            var videoType = new string[]
-            {
-                "video/mpeg",
-                "video/mp4",
-                "video/ogg",
-                "video/quicktime",
-                "video/webm",
-                "video/x - ms - wmv",
-                "video/x - flv",
-                "video/3gpp",
-                "video/3gpp2"
-            };
-
             if (data == null)
             {
                 throw new FileNotFoundException(Resources.ErrorGettingMime);
             }
 
-            const int MAX_CONTENT = 256;
-
-            var buffer = new byte[MAX_CONTENT];
+            var buffer = new byte[int.Parse(Resources.MAX_CONTENT)];
             MemoryStream ms = new MemoryStream(data, 0, data.Length);
-            if (ms.Length >= MAX_CONTENT)
+            if (ms.Length >= int.Parse(Resources.MAX_CONTENT))
             {
-                ms.Read(buffer, 0, MAX_CONTENT);
+                ms.Read(buffer, 0, int.Parse(Resources.MAX_CONTENT));
             }
             else
             {
@@ -191,7 +146,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             var mimeTypePtr = IntPtr.Zero;
             try
             {
-                var result = FindMimeFromData(IntPtr.Zero, null, buffer, MAX_CONTENT, null, 0, out mimeTypePtr, 0);
+                var result = FindMimeFromData(IntPtr.Zero, null, buffer, int.Parse(Resources.MAX_CONTENT), null, 0, out mimeTypePtr, 0);
                 if (result != 0)
                 {
                     Marshal.FreeCoTaskMem(mimeTypePtr);
@@ -201,17 +156,17 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 var mime = Marshal.PtrToStringUni(mimeTypePtr);
                 Marshal.FreeCoTaskMem(mimeTypePtr);
 
-                if (imageType.Contains(mime))
+                if (Resources.imageType.Contains(mime))
                 {
                     return ProductType.Image;
                 }
 
-                if (videoType.Contains(mime))
+                if (Resources.videoType.Contains(mime))
                 {
                     return ProductType.Video;
                 }
 
-                if (musicType.Contains(mime))
+                if (Resources.musicType.Contains(mime))
                 {
                     return ProductType.Music;
                 }

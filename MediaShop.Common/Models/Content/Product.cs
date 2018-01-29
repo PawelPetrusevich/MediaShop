@@ -47,28 +47,13 @@ namespace MediaShop.Common.Models.Content
         public OriginalProduct OriginalProduct { get; set; }
 
         /// <summary>
-        /// Gets or sets file id of original product
-        /// </summary>
-        public long OriginalProductId { get; set; }
-
-        /// <summary>
         /// Gets or sets file of protected product
         /// </summary>
         public ProtectedProduct ProtectedProduct { get; set; }
 
         /// <summary>
-        /// Gets or sets file id of protected product
-        /// </summary>
-        public long ProtectedProductId { get; set; }
-
-        /// <summary>
         /// Gets or sets file of compressed product 
         /// </summary>
         public CompressedProduct CompressedProduct { get; set; }
-
-        /// <summary>
-        /// Gets or sets file id of compressed product 
-        /// </summary>
-        public long CompressedProductId { get; set; }
     }
 }
