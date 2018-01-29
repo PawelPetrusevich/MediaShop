@@ -9,60 +9,14 @@
     /// Interface describing the methods of
     /// interaction with the repository when working with the ShoppingCart
     /// </summary>
-    /// <typeparam name="TModel">Type content in Cart</typeparam>
-    public interface ICartRepository<TModel>
-        where TModel : ContentCartDto
+    public interface ICartRepository : IRepository<ContentCart>
     {
-        /// <summary>
-        /// Method for getting object type ContentCart
-        /// by identificator
-        /// </summary>
-        /// <param name="id">identificator</param>
-        /// <returns>rezalt operation</returns>
-        TModel Get(long id);
-
         /// <summary>
         /// Method for getting collection objects type ContentCartDto
         /// by user identificator
         /// </summary>
         /// <param name="userId">identificator user</param>
         /// <returns>rezalt operation</returns>
-        IEnumerable<TModel> GetAll(long userId);
-
-        /// <summary>
-        /// Method for add object type ContentCart
-        /// </summary>
-        /// <param name="model">updating object</param>
-        /// <returns>rezalt operation</returns>
-        TModel Add(TModel model);
-
-        /// <summary>
-        /// Method for update object type ContentCart
-        /// </summary>
-        /// <param name="model">updating object</param>
-        /// <returns>rezalt operation</returns>
-        TModel Update(TModel model);
-
-        /// <summary>
-        /// Method for delete object type ContentCart
-        /// </summary>
-        /// <param name="id">contents identificator</param>
-        /// <returns>rezalt operation</returns>
-        TModel Delete(TModel id);
-
-        /// <summary>
-        /// Method for delete object type ContentCart
-        /// </summary>
-        /// <param name="id">contents identificator</param>
-        /// <returns>rezalt operation</returns>
-        TModel Delete(long id);
-
-        /// <summary>
-        /// Method for find collection of object type ContentCart
-        /// by predicate
-        /// </summary>
-        /// <param name="filter">predicate</param>
-        /// <returns>collection objects</returns>
-        IEnumerable<TModel> Find(Expression<Func<TModel, bool>> filter);
+        IEnumerable<ContentCart> GetAll(long userId);
     }
 }

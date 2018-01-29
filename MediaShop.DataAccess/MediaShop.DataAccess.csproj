@@ -85,11 +85,16 @@
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
     <Compile Include="Configurations\PermissionConfiguration.cs" />
+    <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
     <Compile Include="Migrations\201801251031036_AddAccountStatistic.cs" />
     <Compile Include="Migrations\201801251031036_AddAccountStatistic.Designer.cs">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801270817526_Cart_1.cs" />
+    <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -146,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801251031036_AddAccountStatistic.resx">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

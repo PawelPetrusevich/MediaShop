@@ -88,11 +88,75 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content is not exist in cart.
+        ///   Looks up a localized string similar to Content already exist in cart.
         /// </summary>
         internal static string ExistContentInCart {
             get {
                 return ResourceManager.GetString("ExistContentInCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product is not exist.
+        /// </summary>
+        internal static string ExistProductInDataBase {
+            get {
+                return ResourceManager.GetString("ExistProductInDataBase", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid content identificator.
+        /// </summary>
+        internal static string InvalidContentId {
+            get {
+                return ResourceManager.GetString("InvalidContentId", resourceCulture);
+            }
+        }
+
+	    /// <summary>
+        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
+        /// </summary>
+        internal static string MediaShopMailAddress {
+            get {
+                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purchase transaction is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionBuyContent {
+            get {
+                return ResourceManager.GetString("InvalidTransactionBuyContent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
+        /// </summary>
+        internal static string MediaShopMailPassword {
+            get {
+                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
+                    }
+        }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reward seller transaction is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionRewardSeller {
+            get {
+                return ResourceManager.GetString("InvalidTransactionRewardSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write down persentage for store is not successfully.
+        /// </summary>
+        internal static string InvalidTransactionWriteDownPersentageStore {
+            get {
+                return ResourceManager.GetString("InvalidTransactionWriteDownPersentageStore", resourceCulture);
             }
         }
         
@@ -106,20 +170,11 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to noreply.mediashop@gmail.com.
+        ///   Looks up a localized string similar to Content is not exist in Cart.
         /// </summary>
-        internal static string MediaShopMailAddress {
+        internal static string NotExistContentInCart {
             get {
-                return ResourceManager.GetString("MediaShopMailAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ayTYh?2-3xtUB26j.
-        /// </summary>
-        internal static string MediaShopMailPassword {
-            get {
-                return ResourceManager.GetString("MediaShopMailPassword", resourceCulture);
+                return ResourceManager.GetString("NotExistContentInCart", resourceCulture);
             }
         }
         
@@ -151,6 +206,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Satate of Content is not valid.
+        /// </summary>
+        internal static string StateContentError {
+            get {
+                return ResourceManager.GetString("StateContentError", resourceCulture);
+            }
+        }
+
+	/// <summary>
         ///   Looks up a localized string similar to It&apos;s registration message from Media shop. Follow the link to continue: {0}.
         /// </summary>
         internal static string RegisterUserMailBody {
@@ -158,8 +222,7 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("RegisterUserMailBody", resourceCulture);
             }
         }
-        
-        /// <summary>
+
         ///   Looks up a localized string similar to Content is not update in cart.
         /// </summary>
         internal static string UpdateContentInCart {

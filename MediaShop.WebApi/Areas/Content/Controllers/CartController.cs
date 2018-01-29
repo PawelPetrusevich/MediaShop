@@ -20,8 +20,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             this._cartService = cartService;
         }
 
+        /// <summary>
+        /// Get Cart for User
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>Cart</returns>
         [HttpGet]
-        [Route("GetCart")]
+        [Route("getcart")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(string))]
@@ -36,19 +41,28 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             return this.Ok(cart);
         }
 
+        /// <summary>
+        /// Method for add content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>IHttpActionResult</returns>
         [HttpPost]
-        [Route("addContent")]
+        [Route("add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Post(long contentId, string categoryName)
+        public IHttpActionResult Post(long contentId)
         {
             try
             {
-                return this.Ok(_cartService.AddInCart(contentId, categoryName));
+                return this.Ok(_cartService.AddInCart(contentId));
             }
-            catch (FormatException error)
+            catch (ArgumentException error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (NotExistProductInDataBaseExceptions error)
             {
                 return BadRequest(error.Message);
             }
@@ -60,31 +74,42 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return InternalServerError(error);
             }
-        }
-
-        [HttpPut]
-        [Route("changeStateContent")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
-        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Put(long contentId, CartEnums.StateCartContent contentState)
-        {
-            try
-            {
-                return this.Ok(_cartService.SetState(contentId, contentState));
-            }
-            catch (ExistContentInCartExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (UpdateContentInCartExseptions error)
+            catch (Exception error)
             {
                 return InternalServerError(error);
             }
         }
 
+        /// <summary>
+        /// Method for buy content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>IHttpActionResult</returns>
+        [HttpPut]
+        [Route("buy")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(statusCode: HttpStatusCode.Found, description: "")]
+        [SwaggerResponse(statusCode: HttpStatusCode.NotFound, description: "", type: typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult Put([FromUri] long contentId)
+        {
+            try
+            {
+                return this.Ok();
+            }
+            catch (Exception error)
+            {
+                return InternalServerError(error);
+            }
+        }
+
+        /// <summary>
+        /// Delete content from Cart
+        /// </summary>
+        /// <param name="data">Content for delete</param>
+        /// <returns></returns>
         [HttpDelete]
+        [Route("deletecontent")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
@@ -99,6 +124,39 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             try
             {
                 var result = _cartService.DeleteContent(data);
+                return this.Ok(result);
+            }
+            catch (DeleteContentInCartExseptions ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Delete all content from Cart
+        /// </summary>
+        /// <param name="data">Cart</param>
+        /// <returns>Cart</returns>
+        [HttpDelete]
+        [Route("clearcart")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public IHttpActionResult Delete([FromBody] Cart data)
+        {
+            if (data == null)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var result = _cartService.DeleteOfCart(data);
                 return this.Ok(result);
             }
             catch (DeleteContentInCartExseptions ex)

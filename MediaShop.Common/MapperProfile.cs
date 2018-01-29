@@ -29,9 +29,14 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-               this.CreateMap<Product, ContentCartDto>()
+            this.CreateMap<Product, ContentCartDto>()
+                .ForMember(item => item.Id, y => y.Ignore())
+                .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
                 .ForMember(item => item.CreatorId, m => m.Ignore());
-            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
+            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap()
+                .ForMember(item => item.ContentName, x => x.MapFrom(y => y.Product.ContentName))
+                .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.PriceItem))
+                .ForMember(item => item.DescriptionItem, x => x.MapFrom(y => y.Product.DescriptionItem));
 
             this.CreateMap<Dto.User.Profile, ProfileDbModel>()
                 .ForMember(item => item.Id, m => m.Ignore())
@@ -39,7 +44,7 @@ namespace MediaShop.Common
                 .ForMember(item => item.CreatorId, m => m.Ignore())
                 .ReverseMap().ForMember(item => item.Login, m => m.Ignore());
 
-this.CreateMap<Notification, NotificationDto>().ReverseMap()
+            this.CreateMap<Notification, NotificationDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
             this.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
@@ -54,7 +59,7 @@ this.CreateMap<Notification, NotificationDto>().ReverseMap()
             this.CreateMap<RoleUserDto, RoleUserBl>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
-            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();           
+            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
         }
     }
 }

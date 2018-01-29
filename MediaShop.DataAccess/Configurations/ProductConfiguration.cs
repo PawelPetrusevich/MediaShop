@@ -2,19 +2,30 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
-    using MediaShop.Common.Models;
+    using MediaShop.Common.Models.CartModels;
 
-    public class ContentCartConfiguration : EntityTypeConfiguration<ContentCart>
+    /// <summary>
+    ///     Configuration tables Product
+    /// </summary>
+    public class ProductConfiguration : EntityTypeConfiguration<Product>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCartConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="ProductConfiguration" /> class.
         /// </summary>
-        public ContentCartConfiguration()
+        public ProductConfiguration()
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
                 .IsRequired();
-            this.Property(x => x.StateContent)
+            this.Property(x => x.ContentName)
+                .IsRequired()
+                .IsVariableLength()
+                .IsUnicode(true);
+            this.Property(x => x.DescriptionItem)
+                .IsOptional()
+                .IsVariableLength()
+                .IsUnicode(true);
+            this.Property(x => x.PriceItem)
                 .IsRequired();
             this.Property(x => x.CreatorId)
                 .IsRequired();
@@ -24,9 +35,6 @@
                 .IsOptional();
             this.Property(x => x.ModifiedDate)
                 .IsOptional();
-            this.HasRequired(x => x.Product)
-                .WithMany()
-                .HasForeignKey(x => x.ProductId);
         }
     }
 }
