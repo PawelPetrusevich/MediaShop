@@ -121,6 +121,19 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         }
 
         /// <summary>
+        /// creat a protected product
+        /// </summary>
+        /// <param name="originalMusicByte">original music byte array</param>
+        /// <returns>protected music byte array</returns>
+        public static byte[] GetProtectedMusic(this byte[] originalMusicByte)
+        {
+            var targetLength = originalMusicByte.Length / 10;
+            var protectedMusicByte = new byte[targetLength];
+            Array.Copy(originalMusicByte, protectedMusicByte, targetLength);
+            return protectedMusicByte;
+        }
+
+        /// <summary>
         /// Determine the type of file and this MIME
         /// </summary>
         /// <param name="data">upload file in byte[]</param>

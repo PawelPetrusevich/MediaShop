@@ -39,15 +39,15 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return Ok(_productService.UploadProducts(data));
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return BadRequest(Resources.ContentUploadError);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return BadRequest(Resources.UnknowProductType);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 return InternalServerError();
             }
@@ -75,20 +75,14 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return Ok(_productService.Find(conditionsList));
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return BadRequest(Resources.GetWithNullId);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 return InternalServerError();
             }
-        }
-
-        [HttpPut]
-        public IHttpActionResult Put()
-        {
-            return this.Ok();
         }
 
         [HttpDelete]
@@ -108,11 +102,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return Ok(_productService.DeleteProduct(id));
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return BadRequest(Resources.DeleteWithNullId);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 return InternalServerError();
             }

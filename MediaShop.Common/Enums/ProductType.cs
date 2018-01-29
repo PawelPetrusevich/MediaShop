@@ -1,5 +1,8 @@
 ﻿namespace MediaShop.Common.Enums
 {
+    /// <summary>
+    /// Типы загружаемых продуктов
+    /// </summary>
     public enum ProductType
     {
         Image = 1,

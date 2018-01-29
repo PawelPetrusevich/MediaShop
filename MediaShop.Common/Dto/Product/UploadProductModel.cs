@@ -11,6 +11,9 @@ using MediaShop.Common.Enums;
 
 namespace MediaShop.Common.Dto.Product
 {
+    /// <summary>
+    /// Модель для   загрузки модели
+    /// </summary>
     [Validator(typeof(UploadModelValidator))]
     public class UploadProductModel
     {

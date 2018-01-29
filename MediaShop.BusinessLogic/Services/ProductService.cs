@@ -67,6 +67,11 @@ namespace MediaShop.BusinessLogic.Services
                         data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
                         break;
+                    case ProductType.Music:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = null;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
+                        break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);
                 }

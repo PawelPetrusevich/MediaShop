@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace MediaShop.Common.Dto.Product
 {
+    /// <summary>
+    /// модель для передачи операндов и операций для дерева выражений
+    /// </summary>
     public class ProductSearchModel
     {
         /// <summary>
-        ///  Gets or setst Properties of product model 
+        ///  Gets or setst Properties of product model
         /// </summary>
         public string LeftValue { get; set; }
 
