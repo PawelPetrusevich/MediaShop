@@ -24,8 +24,6 @@ namespace MediaShop.BusinessLogic
         /// </summary>
         public override void Load()
         {
-            this.Bind<INotificationService>().To<NotificationService>();
-            this.Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IAccountService>().To<AccountService>();
             Bind<ISettingsService>().To<SettingsService>();
             Bind<IProfileService>().To<ProfileService>();
@@ -33,7 +31,7 @@ namespace MediaShop.BusinessLogic
             Bind<IEmailService>().To<EmailService>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
-            Bind<IProductService>().To<ProductService>();
-         }
+            Bind<IPaymentService>().To<PaymentService>();
+        }
     }
 }

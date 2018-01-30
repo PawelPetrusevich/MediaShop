@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201801290930545_Product_Migration_2.Designer.cs">
       <DependentUpon>201801290930545_Product_Migration_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801270817526_Cart_1.cs" />
+    <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +148,6 @@
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\Notification\NotificationRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801181449163_Notification_1.resx">
@@ -158,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801290930545_Product_Migration_2.resx">
       <DependentUpon>201801290930545_Product_Migration_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
+      <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,23 +1,23 @@
 namespace MediaShop.DataAccess.Migrations
 {
     using System;
-    using System.Data.Entity;
+    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Linq.Expressions;
+    using MediaShop.Common.Models;
+    using MediaShop.DataAccess.Context;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MediaShop.DataAccess.Context.MediaContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MediaContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MediaShop.DataAccess.Context.MediaContext context)
+        protected override void Seed(MediaContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            // initializing database at first time
         }
     }
 }

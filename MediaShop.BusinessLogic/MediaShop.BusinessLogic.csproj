@@ -92,6 +92,8 @@
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\NotificationSubscribedUserService.cs" />
+    <Compile Include="Services\PaymentService.cs" />
+
     <Compile Include="Services\CartService.cs" />
   </ItemGroup>
   <ItemGroup>
