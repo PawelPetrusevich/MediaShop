@@ -1,4 +1,4 @@
-﻿// <copyright file="Role.cs" company="MediaShop">
+﻿// <copyright file="Permission.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -7,33 +7,27 @@ namespace MediaShop.Common.Models.User
     using System;
 
     /// <summary>
-    /// User role
+    /// Permissions value
     /// </summary>
     [Flags]
-    public enum Role : byte
+    public enum Permission : int
     {
         /// <summary>
-        /// simple role
+        /// View
         /// has mask 0001
         /// </summary>
-        User = 1,
+        See = 1,
 
         /// <summary>
-        /// Customer role
+        /// Create(add)
         /// has mask 0010
         /// </summary>
-        Customer = 2,
+        Create = 2,
 
         /// <summary>
-        /// Seller role
+        /// Delete
         /// has mask 0100
         /// </summary>
-        Seller = 4,
-
-        /// <summary>
-        /// Administrator role
-        /// has mask 1000
-        /// </summary>
-        Admin = 8
+        Delete = 4
     }
 }

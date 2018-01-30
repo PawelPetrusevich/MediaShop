@@ -95,9 +95,9 @@
     <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801301645280_DeleteModelPermissions.cs" />
-    <Compile Include="Migrations\201801301645280_DeleteModelPermissions.Designer.cs">
-      <DependentUpon>201801301645280_DeleteModelPermissions.cs</DependentUpon>
+    <Compile Include="Migrations\201801302051217_DeletePermissionObj.cs" />
+    <Compile Include="Migrations\201801302051217_DeletePermissionObj.Designer.cs">
+      <DependentUpon>201801302051217_DeletePermissionObj.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -157,8 +157,8 @@
     <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801301645280_DeleteModelPermissions.resx">
-      <DependentUpon>201801301645280_DeleteModelPermissions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801302051217_DeletePermissionObj.resx">
+      <DependentUpon>201801302051217_DeletePermissionObj.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

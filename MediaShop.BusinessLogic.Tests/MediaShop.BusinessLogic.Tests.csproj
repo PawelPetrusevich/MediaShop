@@ -101,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminTests\RegistrationServiceTest.cs" />
-    <Compile Include="AdminTests\UserServiceRemoveRoleTests.cs" />
     <Compile Include="CartTests\AddNewContentInCartUnitTests.cs" />
     <Compile Include="CartTests\DeleteContentFromCartUnitTests.cs" />
     <Compile Include="CartTests\GetCatrUnitTests.cs" />

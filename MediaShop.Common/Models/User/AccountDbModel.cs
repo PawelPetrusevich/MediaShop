@@ -33,6 +33,12 @@ namespace MediaShop.Common.Models.User
         public string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>The permissions.</value>
+        public int Permissions { get; set; } = (int)Permission.See;
+
+        /// <summary>
         /// Get or sets flag Confirmed
         /// </summary>
         /// <value>true - user is confirmed by email</value>
@@ -72,13 +78,7 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public virtual SettingsDbModel Settings { get; set; } 
-
-        /// <summary>
-        /// Gets or sets the permissions.
-        /// </summary>
-        /// <value>The permissions.</value>
-        public byte Permissions { get; set; }
+        public virtual SettingsDbModel Settings { get; set; }
 
         /// <summary>
         /// Gets or sets the statistics.

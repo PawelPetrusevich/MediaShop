@@ -50,7 +50,7 @@ namespace MediaShop.Common.Dto.User
         /// Gets or sets the settings.
         /// </summary>
         /// <value>The settings.</value>
-        public SettingsDomain Settings { get; set; } = new SettingsDomain();
+        public Settings Settings { get; set; } = new Settings();
 
         /// <summary>
         /// Gets or sets the permissions.

@@ -2,6 +2,9 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Dto.User;
+using MediaShop.Common.Interfaces.Services;
+
 namespace MediaShop.DataAccess
 {
     using System.Data.Entity;
@@ -32,6 +35,7 @@ namespace MediaShop.DataAccess
             this.Bind<IStatisticRepository>().To<StatisticRepository>();
             this.Bind<DbContext>().To<MediaContext>();
             this.Bind<INotificationRepository>().To<NotificationRepository>();
+            this.Bind<IAccountFactoryRepository>().To<AccountFactoryRepository>();
         }
     }
 }

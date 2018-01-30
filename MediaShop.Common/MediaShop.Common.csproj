@@ -75,10 +75,11 @@
   <ItemGroup>
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
+    <Compile Include="Dto\User\AccountFactoryRepository.cs" />
     <Compile Include="Dto\User\LoginDto.cs" />
     <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
-    <Compile Include="Dto\User\RoleUserBl.cs" />
+    <Compile Include="Dto\User\PermissionDto.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
@@ -135,7 +137,7 @@
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />
     <Compile Include="Models\User\ProfileDbModel.cs" />
     <Compile Include="Enums\Languages.cs" />
-    <Compile Include="Enums\Role.cs" />
+    <Compile Include="Enums\Permission.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Models\User\StatisticDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
