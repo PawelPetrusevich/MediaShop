@@ -32,6 +32,7 @@ namespace MediaShop.BusinessLogic
             Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
             Bind<IPaymentService>().To<PaymentService>();
+            Bind<IProductService>().To<ProductService>();
         }
     }
 }

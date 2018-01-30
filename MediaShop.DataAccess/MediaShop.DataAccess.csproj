@@ -95,13 +95,13 @@
     <Compile Include="Migrations\201801251031036_AddAccountStatistic.Designer.cs">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801290930545_Product_Migration_2.cs" />
-    <Compile Include="Migrations\201801290930545_Product_Migration_2.Designer.cs">
-      <DependentUpon>201801290930545_Product_Migration_2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201801270817526_Cart_1.cs" />
     <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801301332450_MigrationProducts.cs" />
+    <Compile Include="Migrations\201801301332450_MigrationProducts.Designer.cs">
+      <DependentUpon>201801301332450_MigrationProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -159,11 +159,11 @@
     <EmbeddedResource Include="Migrations\201801251031036_AddAccountStatistic.resx">
       <DependentUpon>201801251031036_AddAccountStatistic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801290930545_Product_Migration_2.resx">
-      <DependentUpon>201801290930545_Product_Migration_2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301332450_MigrationProducts.resx">
+      <DependentUpon>201801301332450_MigrationProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
