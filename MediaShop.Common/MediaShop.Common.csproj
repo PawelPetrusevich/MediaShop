@@ -76,7 +76,6 @@
     <Compile Include="Dto\UpdateModelDto.cs" />
     <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\LoginDto.cs" />
-    <Compile Include="Dto\User\Permission.cs" />
     <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\RoleUserBl.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
-    <Compile Include="Interfaces\Repositories\IPermissionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
@@ -114,7 +112,6 @@
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
-
     <Compile Include="Interfaces\Services\IAccountService.cs" />
     <Compile Include="Interfaces\Services\IPaymentService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
@@ -134,7 +131,6 @@
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
     <Compile Include="Models\PaymentModel\PaymentTransaction.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
-    <Compile Include="Models\User\PermissionDbModel.cs" />
     <Compile Include="Models\User\SettingsDbModel.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />
     <Compile Include="Models\User\ProfileDbModel.cs" />

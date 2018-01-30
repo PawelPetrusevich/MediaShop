@@ -28,7 +28,6 @@ namespace MediaShop.BusinessLogic.Services
         private readonly IAccountRepository _storeAccounts;
         private readonly IProfileRepository _storeProfile;
         private readonly ISettingsRepository _storeSettings;
-        private readonly IPermissionRepository _storePermission;
         private readonly IStatisticRepository _storeStatistic;
         private readonly IEmailService _emailService;
         private readonly IValidator<RegisterUserDto> _validator;
@@ -38,10 +37,9 @@ namespace MediaShop.BusinessLogic.Services
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public AccountService(IAccountRepository repository, IProfileRepository repositoryProfile, ISettingsRepository repositorySettings, IPermissionRepository repositoryPermission, IStatisticRepository repositoryStatistic, IEmailService emailService, IValidator<RegisterUserDto> validator)
+        public AccountService(IAccountRepository repository, IProfileRepository repositoryProfile, ISettingsRepository repositorySettings, IStatisticRepository repositoryStatistic, IEmailService emailService, IValidator<RegisterUserDto> validator)
         {
             this._storeAccounts = repository;
-            this._storePermission = repositoryPermission;
             this._storeProfile = repositoryProfile;
             this._storeSettings = repositorySettings;
             this._storeStatistic = repositoryStatistic;
@@ -136,7 +134,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public bool RemoveRole(RoleUserBl roleUserBl)
         {
-            var existingAccount = this._storeAccounts.GetByLogin(roleUserBl.Login);
+            /*var existingAccount = this._storeAccounts.GetByLogin(roleUserBl.Login);
             if (existingAccount == null)
             {
                 throw new NotFoundUserException();
@@ -148,7 +146,7 @@ namespace MediaShop.BusinessLogic.Services
             {
                 this._storePermission.Delete(existingRole);
                 return true;
-            }
+            }*/
 
             return false;
         }
@@ -159,15 +157,15 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="role">The role to add</param>
         /// <returns><c>Permission</c> if role added
         /// <c>null</c> otherwise</returns>
-        public Permission AddRole(RoleUserBl role)
-        {
+        public bool AddRole(RoleUserBl role)
+        {   /*
             var account = this._storeAccounts.GetByLogin(role.Login);
 
             if (account == null)
             {
                 throw new NotFoundUserException();
             }
-
+            
             var existingPermission = account.Permissions.SingleOrDefault(x => (int)x.Role == role.Role);
 
             // User allready has this Role
@@ -179,8 +177,9 @@ namespace MediaShop.BusinessLogic.Services
             var permission = Mapper.Map<PermissionDbModel>(role);
             permission.AccountDbModel = account;
             var addedPermission = _storePermission.Add(permission);
-
             return Mapper.Map<Permission>(addedPermission);
+            */
+            return true;
         }
 
         public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)

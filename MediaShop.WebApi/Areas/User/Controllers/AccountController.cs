@@ -233,7 +233,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [Route("addRole")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Permission))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult AddRole([FromBody] RoleUserDto data)
         {

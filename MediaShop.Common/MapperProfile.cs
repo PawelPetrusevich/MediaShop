@@ -54,7 +54,6 @@ namespace MediaShop.Common
             this.CreateMap<Account, AccountDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<SettingsDbModel, SettingsDomain>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
-            this.CreateMap<PermissionDbModel, Permission>().ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, RoleUserBl>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();

@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
-    <Compile Include="Configurations\PermissionConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
     <Compile Include="Configurations\ProfileConfiguration.cs" />
@@ -95,6 +94,10 @@
     <Compile Include="Migrations\201801270817526_Cart_1.cs" />
     <Compile Include="Migrations\201801270817526_Cart_1.Designer.cs">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801301645280_DeleteModelPermissions.cs" />
+    <Compile Include="Migrations\201801301645280_DeleteModelPermissions.Designer.cs">
+      <DependentUpon>201801301645280_DeleteModelPermissions.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -132,7 +135,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\PermissionRepositiry.cs" />
     <Compile Include="Repositories\Notification\NotificationSubscribedUserRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
@@ -154,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801270817526_Cart_1.resx">
       <DependentUpon>201801270817526_Cart_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301645280_DeleteModelPermissions.resx">
+      <DependentUpon>201801301645280_DeleteModelPermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

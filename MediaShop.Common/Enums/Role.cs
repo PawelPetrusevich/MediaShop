@@ -4,19 +4,36 @@
 
 namespace MediaShop.Common.Models.User
 {
+    using System;
+
     /// <summary>
     /// User role
     /// </summary>
-    public enum Role
+    [Flags]
+    public enum Role : byte
     {
         /// <summary>
-        /// administrator role
+        /// simple role
+        /// has mask 0001
         /// </summary>
-        Admin,
+        User = 1,
 
         /// <summary>
-        /// simple role
+        /// Customer role
+        /// has mask 0010
         /// </summary>
-        User
+        Customer = 2,
+
+        /// <summary>
+        /// Seller role
+        /// has mask 0100
+        /// </summary>
+        Seller = 4,
+
+        /// <summary>
+        /// Administrator role
+        /// has mask 1000
+        /// </summary>
+        Admin = 8
     }
 }
