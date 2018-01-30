@@ -34,6 +34,7 @@ namespace MediaShop.BusinessLogic.Services
         private readonly IValidator<RegisterUserDto> _validator;
 
         /// <summary>
+        /// account service
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
