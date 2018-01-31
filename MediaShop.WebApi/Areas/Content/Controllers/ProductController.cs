@@ -47,7 +47,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.UnknowProductType);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
