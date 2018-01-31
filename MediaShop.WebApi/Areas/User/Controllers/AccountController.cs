@@ -69,7 +69,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Confirm(string email, long id)
         {
-            if (string.IsNullOrWhiteSpace(email) || id == 0)
+            if (string.IsNullOrWhiteSpace(email) || id < 1)
             {
                 return BadRequest(Resources.EmtyData);
             }

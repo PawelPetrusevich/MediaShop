@@ -174,4 +174,7 @@
   <data name="InvalidTransactionWriteDownPersentageStore" xml:space="preserve">
     <value>Write down persentage for store is not successfully</value>
   </data>
+  <data name="InvalidIdValue" xml:space="preserve">
+    <value>Incorrect id value</value>
+  </data>
 </root>

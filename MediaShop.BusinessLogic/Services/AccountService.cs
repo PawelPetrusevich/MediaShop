@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
@@ -75,9 +76,19 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>account</c> if succeeded</returns>
         public Account ConfirmRegistration(string email, long id)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            if (id < 1)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
             var user = this._factoryRepository.Accounts.Get(id);
 
-            if (user == null || user.Email != email)
+            if (user == null || !user.Email.Equals(email))
             {
                 throw new NotFoundUserException();
             }
@@ -137,6 +148,11 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>account</returns>
         public Account SetPermission(PermissionDto permission)
         {
+            if (permission == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
             var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
             user.Permissions |= (int)permission.Permission;
 
@@ -152,6 +168,11 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>account</returns>
         public Account RemovePermission(PermissionDto permission)
         {
+            if (permission == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
             var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
             user.Permissions &= ~(int)permission.Permission;
 
