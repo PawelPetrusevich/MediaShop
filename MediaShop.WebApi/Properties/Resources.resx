@@ -147,4 +147,8 @@
   <data name="EmptyConditionList" xml:space="preserve">
     <value>Empty condition list</value>
   </data>
+  <data name="ContentDownloadError" xml:space="preserve">
+    <value>Product not found</value>
+    <comment>продукт не найден</comment>
+  </data>
 </root>

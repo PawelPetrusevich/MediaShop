@@ -79,7 +79,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Add(data);
 
-            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<ProductDto>(result);
         }
 
         /// <summary>
@@ -96,11 +96,11 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Delete(id);
 
-            return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
         }
 
         /// <summary>
-        /// поиск согласно уловию - еще не написан
+        /// поиск согласно уловию 
         /// </summary>
         /// <param name="conditionsList">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
@@ -129,8 +129,8 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case "Contains":
                         {
-                    var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-                    operations.Add(Expression.Call(parameter, method, constant));
+                            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                            operations.Add(Expression.Call(parameter, method, constant));
                             break;
                         }
                 }
@@ -144,7 +144,7 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
-        /// метод удаления продукта
+        /// Получение информации по ID
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
@@ -157,7 +157,26 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Get(id);
 
-            return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<Product, ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductDto>(result);
+        }
+
+        /// <summary>
+        /// Download service
+        /// </summary>
+        /// <param name="id">Product id</param>
+        /// <returns>return Download product dto</returns>
+        public DownloadProductDto DownloadProduct(long id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidOperationException(Resources.GetWithNullId);
+            }
+
+            var result = this._repository.Get(id);
+
+            return result is null
+                ? throw new InvalidOperationException(Resources.GetProductError)
+                : Mapper.Map<DownloadProductDto>(result);
         }
     }
 }

@@ -111,5 +111,32 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
+
+        [HttpPost]
+        [Route("download")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(DownloadProductDto))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        public IHttpActionResult DownloadProduct([FromBody] long id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(Resources.GetWithNullId);
+            }
+
+            try
+            {
+                return Ok(_productService.DownloadProduct(id));
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentDownloadError);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
     }
 }

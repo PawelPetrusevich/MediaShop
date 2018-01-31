@@ -45,5 +45,12 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
         IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
+
+        /// <summary>
+        /// download service
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>return DTO whith product name and original product byte array</returns>
+        DownloadProductDto DownloadProduct(long id);
     }
 }
