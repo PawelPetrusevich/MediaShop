@@ -36,7 +36,7 @@ namespace MediaShop.Common.Models.User
         /// Gets or sets the permissions.
         /// </summary>
         /// <value>The permissions.</value>
-        public int Permissions { get; set; } = (int)Permission.See;
+        public int Permissions { get; set; } = (int)User.Permissions.See;
 
         /// <summary>
         /// Get or sets flag Confirmed

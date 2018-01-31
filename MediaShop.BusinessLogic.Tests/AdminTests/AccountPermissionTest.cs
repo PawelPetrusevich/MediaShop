@@ -45,12 +45,12 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _permissionCreate = new PermissionDto()
             {
                 Id = 1,
-                Permission = Permission.Create
+                Permissions = Permissions.Create
             };
             _permissionDelete = new PermissionDto()
             {
                 Id = 1,
-                Permission = Permission.Delete
+                Permissions = Permissions.Delete
             };
 
         }
@@ -100,7 +100,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var permissionCreate = new PermissionDto()
             {
                 Id = 1,
-                Permission = Permission.Create
+                Permissions = Permissions.Create
             };
             _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
 

@@ -6,6 +6,6 @@ namespace MediaShop.Common.Dto.User
     {
         public long Id { get; set; }
 
-        public Permission Permission { get; set; }
+        public Permissions Permissions { get; set; }
     }
 }

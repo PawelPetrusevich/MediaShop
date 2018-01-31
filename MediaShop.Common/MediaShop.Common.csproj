@@ -137,7 +137,7 @@
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />
     <Compile Include="Models\User\ProfileDbModel.cs" />
     <Compile Include="Enums\Languages.cs" />
-    <Compile Include="Enums\Permission.cs" />
+    <Compile Include="Enums\Permissions.cs" />
     <Compile Include="Models\CartModels\ContentCart.cs" />
     <Compile Include="Models\User\StatisticDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

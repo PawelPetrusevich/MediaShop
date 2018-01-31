@@ -1,4 +1,4 @@
-﻿// <copyright file="Permission.cs" company="MediaShop">
+﻿// <copyright file="Permissions.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ namespace MediaShop.Common.Models.User
     /// Permissions value
     /// </summary>
     [Flags]
-    public enum Permission : int
+    public enum Permissions : int
     {
         /// <summary>
         /// View
