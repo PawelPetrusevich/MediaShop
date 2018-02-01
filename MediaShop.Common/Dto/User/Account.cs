@@ -56,6 +56,6 @@ namespace MediaShop.Common.Dto.User
         /// Gets or sets the permissions.
         /// </summary>
         /// <value>The permissions.</value>
-        public byte Permissions { get; set; }
+        public int Permissions { get; set; }
     }
 }

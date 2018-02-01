@@ -17,8 +17,6 @@ namespace MediaShop.DataAccess.Configurations
         /// </summary>
         public ProfileConfiguration()
         {
-            //this.HasRequired(c => c.AccountId).WithRequiredDependent(p => p.Profiles);
-
             this.HasKey(profile => profile.Id);
 
             this.Property(p => p.FirstName).HasMaxLength(30);
