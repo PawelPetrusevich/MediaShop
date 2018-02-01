@@ -63,8 +63,10 @@
       <HintPath>..\packages\FluentValidation.7.3.4\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,12 +75,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\UpdateModelDto.cs" />
+    <Compile Include="Dto\Product\DownloadProductDto.cs" />
+    <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\Account.cs" />
     <Compile Include="Dto\User\AccountFactoryRepository.cs" />
     <Compile Include="Dto\User\LoginDto.cs" />
     <Compile Include="Dto\User\Profile.cs" />
+    <Compile Include="Dto\Product\ProductSearchModel.cs" />
+    <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
+    <Compile Include="Dto\Product\ProductContentDTO.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\PermissionDto.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
@@ -103,6 +110,7 @@
     <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
     <Compile Include="Exceptions\CartExseptions\NotExistProductInDataBaseExceptions.cs" />
     <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
+    <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
@@ -113,6 +121,7 @@
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
+    <Compile Include="Dto\Product\ProductDto.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountService.cs" />
     <Compile Include="Interfaces\Services\IPaymentService.cs" />
@@ -123,11 +132,15 @@
     <Compile Include="Interfaces\Services\IProfileService.cs" />
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
+    <Compile Include="Interfaces\Services\IProductService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
     <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
-    <Compile Include="Models\CartModels\Product.cs" />
+    <Compile Include="Models\Content\CompressedProduct.cs" />
+    <Compile Include="Models\Content\OriginalProduct.cs" />
+    <Compile Include="Models\Content\Product.cs" />
+    <Compile Include="Models\Content\ProtectedProduct.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />

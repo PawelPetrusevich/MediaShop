@@ -1,40 +1,31 @@
-﻿namespace MediaShop.DataAccess.Configurations
+// <copyright file="ProductConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace MediaShop.DataAccess.Context
 {
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System;
+    using System.Collections.Generic;
     using System.Data.Entity.ModelConfiguration;
-    using MediaShop.Common.Models.CartModels;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using MediaShop.Common.Models.Content;
 
     /// <summary>
-    ///     Configuration tables Product
+    /// class ProductConfiguration.
     /// </summary>
     public class ProductConfiguration : EntityTypeConfiguration<Product>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProductConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="ProductConfiguration"/> class.
         /// </summary>
         public ProductConfiguration()
         {
-            this.HasKey(x => x.Id);
-            this.Property(x => x.Id)
-                .IsRequired();
-            this.Property(x => x.ContentName)
-                .IsRequired()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(x => x.DescriptionItem)
-                .IsOptional()
-                .IsVariableLength()
-                .IsUnicode(true);
-            this.Property(x => x.PriceItem)
-                .IsRequired();
-            this.Property(x => x.CreatorId)
-                .IsRequired();
-            this.Property(x => x.CreatedDate)
-                .IsRequired();
-            this.Property(x => x.ModifierId)
-                .IsOptional();
-            this.Property(x => x.ModifiedDate)
-                .IsOptional();
+            this.HasKey(k => k.Id);
+            this.HasRequired(s => s.OriginalProduct).WithRequiredDependent(x => x.Product);
+            this.HasRequired(s => s.CompressedProduct).WithRequiredDependent(x => x.Product);
+            this.HasRequired(s => s.ProtectedProduct).WithRequiredDependent(x => x.Product);
         }
     }
 }

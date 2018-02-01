@@ -6,7 +6,6 @@ namespace MediaShop.DataAccess.Migrations
     using System.Linq;
     using System.Linq.Expressions;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
     using MediaShop.DataAccess.Context;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MediaContext>

@@ -1,6 +1,7 @@
 ﻿namespace MediaShop.Common.Models
 {
     using MediaShop.Common.Enums;
+    using MediaShop.Common.Models.Content;
 
     /// <summary>
     /// Сlass describes content in the cart
@@ -10,7 +11,7 @@
         /// <summary>
         /// Gets or sets Product in the shopping cart
         /// </summary>
-        public virtual CartModels.Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         /// <summary>
         /// Gets or sets cart creator name
