@@ -2,6 +2,9 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Interfaces.Services;
+
 namespace MediaShop.WebApi
 {
     using Ninject.Modules;
@@ -15,7 +18,7 @@ namespace MediaShop.WebApi
         /// Load
         /// </summary>
         public override void Load()
-        {
+        {  
         }
     }
 }

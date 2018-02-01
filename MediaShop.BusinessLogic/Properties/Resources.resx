@@ -126,6 +126,12 @@
   <data name="DeleteContentFromCart" xml:space="preserve">
     <value>Content is not delete from cart</value>
   </data>
+  <data name="DeleteProductError" xml:space="preserve">
+    <value>Delete product error</value>
+  </data>
+  <data name="DeleteWithNullId" xml:space="preserve">
+    <value>An attempt to delete with a null identifier</value>
+  </data>
   <data name="ExistContentInCart" xml:space="preserve">
     <value>Content already exist in cart</value>
   </data>
@@ -144,8 +150,14 @@
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
   </data>
+  <data name="GetProductError" xml:space="preserve">
+    <value>Error retrieving product by ID</value>
+  </data>
   <data name="NotSubscribedUserMessage" xml:space="preserve">
     <value>User has not been subscribed to receive notification</value>
+  </data>
+  <data name="GetWithNullId" xml:space="preserve">
+    <value>An attempt to get with a null identifier</value>
   </data>
   <data name="NullOrEmptyValue" xml:space="preserve">
     <value>Value can not be null</value>
@@ -153,11 +165,17 @@
   <data name="MediaShopMailPassword" xml:space="preserve">
     <value>ayTYh?2-3xtUB26j</value>
   </data>
+  <data name="NullOrEmptyContent" xml:space="preserve">
+    <value>Content can not be null</value>
+  </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
   </data>
   <data name="RegisterUserMailBody" xml:space="preserve">
     <value>It's registration message from Media shop. Follow the link to continue: {0}</value>
+  </data>
+  <data name="UnknowProductType" xml:space="preserve">
+    <value>Product has unknow type</value>
   </data>
   <data name="UpdateContentInCart" xml:space="preserve">
     <value>Content is not update in cart</value>
@@ -173,5 +191,71 @@
   </data>
   <data name="InvalidTransactionWriteDownPersentageStore" xml:space="preserve">
     <value>Write down persentage for store is not successfully</value>
+  </data>
+  <data name="UpdateProductError" xml:space="preserve">
+    <value>Update  product error</value>
+  </data>
+  <data name="UploadProductError" xml:space="preserve">
+    <value>Upload product error</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="WaterMark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorGettingMime" xml:space="preserve">
+    <value>Error getting mime for an empty file</value>
+  </data>
+  <data name="MaxHeightCompressedImage" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="MaxWidthCompressedImage" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="WatermarkOpacity" xml:space="preserve">
+    <value>0.5</value>
+  </data>
+  <data name="MAX_CONTENT" xml:space="preserve">
+    <value>256</value>
+    <comment>размер заголовка файла</comment>
+  </data>
+  <data name="imageType" xml:space="preserve">
+    <value>"image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png",
+                "image/x-png",
+                "image/svg + xml",
+                "image/tiff",
+                "image/vnd.microsoft.icon",
+                "image/vnd.wap.wbmp",
+                "image/webp"</value>
+    <comment>mime type for image</comment>
+  </data>
+  <data name="musicType" xml:space="preserve">
+    <value>"audio/basic",
+                "audio/L24",
+                "audio/mp4",
+                "audio/aac",
+                "audio/mpeg",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/x - ms - wma",
+                "audio/x - ms - wax",
+                "audio/vnd.rn - realaudio",
+                "audio/vnd.wave",
+                "audio/webm"</value>
+    <comment>mime type for music</comment>
+  </data>
+  <data name="videoType" xml:space="preserve">
+    <value>"video/mpeg",
+                "video/mp4",
+                "video/ogg",
+                "video/quicktime",
+                "video/webm",
+                "video/x - ms - wmv",
+                "video/x - flv",
+                "video/3gpp",
+                "video/3gpp2"</value>
+    <comment>mime type for video</comment>
   </data>
 </root>

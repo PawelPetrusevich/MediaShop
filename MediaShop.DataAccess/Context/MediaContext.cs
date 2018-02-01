@@ -1,6 +1,7 @@
-﻿// <copyright file="MediaContext.cs" company="MediaShop">
-// Copyright (c) MediaShop. All rights reserved.
-// </copyright>
+﻿using System.Data.Entity;
+using MediaShop.Common.Models.Notification;
+using MediaShop.DataAccess.Configurations;
+
 using MediaShop.DataAccess.Migrations;
 
 namespace MediaShop.DataAccess.Context
@@ -8,9 +9,9 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.DataAccess.Configurations;
     using System.Data.Entity;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.Notification;
     using MediaShop.Common.Models.User;
+    using MediaShop.Common.Models.Content;
 
     /// <summary>
     /// Class MediaContext.
@@ -58,6 +59,24 @@ namespace MediaShop.DataAccess.Context
         public IDbSet<Product> Products { get; set; }
 
         /// <summary>
+        /// Gets or sets the OriginalProduct.
+        /// </summary>
+        /// <value>The OriginalProduct.</value>
+        public IDbSet<OriginalProduct> OriginalProducts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CompressedProduct.
+        /// </summary>
+        /// <value>The CompressedProduct.</value>
+        public IDbSet<CompressedProduct> CompressedProducts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ProtectedProduct.
+        /// </summary>
+        /// <value>The ProtectedProduct.</value>
+        public IDbSet<ProtectedProduct> ProtectedProducts { get; set; }
+
+        /// <summary>
         /// Method configuration tables
         /// </summary>
         /// <param name="modelBuilder">modelBuilder</param>
@@ -65,7 +84,6 @@ namespace MediaShop.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new ContentCartConfiguration());
-            modelBuilder.Configurations.Add(new ProductConfiguration());
 
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new ProfileConfiguration());
@@ -73,7 +91,11 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new PermissionConfiguration());
             modelBuilder.Configurations.Add(new StatisticConfiguration());
             modelBuilder.Configurations.Add(new NotificationConfiguration());
-            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());            
+            modelBuilder.Configurations.Add(new SubscribeNotificationConfiguration());
+            modelBuilder.Configurations.Add(new ProductConfiguration());
+            modelBuilder.Configurations.Add(new ProtectedProductConfiguration());
+            modelBuilder.Configurations.Add(new CompressedProductConfiguration());
+            modelBuilder.Configurations.Add(new OriginalProductConfiguration());
         }
     }
 }

@@ -7,7 +7,6 @@ using AutoMapper;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
-using MediaShop.Common.Models.CartModels;
 using MediaShop.Common.Models.PaymentModel;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;

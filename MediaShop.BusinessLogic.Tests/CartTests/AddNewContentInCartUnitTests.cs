@@ -6,12 +6,12 @@ using Moq;
 using AutoMapper;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Models.CartModels;
 using MediaShop.Common.Models;
 using MediaShop.Common;
 using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.BusinessLogic.Services;
 using NUnit.Framework;
+using MediaShop.Common.Models.Content;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {

@@ -3,11 +3,11 @@ using AutoMapper;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
-using MediaShop.Common.Models.CartModels;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
+using MediaShop.Common.Models.Content;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {
@@ -51,9 +51,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
 
             _collectionContentCart = new Collection<ContentCart>()
             {
-                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product() { ContentName = "Prod1", Id = 1, PriceItem = new decimal(9.99) }},
-                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product() { ContentName = "Prod2", Id = 2, PriceItem = new decimal(0.50) }},
-                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product() { ContentName = "Prod3", Id = 3, PriceItem = new decimal(1.01) } }
+                new ContentCart { Id = 1, CreatorId = 1 , Product = new Product() { ProductName = "Prod1", Id = 1, ProductPrice = new decimal(9.99) }},
+                new ContentCart { Id = 2, CreatorId = 1 , Product = new Product() { ProductName = "Prod2", Id = 2, ProductPrice = new decimal(0.50) }},
+                new ContentCart { Id = 3, CreatorId = 1 , Product = new Product() { ProductName = "Prod3", Id = 3, ProductPrice = new decimal(1.01) } }
             };
         }
 
