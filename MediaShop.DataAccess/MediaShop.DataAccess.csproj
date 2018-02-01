@@ -98,9 +98,9 @@
     <Compile Include="Migrations\201801312033373_CartAndProductMigration.Designer.cs">
       <DependentUpon>201801312033373_CartAndProductMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802011843343_Account_RemoveRoles_AddPermissions.cs" />
-    <Compile Include="Migrations\201802011843343_Account_RemoveRoles_AddPermissions.Designer.cs">
-      <DependentUpon>201802011843343_Account_RemoveRoles_AddPermissions.cs</DependentUpon>
+    <Compile Include="Migrations\201802011942349_AddPermissions_RemoveRole.cs" />
+    <Compile Include="Migrations\201802011942349_AddPermissions_RemoveRole.Designer.cs">
+      <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
@@ -160,8 +160,8 @@
     <EmbeddedResource Include="Migrations\201801312033373_CartAndProductMigration.resx">
       <DependentUpon>201801312033373_CartAndProductMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802011843343_Account_RemoveRoles_AddPermissions.resx">
-      <DependentUpon>201802011843343_Account_RemoveRoles_AddPermissions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802011942349_AddPermissions_RemoveRole.resx">
+      <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -3,7 +3,7 @@ namespace MediaShop.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Account_RemoveRoles_AddPermissions : DbMigration
+    public partial class AddPermissions_RemoveRole : DbMigration
     {
         public override void Up()
         {

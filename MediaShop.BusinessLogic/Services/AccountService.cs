@@ -154,7 +154,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions |= (int)permission.Permissions;
+            user.Permissions |= permission.Permissions;
 
             var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
@@ -174,7 +174,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions &= ~(int)permission.Permissions;
+            user.Permissions &= ~permission.Permissions;
 
             var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 

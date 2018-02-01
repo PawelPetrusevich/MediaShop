@@ -64,24 +64,25 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepository.Setup(x => x.Accounts.Update(It.IsAny<AccountDbModel>())).Returns(account);
 
             var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            Assert.AreEqual(3,accountService.SetPermission(_permissionCreate).Permissions);       
+            Assert.AreEqual(Permissions.See|Permissions.Create,accountService.SetPermission(_permissionCreate).Permissions);       
 
             accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            Assert.AreEqual(7,accountService.SetPermission(_permissionDelete).Permissions);
+            Assert.AreEqual(Permissions.See|Permissions.Create|Permissions.Delete,accountService.SetPermission(_permissionDelete).Permissions);
         }
         [Test]
         public void RemovePermissionSuccessfull()
         {
-            var account = new AccountDbModel(){ Permissions = 7 };
+            var account =
+                new AccountDbModel() {Permissions = Permissions.See | Permissions.Create | Permissions.Delete};
          
             _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns(account);
             _factoryRepository.Setup(x => x.Accounts.Update(It.IsAny<AccountDbModel>())).Returns(account);
 
             var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            Assert.AreEqual(3, accountService.RemovePermission(_permissionDelete).Permissions);
+            Assert.AreEqual(Permissions.See|Permissions.Create, accountService.RemovePermission(_permissionDelete).Permissions);
 
             accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            Assert.AreEqual(1, accountService.RemovePermission(_permissionCreate).Permissions);
+            Assert.AreEqual(Permissions.See, accountService.RemovePermission(_permissionCreate).Permissions);
         }
 
         [Test]

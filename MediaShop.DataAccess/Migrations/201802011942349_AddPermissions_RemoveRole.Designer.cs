@@ -7,13 +7,13 @@ namespace MediaShop.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Account_RemoveRoles_AddPermissions : IMigrationMetadata
+    public sealed partial class AddPermissions_RemoveRole : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Account_RemoveRoles_AddPermissions));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPermissions_RemoveRole));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802011843343_Account_RemoveRoles_AddPermissions"; }
+            get { return "201802011942349_AddPermissions_RemoveRole"; }
         }
         
         string IMigrationMetadata.Source
