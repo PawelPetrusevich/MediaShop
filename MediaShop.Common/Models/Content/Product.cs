@@ -44,16 +44,16 @@ namespace MediaShop.Common.Models.Content
         /// <summary>
         /// Gets or sets file original product
         /// </summary>
-        public OriginalProduct OriginalProduct { get; set; }
+        public virtual OriginalProduct OriginalProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file of protected product
         /// </summary>
-        public ProtectedProduct ProtectedProduct { get; set; }
+        public virtual ProtectedProduct ProtectedProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file of compressed product 
         /// </summary>
-        public CompressedProduct CompressedProduct { get; set; }
+        public virtual CompressedProduct CompressedProduct { get; set; }
     }
 }

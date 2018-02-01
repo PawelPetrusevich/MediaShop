@@ -7,6 +7,7 @@ using System.Text;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Enums;
+using MediaShop.Common.Models;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -29,14 +30,16 @@ namespace MediaShop.BusinessLogic.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
+        private readonly ICartRepository _cartRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="repository">repository</param>
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository repository, ICartRepository cartRepository)
         {
             this._repository = repository;
+            this._cartRepository = cartRepository;
         }
 
         /// <summary>
@@ -144,6 +147,71 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Get list purshased products
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public IEnumerable<CompressedProductDTO> GetListPurshasedProducts(long userId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<List<CompressedProductDTO>>(this._cartRepository.Find(lambda));
+        }
+
+        /// <summary>
+        /// Get original purshased product
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public OriginalProductDTO GetOriginalPurshasedProduct(long userId, long productId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // ProductId = productId
+            parameter = Expression.Property(parameterExpr, "ProductId");
+            constant = Expression.Constant(productId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<OriginalProductDTO>(this._cartRepository.Find(lambda).FirstOrDefault());
+        }
+
+        /// <summary>
         /// Получение информации по ID
         /// </summary>
         /// <param name="id">id of product</param>
@@ -158,25 +226,6 @@ namespace MediaShop.BusinessLogic.Services
             var result = this._repository.Get(id);
 
             return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductDto>(result);
-        }
-
-        /// <summary>
-        /// Download service
-        /// </summary>
-        /// <param name="id">Product id</param>
-        /// <returns>return Download product dto</returns>
-        public DownloadProductDto DownloadProduct(long id)
-        {
-            if (id <= 0)
-            {
-                throw new InvalidOperationException(Resources.GetWithNullId);
-            }
-
-            var result = this._repository.Get(id);
-
-            return result is null
-                ? throw new InvalidOperationException(Resources.GetProductError)
-                : Mapper.Map<DownloadProductDto>(result);
         }
     }
 }

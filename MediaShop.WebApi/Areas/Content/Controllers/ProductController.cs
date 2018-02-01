@@ -112,22 +112,49 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("download")]
+        [HttpGet]
+        [Route("GetPurshasedProducts")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(DownloadProductDto))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult DownloadProduct([FromBody] long id)
+        public IHttpActionResult GetListPurshasedProducts([FromUri] long userId)
         {
-            if (id <= 0)
+            if (userId <= 0)
             {
                 return BadRequest(Resources.GetWithNullId);
             }
 
             try
             {
-                return Ok(_productService.DownloadProduct(id));
+                return Ok(_productService.GetListPurshasedProducts(userId));
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentDownloadError);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("GetOriginalPurshasedProduct")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(OriginalProductDTO))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        public IHttpActionResult GetOriginalPurshasedProduct([FromUri] long userId, long productId)
+        {
+            if (userId <= 0 || productId <= 0)
+            {
+                return BadRequest(Resources.GetWithNullId);
+            }
+
+            try
+            {
+                return Ok(_productService.GetOriginalPurshasedProduct(userId,productId));
             }
             catch (InvalidOperationException)
             {
