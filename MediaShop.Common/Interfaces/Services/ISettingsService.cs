@@ -6,6 +6,6 @@ namespace MediaShop.Common.Interfaces.Services
 {
     public interface ISettingsService
     {
-        SettingsDomain Modify(SettingsDomain settings);
+        Settings Modify(Settings settings);
     }
 }

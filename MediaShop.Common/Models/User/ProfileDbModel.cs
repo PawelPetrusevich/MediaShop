@@ -1,4 +1,4 @@
-﻿// <copyright file="Profile.cs" company="MediaShop">
+﻿// <copyright file="Profiles.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 

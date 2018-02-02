@@ -20,7 +20,7 @@ namespace MediaShop.BusinessLogic.Services
             _storeAccount = repositoryAccount;
         }
 
-        public SettingsDomain Modify(SettingsDomain settings)
+        public Settings Modify(Settings settings)
         {
             var user = _storeAccount.Get(settings.AccountID);
 
@@ -34,7 +34,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var settedSettings = _storeSettings.Update(settingsData);
 
-            return Mapper.Map<SettingsDomain>(settedSettings);
+            return Mapper.Map<Settings>(settedSettings);
         }
     }
 }

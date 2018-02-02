@@ -34,25 +34,43 @@ namespace MediaShop.Common.Interfaces.Services
         /// Login user
         /// </summary>
         /// <param name="data">Login data</param>
-        /// <returns><c>Authorised user</c></returns>
+        /// <returns><c>Login account</c></returns>
         Account Login(LoginDto data);
 
         /// <summary>
-        /// Removes the role from the user's permission list.
+        /// Logout user
         /// </summary>
-        /// <param name="id">The identifier of the user.</param>
-        /// <param name="role">The role to remove.</param>
-        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
-        bool RemoveRole(RoleUserBl roleUserBl);
+        /// <param name="id">id user</param>
+        /// <returns>account</returns>
+        Account Logout(long id);
 
         /// <summary>
-        /// Adds the role to the user's permission list.
+        /// Reset user password  for recovery
         /// </summary>
-        /// <param name="role">The role to add</param>
-        /// <returns><c>Permission</c> if role added
-        /// <c>null</c> otherwise</returns>
-        Permission AddRole(RoleUserBl role);
+        /// <param name="email">user email</param>
+        /// <returns>account</returns>
+        Account RecoveryPassword(string email);
 
+        /// <summary>
+        /// Set permission
+        /// </summary>
+        /// <param name="permissionDto">Permissions data</param>
+        /// <returns>account</returns>
+        Account SetPermission(PermissionDto permission);
+
+        /// <summary>
+        /// Remove permission
+        /// </summary>
+        /// <param name="permissionDto">Permissions data</param>
+        /// <returns>account</returns>
+        Account RemovePermission(PermissionDto permission);
+
+        /// <summary>
+        /// Set or remove flag banned
+        /// </summary>
+        /// <param name="accountBLmodel"></param>
+        /// <param name="flag"></param>
+        /// <returns>account</returns>
         Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
     }
 }
