@@ -7,9 +7,10 @@ namespace MediaShop.DataAccess
     using System.Data.Entity;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
+    using MediaShop.Common.Models.Content;
     using MediaShop.DataAccess.Context;
     using MediaShop.DataAccess.Repositories;
+
     using Ninject.Modules;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace MediaShop.DataAccess
         /// </summary>
         public override void Load()
         {
-            this.Bind<ICartRepository<ContentCartDto>>().To<CartRepository>();
+            this.Bind<ICartRepository>().To<CartRepository>();
             this.Bind<IProductRepository>().To<ProductRepository>();
             this.Bind<MediaContext>().ToSelf();
             this.Bind<IAccountRepository>().To<AccountRepository>();

@@ -13,10 +13,12 @@ namespace MediaShop.Common
     using AutoMapper;
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models;
-    using MediaShop.Common.Models.CartModels;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
     using MediaShop.Common.Dto.Messaging;
+    using MediaShop.Common.Dto.Product;
+    using MediaShop.Common.Models.Content;
+
     using Profile = AutoMapper.Profile;
 
     /// <summary>
@@ -30,9 +32,14 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-            this.CreateMap<Product, ContentCartDto>()
-             .ForMember(item => item.CreatorId, m => m.Ignore());
-            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap();
+               this.CreateMap<Product, ContentCartDto>()
+                .ForMember(item => item.Id, y => y.Ignore())
+                .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
+                .ForMember(item => item.CreatorId, m => m.Ignore());
+            this.CreateMap<ContentCartDto, ContentCart>().ReverseMap()
+                .ForMember(item => item.ContentName, x => x.MapFrom(y => y.Product.ProductName))
+                .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.ProductPrice))
+                .ForMember(item => item.DescriptionItem, x => x.MapFrom(y => y.Product.Description));
 
             this.CreateMap<Dto.User.Profile, ProfileDbModel>()
                 .ForMember(item => item.Id, m => m.Ignore())
@@ -61,6 +68,10 @@ namespace MediaShop.Common
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
             this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
+            this.CreateMap<ProductDto, Product>().ReverseMap();
+            this.CreateMap<UploadProductModel, Product>().ReverseMap();
+            this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
+            this.CreateMap<ProductContentDTO, Product>().ReverseMap();
         }
     }
 }

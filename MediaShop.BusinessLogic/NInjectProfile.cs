@@ -31,6 +31,8 @@ namespace MediaShop.BusinessLogic
             Bind<IEmailService>().To<EmailService>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
+            Bind<IPaymentService>().To<PaymentService>();
+            Bind<IProductService>().To<ProductService>();
         }
     }
 }

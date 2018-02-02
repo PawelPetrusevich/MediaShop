@@ -126,6 +126,15 @@
   <data name="DefaultTimeZoneId" xml:space="preserve">
     <value>UTC</value>
   </data>
+  <data name="EmptyFieldMessage" xml:space="preserve">
+    <value>This field cannot be empty..</value>
+  </data>
+  <data name="FailedEnteringDescription" xml:space="preserve">
+    <value>Not less than 5 and not more than 300 symbols</value>
+  </data>
+  <data name="FailedEnteringProducName" xml:space="preserve">
+    <value>Not less than 5 and not more than 50 symbols</value>
+  </data>
   <data name="IncorrectLogin" xml:space="preserve">
     <value>Login is empty</value>
   </data>

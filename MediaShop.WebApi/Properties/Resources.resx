@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ContentUploadError" xml:space="preserve">
+    <value>Content upload error.</value>
+  </data>
+  <data name="DeleteWithNullId" xml:space="preserve">
+    <value>An attempt to delete with a null identifier</value>
+  </data>
   <data name="EmptyRegisterDate" xml:space="preserve">
     <value>Data cannot be empty.</value>
   </data>
@@ -125,11 +131,24 @@
   </data>
   <data name="EmtyData" xml:space="preserve">
     <value>Data cannot be empty</value>
-    </data>
+  </data>
   <data name="NotFoundNotification" xml:space="preserve">
     <value>Notifications for user with this id not found</value>
   </data>
   <data name="NotValidNotification" xml:space="preserve">
     <value>Notification is not valid</value>
+  </data>
+  <data name="GetWithNullId" xml:space="preserve">
+    <value>An attempt to get with a null identifier</value>
+  </data>
+  <data name="UnknowProductType" xml:space="preserve">
+    <value>Product has unknow type</value>
+  </data>
+  <data name="EmptyConditionList" xml:space="preserve">
+    <value>Empty condition list</value>
+  </data>
+  <data name="ContentDownloadError" xml:space="preserve">
+    <value>Product not found</value>
+    <comment>продукт не найден</comment>
   </data>
 </root>

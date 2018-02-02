@@ -59,5 +59,15 @@ namespace MediaShop.BusinessLogic.Tests.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SourceImage {
+            get {
+                object obj = ResourceManager.GetObject("SourceImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

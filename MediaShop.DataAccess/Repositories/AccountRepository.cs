@@ -1,9 +1,6 @@
 ﻿// <copyright file="AccountRepository.cs" company="MediaShop">
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
-
-using MediaShop.DataAccess.Repositories.Base;
-
 namespace MediaShop.DataAccess.Repositories
 {
     using System;
@@ -13,6 +10,7 @@ namespace MediaShop.DataAccess.Repositories
     using System.Linq.Expressions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models.User;
+    using MediaShop.DataAccess.Repositories.Base;
     using MediaShop.DataAccess.Properties;
 
     /// <summary>
