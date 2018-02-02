@@ -52,20 +52,6 @@ namespace MediaShop.Common.Interfaces.Services
         Account RecoveryPassword(string email);
 
         /// <summary>
-        /// Set permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        Account SetPermission(PermissionDto permission);
-
-        /// <summary>
-        /// Remove permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        Account RemovePermission(PermissionDto permission);
-
-        /// <summary>
         /// Set or remove flag banned
         /// </summary>
         /// <param name="accountBLmodel"></param>

@@ -139,47 +139,7 @@ namespace MediaShop.BusinessLogic.Services
         public Account RecoveryPassword(string email)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Set permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        public Account SetPermission(PermissionDto permission)
-        {
-            if (permission == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions |= permission.Permissions;
-
-            var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(result);
-        }
-
-        /// <summary>
-        /// Remove permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        public Account RemovePermission(PermissionDto permission)
-        {
-            if (permission == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions &= ~permission.Permissions;
-
-            var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(result);
-        }
+        }        
 
         public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)
         {
