@@ -10,5 +10,11 @@ namespace MediaShop.Common.Interfaces.Repositories
 
     public interface IProductRepository : IRepository<Product>
     {
+        /// <summary>
+        /// Soft delete
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        Product SoftDelete(long id);
     }
 }

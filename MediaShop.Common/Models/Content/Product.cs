@@ -32,9 +32,14 @@ namespace MediaShop.Common.Models.Content
         public bool IsPremium { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets the login.
+        /// Gets or sets a value indicating whether gets or sets IsFavorite.
         /// </summary>
         public bool IsFavorite { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets IsDeletede.
+        /// </summary>
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the ProductType.

@@ -90,14 +90,20 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto DeleteProduct(long id)
+        public ProductDto SoftDeleteById(long id)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
-            var result = this._repository.Delete(id);
+            var currentProduct = _repository.Get(id);
+            if (currentProduct is null)
+            {
+                throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            var result = _repository.SoftDelete(id);
 
             return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
         }
@@ -216,7 +222,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto GetProduct(long id)
+        public ProductDto GetById(long id)
         {
             if (id <= 0)
             {

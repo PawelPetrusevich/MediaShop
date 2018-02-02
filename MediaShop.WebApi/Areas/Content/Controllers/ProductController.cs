@@ -91,7 +91,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductDto))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult DeleteProduct([FromBody] long id)
+        public IHttpActionResult DeleteProduct([FromUri] long id)
         {
             if (id <= 0)
             {
@@ -100,7 +100,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(_productService.DeleteProduct(id));
+                return Ok(_productService.SoftDeleteById(id));
             }
             catch (InvalidOperationException)
             {
