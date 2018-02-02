@@ -99,6 +99,8 @@
     <Compile Include="Migrations\201801312033373_CartAndProductMigration.Designer.cs">
       <DependentUpon>201801312033373_CartAndProductMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\Base\RepositoryAsync.cs" />
+    <Compile Include="Repositories\ProductRepositoryAsync.cs" />
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -154,7 +154,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(_productService.GetOriginalPurshasedProduct(userId,productId));
+                return Ok(_productService.GetOriginalPurshasedProduct(userId, productId));
             }
             catch (InvalidOperationException)
             {
