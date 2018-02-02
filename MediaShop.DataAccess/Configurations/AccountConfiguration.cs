@@ -26,6 +26,10 @@ namespace MediaShop.DataAccess.Configurations
             Property(p => p.Login).IsRequired();
             Property(p => p.Password).IsRequired();
             Property(p => p.Email).IsRequired().HasMaxLength(30);
+            Property(p => p.IsBanned).IsRequired();
+            Property(p => p.IsConfirmed).IsRequired();
+            Property(p => p.Permissions).IsRequired();
+            Property(p => p.IsDeleted).IsRequired();
         }
     }
 }

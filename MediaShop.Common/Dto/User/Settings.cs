@@ -3,7 +3,7 @@ using MediaShop.Common.Models.User;
 
 namespace MediaShop.Common.Dto.User.Validators
 {
-    public class SettingsDomain 
+    public class Settings 
     {
         /// <summary>
         /// Identifier timezone of user, default value +0

@@ -30,7 +30,7 @@ namespace MediaShop.Common
         /// </summary>
         public MapperProfile()
         {
-               this.CreateMap<Product, ContentCartDto>()
+            this.CreateMap<Product, ContentCartDto>()
                 .ForMember(item => item.Id, y => y.Ignore())
                 .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
                 .ForMember(item => item.CreatorId, m => m.Ignore());
@@ -54,13 +54,12 @@ namespace MediaShop.Common
 
             this.CreateMap<Account, AccountDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore()).ReverseMap();
-            this.CreateMap<SettingsDbModel, SettingsDomain>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
-            this.CreateMap<PermissionDbModel, Permission>().ReverseMap();
+            this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
-            this.CreateMap<RoleUserDto, RoleUserBl>();
+            this.CreateMap<RoleUserDto, PermissionDto>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
-            this.CreateMap<SettingsDomain, SettingsDto>().ReverseMap();
+            this.CreateMap<Settings, SettingsDto>().ReverseMap();
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
