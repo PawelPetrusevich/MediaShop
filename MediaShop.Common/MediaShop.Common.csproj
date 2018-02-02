@@ -116,6 +116,7 @@
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IBannedService.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
     <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />

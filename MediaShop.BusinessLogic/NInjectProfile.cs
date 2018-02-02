@@ -33,6 +33,7 @@ namespace MediaShop.BusinessLogic
             Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
             Bind<IPaymentService>().To<PaymentService>();
             Bind<IProductService>().To<ProductService>();
+            Bind<IBannedService>().To<BannedService>();
         }
     }
 }
