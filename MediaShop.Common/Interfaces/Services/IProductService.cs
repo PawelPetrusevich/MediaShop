@@ -23,7 +23,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
-        ProductDto GetProduct(long id);
+        ProductDto GetById(long id);
 
         /// <summary>
         /// Upload products.
@@ -37,7 +37,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        ProductDto DeleteProduct(long id);
+        ProductDto SoftDeleteById(long id);
 
         /// <summary>
         /// Find method.
