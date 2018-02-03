@@ -17,17 +17,18 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     using Swashbuckle.Swagger.Annotations;
 
+    [RoutePrefix("api/user")]
     public class PermissionController : ApiController
     {
-        private readonly IAccountService _accountService;
+        private readonly IPermissionService _permissionService;
 
-        public PermissionController(IAccountService accountService)
+        public PermissionController(IPermissionService accountService)
         {
-            _accountService = accountService;
+            _permissionService = accountService;
         }
 
         [HttpPost]
-        [Route("removePermission")]
+        [Route("{id}/permission/delete")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -41,7 +42,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_accountService.RemovePermission(data));
+                return Ok(_permissionService.RemovePermission(data));
             }
             catch (ExistingLoginException ex)
             {
@@ -54,7 +55,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("setPermission")]
+        [Route("{id}/permission/add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
@@ -68,7 +69,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_accountService.SetPermission(data));
+                return Ok(_permissionService.SetPermission(data));
             }
             catch (NotFoundUserException ex)
             {

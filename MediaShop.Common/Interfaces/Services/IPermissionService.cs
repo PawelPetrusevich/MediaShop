@@ -12,14 +12,14 @@ namespace MediaShop.Common.Interfaces.Services
         /// <summary>
         /// Set permission
         /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
+        /// <param name="permissionDto">Permission data</param>
         /// <returns>account</returns>
         Account SetPermission(PermissionDto permission);
 
         /// <summary>
         /// Remove permission
         /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
+        /// <param name="permissionDto">Permission data</param>
         /// <returns>account</returns>
         Account RemovePermission(PermissionDto permission);
     }

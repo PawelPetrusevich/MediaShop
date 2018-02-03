@@ -81,7 +81,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentNullException(Resources.NullOrEmptyValueString);
             }
 
-            if (id < 1)
+            if (id <= 0)
             {
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
