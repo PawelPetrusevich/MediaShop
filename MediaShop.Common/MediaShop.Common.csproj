@@ -62,6 +62,9 @@
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.3.4\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -75,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Payment\PaymentDto.cs" />
     <Compile Include="Dto\Product\DownloadProductDto.cs" />
     <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\Account.cs" />
@@ -93,6 +97,8 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
@@ -144,7 +150,17 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
-    <Compile Include="Models\PaymentModel\PaymentTransaction.cs" />
+    <Compile Include="Models\PaymentModel\Amount.cs" />
+    <Compile Include="Models\PaymentModel\Currency.cs" />
+    <Compile Include="Models\PaymentModel\Details.cs" />
+    <Compile Include="Models\PaymentModel\Item.cs" />
+    <Compile Include="Models\PaymentModel\ItemList.cs" />
+    <Compile Include="Models\PaymentModel\Payer.cs" />
+    <Compile Include="Models\PaymentModel\PayerInfo.cs" />
+    <Compile Include="Models\PaymentModel\Payment.cs" />
+    <Compile Include="Models\PaymentModel\RelatedResources.cs" />
+    <Compile Include="Models\PaymentModel\Sale.cs" />
+    <Compile Include="Models\PaymentModel\Transaction.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\SettingsDbModel.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />

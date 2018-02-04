@@ -18,17 +18,10 @@
         string Payment(Cart cart);
 
         /// <summary>
-        /// Create model PaymentTransaction
-        /// </summary>
-        /// <param name="obj">rezalt request</param>
-        /// <returns>model PaymentTransaction</returns>
-        PaymentTransaction ConvertJsonToModel(object obj);
-
-        /// <summary>
         /// Add new model
         /// </summary>
-        /// <param name="paymentTransaction">model tranzaction</param>
-        /// <returns>model add</returns>
-        PaymentTransaction Add(PaymentTransaction paymentTransaction);
+        /// <param name="payment">object Payment for save in repository</param>
+        /// <returns>object Payment that save in repository</returns>
+        Payment AddPayment(Payment payment);
     }
 }

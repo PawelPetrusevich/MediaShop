@@ -81,29 +81,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         /// <summary>
-        /// Method for buy content in cart
-        /// </summary>
-        /// <param name="contentId">content id</param>
-        /// <returns>IHttpActionResult</returns>
-        [HttpPut]
-        [Route("buy")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.Found, description: "")]
-        [SwaggerResponse(statusCode: HttpStatusCode.NotFound, description: "", type: typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Put([FromUri] long contentId)
-        {
-            try
-            {
-                return this.Ok();
-            }
-            catch (Exception error)
-            {
-                return InternalServerError(error);
-            }
-        }
-
-        /// <summary>
         /// Delete content from Cart
         /// </summary>
         /// <param name="data">Content for delete</param>

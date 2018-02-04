@@ -258,7 +258,10 @@
                 "video/3gpp2"</value>
     <comment>mime type for video</comment>
   </data>
-<data name="InvalidIdValue" xml:space="preserve">
+  <data name="InvalidIdValue" xml:space="preserve">
     <value>Incorrect id value</value>
+  </data>
+  <data name="BadDeserializer" xml:space="preserve">
+    <value>Operation deserialization is not successful</value>
   </data>
 </root>
