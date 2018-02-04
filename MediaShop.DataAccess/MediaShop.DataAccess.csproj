@@ -86,7 +86,6 @@
     <Compile Include="Configurations\AccountConfiguration.cs" />
     <Compile Include="Configurations\CompressedProductConfiguration.cs" />
     <Compile Include="Configurations\OriginalProductConfiguration.cs" />
-    <Compile Include="Configurations\PermissionConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\ProtectedProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
@@ -99,7 +98,10 @@
     <Compile Include="Migrations\201801312033373_CartAndProductMigration.Designer.cs">
       <DependentUpon>201801312033373_CartAndProductMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802021826216_AddPropToProduct.cs" />
+    <Compile Include="Migrations\201802011942349_AddPermissions_RemoveRole.cs" />
+    <Compile Include="Migrations\201802011942349_AddPermissions_RemoveRole.Designer.cs">
+      <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201802021826216_AddPropToProduct.Designer.cs">
       <DependentUpon>201802021826216_AddPropToProduct.cs</DependentUpon>
     </Compile>
@@ -141,7 +143,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\PermissionRepositiry.cs" />
     <Compile Include="Repositories\Notification\NotificationSubscribedUserRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
@@ -166,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802021826216_AddPropToProduct.resx">
       <DependentUpon>201802021826216_AddPropToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802011942349_AddPermissions_RemoveRole.resx">
+      <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

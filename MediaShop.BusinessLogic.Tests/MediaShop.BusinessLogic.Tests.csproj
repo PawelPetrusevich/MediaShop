@@ -102,8 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminTests\AccountPermissionTest.cs" />
     <Compile Include="AdminTests\RegistrationServiceTest.cs" />
-    <Compile Include="AdminTests\UserServiceRemoveRoleTests.cs" />
     <Compile Include="ProductTest\ProductServiceTest.cs" />
     <Compile Include="CartTests\AddNewContentInCartUnitTests.cs" />
     <Compile Include="CartTests\DeleteContentFromCartUnitTests.cs" />

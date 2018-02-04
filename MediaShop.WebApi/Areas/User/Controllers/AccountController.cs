@@ -69,7 +69,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Confirm(string email, long id)
         {
-            if (string.IsNullOrEmpty(email) || id == 0)
+            if (string.IsNullOrWhiteSpace(email) || id < 1)
             {
                 return BadRequest(Resources.EmtyData);
             }
@@ -146,6 +146,38 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [Route("logout")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult LogOut([FromBody] long id)
+        {
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            return Ok(new Account());
+        }
+
+        [HttpPost]
+        [Route("recoveryPassword")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RecoveryPassword([FromBody] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email) || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            return Ok(new Account());
+        }
+
+        [HttpPost]
         [Route("setBanned")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -202,12 +234,12 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("removeRole")]
+        [Route("removePermission")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemoveRole([FromBody] RoleUserDto data)
+        public IHttpActionResult RemovePermission([FromBody] PermissionDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -216,8 +248,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var roleUserBl = Mapper.Map<RoleUserBl>(data);
-                return Ok(_accountService.RemoveRole(roleUserBl));
+                return Ok(_accountService.RemovePermission(data));
             }
             catch (ExistingLoginException ex)
             {
@@ -230,12 +261,12 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("addRole")]
+        [Route("setPermission")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Permission))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult AddRole([FromBody] RoleUserDto data)
+        public IHttpActionResult SetPermission([FromBody] PermissionDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -244,8 +275,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var roleDomain = Mapper.Map<RoleUserBl>(data);
-                return Ok(_accountService.AddRole(roleDomain));
+                return Ok(_accountService.SetPermission(data));
             }
             catch (NotFoundUserException ex)
             {
