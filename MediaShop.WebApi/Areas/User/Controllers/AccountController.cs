@@ -10,12 +10,14 @@ using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
+using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
     [RoutePrefix("api/account")]
+    [AccountExceptionFilter]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -38,27 +40,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmptyRegisterDate);
             }
 
-            try
-            {
-                var result = _accountService.Register(data);
-                return Ok(result);
-            }
-            catch (ExistingLoginException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (CanNotSendEmailException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var result = _accountService.Register(data);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -74,35 +57,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var account = _accountService.ConfirmRegistration(email, id);
-                return Ok(account);
-            }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ConfirmedUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddProfileException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddSettingsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var account = _accountService.ConfirmRegistration(email, id);
+            return Ok(account);
         }
 
         [HttpPost]
@@ -118,31 +74,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var user = _accountService.Login(data);
-                return Ok(user);
-            }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (IncorrectPasswordException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddStatisticException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var user = _accountService.Login(data);
+            return Ok(user);
         }
 
         [HttpPost]

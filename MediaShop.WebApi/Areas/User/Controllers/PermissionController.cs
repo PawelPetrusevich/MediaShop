@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MediaShop.WebApi.Filters;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
@@ -18,6 +19,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using Swashbuckle.Swagger.Annotations;
 
     [RoutePrefix("api/user")]
+    [AccountExceptionFilter]
     public class PermissionController : ApiController
     {
         private readonly IPermissionService _permissionService;
@@ -40,18 +42,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmptyRegisterDate);
             }
 
-            try
-            {
-                return Ok(_permissionService.RemovePermission(data));
-            }
-            catch (ExistingLoginException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            return Ok(_permissionService.RemovePermission(data));
         }
 
         [HttpPost]
@@ -62,23 +53,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult SetPermission([FromBody] PermissionDto data)
         {
-            if (data == null || !ModelState.IsValid)
-            {
-                return BadRequest(Resources.EmtyData);
-            }
-
-            try
-            {
-                return Ok(_permissionService.SetPermission(data));
-            }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            return Ok(_permissionService.SetPermission(data));
         }
     }
 }
