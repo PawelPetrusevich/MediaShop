@@ -11,7 +11,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// Interface IProfileRepository
     /// </summary>
     /// <seealso cref="IRepository{StatisticDbModel}" />
-    public interface IStatisticRepository : IRepository<StatisticDbModel>
+    public interface IStatisticRepository : IRepository<StatisticDbModel>, IRepositoryAsync<StatisticDbModel>
     {
     }
 }

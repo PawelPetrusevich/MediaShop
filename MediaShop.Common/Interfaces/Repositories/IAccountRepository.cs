@@ -10,7 +10,7 @@ namespace MediaShop.Common.Interfaces.Repositories
     /// Interface IAccountRepository
     /// </summary>
     /// <seealso cref="IRepository{Account}" />
-    public interface IAccountRepository : IRepository<AccountDbModel>
+    public interface IAccountRepository : IRepository<AccountDbModel>, IRepositoryAsync<AccountDbModel>
     {
         /// <summary>
         /// Gets the specified login.

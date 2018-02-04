@@ -116,6 +116,7 @@
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
     <Compile Include="Interfaces\Services\IBannedService.cs" />

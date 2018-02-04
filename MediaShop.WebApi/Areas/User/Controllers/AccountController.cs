@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Resources;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
@@ -44,6 +45,23 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("registerAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> RegisterUserAsync([FromBody] RegisterUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            var result = await _accountService.RegisterAsync(data);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("confirm/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
@@ -58,6 +76,23 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
 
             var account = _accountService.ConfirmRegistration(email, id);
+            return Ok(account);
+        }
+
+        [HttpGet]
+        [Route("confirmAsync/{email}/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> ConfirmAsync(string email, long id)
+        {
+            if (string.IsNullOrWhiteSpace(email) || id <= 0)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var account = await _accountService.ConfirmRegistrationAsync(email, id);
             return Ok(account);
         }
 
