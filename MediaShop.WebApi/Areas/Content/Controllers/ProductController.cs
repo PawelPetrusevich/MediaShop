@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
+using System.Web.Mvc;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
+using MediaShop.WebApi.Areas.Content.Controllers.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
-    [RoutePrefix("api/product")]
+    [StopWatchFilter]
+    [System.Web.Http.RoutePrefix("api/product")]
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;
@@ -22,8 +25,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             _productService = productService;
         }
 
-        [HttpPost]
-        [Route("add")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Successful add product ", typeof(UploadProductModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Content upload error or unknown product type", typeof(string))]
@@ -53,8 +56,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("Find")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("Find")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
@@ -112,8 +115,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetPurshasedProducts")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetPurshasedProducts")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
@@ -139,8 +142,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetOriginalPurshasedProduct")]
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetOriginalPurshasedProduct")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
