@@ -25,9 +25,9 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [HttpPost]
         [Route("add")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(UploadProductModel))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful add product ", typeof(UploadProductModel))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Content upload error or unknown product type", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult AddProduct([FromBody] UploadProductModel data)
         {
             if (data == null || !ModelState.IsValid)
@@ -58,7 +58,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult FindProducts([FromBody] List<ProductSearchModel> conditionsList)
         {
             if (conditionsList == null || !ModelState.IsValid)
@@ -86,12 +86,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductDto))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
-        public IHttpActionResult DeleteProduct([FromUri] long id)
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        public IHttpActionResult DeleteProduct(long id)
         {
             if (id <= 0)
             {
@@ -117,7 +117,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult GetListPurshasedProducts([FromUri] long userId)
         {
             if (userId <= 0)
@@ -144,7 +144,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult GetOriginalPurshasedProduct([FromUri] long userId, long productId)
         {
             if (userId <= 0 || productId <= 0)
