@@ -60,9 +60,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             }
 
             ImageConverter converter = new ImageConverter();
-            var protectedImageByte = (byte[])converter.ConvertTo(originalImageBitmap, typeof(byte[]));
-
-            return protectedImageByte;
+            return converter.ConvertTo<byte[]>(originalImageBitmap);
         }
 
         /// <summary>
@@ -116,9 +114,19 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             }
 
             ImageConverter converter = new ImageConverter();
-            var comressedImageByte = (byte[])converter.ConvertTo(resizedBitmap, typeof(byte[]));
+            return converter.ConvertTo<byte[]>(resizedBitmap);
+        }
 
-            return comressedImageByte;
+        /// <summary>
+        /// converter to type 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="converter"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static T ConvertTo<T>(this ImageConverter converter, object source)
+        {
+            return (T)converter.ConvertTo(source, typeof(T));
         }
 
         /// <summary>

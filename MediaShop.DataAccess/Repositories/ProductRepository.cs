@@ -21,5 +21,22 @@ namespace MediaShop.DataAccess.Repositories
             : base(context)
         {
         }
+
+        public Product SoftDelete(long id)
+        {
+            var model = DbSet.SingleOrDefault(entity => entity.Id == id);
+
+            if (model != null)
+            {
+                using (Context)
+                {
+                   model.IsDeleted = true;
+                    Context.SaveChanges();
+                    return model;
+                }
+            }
+
+            return default(Product);
+        }
     }
 }
