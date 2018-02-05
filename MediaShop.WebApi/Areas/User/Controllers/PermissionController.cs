@@ -7,6 +7,8 @@ using System.Web.Http;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
+    using System.Security;
+
     using AutoMapper;
 
     using MediaShop.Common.Dto.User;
@@ -19,11 +21,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     public class PermissionController : ApiController
     {
-        private readonly IAccountService _accountService;
+        private readonly IPermissionService _permissionService;
 
-        public PermissionController(IAccountService accountService)
+        public PermissionController(IPermissionService permissionService)
         {
-            _accountService = accountService;
+            _permissionService = permissionService;
         }
 
         [HttpPost]
@@ -41,7 +43,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_accountService.RemovePermission(data));
+                return Ok(_permissionService.RemovePermission(data));
             }
             catch (ExistingLoginException ex)
             {
@@ -68,7 +70,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(_accountService.SetPermission(data));
+                return Ok(_permissionService.SetPermission(data));
             }
             catch (NotFoundUserException ex)
             {

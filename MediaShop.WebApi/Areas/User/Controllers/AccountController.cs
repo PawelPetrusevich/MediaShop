@@ -158,7 +158,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            return Ok(new Account());
+            var user = _accountService.Logout(id);
+            return Ok(user);
         }
 
         [HttpPost]

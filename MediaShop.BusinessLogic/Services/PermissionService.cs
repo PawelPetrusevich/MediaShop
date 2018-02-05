@@ -18,8 +18,8 @@ namespace MediaShop.BusinessLogic.Services
 
         public PermissionService(IAccountRepository accountRepository)
         {
-            _accountRepository = accountRepository;
-        }       
+            this._accountRepository = accountRepository;
+        }
 
         /// <summary>
         /// Set permission
@@ -47,6 +47,41 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="permissionDto">Permissions data</param>
         /// <returns>account</returns>
         public Account RemovePermission(PermissionDto permission)
+        {
+            if (permission == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            var user = _accountRepository.Get(permission.Id) ?? throw new NotFoundUserException();
+            user.Permissions &= ~permission.Permissions;
+
+            var result = _accountRepository.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(result);
+        }
+
+        public async Task<Account> SetPermissionAsync(PermissionDto permission)
+        {
+            if (permission == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            var user = await _accountRepository.GetAsync(permission.Id) ?? throw new NotFoundUserException();
+            user.Permissions |= permission.Permissions;
+
+            var result = await _accountRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(result);
+        }
+
+        /// <summary>
+        /// Remove permission
+        /// </summary>
+        /// <param name="permissionDto">Permissions data</param>
+        /// <returns>account</returns>
+        public Account RemovePermissionAsync(PermissionDto permission)
         {
             if (permission == null)
             {

@@ -12,6 +12,8 @@ using MediaShop.Common.Exceptions.CartExseptions;
 namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using AutoMapper;
 
     using FluentValidation;
@@ -126,14 +128,23 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var statistic = new StatisticDbModel() { AccountId = user.Id };
-            var result = this._factoryRepository.Statistics.Add(statistic) ?? throw new AddStatisticException();          
+            var result = this._factoryRepository.Statistics.Add(statistic) ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
 
         public Account Logout(long id)
         {
-            throw new NotImplementedException();
+            var statistic = this._factoryRepository.Statistics.Find(s => s.AccountId == id && s.DateLogOut == null).FirstOrDefault();
+            if (statistic == null)
+            {
+                throw new AddStatisticException();
+            }
+
+            statistic.DateLogOut = DateTime.Now;
+                var result = this._factoryRepository.Statistics.Update(statistic) ?? throw new AddStatisticException();
+
+                return Mapper.Map<Account>(result.AccountDbModel);
         }
 
         public Account RecoveryPassword(string email)
