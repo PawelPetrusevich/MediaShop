@@ -52,7 +52,7 @@ namespace MediaShop.Common.Models.Content
         public virtual ProtectedProduct ProtectedProduct { get; set; }
 
         /// <summary>
-        /// Gets or sets file of compressed product 
+        /// Gets or sets file of compressed product
         /// </summary>
         public virtual CompressedProduct CompressedProduct { get; set; }
     }
