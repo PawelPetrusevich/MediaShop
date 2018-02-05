@@ -3,7 +3,6 @@
 // </copyright>
 
 using System.Linq;
-using System.Text;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Enums;
@@ -13,13 +12,9 @@ namespace MediaShop.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
     using System.Linq.Expressions;
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
-    using MediaShop.Common.Dto;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.Content;
@@ -51,7 +46,7 @@ namespace MediaShop.BusinessLogic.Services
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
-            data.ProductType = uploadProductInByte.GetMimeFromFile();
+            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -74,6 +69,11 @@ namespace MediaShop.BusinessLogic.Services
                         data.OriginalProduct.Content = uploadProductInByte;
                         data.CompressedProduct.Content = null;
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
+                        break;
+                    case ProductType.Video:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideo();
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrame();
                         break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);
