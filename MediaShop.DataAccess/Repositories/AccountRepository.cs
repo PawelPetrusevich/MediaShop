@@ -8,10 +8,11 @@ namespace MediaShop.DataAccess.Repositories
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models.User;
-    using MediaShop.DataAccess.Repositories.Base;
     using MediaShop.DataAccess.Properties;
+    using MediaShop.DataAccess.Repositories.Base;
 
     /// <summary>
     /// Class AccountRepository.
@@ -44,6 +45,16 @@ namespace MediaShop.DataAccess.Repositories
             }
 
             return this.DbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
+        }
+
+        public async Task<AccountDbModel> GetAsync(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("message!");
+            }
+
+            return await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
         }
 
         /// <summary>
@@ -80,6 +91,19 @@ namespace MediaShop.DataAccess.Repositories
 
             this.Context.Entry(model).State = EntityState.Modified;
             this.Context.SaveChanges();
+
+            return model;
+        }
+
+        public async Task<AccountDbModel> UpdateAsync(AccountDbModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            this.Context.Entry(model).State = EntityState.Modified;
+            await this.Context.SaveChangesAsync();
 
             return model;
         }

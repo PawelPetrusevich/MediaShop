@@ -9,15 +9,14 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using Moq;
 using NUnit.Framework;
+using MediaShop.Common.Interfaces.Repositories;
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
-    [TestFixture]
+    [TestFixture] 
     public class AccountPermissionTest
     {
-        private Mock<IAccountFactoryRepository> _factoryRepository;
-        private Mock<IEmailService> _emailService;
-        private Mock<IValidator<RegisterUserDto>> _validator;
+        private Mock<IAccountRepository> _accountRepository;       
         private PermissionDto _permissionCreate;
         private PermissionDto _permissionDelete;
 
@@ -34,23 +33,19 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [SetUp]
         public void Init()
         {
-            var mockfactoryRepository = new Mock<IAccountFactoryRepository>();
-            var mockEmailService = new Mock<IEmailService>();
-            var mockValidator = new Mock<IValidator<RegisterUserDto>>();
+            var mockAccountRepository = new Mock<IAccountRepository>();
 
-            _factoryRepository = mockfactoryRepository;
-            _emailService = mockEmailService;
-            _validator = mockValidator;
+            _accountRepository = mockAccountRepository;
 
             _permissionCreate = new PermissionDto()
             {
                 Id = 1,
-                Permissions = Permissions.Create
+                Permission = Permissions.Create
             };
             _permissionDelete = new PermissionDto()
             {
                 Id = 1,
-                Permissions = Permissions.Delete
+                Permission = Permissions.Delete
             };
 
         }
@@ -60,13 +55,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         {
             var account = new AccountDbModel();
 
-            _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns(account);
-            _factoryRepository.Setup(x => x.Accounts.Update(It.IsAny<AccountDbModel>())).Returns(account);
+            _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns(account);
+            _accountRepository.Setup(x => x.Update(It.IsAny<AccountDbModel>())).Returns(account);
 
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
             Assert.AreEqual(Permissions.See|Permissions.Create,accountService.SetPermission(_permissionCreate).Permissions);       
 
-            accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            accountService = new PermissionService(_accountRepository.Object);
             Assert.AreEqual(Permissions.See|Permissions.Create|Permissions.Delete,accountService.SetPermission(_permissionDelete).Permissions);
         }
         [Test]
@@ -75,22 +70,22 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var account =
                 new AccountDbModel() {Permissions = Permissions.See | Permissions.Create | Permissions.Delete};
          
-            _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns(account);
-            _factoryRepository.Setup(x => x.Accounts.Update(It.IsAny<AccountDbModel>())).Returns(account);
+            _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns(account);
+            _accountRepository.Setup(x => x.Update(It.IsAny<AccountDbModel>())).Returns(account);
 
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
             Assert.AreEqual(Permissions.See|Permissions.Create, accountService.RemovePermission(_permissionDelete).Permissions);
 
-            accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            accountService = new PermissionService(_accountRepository.Object);
             Assert.AreEqual(Permissions.See, accountService.RemovePermission(_permissionCreate).Permissions);
         }
 
         [Test]
         public void SetPermissionNotFoundUser()
         {
-            _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
+            _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
 
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
 
             Assert.Throws<NotFoundUserException>(() => accountService.SetPermission(_permissionCreate));
         }
@@ -101,11 +96,11 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var permissionCreate = new PermissionDto()
             {
                 Id = 1,
-                Permissions = Permissions.Create
+                Permission = Permissions.Create
             };
-            _factoryRepository.Setup(x => x.Accounts.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
+            _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
 
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
 
             Assert.Throws<NotFoundUserException>(() => accountService.RemovePermission(permissionCreate));
         }
@@ -113,7 +108,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void SetPermissionInvalidParameters()
         {
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
 
             Assert.Throws<ArgumentNullException>(() => accountService.SetPermission(null));
         }
@@ -121,7 +116,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void RemovePermissionInvalidParameters()
         {
-            var accountService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var accountService = new PermissionService(_accountRepository.Object);
 
             Assert.Throws<ArgumentNullException>(() => accountService.RemovePermission(null));
         }
