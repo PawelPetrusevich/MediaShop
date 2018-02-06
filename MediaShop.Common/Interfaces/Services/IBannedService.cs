@@ -10,6 +10,20 @@ namespace MediaShop.Common.Interfaces.Services
 
     public interface IBannedService
     {
-        Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
+        /// <summary>
+        /// Set or remove flag banned
+        /// </summary>
+        /// <param name="accountBLmodel"></param>
+        /// <param name="flag"></param>
+        /// <returns>account</returns>
+        Account SetFlagIsBanned(Account accountBLmodel, bool flag);
+
+        /// <summary>
+        /// Set or remove flag banned async
+        /// </summary>
+        /// <param name="accountBLmodel"></param>
+        /// <param name="flag"></param>
+        /// <returns>account</returns>
+        Task<Account> SetFlagIsBannedAsync(Account accountBLmodel, bool flag);
     }
 }

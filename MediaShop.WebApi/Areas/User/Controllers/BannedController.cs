@@ -27,7 +27,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("setBanned")]
+        [Route("{id}/banned/set")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -42,7 +42,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var account = Mapper.Map<Account>(data);
-                return Ok(_bannedService.SetRemoveFlagIsBanned(account, true));
+                return Ok(_bannedService.SetFlagIsBanned(account, true));
             }
             catch (ExistingLoginException ex)
             {
@@ -55,7 +55,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("removeBanned")]
+        [Route("{id}/banned/remove")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -70,7 +70,63 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var account = Mapper.Map<Account>(data);
-                return Ok(_bannedService.SetRemoveFlagIsBanned(account, false));
+                return Ok(_bannedService.SetFlagIsBanned(account, false));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("{id}/bannedAsync/set")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult SetFlagIsBannedAsync([FromBody] RegisterUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                var account = Mapper.Map<Account>(data);
+                return Ok(_bannedService.SetFlagIsBannedAsync(account, true));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("{id}/bannedAsync/remove")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RemoveFlagIsBannedAsync([FromBody] RegisterUserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                var account = Mapper.Map<Account>(data);
+                return Ok(_bannedService.SetFlagIsBannedAsync(account, false));
             }
             catch (ExistingLoginException ex)
             {

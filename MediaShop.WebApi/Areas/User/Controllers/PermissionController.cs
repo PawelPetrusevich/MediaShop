@@ -84,5 +84,59 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpPost]
+        [Route("{id}/permissionAsync/delete")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RemovePermissionAsync([FromBody] PermissionDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmptyRegisterDate);
+            }
+
+            try
+            {
+                return Ok(_permissionService.RemovePermissionAsync(data));
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("{id}/permissionAsync/add")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult SetPermissionAsync([FromBody] PermissionDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                return Ok(_permissionService.SetPermissionAsync(data));
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = await _accountRepository.GetAsync(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions |= permission.Permissions;
+            user.Permissions |= permission.Permission;
 
             var result = await _accountRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
 
@@ -81,17 +81,17 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="permissionDto">Permissions data</param>
         /// <returns>account</returns>
-        public Account RemovePermissionAsync(PermissionDto permission)
+        public async Task<Account> RemovePermissionAsync(PermissionDto permission)
         {
             if (permission == null)
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValue);
             }
 
-            var user = _accountRepository.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions &= ~permission.Permissions;
+            var user = await _accountRepository.GetAsync(permission.Id) ?? throw new NotFoundUserException();
+            user.Permissions &= ~permission.Permission;
 
-            var result = _accountRepository.Update(user) ?? throw new UpdateAccountException();
+            var result = await _accountRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(result);
         }

@@ -16,7 +16,7 @@ namespace MediaShop.BusinessLogic.Services
     {
         private readonly IAccountFactoryRepository _factoryRepository;
 
-        public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)
+        public Account SetFlagIsBanned(Account accountBLmodel, bool flag)
         {
             var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
                                   throw new NotFoundUserException();
@@ -24,6 +24,25 @@ namespace MediaShop.BusinessLogic.Services
             existingAccount.IsBanned = flag;
 
             var updatingAccount = this._factoryRepository.Accounts.Update(existingAccount);
+            var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
+
+            return updatingAccountBl;
+        }
+
+        /// <summary>
+        /// Set or remove flag banned
+        /// </summary>
+        /// <param name="accountBLmodel"></param>
+        /// <param name="flag"></param>
+        /// <returns>account</returns>
+        public async Task<Account> SetFlagIsBannedAsync(Account accountBLmodel, bool flag)
+        {
+            var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
+                                  throw new NotFoundUserException();
+
+            existingAccount.IsBanned = flag;
+
+            var updatingAccount = await this._factoryRepository.Accounts.UpdateAsync(existingAccount);
             var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
 
             return updatingAccountBl;

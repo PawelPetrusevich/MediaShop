@@ -22,5 +22,19 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="permissionDto">Permission data</param>
         /// <returns>account</returns>
         Account RemovePermission(PermissionDto permission);
+
+        /// <summary>
+        /// Set permission
+        /// </summary>
+        /// <param name="permissionDto">Permission data</param>
+        /// <returns>account</returns>
+        Task<Account> SetPermissionAsync(PermissionDto permission);
+
+        /// <summary>
+        /// Remove permission
+        /// </summary>
+        /// <param name="permissionDto">Permission data</param>
+        /// <returns>account</returns>
+        Task<Account> RemovePermissionAsync(PermissionDto permission);
     }
 }

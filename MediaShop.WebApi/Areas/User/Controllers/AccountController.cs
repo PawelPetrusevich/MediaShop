@@ -17,6 +17,8 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
+    using System.Text;
+
     [RoutePrefix("api/account")]
     [AccountExceptionFilter]
     public class AccountController : ApiController
@@ -38,7 +40,16 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmptyRegisterDate);
+                var sb = new StringBuilder();
+                foreach (var value in ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
+                    }
+                }
+               
+                return BadRequest(sb.ToString());
             }
 
             var result = _accountService.Register(data);

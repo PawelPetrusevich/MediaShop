@@ -66,13 +66,5 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">user email</param>
         /// <returns>account</returns>
         Account RecoveryPassword(string email);
-
-        /// <summary>
-        /// Set or remove flag banned
-        /// </summary>
-        /// <param name="accountBLmodel"></param>
-        /// <param name="flag"></param>
-        /// <returns>account</returns>
-        Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
     }
 }

@@ -220,18 +220,5 @@ namespace MediaShop.BusinessLogic.Services
         {
             throw new NotImplementedException();
         }
-
-        public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)
-        {
-            var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
-                                  throw new NotFoundUserException();
-
-            existingAccount.IsBanned = flag;
-
-            var updatingAccount = this._factoryRepository.Accounts.Update(existingAccount);
-            var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
-
-            return updatingAccountBl;
-        }
     }
 }
