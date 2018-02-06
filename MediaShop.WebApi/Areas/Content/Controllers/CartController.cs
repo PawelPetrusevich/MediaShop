@@ -29,15 +29,9 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [Route("getcart")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(string))]
         public IHttpActionResult Get([FromUri] long id) //id User
         {
             var cart = _cartService.GetCart(id);
-            if (cart == null)
-            {
-                return InternalServerError();
-            }
-
             return this.Ok(cart);
         }
 

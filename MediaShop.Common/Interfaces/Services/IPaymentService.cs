@@ -11,11 +11,11 @@
     public interface IPaymentService
     {
         /// <summary>
-        /// Method for payment by product
+        /// Create and return new Payment
         /// </summary>
-        /// <param name="cart">cart</param>
-        /// <returns>http requect for redirect</returns>
-        string Payment(Cart cart);
+        /// <param name="cart">user Cart</param>
+        /// <returns>created Payment</returns>
+        Payment GetPayment(Cart cart);
 
         /// <summary>
         /// Add new model

@@ -112,10 +112,10 @@
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
-    <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\NotExistProductInDataBaseExceptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\AddContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\NotExistProductInDataBaseExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
-    <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\Content\CompressedProduct.cs" />
     <Compile Include="Models\Content\OriginalProduct.cs" />
     <Compile Include="Models\Content\Product.cs" />
