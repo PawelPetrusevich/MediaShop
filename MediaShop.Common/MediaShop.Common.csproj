@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />
     <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
     <Compile Include="Dto\Product\UploadProductModel.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Dto\User\Profile.cs" />
     <Compile Include="Dto\Product\ProductSearchModel.cs" />
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
-    <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\PermissionDto.cs" />
