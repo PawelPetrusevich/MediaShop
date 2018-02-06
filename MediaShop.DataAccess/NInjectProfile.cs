@@ -37,7 +37,6 @@ namespace MediaShop.DataAccess
             this.Bind<DbContext>().To<MediaContext>();
             this.Bind<INotificationRepository>().To<NotificationRepository>();
             this.Bind<IAccountFactoryRepository>().To<AccountFactoryRepository>();
-            this.Bind<IProductRepositoryAsync>().To<ProductRepositoryAsync>();
         }
     }
 }

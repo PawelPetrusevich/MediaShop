@@ -105,8 +105,6 @@
     <Compile Include="Migrations\201802021826216_AddPropToProduct.Designer.cs">
       <DependentUpon>201802021826216_AddPropToProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\Base\RepositoryAsync.cs" />
-    <Compile Include="Repositories\ProductRepositoryAsync.cs" />
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
