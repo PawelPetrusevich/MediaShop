@@ -58,5 +58,12 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="userId">users id</param>
         OriginalProductDTO GetOriginalPurshasedProduct(long userId, long productId);
+
+        /// <summary>
+        /// Get list  products on sale
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>return DTO whith product name and original product byte array</returns>
+        IEnumerable<CompressedProductDTO> GetListOnSale();
     }
 }

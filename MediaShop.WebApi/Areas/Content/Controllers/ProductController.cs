@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
-using System.Web.Mvc;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
+using MediaShop.WebApi.Areas.Content.Controllers;
 using MediaShop.WebApi.Areas.Content.Controllers.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -131,6 +131,28 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             try
             {
                 return Ok(_productService.GetListPurshasedProducts(userId));
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentDownloadError);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetListOnSale")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "Get compressed products on sale", typeof(List<CompressedProductDTO>))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        public IHttpActionResult GetListOnSale()
+        {
+            try
+            {
+                return Ok(_productService.GetListOnSale());
             }
             catch (InvalidOperationException)
             {

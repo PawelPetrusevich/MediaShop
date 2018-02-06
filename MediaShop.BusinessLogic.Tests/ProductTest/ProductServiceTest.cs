@@ -62,6 +62,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.SoftDelete(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.GetListOnSale()).Returns(new List<Product>() { new Product() });
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>(){ new Product() });
 
@@ -140,6 +141,14 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_GetListPurshasedProducts()
         {
             var returnProducts = _productService.GetListPurshasedProducts(1);
+
+            Assert.IsNotNull(returnProducts);
+        }
+
+        [Test]
+        public void Product_GetLisProductsOnSale()
+        {
+            var returnProducts = _productService.GetListOnSale();
 
             Assert.IsNotNull(returnProducts);
         }

@@ -26,12 +26,12 @@ namespace MediaShop.DataAccess.Repositories
 
         public Product SoftDelete(long id)
         {
+            using (Context)
+            {
             var model = DbSet.SingleOrDefault(entity => entity.Id == id);
 
             if (model != null)
             {
-                using (Context)
-                {
                    model.IsDeleted = true;
                     Context.SaveChanges();
                     return model;
@@ -41,7 +41,16 @@ namespace MediaShop.DataAccess.Repositories
             return default(Product);
         }
 
-        public virtual async Task<Product> AddAsync(Product model)
+        public List<Product> GetListOnSale()
+        {
+            using (Context)
+            {
+                return DbSet.Where(entity => entity.IsDeleted == false).ToList();
+            }
+
+            return default(List<Product>);
+        }
+public virtual async Task<Product> AddAsync(Product model)
         {
             if (model == null)
             {

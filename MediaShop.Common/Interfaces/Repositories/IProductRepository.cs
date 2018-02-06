@@ -18,6 +18,13 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// <returns></returns>
         Product SoftDelete(long id);
 
+        /// <summary>
+        /// Get list products on sale
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        List<Product> GetListOnSale();
+
         Task<Product> AddAsync(Product model);
 
         Task<Product> DeleteAsync(Product model);

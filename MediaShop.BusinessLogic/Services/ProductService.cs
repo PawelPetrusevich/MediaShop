@@ -183,6 +183,15 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Get list products on sale
+        /// </summary>
+        /// <param name="">users id</param>
+        public IEnumerable<CompressedProductDTO> GetListOnSale()
+        {
+            return Mapper.Map<List<CompressedProductDTO>>(this._repository.GetListOnSale());
+        }
+
+        /// <summary>
         /// Get original purshased product
         /// </summary>
         /// <param name="userId">users id</param>
