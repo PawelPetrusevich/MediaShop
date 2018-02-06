@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MediaShop.WebApi.Filters;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
 {
@@ -19,6 +20,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     using Swashbuckle.Swagger.Annotations;
 
+    [RoutePrefix("api/user")]
+    [AccountExceptionFilter]
     public class PermissionController : ApiController
     {
         private readonly IPermissionService _permissionService;
@@ -29,7 +32,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("removePermission")]
+        [Route("{id}/permission/delete")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -56,7 +59,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("setPermission")]
+        [Route("{id}/permission/add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]

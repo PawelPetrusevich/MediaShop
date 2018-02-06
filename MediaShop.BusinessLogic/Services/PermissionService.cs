@@ -24,7 +24,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <summary>
         /// Set permission
         /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
+        /// <param name="permissionDto">Permission data</param>
         /// <returns>account</returns>
         public Account SetPermission(PermissionDto permission)
         {
@@ -34,7 +34,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = _accountRepository.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions |= permission.Permissions;
+            user.Permissions |= permission.Permission;
 
             var result = _accountRepository.Update(user) ?? throw new UpdateAccountException();
 
@@ -44,7 +44,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <summary>
         /// Remove permission
         /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
+        /// <param name="permissionDto">Permission data</param>
         /// <returns>account</returns>
         public Account RemovePermission(PermissionDto permission)
         {
@@ -54,7 +54,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = _accountRepository.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions &= ~permission.Permissions;
+            user.Permissions &= ~permission.Permission;
 
             var result = _accountRepository.Update(user) ?? throw new UpdateAccountException();
 

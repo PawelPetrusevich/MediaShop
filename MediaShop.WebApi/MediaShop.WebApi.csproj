@@ -168,6 +168,7 @@
     <Compile Include="Areas\Content\Controllers\ProductController.cs" />
     <Compile Include="Areas\Content\Controllers\CartController.cs" />
     <Compile Include="Areas\Messaging\Controllers\NotificationController.cs" />
+    <Compile Include="Filters\AccountExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
