@@ -216,11 +216,7 @@
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
             var apiContext = new APIContext(accessToken);
             var payment = Payment.Get(apiContext, paymentId);
-            if (payment == null)
-            {
-                throw new PaymentException(Resources.PaymentIsNullOrEmpty);
-            }
-
+            payment = payment ?? throw new PaymentException(Resources.PaymentIsNullOrEmpty);
             var paymentExecution = new PaymentExecution()
             {
                 payer_id = payment.payer.payer_info.payer_id
@@ -228,7 +224,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = AddPayment(Mapper.Map<PayPalPayment>(executedPayment));
+            var result = this.AddPayment(Mapper.Map<PayPalPayment>(executedPayment));
             return result;
         }
 
