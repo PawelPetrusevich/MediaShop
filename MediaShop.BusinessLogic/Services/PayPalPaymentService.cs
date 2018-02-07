@@ -119,7 +119,7 @@
                 throw new EmptyCartException(Resources.CountContentInCartIsNull);
             }
 
-            if (cart.PriceAllItemsCollection != cart.ContentCartDtoCollection.Sum<ContentCartDto>(x => x.PriceItem))
+            if (cart.PriceAllItemsCollection != cart.ContentCartDtoCollection.Sum<ContentCartDto>(x => x.PriceItem) || cart.PriceAllItemsCollection <= 0)
             {
                 throw new ContentCartPriceException(Resources.InvaliContentCartValueOfPrice);
             }

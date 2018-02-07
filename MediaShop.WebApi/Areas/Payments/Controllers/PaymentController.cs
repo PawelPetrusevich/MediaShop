@@ -52,15 +52,16 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
 
         [HttpPost]
         [Route("paypalpayment")]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
             try
             {
-                string paymentUrl = _paymentService.GetPayment(cart, Url.ToString());
-                return Redirect(paymentUrl);
+                string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
+                this.StatusCode(HttpStatusCode.Redirect);
+                return Redirect(paymentUrl);  
             }
             catch (ArgumentNullException ex)
             {
@@ -81,7 +82,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         }
 
         [HttpGet]
-        [Route("executepaypalpayment/{guid}/{paymentid}/{token}")]
+        [Route("paypalpayment/executepaypalpayment/{guid}/{paymentid}/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
@@ -107,7 +108,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         }
 
         [HttpGet]
-        [Route("paymentcancelled/{token}")]
+        [Route("paypalpayment/paymentcancelled/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(Cart))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PaymentCancelled(string token)
