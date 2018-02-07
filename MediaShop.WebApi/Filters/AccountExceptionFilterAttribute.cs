@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using MediaShop.Common.Exceptions;
-using MediaShop.Common.Exceptions.CartExceptions;
+using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.WebApi.Filters
 {

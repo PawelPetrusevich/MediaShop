@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using MediaShop.Common.Properties;
 
-namespace MediaShop.Common.Exceptions.CartExseptions
+namespace MediaShop.Common.Exceptions.User
 {
     [Serializable]
     public class ConfirmedUserException : Exception
