@@ -23,9 +23,8 @@
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
-        /// <param name="payerId">payerId</param>
         /// <returns>PayPalPaymentDto with info of Payment</returns>
-        PayPalPaymentDto ExecutePayment(string paymentId, string payerId);
+        PayPalPaymentDto ExecutePayment(string paymentId);
 
         /// <summary>
         /// Add new model

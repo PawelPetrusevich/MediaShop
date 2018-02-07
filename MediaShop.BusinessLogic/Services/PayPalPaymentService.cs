@@ -209,9 +209,8 @@
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
-        /// <param name="payerId">payerId</param>
         /// <returns>Executed Payment</returns>
-        public PayPalPaymentDto ExecutePayment(string paymentId, string payerId)
+        public PayPalPaymentDto ExecutePayment(string paymentId)
         {
             var config = Configuration.GetConfig();
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -224,7 +223,7 @@
 
             var paymentExecution = new PaymentExecution()
             {
-                payer_id = payerId
+                payer_id = payment.payer.payer_info.payer_id
             };
 
             var executedPayment = new Payment();
