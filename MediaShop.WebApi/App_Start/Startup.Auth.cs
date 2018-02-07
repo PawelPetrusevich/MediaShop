@@ -32,7 +32,7 @@ namespace MediaShop.WebApi
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId, accountService),
 
-               // AuthorizeEndpointPath = new PathString("/api/account/login"),
+                AuthorizeEndpointPath = new PathString("/api/account/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
 
                 // In production mode set AllowInsecureHttp = false
