@@ -2,18 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using AutoMapper;
     using MediaShop.BusinessLogic.ExtensionMethods;
     using MediaShop.BusinessLogic.Properties;
+    using MediaShop.Common.Dto.Payment;
+    using MediaShop.Common.Enums.PaymentEnums;
     using MediaShop.Common.Exceptions.PaymentExceptions;
+    using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.PaymentModel;
     using PayPal;
     using PayPal.Api;
-    using MediaShop.Common.Enums.PaymentEnums;
-    using MediaShop.Common.Interfaces.Repositories;
-    using MediaShop.Common.Dto.Payment;
-    using AutoMapper;
 
     /// <summary>
     /// Class PaymentService
@@ -98,69 +99,97 @@
             }
         }
 
-        ///// <summary>
-        ///// Create and return new Payment
-        ///// </summary>
-        ///// <param name="cart">user Cart</param>
-        ///// <returns>created Payment</returns>
-        //public PayPal.Api.Payment GetPayment(Cart cart)
-        //{
-        //    var config = Configuration.GetConfig();
-        //    var accessToken = new OAuthTokenCredential(config).GetAccessToken();
-        //    var apiContext = new APIContext(accessToken);
-        //    string payerId = "payerId"; // Request.Params["PayerID"];
+        /// <summary>
+        /// Create and return new Payment
+        /// </summary>
+        /// <param name="cart">user Cart</param>
+        /// <returns>created Payment</returns>
+        public PayPal.Api.Payment GetPayment(Cart cart)
+        {
+            var config = Configuration.GetConfig();
 
-        //    // ###Items
-        //    // Items within a transaction.
-        //    var itemList = new PayPal.Api.ItemList();
-        //    itemList.items = this.GetItemList(cart.ContentCartDtoCollection);
+            var accessToken = new OAuthTokenCredential(config).GetAccessToken();
 
-        //    // ###Payer
-        //    // A resource representing a Payer that funds a payment
-        //    // Payment Method
-        //    // as `paypal`
-        //    var payer = new PayPal.Api.Payer() { payment_method = "paypal" };
+            var apiContext = new APIContext(accessToken);
 
-        //    // ###Redirect URLS
-        //    // These URLs will determine how the user is redirected from PayPal once they have either approved or canceled the payment.
-        //    var redirUrls = this.GetRedirectUrls();
+            string payerId = "payerId"; // Request.Params["PayerID"];
 
-        //    // ###Details
-        //    // Let's you specify details of a payment amount.
-        //    var tax = cart.PriceAllItemsCollection * new decimal(0.10);
-        //    var details = new PayPal.Api.Details()
-        //    {
-        //        tax = decimal.Round(tax, 2).ToString().Replace(',', '.'),
-        //        shipping = "0",
-        //        subtotal = decimal.Round(cart.PriceAllItemsCollection, 2).ToString().Replace(',', '.')
-        //    };
+            // ###Items
+            // Items within a transaction.
+            var itemList = new PayPal.Api.ItemList();
 
-        //    // ###Amount
-        //    // Let's you specify a payment amount.
-        //    var amount = new PayPal.Api.Amount()
-        //    {
-        //        currency = "USD",
-        //        total = decimal.Round(cart.PriceAllItemsCollection + tax, 2).ToString().Replace(',', '.'), // Total must be equal to sum of shipping, tax and subtotal.
-        //        details = details
-        //    };
+            itemList.items = this.GetItemList(cart.ContentCartDtoCollection);
 
-        //    // ###Transaction
-        //    // A transaction defines the contract of a
-        //    // payment - what is the payment for and who
-        //    // is fulfilling it.
-        //    var transactionList = new List<PayPal.Api.Transaction>();
+            // ###Payer
+            // A resource representing a Payer that funds a payment
+            // Payment Method
+            // as `paypal`
+            var payer = new PayPal.Api.Payer() { payment_method = "paypal" };
 
-        //    // The Payment creation API requires a list of
-        //    // Transaction; add the created `Transaction`
-        //    // to a List
-        //    transactionList.Add(new PayPal.Api.Transaction()
-        //    {
-        //        description = "Payd contents.",
-        //        invoice_number = new System.Random().Next(999999).ToString(), // Get id number transaction
-        //        amount = amount,
-        //        item_list = itemList
-        //    });
-        //}
+            // ###Redirect URLS
+            // These URLs will determine how the user is redirected from PayPal once they have either approved or canceled the payment.
+            var redirUrls = this.GetRedirectUrls();
+
+            // ###Details
+            // Let's you specify details of a payment amount.
+            var tax = cart.PriceAllItemsCollection * new decimal(0.10);
+
+            var details = new PayPal.Api.Details()
+            {
+                tax = decimal.Round(tax, 2).ToString(CultureInfo.CreateSpecificCulture("en-US")),
+                shipping = "0",
+                subtotal = decimal.Round(cart.PriceAllItemsCollection, 2).ToString(CultureInfo.CreateSpecificCulture("en-US"))
+            };
+
+            // ###Amount
+            // Let's you specify a payment amount.
+
+            var amount = new PayPal.Api.Amount()
+            {
+                currency = "USD",
+                total = decimal.Round(cart.PriceAllItemsCollection + tax, 2).ToString(CultureInfo.CreateSpecificCulture("en-US")),
+
+                // Total must be equal to sum of shipping, tax and subtotal.
+                details = details
+            };
+
+            // ###Transaction
+            // A transaction defines the contract of a
+            // payment - what is the payment for and who
+            // is fulfilling it.
+            var transactionList = new List<PayPal.Api.Transaction>();
+
+            // The Payment creation API requires a list of
+            // Transaction; add the created `Transaction`
+            // to a List
+            transactionList.Add(new PayPal.Api.Transaction()
+            {
+                description = "Payd contents.",
+
+                invoice_number = new System.Random().Next(999999).ToString(), // Get id number transaction
+
+                amount = amount,
+
+                item_list = itemList
+            });
+
+            // ###Payment
+            // A Payment Resource; create one using
+            // the above types and intent as `sale` or `authorize`
+            var payment = new PayPal.Api.Payment()
+            {
+                intent = "sale",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+
+            // Create a payment using a valid APIContext
+            var createdPayment = payment.Create(apiContext);
+
+            // return Redirect(createdPayment.GetApprovalUrl(true));
+            return createdPayment;
+        }
 
         /// <summary>
         /// Get new redirectUrls
