@@ -7,9 +7,11 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
     using AutoMapper;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
+    using MediaShop.DataAccess.Properties;
 
 namespace MediaShop.DataAccess.Repositories.Base
 {
@@ -19,7 +21,7 @@ namespace MediaShop.DataAccess.Repositories.Base
     /// <typeparam name="T">Entity</typeparam>
     /// <seealso cref="System.IDisposable" />
     /// <seealso cref="MediaShop.Common.Interfaces.Repositories.IRepository{T}" />
-    public class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T>, IRepositoryAsync<T>
         where T : Entity
     {
         /// <summary>
@@ -61,10 +63,27 @@ namespace MediaShop.DataAccess.Repositories.Base
         {
             if (id <= 0)
         {
-                throw new ArgumentException("message!");
+                throw new ArgumentException(Resources.InvalidIdValue);
             }
 
             return DbSet.SingleOrDefault(entity => entity.Id == id);
+        }
+
+        /// Method Get
+        /// gets user by ID
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <returns>db entry</returns>
+        public virtual async Task<T> GetAsync(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var result = await DbSet.SingleOrDefaultAsync(entity => entity.Id == id).ConfigureAwait(false);
+
+            return result;
         }
 
         /// <summary>
@@ -89,12 +108,38 @@ namespace MediaShop.DataAccess.Repositories.Base
         }
 
         /// <summary>
+        /// add model to repository
+        /// </summary>
+        /// <param name="model">model user</param>
+        /// <returns>db entry</returns>
+        /// <exception cref="ArgumentNullException">if model = null</exception>
+        public virtual async Task<T> AddAsync(T model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            using (Context)
+            {
+                var result = DbSet.Add(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return result;
+            }
+        }
+
+        /// <summary>
         /// interface method update for type TModel
         /// </summary>
         /// <param name="model">Model to update</param>
         /// <returns>Updated model</returns>
         public virtual T Update(T model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             using (Context)
             {
                 T entity = Get(model.Id);
@@ -108,13 +153,94 @@ namespace MediaShop.DataAccess.Repositories.Base
         }
 
         /// <summary>
+        /// interface method update for type TModel
+        /// </summary>
+        /// <param name="model">Model to update</param>
+        /// <returns>Updated model</returns>
+        public virtual async Task<T> UpdateAsync(T model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            using (Context)
+            {
+                T entity = Get(model.Id);
+
+                entity = Mapper.Map(model, entity);
+                Context.Entry(entity).State = EntityState.Modified;
+
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return entity;
+            }
+        }
+
+        /// <summary>
         /// interface method delete for type TModel by model
         /// </summary>
         /// <param name="model">Model to delete</param>
         /// <returns>Instance of deleted model</returns>
         public virtual T Delete(T model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             if (DbSet.Contains(model))
+            {
+                using (Context)
+                {
+                    DbSet.Remove(model);
+                    Context.SaveChanges();
+                    return model;
+                }
+            }
+
+            return default(T);
+        }
+
+        /// <summary>
+        /// interface method delete for type TModel by model
+        /// </summary>
+        /// <param name="model">Model to delete</param>
+        /// <returns>Instance of deleted model</returns>
+        public virtual async Task<T> DeleteAsync(T model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (DbSet.Contains(model))
+            {
+                using (Context)
+                {
+                    DbSet.Remove(model);
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
+                    return model;
+                }
+            }
+
+            return default(T);
+        }
+
+        /// <summary>
+        /// interface method delete for type TModel by id
+        /// </summary>
+        /// <param name="id">Id of deleting model</param>
+        /// <returns>Deleted model</returns>
+        public virtual T Delete(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var model = DbSet.SingleOrDefault(entity => entity.Id == id);
+
+            if (model != null)
             {
                 using (Context)
                 {
@@ -132,17 +258,21 @@ namespace MediaShop.DataAccess.Repositories.Base
         /// </summary>
         /// <param name="id">Id of deleting model</param>
         /// <returns>Deleted model</returns>
-        public virtual T Delete(long id)
+        public virtual async Task<T> DeleteAsync(long id)
         {
-            // todo id check
-            var model = DbSet.SingleOrDefault(entity => entity.Id == id);
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var model = await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
 
             if (model != null)
             {
                 using (Context)
                 {
                     DbSet.Remove(model);
-                    Context.SaveChanges();
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
                     return model;
                 }
             }
@@ -164,6 +294,24 @@ namespace MediaShop.DataAccess.Repositories.Base
             }
 
             return DbSet.Where(filter).ToList();
+        }
+
+        /// <summary>
+        /// Find by id
+        /// </summary>
+        /// <param name="filter">Filter criteria</param>
+        /// <returns>Suitable entities</returns>
+        /// <exception cref="ArgumentNullException">filter</exception>
+        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> filter)
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter));
+            }
+
+            var result = await DbSet.Where(filter).ToListAsync().ConfigureAwait(false);
+
+            return result;
         }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
