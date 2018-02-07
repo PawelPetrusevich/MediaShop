@@ -11,12 +11,12 @@
     /// </summary>
     public interface IPayPalPaymentService
     {
-        /// <summary>
-        /// Method for payment by product
-        /// </summary>
-        /// <param name="cart">cart</param>
-        /// <returns>http requect for redirect</returns>
-        string Payment(Cart cart);
+        ///// <summary>
+        ///// Create and return new Payment
+        ///// </summary>
+        ///// <param name="cart">user Cart</param>
+        ///// <returns>created Payment</returns>
+        //Payment GetPayment(Cart cart);
 
         /// <summary>
         /// Add new model
