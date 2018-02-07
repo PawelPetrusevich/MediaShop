@@ -1,4 +1,4 @@
-﻿namespace MediaShop.Common.Exceptions.CartExseptions
+﻿namespace MediaShop.Common.Exceptions.CartExceptions
 {
     using System;
     using System.Runtime.Serialization;

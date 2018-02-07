@@ -10,7 +10,7 @@ using MediaShop.Common.Models;
 using MediaShop.Common.Models.PaymentModel;
 using MediaShop.Common;
 using MediaShop.BusinessLogic.Services;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Enums;
 using NUnit.Framework;
 

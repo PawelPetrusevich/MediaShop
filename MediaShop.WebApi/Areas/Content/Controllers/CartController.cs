@@ -3,7 +3,7 @@ using System.Net;
 using System;
 using MediaShop.Common.Enums;
 using Swashbuckle.Swagger.Annotations;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;

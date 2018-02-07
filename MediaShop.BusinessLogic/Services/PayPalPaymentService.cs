@@ -3,11 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using AutoMapper;
     using MediaShop.BusinessLogic.ExtensionMethods;
     using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Dto.Payment;
     using MediaShop.Common.Enums.PaymentEnums;
+    using MediaShop.Common.Exceptions.CartExceptions;
     using MediaShop.Common.Exceptions.PaymentExceptions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
@@ -103,9 +105,25 @@
         /// Create and return new Payment
         /// </summary>
         /// <param name="cart">user Cart</param>
+        /// <param name="baseUrl">base uri of Requst</param>
         /// <returns>created Payment</returns>
-        public PayPal.Api.Payment GetPayment(Cart cart)
+        public string GetPayment(Cart cart, string baseUrl)
         {
+            if (cart == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+            }
+
+            if (cart.ContentCartDtoCollection == null || (cart.ContentCartDtoCollection.Count() <= 0))
+            {
+                throw new EmptyCartException(Resources.CountContentInCartIsNull);
+            }
+
+            if (cart.PriceAllItemsCollection != cart.ContentCartDtoCollection.Sum<ContentCartDto>(x => x.PriceItem))
+            {
+                throw new ContentCartPriceException(Resources.InvaliContentCartValueOfPrice);
+            }
+
             var config = Configuration.GetConfig();
 
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -128,11 +146,11 @@
 
             // ###Redirect URLS
             // These URLs will determine how the user is redirected from PayPal once they have either approved or canceled the payment.
-            var redirUrls = this.GetRedirectUrls();
+            var redirUrls = this.GetRedirectUrls(baseUrl);
 
             // ###Details
             // Let's you specify details of a payment amount.
-            var tax = cart.PriceAllItemsCollection * new decimal(0.10);
+            var tax = this.GetTax(cart.PriceAllItemsCollection);
 
             var details = new PayPal.Api.Details()
             {
@@ -143,7 +161,6 @@
 
             // ###Amount
             // Let's you specify a payment amount.
-
             var amount = new PayPal.Api.Amount()
             {
                 currency = "USD",
@@ -165,11 +182,8 @@
             transactionList.Add(new PayPal.Api.Transaction()
             {
                 description = "Payd contents.",
-
                 invoice_number = new System.Random().Next(999999).ToString(), // Get id number transaction
-
                 amount = amount,
-
                 item_list = itemList
             });
 
@@ -188,27 +202,47 @@
             var createdPayment = payment.Create(apiContext);
 
             // return Redirect(createdPayment.GetApprovalUrl(true));
-            return createdPayment;
+            return createdPayment.GetApprovalUrl(true);
+        }
+
+        /// <summary>
+        /// Executes, or completes, a PayPal payment that the payer has approved
+        /// </summary>
+        /// <param name="paymentId">paymentId</param>
+        /// <param name="payerId">payerId</param>
+        /// <returns>Executed Payment</returns>
+        public PayPalPayment ExecutePayment(string paymentId, string payerId)
+        {
+            var config = Configuration.GetConfig();
+            var accessToken = new OAuthTokenCredential(config).GetAccessToken();
+            var apiContext = new APIContext(accessToken);
+            var payment = Payment.Get(apiContext, paymentId);
+            if (payment == null)
+            {
+                throw new PaymentException(Resources.PaymentIsNullOrEmpty);
+            }
+
+            var paymentExecution = new PaymentExecution()
+            {
+                payer_id = payerId
+            };
+
+            var executedPayment = new Payment();
+            executedPayment = payment.Execute(apiContext, paymentExecution);
+            return new PayPalPayment();
         }
 
         /// <summary>
         /// Get new redirectUrls
         /// </summary>
+        /// <param name="baseUrl">base Uri of Request</param>
         /// <returns>RedirectUrls</returns>
-        private RedirectUrls GetRedirectUrls()
+        private RedirectUrls GetRedirectUrls(string baseUrl)
         {
-            // var baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Home/GoodPayd?";
-            // var guid = Convert.ToString((new Random()).Next(100000));
-            // var redirectUrl = baseURI + "guid=" + guid;
-            // new RedirectUrls()
-            // {
-            //    return_url = redirectUrl,
-            //    cancel_url = "http://localhost:8642/Home/FailPayd"
-            // };
             return new RedirectUrls()
             {
-                cancel_url = "url",
-                return_url = "url"
+                cancel_url = $"{baseUrl}/paymentcancelled",
+                return_url = $"{baseUrl}/executepaypalpayment"
             };
         }
 
@@ -233,6 +267,16 @@
             }
 
             return itemList;
+        }
+
+        /// <summary>
+        /// Get tax for payment
+        /// </summary>
+        /// <param name="price">price of content</param>
+        /// <returns>tax of payment</returns>
+        private decimal GetTax(decimal price)
+        {
+            return price * new decimal(0.10);
         }
     }
 }

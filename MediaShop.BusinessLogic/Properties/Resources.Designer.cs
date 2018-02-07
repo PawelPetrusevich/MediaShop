@@ -19,7 +19,7 @@ namespace MediaShop.BusinessLogic.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -84,6 +84,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string BadDeserializer {
             get {
                 return ResourceManager.GetString("BadDeserializer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count content in can not be null.
+        /// </summary>
+        internal static string CountContentInCartIsNull {
+            get {
+                return ResourceManager.GetString("CountContentInCartIsNull", resourceCulture);
             }
         }
         
@@ -192,6 +201,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string imageType {
             get {
                 return ResourceManager.GetString("imageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total amount or price of content is not actual.
+        /// </summary>
+        internal static string InvaliContentCartValueOfPrice {
+            get {
+                return ResourceManager.GetString("InvaliContentCartValueOfPrice", resourceCulture);
             }
         }
         
@@ -365,6 +383,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string NullOrEmptyValueString {
             get {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment not found.
+        /// </summary>
+        internal static string PaymentIsNullOrEmpty {
+            get {
+                return ResourceManager.GetString("PaymentIsNullOrEmpty", resourceCulture);
             }
         }
         

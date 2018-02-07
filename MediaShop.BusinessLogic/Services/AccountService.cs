@@ -8,7 +8,7 @@ using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 
 namespace MediaShop.BusinessLogic.Services
 {

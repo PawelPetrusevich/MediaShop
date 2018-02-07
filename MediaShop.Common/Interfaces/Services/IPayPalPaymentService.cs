@@ -4,6 +4,7 @@
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.PaymentModel;
     using PayPal.Api;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Interface for payment
@@ -14,8 +15,17 @@
         /// Create and return new Payment
         /// </summary>
         /// <param name="cart">user Cart</param>
+        /// <param name="baseUrl">base uri of Requst</param>
         /// <returns>created Payment</returns>
-        Payment GetPayment(Cart cart);
+        string GetPayment(Cart cart, string baseUrl);
+
+        /// <summary>
+        /// Executes, or completes, a PayPal payment that the payer has approved
+        /// </summary>
+        /// <param name="paymentId">paymentId</param>
+        /// <param name="payerId">payerId</param>
+        /// <returns>Executed Payment</returns>
+        PayPalPayment ExecutePayment(string paymentId, string payerId);
 
         /// <summary>
         /// Add new model

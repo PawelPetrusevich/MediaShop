@@ -273,4 +273,13 @@
   <data name="NotApprovedOperationPayment" xml:space="preserve">
     <value>Operation payment was Created but not Approved</value>
   </data>
+  <data name="CountContentInCartIsNull" xml:space="preserve">
+    <value>Count content in can not be null</value>
+  </data>
+  <data name="InvaliContentCartValueOfPrice" xml:space="preserve">
+    <value>Total amount or price of content is not actual</value>
+  </data>
+  <data name="PaymentIsNullOrEmpty" xml:space="preserve">
+    <value>Payment not found</value>
+  </data>
 </root>

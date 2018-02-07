@@ -102,9 +102,14 @@
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
+    <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
+    <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
     <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentsException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PayPalException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />

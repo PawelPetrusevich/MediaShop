@@ -7,7 +7,7 @@
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Enums;
-    using MediaShop.Common.Exceptions.CartExseptions;
+    using MediaShop.Common.Exceptions.CartExceptions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
