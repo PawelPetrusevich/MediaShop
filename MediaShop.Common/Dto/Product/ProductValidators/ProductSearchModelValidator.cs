@@ -11,8 +11,8 @@ namespace MediaShop.Common.Dto.Product.ProductValidators
     {
         public ProductSearchModelValidator()
         {
-            //this.RuleFor(x => x.LeftValue).MinimumLength(2);
-            //this.RuleFor(v => v.RightValue).NotEmpty();
+            var AvailableValues = new string[] { ">", "<", "=", "Contains" };
+            this.RuleFor(x => x.Operand).Must(s => AvailableValues.Contains(s)).WithMessage(x => $"Operand {x.Operand} is not available for comparison");
         }
     }
 }

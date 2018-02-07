@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -60,14 +61,32 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("Find")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(List<ProductDto>))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Return list of products ", typeof(List<ProductDto>))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Input error ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult FindProducts([FromBody] List<ProductSearchModel> conditionsList)
         {
             if (conditionsList == null || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmptyConditionList);
+                var sb = new StringBuilder();
+                foreach (var value in ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
+                    }
+                }
+
+                if (sb.Length != 0)
+                {
+                    return BadRequest(sb.ToString());
+                }
+                else
+                {
+                    return BadRequest(Resources.EmptyConditionList);
+                }
+                
+                
             }
 
             if (conditionsList.Count <= 0)
@@ -92,8 +111,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [HttpDelete]
         [Route("delete/{id}")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(ProductDto))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful delete by id ", typeof(ProductDto))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error delete by id", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult DeleteProduct(long id)
         {
@@ -119,8 +138,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetPurshasedProducts")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(List<CompressedProductDTO>))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful get purshased products", typeof(List<CompressedProductDTO>))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error get purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult GetListPurshasedProducts([FromUri] long userId)
         {
@@ -146,7 +165,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSale")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, "Get compressed products on sale", typeof(List<CompressedProductDTO>))]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful Get compressed products on sale", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult GetListOnSale()
@@ -168,8 +187,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetOriginalPurshasedProduct")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(OriginalProductDTO))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
         public IHttpActionResult GetOriginalPurshasedProduct([FromUri] long userId, long productId)
         {

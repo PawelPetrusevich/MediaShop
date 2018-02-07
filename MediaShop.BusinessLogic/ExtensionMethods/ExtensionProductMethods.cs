@@ -220,6 +220,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 "FF-D8-FF-E0",
                 "FF-D8-FF-E2",
                 "FF-D8-FF-E3",
+                "89-50-4E-47",
                 "47-49-46-38",
             };
             string[] videoType =
@@ -267,8 +268,8 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         /// <returns>return byte array</returns>
         public static byte[] GetProtectedVideo(this byte[] originalVideoInBytes)
         {
-            string originalVideoPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/") + $"{Guid.NewGuid()}.mp4";
-            string protectedVideoPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/") + $"{Guid.NewGuid()}.mp4";
+            string originalVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string protectedVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
             File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
             var ffmpegconvert = new FFMpegConverter();
             ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, new ConvertSettings() { Seek = 0, MaxDuration = 5, VideoCodec = "libx264", AudioCodec = "mp3", VideoFrameRate = 25, VideoFrameSize = "640x360" });
@@ -310,8 +311,8 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
 
         public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
         {
-            string originalVideoPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/") + $"{Guid.NewGuid()}.mp4";
-            string compresedVideoFramePath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/") + $"{Guid.NewGuid()}.jpg";
+            string originalVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string compresedVideoFramePath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
             File.WriteAllBytes(originalVideoPath, originalVideoBytes);
             var ffmpegconverter = new FFMpegConverter();
             ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
