@@ -90,7 +90,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             try
             {
                 var payment = _paymentService.ExecutePayment(paymentId, PayerID);
-                return Ok();
+                return Ok(payment);
             }
             catch (PayPalException ex)
             {
