@@ -28,11 +28,11 @@ namespace MediaShop.DataAccess.Repositories
         {
             using (Context)
             {
-            var model = DbSet.SingleOrDefault(entity => entity.Id == id);
+                var model = DbSet.SingleOrDefault(entity => entity.Id == id);
 
-            if (model != null)
-            {
-                   model.IsDeleted = true;
+                if (model != null)
+                {
+                    model.IsDeleted = true;
                     Context.SaveChanges();
                     return model;
                 }
@@ -50,7 +50,8 @@ namespace MediaShop.DataAccess.Repositories
 
             return default(List<Product>);
         }
-public virtual async Task<Product> AddAsync(Product model)
+
+        public virtual async Task<Product> AddAsync(Product model)
         {
             if (model == null)
             {

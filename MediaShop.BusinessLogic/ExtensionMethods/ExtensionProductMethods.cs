@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Enums;
 using NReco.VideoConverter;
@@ -277,6 +278,36 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             return result;
         }
 
+        /// <summary>
+        /// Make Protected video
+        /// </summary>
+        /// <param name="originalVideoInBytes">byte array whith original video</param>
+        /// <returns>return byte array</returns>
+        public static Task<byte[]> GetProtectedVideoAsync(this byte[] originalVideoInBytes, HttpContext context)
+        {
+            return Task.Run(() =>
+            {
+                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                string protectedVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
+                var setting = new ConvertSettings()
+                {
+                    Seek = 0,
+                    MaxDuration = 5,
+                    VideoCodec = "libx264",
+                    AudioCodec = "mp3",
+                    VideoFrameRate = 25,
+                    VideoFrameSize = "640x360"
+                };
+                var ffmpegconvert = new FFMpegConverter();
+                ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, setting);
+                var result = File.ReadAllBytes(protectedVideoPath);
+                File.Delete(originalVideoPath);
+                File.Delete(protectedVideoPath);
+                return result;
+            });
+        }
+
         public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
         {
             string originalVideoPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/") + $"{Guid.NewGuid()}.mp4";
@@ -288,6 +319,22 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             File.Delete(originalVideoPath);
             File.Delete(compresedVideoFramePath);
             return result;
+        }
+
+        public static Task<byte[]> GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
+        {
+            return Task.Run(() =>
+            {
+                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                string compresedVideoFramePath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
+                File.WriteAllBytes(originalVideoPath, originalVideoBytes);
+                var ffmpegconverter = new FFMpegConverter();
+                ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
+                var result = File.ReadAllBytes(compresedVideoFramePath);
+                File.Delete(originalVideoPath);
+                File.Delete(compresedVideoFramePath);
+                return result;
+            });
         }
 
         [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]

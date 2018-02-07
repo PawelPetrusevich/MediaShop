@@ -3,6 +3,8 @@
 // </copyright>
 
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Enums;
@@ -189,6 +191,55 @@ namespace MediaShop.BusinessLogic.Services
         public IEnumerable<CompressedProductDTO> GetListOnSale()
         {
             return Mapper.Map<List<CompressedProductDTO>>(this._repository.GetListOnSale());
+        }
+
+        /// <summary>
+        /// Async service for upload product
+        /// </summary>
+        /// <param name="uploadModels">UploadProductModel</param>
+        /// <returns>Task ProductDTO</returns>
+        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        {
+            var data = Mapper.Map<Product>(uploadModels);
+            var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
+            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+
+            if (string.IsNullOrEmpty(uploadModels.UploadProduct))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyContent);
+            }
+            else
+            {
+                data.OriginalProduct = new OriginalProduct();
+                data.CompressedProduct = new CompressedProduct();
+                data.ProtectedProduct = new ProtectedProduct();
+
+                switch (data.ProductType)
+                {
+                    case ProductType.Image:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
+                        break;
+                    case ProductType.Music:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = null;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
+                        break;
+                    case ProductType.Video:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        var context = HttpContext.Current;
+                        data.ProtectedProduct.Content = await uploadProductInByte.GetProtectedVideoAsync(context);
+                        data.CompressedProduct.Content = await uploadProductInByte.GetCompresedVideoFrameAsync(context);
+                        break;
+                    case ProductType.unknow:
+                        throw new ArgumentException(Resources.UnknowProductType);
+                }
+            }
+
+            var result = await this._repository.AddAsync(data);
+
+            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<ProductDto>(result);
         }
 
         /// <summary>

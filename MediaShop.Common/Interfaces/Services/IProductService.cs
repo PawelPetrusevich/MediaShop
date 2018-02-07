@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Threading.Tasks;
 using MediaShop.Common.Dto.Product;
 
 namespace MediaShop.Common.Interfaces.Services
@@ -65,5 +66,12 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name=""></param>
         /// <returns>return DTO whith product name and original product byte array</returns>
         IEnumerable<CompressedProductDTO> GetListOnSale();
+
+        /// <summary>
+        /// Async upload service
+        /// </summary>
+        /// <param name="data">upload model</param>
+        /// <returns>Task ProductDto</returns>
+        Task<ProductDto> UploadProductsAsync(UploadProductModel data);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
@@ -186,6 +187,37 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.ContentDownloadError);
             }
             catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("addAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful add product ", typeof(UploadProductModel))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Content upload error or unknown product type", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        public async Task<IHttpActionResult> AddProductAsync([FromBody] UploadProductModel data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.ContentUploadError);
+            }
+
+            try
+            {
+                return Ok(await _productService.UploadProductsAsync(data));
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentUploadError);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest(Resources.UnknowProductType);
+            }
+            catch (Exception e)
             {
                 return InternalServerError();
             }
