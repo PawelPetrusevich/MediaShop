@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository, IPayPalPaymentService paymentService)
+        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository)
         {
             this.repositoryContentCart = contentCartRepository;
             this.repositoryProduct = productRepository;
