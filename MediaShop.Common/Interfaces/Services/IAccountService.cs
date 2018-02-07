@@ -16,6 +16,8 @@ namespace MediaShop.Common.Interfaces.Services
     /// </summary>
     public interface IAccountService
     {
+        Task<AccountDbModel> FindUserAsync(string userName, string password);
+
         /// <summary>
         /// Registers the user.
         /// </summary>

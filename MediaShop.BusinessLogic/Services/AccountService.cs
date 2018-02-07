@@ -46,6 +46,34 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Find user for login
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<AccountDbModel> FindUserAsync(string userName, string password)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(userName));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(password));
+            }
+
+            var user = await _factoryRepository.Accounts.GetByLoginAsync(userName);
+
+            if (user == null || !user.Password.Equals(password))
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        /// <summary>
         /// Registers the user.
         /// </summary>
         /// <param name="userModel">The user to register.</param>

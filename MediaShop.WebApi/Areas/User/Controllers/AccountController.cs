@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Resources;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
@@ -13,6 +15,7 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
+using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
@@ -21,6 +24,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     [RoutePrefix("api/account")]
     [AccountExceptionFilter]
+    [Authorize]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -31,6 +35,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -57,6 +62,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("registerAsync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -83,6 +89,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("confirm/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -100,6 +107,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("confirmAsync/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -116,21 +124,34 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             return Ok(account);
         }
 
+        [HttpGet]
+        [Route("test")]
+        public IHttpActionResult Test()
+        {
+            return Ok("test passed");
+        }
+
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Login([FromBody] LoginDto data)
+        public IHttpActionResult Login([FromBody]LoginDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var user = _accountService.Login(data);
-            return Ok(user);
+            ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
+
+            //var user = _accountService.Login(data);
+            //return Ok(user);
+
+            return Ok(result);
         }
 
         [HttpPost]
