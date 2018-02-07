@@ -211,7 +211,7 @@
         /// <param name="paymentId">paymentId</param>
         /// <param name="payerId">payerId</param>
         /// <returns>Executed Payment</returns>
-        public PayPalPayment ExecutePayment(string paymentId, string payerId)
+        public PayPalPaymentDto ExecutePayment(string paymentId, string payerId)
         {
             var config = Configuration.GetConfig();
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -229,7 +229,8 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            return new PayPalPayment();
+            var result = AddPayment(Mapper.Map<PayPalPayment>(executedPayment));
+            return result;
         }
 
         /// <summary>

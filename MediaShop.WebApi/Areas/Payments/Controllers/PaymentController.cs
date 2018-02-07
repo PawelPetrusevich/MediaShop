@@ -15,6 +15,7 @@ using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Models;
 using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
+using MediaShop.Common.Dto.Payment;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
@@ -81,7 +82,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
 
         [HttpGet]
         [Route("executepaypalpayment/{guid}/{paymentid}/{token}/{payerid}")]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPayment))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult ExecutePayment(string guid, string paymentId, string token, string PayerID)

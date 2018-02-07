@@ -24,8 +24,8 @@
         /// </summary>
         /// <param name="paymentId">paymentId</param>
         /// <param name="payerId">payerId</param>
-        /// <returns>Executed Payment</returns>
-        PayPalPayment ExecutePayment(string paymentId, string payerId);
+        /// <returns>PayPalPaymentDto with info of Payment</returns>
+        PayPalPaymentDto ExecutePayment(string paymentId, string payerId);
 
         /// <summary>
         /// Add new model
