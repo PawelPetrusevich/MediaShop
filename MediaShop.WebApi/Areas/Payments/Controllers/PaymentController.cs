@@ -107,7 +107,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         }
 
         [HttpGet]
-        [Route("paymentcancelled/{guid}/{paymentid}/{token}/{payerid}")]
+        [Route("paymentcancelled/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(Cart))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PaymentCancelled(string token)
