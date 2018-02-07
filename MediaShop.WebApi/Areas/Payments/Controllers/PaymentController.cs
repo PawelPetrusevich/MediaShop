@@ -18,9 +18,9 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
     [RoutePrefix("api/payment")]
     public class PaymentController : ApiController
     {
-        private readonly IPaymentService _paymentService;
+        private readonly IPayPalPaymentService _paymentService;
 
-        public PaymentController(IPaymentService paymentService)
+        public PaymentController(IPayPalPaymentService paymentService)
         {
             this._paymentService = paymentService;
         }
@@ -32,14 +32,12 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         /// <returns>statusCode</returns>
         [HttpPost]
         [Route("resultpayment")]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(Payment))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPayment))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        public IHttpActionResult ResultPayment([FromBody] Payment payment)
+        public IHttpActionResult ResultPayment([FromBody] PayPalPayment payment)
         {
             try
             {
-                //var body = GetRequestInfoAsync(responseMessage).Result;
-
                 return Ok(_paymentService.AddPayment(payment));
             }
             catch (InvalideDecerializableExceptions error)

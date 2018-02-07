@@ -4,11 +4,12 @@
     using System.Collections.ObjectModel;
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.PaymentModel;
+    using MediaShop.Common.Dto.Payment;
 
     /// <summary>
     /// Interface for payment
     /// </summary>
-    public interface IPaymentService
+    public interface IPayPalPaymentService
     {
         /// <summary>
         /// Method for payment by product
@@ -22,6 +23,6 @@
         /// </summary>
         /// <param name="payment">object Payment for save in repository</param>
         /// <returns>object Payment that save in repository</returns>
-        Payment AddPayment(Payment payment);
+        PayPalPaymentDto AddPayment(PayPalPayment payment);
     }
 }

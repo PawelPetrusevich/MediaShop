@@ -12,6 +12,7 @@ namespace MediaShop.DataAccess.Context
     using MediaShop.Common.Models.Notification;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Content;
+    using MediaShop.Common.Models.PaymentModel;
 
     /// <summary>
     /// Class MediaContext.
@@ -77,6 +78,11 @@ namespace MediaShop.DataAccess.Context
         public IDbSet<ProtectedProduct> ProtectedProducts { get; set; }
 
         /// <summary>
+        /// Gets or sets the PaymentDbModel
+        /// </summary>
+        public IDbSet<PayPalPaymentDbModel> PaymentDbModels { get; set; }
+
+        /// <summary>
         /// Method configuration tables
         /// </summary>
         /// <param name="modelBuilder">modelBuilder</param>
@@ -95,6 +101,7 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new ProtectedProductConfiguration());
             modelBuilder.Configurations.Add(new CompressedProductConfiguration());
             modelBuilder.Configurations.Add(new OriginalProductConfiguration());
+            modelBuilder.Configurations.Add(new PayPalPaymentConfiguration());
         }
     }
 }

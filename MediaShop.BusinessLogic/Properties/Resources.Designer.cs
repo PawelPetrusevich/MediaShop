@@ -70,6 +70,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment is not add in repository.
+        /// </summary>
+        internal static string BadAddPayment {
+            get {
+                return ResourceManager.GetString("BadAddPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation deserialization is not successful.
         /// </summary>
         internal static string BadDeserializer {
@@ -138,6 +147,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string ExistProductInDataBase {
             get {
                 return ResourceManager.GetString("ExistProductInDataBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation Payment was failed.
+        /// </summary>
+        internal static string FailedOperationPayment {
+            get {
+                return ResourceManager.GetString("FailedOperationPayment", resourceCulture);
             }
         }
         
@@ -293,6 +311,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string musicType {
             get {
                 return ResourceManager.GetString("musicType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation payment was Created but not Approved.
+        /// </summary>
+        internal static string NotApprovedOperationPayment {
+            get {
+                return ResourceManager.GetString("NotApprovedOperationPayment", resourceCulture);
             }
         }
         

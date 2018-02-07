@@ -86,6 +86,7 @@
     <Compile Include="Configurations\AccountConfiguration.cs" />
     <Compile Include="Configurations\CompressedProductConfiguration.cs" />
     <Compile Include="Configurations\OriginalProductConfiguration.cs" />
+    <Compile Include="Configurations\PayPalPaymentConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\ProtectedProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
@@ -102,6 +103,11 @@
     <Compile Include="Migrations\201802011942349_AddPermissions_RemoveRole.Designer.cs">
       <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802070710122_PayPalPayment_1.cs" />
+    <Compile Include="Migrations\201802070710122_PayPalPayment_1.Designer.cs">
+      <DependentUpon>201802070710122_PayPalPayment_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PayPalPaymentRepository.cs" />
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802011942349_AddPermissions_RemoveRole.resx">
       <DependentUpon>201802011942349_AddPermissions_RemoveRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802070710122_PayPalPayment_1.resx">
+      <DependentUpon>201802070710122_PayPalPayment_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

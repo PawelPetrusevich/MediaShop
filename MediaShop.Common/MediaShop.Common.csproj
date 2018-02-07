@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\Payment\PaymentDto.cs" />
+    <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
     <Compile Include="Dto\Product\DownloadProductDto.cs" />
     <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\Account.cs" />
@@ -98,7 +98,9 @@
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IPayPalPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
@@ -130,7 +133,7 @@
     <Compile Include="Dto\Product\ProductDto.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountService.cs" />
-    <Compile Include="Interfaces\Services\IPaymentService.cs" />
+    <Compile Include="Interfaces\Services\IPayPalPaymentService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\IEmailService.cs" />
@@ -157,7 +160,8 @@
     <Compile Include="Models\PaymentModel\ItemList.cs" />
     <Compile Include="Models\PaymentModel\Payer.cs" />
     <Compile Include="Models\PaymentModel\PayerInfo.cs" />
-    <Compile Include="Models\PaymentModel\Payment.cs" />
+    <Compile Include="Models\PaymentModel\PayPalPayment.cs" />
+    <Compile Include="Models\PaymentModel\PayPalPaymentDbModel.cs" />
     <Compile Include="Models\PaymentModel\RelatedResources.cs" />
     <Compile Include="Models\PaymentModel\Sale.cs" />
     <Compile Include="Models\PaymentModel\Transaction.cs" />

@@ -6,13 +6,23 @@
     public enum PaymentStates : byte
     {
         /// <summary>
+        /// State Payment by default
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Payment created but not confirmed
         /// </summary>
-        Сreated = 0,
+        Created = 1,
 
         /// <summary>
         /// Payment confirmed succesfully
         /// </summary>
-        Approved = 1
+        Approved = 2,
+
+        /// <summary>
+        /// Payment is failed
+        /// </summary>
+        Failed = 3
     }
 }

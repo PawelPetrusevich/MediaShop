@@ -264,4 +264,13 @@
   <data name="BadDeserializer" xml:space="preserve">
     <value>Operation deserialization is not successful</value>
   </data>
+  <data name="BadAddPayment" xml:space="preserve">
+    <value>Payment is not add in repository</value>
+  </data>
+  <data name="FailedOperationPayment" xml:space="preserve">
+    <value>Operation Payment was failed</value>
+  </data>
+  <data name="NotApprovedOperationPayment" xml:space="preserve">
+    <value>Operation payment was Created but not Approved</value>
+  </data>
 </root>

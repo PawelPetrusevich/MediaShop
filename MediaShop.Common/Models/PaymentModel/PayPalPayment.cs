@@ -1,18 +1,18 @@
 ﻿namespace MediaShop.Common.Models.PaymentModel
 {
-    using Newtonsoft.Json;
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
     /// <summary>
-    /// Class Payment
+    /// Class PaymentTransaction
     /// </summary>
-    public class Payment
+    public class PayPalPayment
     {
         /// <summary>
         /// Gets or sets identificator payment
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+        public string Id_payment { get; set; }
 
         /// <summary>
         /// Gets or sets payment creation time as defined in

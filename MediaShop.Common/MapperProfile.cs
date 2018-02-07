@@ -2,6 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 
@@ -11,11 +12,13 @@ namespace MediaShop.Common
 
     using AutoMapper;
     using MediaShop.Common.Dto;
+    using MediaShop.Common.Dto.Payment;
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
     using MediaShop.Common.Dto.Product;
     using MediaShop.Common.Models.Content;
+    using MediaShop.Common.Models.PaymentModel;
 
     using Profile = AutoMapper.Profile;
 
@@ -64,6 +67,12 @@ namespace MediaShop.Common
             this.CreateMap<UploadProductModel, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
             this.CreateMap<ProductContentDTO, Product>().ReverseMap();
+            this.CreateMap<PayPalPayment, PayPalPaymentDbModel>()
+                .ForMember(n => n.PaymentId, m => m.MapFrom(x => x.Id_payment));
+            this.CreateMap<Transaction, PayPalPaymentDto>()
+                .ForMember(n => n.Currency, m => m.MapFrom(s => s.Amount.Currency))
+                .ForMember(n => n.Total, m => m.MapFrom(s => s.Amount.Total))
+                .ForMember(n => n.Items, m => m.MapFrom(s => s.Item_list.Items));
         }
     }
 }

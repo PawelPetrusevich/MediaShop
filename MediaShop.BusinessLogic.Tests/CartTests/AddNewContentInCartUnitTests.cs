@@ -25,7 +25,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         private Mock<IProductRepository> mockProduct;
 
         // Field for MockPayment
-        private Mock<IPaymentService> mockPayment;
+        private Mock<IPayPalPaymentService> mockPayment;
 
         public AddNewContentInCartUnitTests()
         {
@@ -45,7 +45,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
-            var _mockPayment = new Mock<IPaymentService>();
+            var _mockPayment = new Mock<IPayPalPaymentService>();
             mockPayment = _mockPayment;
         }
 
