@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.WebApi.Filters
 {
@@ -58,6 +59,10 @@ namespace MediaShop.WebApi.Filters
                     case AddStatisticException addStatistic:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, addStatistic.Message);
+                        break;
+                    case AuthorizedDataException authorizedData:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                            HttpStatusCode.BadRequest, authorizedData.Message);
                         break;
                     default:
                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(

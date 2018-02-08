@@ -9,6 +9,7 @@ using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -225,7 +226,23 @@ namespace MediaShop.BusinessLogic.Services
 
             var statistic = new StatisticDbModel() { AccountId = user.Id };
             var result = this._factoryRepository.Statistics.Add(statistic);
-            result = result ?? throw new AddStatisticException();          
+            result = result ?? throw new AddStatisticException();
+
+            return Mapper.Map<Account>(result.AccountDbModel);
+        }
+
+        public async Task<Account> LoginAsync(LoginDto data)
+        {
+            var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
+
+            if (user.Password != data.Password)
+            {
+                throw new IncorrectPasswordException();
+            }
+
+            var statistic = new StatisticDbModel() { AccountId = user.Id };
+            var result = await this._factoryRepository.Statistics.AddAsync(statistic);
+            result = result ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
@@ -247,6 +264,59 @@ namespace MediaShop.BusinessLogic.Services
         public Account RecoveryPassword(string email)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Validate user with data received from token
+        /// </summary>
+        /// <param name="loginDto">Login data</param>
+        /// <param name="idUser">idUser from claims</param>
+        /// <param name="email">email from claims</param>
+        /// <returns>account</returns>
+        public Account ValidateUserByToken(LoginDto loginDto, string idUser, string email)
+        {
+            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
+                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(idUser) ||
+                string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            var user = _factoryRepository.Accounts.GetByLogin(loginDto.Login);
+            if (user == null || !user.Password.Equals(loginDto.Password))
+            {
+                throw new NotFoundUserException();
+            }
+
+            if (!user.Id.ToString().Equals(idUser) || !user.Email.Equals(email))
+            {
+                throw new AuthorizedDataException();
+            }
+
+            return Mapper.Map<Account>(user);
+        }
+
+        public async Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string idUser, string email)
+        {
+            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
+                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(idUser) ||
+                string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            var user = await _factoryRepository.Accounts.GetByLoginAsync(loginDto.Login);
+            if (user == null || !user.Password.Equals(loginDto.Password))
+            {
+                throw new NotFoundUserException();
+            }
+
+            if (!user.Id.ToString().Equals(idUser) || !user.Email.Equals(email))
+            {
+                throw new AuthorizedDataException();
+            }
+
+            return Mapper.Map<Account>(user);
         }
     }
 }

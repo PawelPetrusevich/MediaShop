@@ -88,6 +88,15 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authorized data is empty.
+        /// </summary>
+        internal static string EmptyAutorizedData {
+            get {
+                return ResourceManager.GetString("EmptyAutorizedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty condition list.
         /// </summary>
         internal static string EmptyConditionList {

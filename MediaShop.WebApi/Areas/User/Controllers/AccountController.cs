@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Resources;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
@@ -124,13 +126,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             return Ok(account);
         }
 
-        [HttpGet]
-        [Route("test")]
-        public IHttpActionResult Test()
-        {
-            return Ok("test passed");
-        }
-
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
@@ -141,15 +136,52 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Login([FromBody]LoginDto data)
         {
-            if (data == null || !ModelState.IsValid)
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password) || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
             ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
+            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;
+            var userIdAutorized = result.Claims.FirstOrDefault(x => x.Type.Equals(Resources.UserId))?.Value;
+            if (string.IsNullOrWhiteSpace(emailAuthorized) || string.IsNullOrWhiteSpace(userIdAutorized))
+            {
+                throw new AuthorizedDataException(Resources.EmptyAutorizedData);
+            }
 
-            //var user = _accountService.Login(data);
-            //return Ok(user);
+            var user = _accountService.ValidateUserByToken(data, userIdAutorized, emailAuthorized);
+
+            user = _accountService.Login(data);            
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("loginAsync")]
+        [AllowAnonymous]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> LoginAsync([FromBody]LoginDto data)
+        {
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password) || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
+            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;
+            var userIdAutorized = result.Claims.FirstOrDefault(x => x.Type.Equals(Resources.UserId))?.Value;
+            if (string.IsNullOrWhiteSpace(emailAuthorized) || string.IsNullOrWhiteSpace(userIdAutorized))
+            {
+                throw new AuthorizedDataException(Resources.EmptyAutorizedData);
+            }
+
+            var user = await _accountService.ValidateUserByTokenAsync(data, userIdAutorized, emailAuthorized);
+
+            user = await _accountService.LoginAsync(data);
 
             return Ok(result);
         }
