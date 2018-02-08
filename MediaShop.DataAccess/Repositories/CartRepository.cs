@@ -5,10 +5,11 @@
     using System.Data.Entity;
     using System.Linq;
     using AutoMapper;
+    using Base;
+    using Common.Enums;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
     using MediaShop.DataAccess.Context;
-    using MediaShop.DataAccess.Repositories.Base;
 
     /// <summary>
     /// Class for work with repository
@@ -74,8 +75,8 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Delete(long id)
         {
-            var contentCart = this.DbSet.Where(x => x.Id == id
-                && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart).SingleOrDefault();
+            var contentCart = this.DbSet.SingleOrDefault(x => x.Id == id
+                && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart);
             var result = this.DbSet.Remove(contentCart);
             this.Context.SaveChanges();
             return result;
@@ -89,7 +90,19 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Get(long id)
         {
-            var result = this.DbSet.AsNoTracking().Where(x => x.Id == id).SingleOrDefault();
+            var result = this.DbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return result;
+        }
+
+        /// <summary>
+        /// Method for getting collection objects type ContentCart in state InCart
+        /// by user identificator
+        /// </summary>
+        /// <param name="userId">identificator user</param>
+        /// <returns>rezalt operation</returns>
+        public IEnumerable<ContentCart> GetById(long userId)
+        {
+            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart);
             return result;
         }
 

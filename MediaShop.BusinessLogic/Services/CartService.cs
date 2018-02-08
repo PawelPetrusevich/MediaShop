@@ -195,7 +195,7 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            var contentInCart = this.repositoryContentCart.GetAll(id).Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
+            var contentInCart = this.repositoryContentCart.GetById(id);
             return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart);
         }
 
