@@ -1,23 +1,16 @@
 ﻿namespace MediaShop.Common.Models.PaymentModel
 {
-    using MediaShop.Common.Enums.PaymentEnums;
     using MediaShop.Common.Models.User;
 
     /// <summary>
-    /// Model for save information about
-    /// payment in repository
+    /// Class content that defrayal
     /// </summary>
-    public class PayPalPaymentDbModel : Entity
+    public class DefrayalDbModel : Entity
     {
         /// <summary>
-        /// Gets or sets id paypal payment
+        /// Gets or sets the content id in the shopping cart
         /// </summary>
-        public string PaymentId { get; set; }
-
-        /// <summary>
-        /// Gets or sets state paypal payment
-        /// </summary>
-        public PaymentStates State { get; set; } = PaymentStates.None;
+        public long ContentId { get; set; }
 
         /// <summary>
         /// Gets or sets as foreign key

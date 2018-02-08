@@ -36,9 +36,9 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         /// <returns>statusCode</returns>
         [HttpPost]
         [Route("resultpayment")]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPayment))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPal.Api.Payment))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        public IHttpActionResult ResultPayment([FromBody] PayPalPayment payment)
+        public IHttpActionResult ResultPayment([FromBody] PayPal.Api.Payment payment)
         {
             try
             {

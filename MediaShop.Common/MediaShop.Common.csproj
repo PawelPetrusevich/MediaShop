@@ -104,6 +104,7 @@
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
     <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Exceptions\User\CreateProfileException.cs" />
     <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
+    <Compile Include="Interfaces\Repositories\IDefrayalRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -167,18 +169,8 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
-    <Compile Include="Models\PaymentModel\Amount.cs" />
-    <Compile Include="Models\PaymentModel\Currency.cs" />
-    <Compile Include="Models\PaymentModel\Details.cs" />
-    <Compile Include="Models\PaymentModel\Item.cs" />
-    <Compile Include="Models\PaymentModel\ItemList.cs" />
-    <Compile Include="Models\PaymentModel\Payer.cs" />
-    <Compile Include="Models\PaymentModel\PayerInfo.cs" />
-    <Compile Include="Models\PaymentModel\PayPalPayment.cs" />
+    <Compile Include="Models\PaymentModel\DefrayalDbModel.cs" />
     <Compile Include="Models\PaymentModel\PayPalPaymentDbModel.cs" />
-    <Compile Include="Models\PaymentModel\RelatedResources.cs" />
-    <Compile Include="Models\PaymentModel\Sale.cs" />
-    <Compile Include="Models\PaymentModel\Transaction.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\SettingsDbModel.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />

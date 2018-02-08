@@ -1,22 +1,21 @@
 ﻿namespace MediaShop.DataAccess.Configurations
 {
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
     using MediaShop.Common.Models.PaymentModel;
 
     /// <summary>
-    /// Configuration PaymentDbModel in database
+    /// Class DefrayalConfiguration
     /// </summary>
-    public class PayPalPaymentConfiguration : EntityTypeConfiguration<PayPalPaymentDbModel>
+    public class DefrayalConfiguration : EntityTypeConfiguration<DefrayalDbModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PayPalPaymentConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="DefrayalConfiguration" /> class.
         /// </summary>
-        public PayPalPaymentConfiguration()
+        public DefrayalConfiguration()
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
-                .IsRequired();
-            this.Property(x => x.State)
                 .IsRequired();
             this.Property(x => x.CreatorId)
                 .IsRequired();

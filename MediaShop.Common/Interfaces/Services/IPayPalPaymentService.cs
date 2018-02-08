@@ -31,6 +31,13 @@
         /// </summary>
         /// <param name="payment">object Payment for save in repository</param>
         /// <returns>object Payment that save in repository</returns>
-        PayPalPaymentDto AddPayment(PayPalPayment payment);
+        PayPalPaymentDto AddPayment(Payment payment);
+
+        /// <summary>
+        /// Method for add object typeof DefrayalDbModel in repository
+        /// </summary>
+        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+        /// <returns>object DefrayalDbModel after add in repository</returns>
+        DefrayalDbModel AddInDefrayal(DefrayalDbModel modelDefrayal);
     }
 }

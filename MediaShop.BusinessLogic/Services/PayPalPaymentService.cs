@@ -25,13 +25,19 @@
     {
         private readonly IPayPalPaymentRepository repositoryPayment;
 
+        private readonly IDefrayalRepository repositoryDefrayal;
+
+        private readonly ICartService<ContentCartDto> serviceCart;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PayPalPaymentService"/> class.
         /// </summary>
         /// <param name="paymentRepository">instance repository PaymentRepository</param>
-        public PayPalPaymentService(IPayPalPaymentRepository paymentRepository)
+        public PayPalPaymentService(IPayPalPaymentRepository paymentRepository, IDefrayalRepository defrayalRepository, ICartService<ContentCartDto> cartService)
         {
             this.repositoryPayment = paymentRepository;
+            this.repositoryDefrayal = defrayalRepository;
+            this.serviceCart = cartService;
         }
 
         /// <summary>
@@ -39,23 +45,29 @@
         /// </summary>
         /// <param name="payment">object Payment after decerializer</param>
         /// <returns>object payment</returns>
-        public PayPalPaymentDto AddPayment(PayPalPayment payment)
+        public PayPalPaymentDto AddPayment(PayPal.Api.Payment payment)
         {
-            // 1. Check payment for null
+            // Check payment for null
             if (payment == null)
             {
                 throw new InvalideDecerializableExceptions(Resources.BadDeserializer);
             }
 
+            // Check exist Payment in repository
+            if (this.ExistInPayment(payment.id))
+            {
+                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+            }
+
             try
             {
-                // 2. Check state payment
-                if (payment.State == null)
+                // Check state payment
+                if (payment.state == null)
                 {
                     throw new InvalideDecerializableExceptions(Resources.BadDeserializer);
                 }
 
-                var stringFirstUpper = $"{payment.State.Substring(0, 1).ToUpper()}{payment.State.Substring(1)}";
+                var stringFirstUpper = $"{payment.state.Substring(0, 1).ToUpper()}{payment.state.Substring(1)}";
 
                 var enumString = (PaymentStates)Enum.Parse(typeof(PaymentStates), stringFirstUpper);
 
@@ -64,16 +76,29 @@
                     switch (enumString)
                     {
                         case PaymentStates.Created:
+                            // Return state content in cart => InCart
+                            this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InCart);
                             throw new OperationPaymentException(Resources.NotApprovedOperationPayment);
                         case PaymentStates.Failed:
+                            // Return state content in cart => InCart
+                            this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InBought);
                             throw new OperationPaymentException(Resources.FailedOperationPayment);
                     }
                 }
 
-                // 3. Mapping PaymentTransaction to PaymentDbModel
+                // Change State content in Cart 
+                this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InBought);
+
+                // Get Cart
+                var cart = this.serviceCart.GetCart(1); // UserId !!!!
+
+                // Clear Cart
+                var resultClearCart = this.serviceCart.DeleteOfCart(cart);
+
+                // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
 
-                // 4. Add object PaymentDbModel in database
+                // Add object PaymentDbModel in database
                 var paymentResult = this.repositoryPayment.Add(paymentDbModel);
 
                 // throw new AddPaymentException
@@ -82,8 +107,8 @@
                     throw new AddPaymentException(Resources.BadAddPayment);
                 }
 
-                // else mapping Payment => PaymentDto and return user
-                var paymentDto = Mapper.Map<PayPalPaymentDto>(payment);
+                // else create PayPalPaymentDto and return user
+                var paymentDto = this.CreatePayPalPaymentDto(payment);
 
                 return paymentDto;
             }
@@ -99,6 +124,83 @@
             {
                 throw new OverflowException(error.Message);
             }
+        }
+
+        /// <summary>
+        /// Checking the existence of payment in repository
+        /// </summary>
+        /// <param name="paymentId">payment id</param>
+        /// <returns>true - payment exist in repository
+        /// false - payment doesn`t exist in repository</returns>
+        public bool ExistInPayment(string paymentId) => this.repositoryPayment
+            .Find(item => item.PaymentId == paymentId).Count() != 0;
+
+        /// <summary>
+        /// Method for create PayPalPaymentDto
+        /// </summary>
+        /// <param name="payment">payment</param>
+        /// <returns>object typeof PayPalPaymentDto</returns>
+        public PayPalPaymentDto CreatePayPalPaymentDto(PayPal.Api.Payment payment)
+        {
+            var payPalPaymentDto = new PayPalPaymentDto();
+
+            payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
+
+            foreach (PayPal.Api.Transaction s in payment.transactions)
+            {
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total);
+                foreach (PayPal.Api.Item item in s.item_list.items)
+                {
+                    payPalPaymentDto.Items.Add(item);
+                }
+            }
+
+            return payPalPaymentDto;
+        }
+
+        /// <summary>
+        /// Method for set state item all product in payment
+        /// </summary>
+        /// <param name="payment">payment</param>
+        /// <param name="state">state </param>
+        public void SetStateItems(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state)
+        {
+            foreach (PayPal.Api.Transaction tran in payment.transactions)
+            {
+                foreach (Item item in tran.item_list.items)
+                {
+                    // 3.1 Change state product
+                    var resultChangeState = this.serviceCart.SetState(Convert.ToInt64(item.sku), state);
+
+                    // 3.2 Transferring product in Defrayal from ContentCart
+                    var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
+
+                    // 3.3 Save object Defrayal in repository
+                    var resultSaveDefrayal = this.repositoryDefrayal.Add(objectDefrayal);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method for add object typeof DefrayalDbModel in repository
+        /// </summary>
+        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+        /// <returns>object DefrayalDbModel after add in repository</returns>
+        public DefrayalDbModel AddInDefrayal(DefrayalDbModel modelDefrayal)
+        {
+            if (modelDefrayal == null)
+            {
+                throw new ArgumentNullException(Resources.NullModelDefrayal);
+            }
+
+            var resultAddDefrayal = this.repositoryDefrayal.Add(modelDefrayal);
+
+            if (resultAddDefrayal == null)
+            {
+                throw new AddDefrayalException(Resources.InvalidAddOperationDefrayal);
+            }
+
+            return resultAddDefrayal;
         }
 
         /// <summary>
@@ -224,7 +326,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = this.AddPayment(Mapper.Map<PayPalPayment>(executedPayment));
+            var result = this.AddPayment(executedPayment);
             return result;
         }
 

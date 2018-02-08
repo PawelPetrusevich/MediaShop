@@ -83,6 +83,11 @@ namespace MediaShop.DataAccess.Context
         public IDbSet<PayPalPaymentDbModel> PaymentDbModels { get; set; }
 
         /// <summary>
+        /// Gets or sets the DefrayalDbModel
+        /// </summary>
+        public IDbSet<DefrayalDbModel> DefrayalDbModels { get; set; }
+
+        /// <summary>
         /// Method configuration tables
         /// </summary>
         /// <param name="modelBuilder">modelBuilder</param>
@@ -102,6 +107,7 @@ namespace MediaShop.DataAccess.Context
             modelBuilder.Configurations.Add(new CompressedProductConfiguration());
             modelBuilder.Configurations.Add(new OriginalProductConfiguration());
             modelBuilder.Configurations.Add(new PayPalPaymentConfiguration());
+            modelBuilder.Configurations.Add(new DefrayalConfiguration());
         }
     }
 }
