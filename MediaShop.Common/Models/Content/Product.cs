@@ -32,9 +32,14 @@ namespace MediaShop.Common.Models.Content
         public bool IsPremium { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether gets or sets the login.
+        /// Gets or sets a value indicating whether gets or sets IsFavorite.
         /// </summary>
         public bool IsFavorite { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets IsDeletede.
+        /// </summary>
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the ProductType.
@@ -44,16 +49,16 @@ namespace MediaShop.Common.Models.Content
         /// <summary>
         /// Gets or sets file original product
         /// </summary>
-        public OriginalProduct OriginalProduct { get; set; }
+        public virtual OriginalProduct OriginalProduct { get; set; }
 
         /// <summary>
         /// Gets or sets file of protected product
         /// </summary>
-        public ProtectedProduct ProtectedProduct { get; set; }
+        public virtual ProtectedProduct ProtectedProduct { get; set; }
 
         /// <summary>
-        /// Gets or sets file of compressed product 
+        /// Gets or sets file of compressed product
         /// </summary>
-        public CompressedProduct CompressedProduct { get; set; }
+        public virtual CompressedProduct CompressedProduct { get; set; }
     }
 }

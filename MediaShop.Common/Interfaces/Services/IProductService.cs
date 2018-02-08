@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Threading.Tasks;
 using MediaShop.Common.Dto.Product;
 
 namespace MediaShop.Common.Interfaces.Services
@@ -23,7 +24,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
-        ProductDto GetProduct(long id);
+        ProductDto GetById(long id);
 
         /// <summary>
         /// Upload products.
@@ -37,7 +38,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        ProductDto DeleteProduct(long id);
+        ProductDto SoftDeleteById(long id);
 
         /// <summary>
         /// Find method.
@@ -47,10 +48,30 @@ namespace MediaShop.Common.Interfaces.Services
         IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
 
         /// <summary>
-        /// download service
+        /// Get list purshased products
         /// </summary>
-        /// <param name="id">product id</param>
+        /// <param name="userId">users id</param>
         /// <returns>return DTO whith product name and original product byte array</returns>
-        DownloadProductDto DownloadProduct(long id);
+        IEnumerable<CompressedProductDTO> GetListPurshasedProducts(long userId);
+
+        /// <summary>
+        /// Get original purshased product
+        /// </summary>
+        /// <param name="userId">users id</param>
+        OriginalProductDTO GetOriginalPurshasedProduct(long userId, long productId);
+
+        /// <summary>
+        /// Get list  products on sale
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>return DTO whith product name and original product byte array</returns>
+        IEnumerable<CompressedProductDTO> GetListOnSale();
+
+        /// <summary>
+        /// Async upload service
+        /// </summary>
+        /// <param name="data">upload model</param>
+        /// <returns>Task ProductDto</returns>
+        Task<ProductDto> UploadProductsAsync(UploadProductModel data);
     }
 }

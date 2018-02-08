@@ -161,6 +161,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
+    <Compile Include="Areas\Content\Controllers\Filters\StopWatchFilterAttribute.cs" />
     <Compile Include="Areas\Messaging\MessagingAreaRegistration.cs" />
     <Compile Include="Areas\Payments\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Payments\PaymentsAreaRegistration.cs" />

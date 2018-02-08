@@ -19,6 +19,7 @@ using MediaShop.BusinessLogic.Tests.Properties;
 using MediaShop.Common.Dto.Product;
 using System.Drawing;
 using System.Text;
+using MediaShop.Common.Models;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -29,7 +30,11 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         private Mock<IProductRepository> _rep;
 
+        private Mock<ICartRepository> _cartRep;
+
         private IProductRepository _mockRep;
+
+        private ICartRepository _mockCartRep;
 
         private ProductService _productService;
 
@@ -42,7 +47,10 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             {
                 config.CreateMap<Product, ProductDto>().ReverseMap();
                 config.CreateMap<Product, UploadProductModel>().ReverseMap();
-                config.CreateMap<Product, ProductContentDTO>().ReverseMap();
+                config.CreateMap<Product, CompressedProductDTO>().ReverseMap();
+                config.CreateMap<Product, OriginalProductDTO>().ReverseMap();
+                config.CreateMap<ContentCart, CompressedProductDTO>().ReverseMap();
+                config.CreateMap<ContentCart, OriginalProductDTO>().ReverseMap();
             });
         }
 
@@ -52,13 +60,19 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep = new Mock<IProductRepository>();
             _rep.Setup(s => s.Add(It.IsAny<Product>())).Returns(new Product());
             _rep.Setup(s => s.Delete(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.SoftDelete(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
+            _rep.Setup(s => s.GetListOnSale()).Returns(new List<Product>() { new Product() });
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
-            _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>());
+            _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>(){ new Product() });
 
             _mockRep = _rep.Object;
 
-            _productService = new ProductService(_mockRep);
+            _cartRep = new Mock<ICartRepository>();
+            _cartRep.Setup(x => x.Find(It.IsAny<Expression<Func<ContentCart, bool>>>())).Returns(new List<ContentCart>() { new ContentCart() });
+            _mockCartRep = _cartRep.Object;
+
+            _productService = new ProductService(_mockRep, _mockCartRep);
 
             var productGenerator = Generator
                 .For<UploadProductModel>()
@@ -95,7 +109,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_GetProductTest()
         {
             _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.GetProduct(1);
+            var returnProduct = _productService.GetById(1);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -104,13 +118,10 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_DeleteProductByIdTest()
         {
             _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.DeleteProduct(1);
+            var returnProduct = _productService.SoftDeleteById(1);
 
             Assert.IsNotNull(returnProduct);
         }
-
-
-
        
 
         [Test]
@@ -124,6 +135,30 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var returnProducts = _productService.Find(filter);
 
             Assert.IsNotNull(returnProducts);
+        }
+
+        [Test]
+        public void Product_GetListPurshasedProducts()
+        {
+            var returnProducts = _productService.GetListPurshasedProducts(1);
+
+            Assert.IsNotNull(returnProducts);
+        }
+
+        [Test]
+        public void Product_GetLisProductsOnSale()
+        {
+            var returnProducts = _productService.GetListOnSale();
+
+            Assert.IsNotNull(returnProducts);
+        }
+
+        [Test]
+        public void Product_GetOriginalPurshasedProducts()
+        {
+            var returnProduct = _productService.GetOriginalPurshasedProduct(1,1);
+
+            Assert.IsNotNull(returnProduct);
         }
 
         [Test]
