@@ -7,8 +7,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Enums;
+using NReco.VideoConverter;
 
 namespace MediaShop.BusinessLogic.ExtensionMethods
 {
@@ -59,9 +61,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             }
 
             ImageConverter converter = new ImageConverter();
-            var protectedImageByte = (byte[])converter.ConvertTo(originalImageBitmap, typeof(byte[]));
-
-            return protectedImageByte;
+            return converter.ConvertTo<byte[]>(originalImageBitmap);
         }
 
         /// <summary>
@@ -115,9 +115,19 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             }
 
             ImageConverter converter = new ImageConverter();
-            var comressedImageByte = (byte[])converter.ConvertTo(resizedBitmap, typeof(byte[]));
+            return converter.ConvertTo<byte[]>(resizedBitmap);
+        }
 
-            return comressedImageByte;
+        /// <summary>
+        /// converter to type 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="converter"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static T ConvertTo<T>(this ImageConverter converter, object source)
+        {
+            return (T)converter.ConvertTo(source, typeof(T));
         }
 
         /// <summary>
@@ -134,7 +144,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         }
 
         /// <summary>
-        /// Determine the type of file and this MIME
+        /// Determine the type of file and this MIME(не все форматы)
         /// </summary>
         /// <param name="data">upload file in byte[]</param>
         /// <returns>Product Type</returns>
@@ -195,6 +205,137 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
 
                 return ProductType.unknow;
             }
+        }
+
+        /// <summary>
+        /// MIMY Type whith magic number
+        /// </summary>
+        /// <param name="data">file in byte array</param>
+        /// <returns>Product Type</returns>
+        public static ProductType GetMimeFromByteArray(this byte[] data)
+        {
+            string[] imageType =
+            {
+                "FF-D8-FF-DB",
+                "FF-D8-FF-E0",
+                "FF-D8-FF-E2",
+                "FF-D8-FF-E3",
+                "89-50-4E-47",
+                "47-49-46-38",
+            };
+            string[] videoType =
+            {
+                "52-49-46-46",
+                "00-00-00-14",
+                "00-00-00-20",
+                "00-00-00-18",
+                "52-49-46-46",
+                "00-00-01-B3",
+                "00-00-01-BA"
+            };
+            string[] audioType =
+            {
+                "52-49-46-46",
+                "30-26-B2-75",
+                "49-44-33-04"
+            };
+            byte[] temp = new byte[16];
+            Array.Copy(data, temp, 16);
+            string dataHex = BitConverter.ToString(data);
+
+            if (imageType.Contains(dataHex.Substring(0, 11)))
+            {
+                return ProductType.Image;
+            }
+
+            if (videoType.Contains(dataHex.Substring(0, 11)))
+            {
+                return ProductType.Video;
+            }
+
+            if (audioType.Contains(dataHex.Substring(0, 11)))
+            {
+                return ProductType.Music;
+            }
+
+            return ProductType.unknow;
+        }
+
+        /// <summary>
+        /// Make Protected video
+        /// </summary>
+        /// <param name="originalVideoInBytes">byte array whith original video</param>
+        /// <returns>return byte array</returns>
+        public static byte[] GetProtectedVideo(this byte[] originalVideoInBytes)
+        {
+            string originalVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string protectedVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
+            var ffmpegconvert = new FFMpegConverter();
+            ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, new ConvertSettings() { Seek = 0, MaxDuration = 5, VideoCodec = "libx264", AudioCodec = "mp3", VideoFrameRate = 25, VideoFrameSize = "640x360" });
+            var result = File.ReadAllBytes(protectedVideoPath);
+            File.Delete(originalVideoPath);
+            File.Delete(protectedVideoPath);
+            return result;
+        }
+
+        /// <summary>
+        /// Make Protected video
+        /// </summary>
+        /// <param name="originalVideoInBytes">byte array whith original video</param>
+        /// <returns>return byte array</returns>
+        public static Task<byte[]> GetProtectedVideoAsync(this byte[] originalVideoInBytes, HttpContext context)
+        {
+            return Task.Run(() =>
+            {
+                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                string protectedVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
+                var setting = new ConvertSettings()
+                {
+                    Seek = 0,
+                    MaxDuration = 5,
+                    VideoCodec = "libx264",
+                    AudioCodec = "mp3",
+                    VideoFrameRate = 25,
+                    VideoFrameSize = "640x360"
+                };
+                var ffmpegconvert = new FFMpegConverter();
+                ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, setting);
+                var result = File.ReadAllBytes(protectedVideoPath);
+                File.Delete(originalVideoPath);
+                File.Delete(protectedVideoPath);
+                return result;
+            });
+        }
+
+        public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
+        {
+            string originalVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string compresedVideoFramePath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
+            File.WriteAllBytes(originalVideoPath, originalVideoBytes);
+            var ffmpegconverter = new FFMpegConverter();
+            ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
+            var result = File.ReadAllBytes(compresedVideoFramePath);
+            File.Delete(originalVideoPath);
+            File.Delete(compresedVideoFramePath);
+            return result;
+        }
+
+        public static Task<byte[]> GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
+        {
+            return Task.Run(() =>
+            {
+                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+                string compresedVideoFramePath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
+                File.WriteAllBytes(originalVideoPath, originalVideoBytes);
+                var ffmpegconverter = new FFMpegConverter();
+                ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
+                var result = File.ReadAllBytes(compresedVideoFramePath);
+                File.Delete(originalVideoPath);
+                File.Delete(compresedVideoFramePath);
+                return result;
+            });
         }
 
         [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
