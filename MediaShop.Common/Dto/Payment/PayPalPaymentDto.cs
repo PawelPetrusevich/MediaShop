@@ -21,12 +21,12 @@
         ///     support for 2 decimal places.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total")]
-        public string Total { get; set; }
+        public float Total { get; set; }
 
         /// <summary>
         /// Gets or sets list of items.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "item_list")]
-        public List<Item> Items { get; set; }
+        public List<PayPal.Api.Item> Items { get; set; }
     }
 }

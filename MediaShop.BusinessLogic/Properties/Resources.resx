@@ -282,4 +282,10 @@
   <data name="PaymentIsNullOrEmpty" xml:space="preserve">
     <value>Payment not found</value>
   </data>
+  <data name="NullModelDefrayal" xml:space="preserve">
+    <value>Object type Defrayal is null </value>
+  </data>
+  <data name="InvalidAddOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation add object Defrayal</value>
+  </data>
 </root>

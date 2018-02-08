@@ -13,7 +13,7 @@ namespace MediaShop.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201802070710122_PayPalPayment_1"; }
+            get { return "201802081305446_PayPalPayment_1"; }
         }
         
         string IMigrationMetadata.Source
