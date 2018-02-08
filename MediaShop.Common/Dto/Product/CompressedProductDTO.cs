@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель для получения картинки в оригинальном разме
     /// </summary>
-    public class ProductContentDTO
+    public class CompressedProductDTO
     {
         /// <summary>
         /// Gets or sets the identifier.

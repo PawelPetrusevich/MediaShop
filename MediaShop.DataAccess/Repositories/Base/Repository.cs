@@ -9,8 +9,8 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using AutoMapper;
-using MediaShop.Common.Interfaces.Repositories;
-using MediaShop.Common.Models;
+    using MediaShop.Common.Interfaces.Repositories;
+    using MediaShop.Common.Models;
     using MediaShop.DataAccess.Properties;
 
 namespace MediaShop.DataAccess.Repositories.Base
@@ -146,7 +146,7 @@ namespace MediaShop.DataAccess.Repositories.Base
 
                 entity = Mapper.Map(model, entity);
                 Context.Entry(entity).State = EntityState.Modified;
-                
+
                 Context.SaveChanges();
                 return entity;
             }
