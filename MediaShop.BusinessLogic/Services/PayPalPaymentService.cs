@@ -224,7 +224,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = this.AddPayment(Mapper.Map<PayPalPayment>(executedPayment));
+            var result = this.AddPayment(executedPayment);
             return result;
         }
 
