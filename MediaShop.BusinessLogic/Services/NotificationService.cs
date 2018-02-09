@@ -9,6 +9,8 @@ using System.Linq;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Dto.Messaging;
+using FluentValidation;
+using MediaShop.Common.Dto.Messaging.Validators;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -19,33 +21,33 @@ namespace MediaShop.BusinessLogic.Services
     {
         private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private readonly INotificationRepository _notifcationStore;
+        private readonly IValidator _validator;
 
         /// <summary>
         /// Initializes a new instance of the  <see cref="NotificationService"/> class.
         /// </summary>
         /// <param name="subscribedUserStore">Repository subscribed users</param>
         /// <param name="notifcationStore">Repository of notifications</param>
-        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore)
+        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore,
+            INotificationRepository notifcationStore, IValidator<NotificationDto> validator)
         {
             this._subscribedUserStore = subscribedUserStore;
             this._notifcationStore = notifcationStore;
+            this._validator = validator;
         }
 
         public NotificationDto Notify(NotificationDto notification)
         {
-            if (notification == null)
+            var result = this._validator.Validate(notification);
+
+            if (!result.IsValid)
             {
-                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(notification));
+                throw new ArgumentException(result.Errors.FirstOrDefault().ErrorMessage), result.Errors.FirstOrDefault(m => m)));
             }
 
             if (string.IsNullOrWhiteSpace(notification.Title))
             {
                 notification.Title = Resources.DefaultNotificationTitle;
-            }
-
-            if (string.IsNullOrWhiteSpace(notification.Message))
-            {
-                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(notification.Message));
             }
 
             if (notification.ReceiverId < 1)

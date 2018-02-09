@@ -7,6 +7,8 @@ namespace MediaShop.BusinessLogic
     using FluentValidation;
 
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Dto.Messaging;
+    using MediaShop.Common.Dto.Messaging.Validators;
     using MediaShop.Common.Dto.User;
     using MediaShop.Common.Dto.User.Validators;
     using MediaShop.Common.Interfaces.Services;
@@ -33,6 +35,7 @@ namespace MediaShop.BusinessLogic
             Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
             Bind<IPaymentService>().To<PaymentService>();
             Bind<IProductService>().To<ProductService>();
+            Bind<IValidator<NotificationDto>>().To<NotificationDtoValidator>();
         }
     }
 }

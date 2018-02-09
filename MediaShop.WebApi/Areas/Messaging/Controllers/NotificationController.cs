@@ -6,6 +6,9 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Properties;
 using System;
 using System.Web.Http;
+using Swashbuckle.Swagger.Annotations;
+using System.Net;
+using System.Collections.Generic;
 
 namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
@@ -21,6 +24,10 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpGet]
+        [Route("/GetNotificationsForUser")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(IEnumerable<NotificationDto>))]
         public IHttpActionResult Get(long userId)
         {
             var result = _notificationService.GetByUserId(userId);
@@ -33,6 +40,12 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpPost]
+        [Route("/CreateNotification")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(ArgumentException))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(NotSubscribedUserException))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(NotificationDto))]
         public IHttpActionResult CreateNotification([FromBody] NotificationDto notification)
         {
             if (ReferenceEquals(notification, null) || !ModelState.IsValid)
