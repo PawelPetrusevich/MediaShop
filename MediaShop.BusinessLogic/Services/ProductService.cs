@@ -3,22 +3,20 @@
 // </copyright>
 
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using MediaShop.BusinessLogic.ExtensionMethods;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Enums;
+using MediaShop.Common.Models;
 
 namespace MediaShop.BusinessLogic.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
     using System.Linq.Expressions;
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
-    using MediaShop.Common.Dto;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.Content;
@@ -29,14 +27,16 @@ namespace MediaShop.BusinessLogic.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
+        private readonly ICartRepository _cartRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="repository">repository</param>
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository repository, ICartRepository cartRepository)
         {
             this._repository = repository;
+            this._cartRepository = cartRepository;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace MediaShop.BusinessLogic.Services
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
-            data.ProductType = uploadProductInByte.GetMimeFromFile();
+            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -72,6 +72,11 @@ namespace MediaShop.BusinessLogic.Services
                         data.CompressedProduct.Content = null;
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
                         break;
+                    case ProductType.Video:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideo();
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrame();
+                        break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);
                 }
@@ -87,14 +92,20 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto DeleteProduct(long id)
+        public ProductDto SoftDeleteById(long id)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
-            var result = this._repository.Delete(id);
+            var currentProduct = _repository.Get(id);
+            if (currentProduct is null)
+            {
+                throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            var result = _repository.SoftDelete(id);
 
             return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
         }
@@ -144,11 +155,134 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Get list purshased products
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public IEnumerable<CompressedProductDTO> GetListPurshasedProducts(long userId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<List<CompressedProductDTO>>(this._cartRepository.Find(lambda));
+        }
+
+        /// <summary>
+        /// Get list products on sale
+        /// </summary>
+        /// <param name="">users id</param>
+        public IEnumerable<CompressedProductDTO> GetListOnSale()
+        {
+            return Mapper.Map<List<CompressedProductDTO>>(this._repository.GetListOnSale());
+        }
+
+        /// <summary>
+        /// Async service for upload product
+        /// </summary>
+        /// <param name="uploadModels">UploadProductModel</param>
+        /// <returns>Task ProductDTO</returns>
+        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        {
+            var data = Mapper.Map<Product>(uploadModels);
+            var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
+            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+
+            if (string.IsNullOrEmpty(uploadModels.UploadProduct))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyContent);
+            }
+            else
+            {
+                data.OriginalProduct = new OriginalProduct();
+                data.CompressedProduct = new CompressedProduct();
+                data.ProtectedProduct = new ProtectedProduct();
+
+                switch (data.ProductType)
+                {
+                    case ProductType.Image:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
+                        break;
+                    case ProductType.Music:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = null;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
+                        break;
+                    case ProductType.Video:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        var context = HttpContext.Current;
+                        data.ProtectedProduct.Content = await uploadProductInByte.GetProtectedVideoAsync(context);
+                        data.CompressedProduct.Content = await uploadProductInByte.GetCompresedVideoFrameAsync(context);
+                        break;
+                    case ProductType.unknow:
+                        throw new ArgumentException(Resources.UnknowProductType);
+                }
+            }
+
+            var result = await this._repository.AddAsync(data);
+
+            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<ProductDto>(result);
+        }
+
+        /// <summary>
+        /// Get original purshased product
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public OriginalProductDTO GetOriginalPurshasedProduct(long userId, long productId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // ProductId = productId
+            parameter = Expression.Property(parameterExpr, "ProductId");
+            constant = Expression.Constant(productId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<OriginalProductDTO>(this._cartRepository.Find(lambda).FirstOrDefault());
+        }
+
+        /// <summary>
         /// Получение информации по ID
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto GetProduct(long id)
+        public ProductDto GetById(long id)
         {
             if (id <= 0)
             {
@@ -158,25 +292,6 @@ namespace MediaShop.BusinessLogic.Services
             var result = this._repository.Get(id);
 
             return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductDto>(result);
-        }
-
-        /// <summary>
-        /// Download service
-        /// </summary>
-        /// <param name="id">Product id</param>
-        /// <returns>return Download product dto</returns>
-        public DownloadProductDto DownloadProduct(long id)
-        {
-            if (id <= 0)
-            {
-                throw new InvalidOperationException(Resources.GetWithNullId);
-            }
-
-            var result = this._repository.Get(id);
-
-            return result is null
-                ? throw new InvalidOperationException(Resources.GetProductError)
-                : Mapper.Map<DownloadProductDto>(result);
         }
     }
 }

@@ -6,7 +6,7 @@ using MediaShop.Common.Models.User;
 namespace MediaShop.Common.Dto.User
 {
     /// <summary>
-    ///
+    /// Account
     /// </summary>
     public class Account
     {

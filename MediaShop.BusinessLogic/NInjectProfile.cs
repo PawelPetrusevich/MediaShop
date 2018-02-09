@@ -27,14 +27,16 @@ namespace MediaShop.BusinessLogic
         public override void Load()
         {
             Bind<IAccountService>().To<AccountService>();
+            Bind<IPermissionService>().To<PermissionService>();
             Bind<ISettingsService>().To<SettingsService>();
             Bind<IProfileService>().To<ProfileService>();
             Bind<INotificationService>().To<NotificationService>();
             Bind<IEmailService>().To<EmailService>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
-            Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
+            Bind<IValidator<RegisterUserDto>>().To<RegisterUserVaildator>();
             Bind<IPaymentService>().To<PaymentService>();
             Bind<IProductService>().To<ProductService>();
+            Bind<IBannedService>().To<BannedService>();
             Bind<IValidator<NotificationDto>>().To<NotificationDtoValidator>();
         }
     }

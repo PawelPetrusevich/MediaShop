@@ -114,8 +114,16 @@ namespace MediaShop.Common.Properties {
             }
         }
         
+/// <summary>
+        ///   Looks up a localized string similar to Incorrect Email.
+        /// </summary>
+        internal static string IncorrectEmail {
+            get {
+                return ResourceManager.GetString("IncorrectEmail", resourceCulture);
+            }
+        }
         /// <summary>
-        ///   Looks up a localized string similar to Login is empty.
+        ///   Ищет локализованную строку, похожую на Login is empty.
         /// </summary>
         internal static string IncorrectLogin {
             get {
@@ -123,6 +131,15 @@ namespace MediaShop.Common.Properties {
             }
         }
         
+/// <summary>
+        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
+        /// </summary>
+        internal static string LessThanOrEqualToZeroValue {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Incorrect password.
         /// </summary>
@@ -133,34 +150,7 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
-        /// </summary>
-        internal static string LessThanOrEqualToZeroValue {
-            get {
-                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value can not be null.
-        /// </summary>
-        internal static string NullOrEmptyValue {
-            get {
-                return ResourceManager.GetString("NullOrEmptyValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to String can not be null or empty.
-        /// </summary>
-        internal static string NullOrEmptyValueString {
-            get {
-                return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User not found.
+        ///   Ищет локализованную строку, похожую на User not found.
         /// </summary>
         internal static string UserNotFound {
             get {

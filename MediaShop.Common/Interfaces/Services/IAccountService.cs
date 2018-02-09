@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Threading.Tasks;
 using MediaShop.Common.Dto.User;
 
 namespace MediaShop.Common.Interfaces.Services
@@ -23,12 +24,27 @@ namespace MediaShop.Common.Interfaces.Services
         Account Register(RegisterUserDto userModel);
 
         /// <summary>
+        /// Registers the user.
+        /// </summary>
+        /// <param name="userModel">The user to register.</param>
+        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
+        Task<Account> RegisterAsync(RegisterUserDto userModel);
+
+        /// <summary>
         /// Confirm user registration
         /// </summary>
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
         Account ConfirmRegistration(string email, long id);
+
+        /// <summary>
+        /// Confirm user registration
+        /// </summary>
+        /// <param name="email">User email</param>
+        /// <param name="id">id user</param>
+        /// <returns><c>account</c> if succeeded</returns>
+        Task<Account> ConfirmRegistrationAsync(string email, long id);
 
         /// <summary>
         /// Login user
@@ -50,27 +66,5 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">user email</param>
         /// <returns>account</returns>
         Account RecoveryPassword(string email);
-
-        /// <summary>
-        /// Set permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        Account SetPermission(PermissionDto permission);
-
-        /// <summary>
-        /// Remove permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        Account RemovePermission(PermissionDto permission);
-
-        /// <summary>
-        /// Set or remove flag banned
-        /// </summary>
-        /// <param name="accountBLmodel"></param>
-        /// <param name="flag"></param>
-        /// <returns>account</returns>
-        Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag);
     }
 }

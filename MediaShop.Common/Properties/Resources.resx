@@ -135,8 +135,11 @@
   <data name="FailedEnteringProducName" xml:space="preserve">
     <value>Not less than 5 and not more than 50 symbols</value>
   </data>
+  <data name="IncorrectEmail" xml:space="preserve">
+    <value>Incorrect Email</value>
+  </data>
   <data name="IncorrectLogin" xml:space="preserve">
-    <value>Login is empty</value>
+    <value>Incorrect login </value>
   </data>
   <data name="IncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
