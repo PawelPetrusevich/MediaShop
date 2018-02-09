@@ -88,6 +88,57 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Async service for upload product
+        /// </summary>
+        /// <param name="uploadModels">UploadProductModel</param>
+        /// <returns>Task ProductDTO</returns>
+        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        {
+            var data = Mapper.Map<Product>(uploadModels);
+            var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
+            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+
+            if (string.IsNullOrEmpty(uploadModels.UploadProduct))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyContent);
+            }
+            else
+            {
+                data.OriginalProduct = new OriginalProduct();
+                data.CompressedProduct = new CompressedProduct();
+                data.ProtectedProduct = new ProtectedProduct();
+
+                switch (data.ProductType)
+                {
+                    case ProductType.Image:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
+                        break;
+                    case ProductType.Music:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        data.CompressedProduct.Content = null;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
+                        break;
+                    case ProductType.Video:
+                        data.OriginalProduct.Content = uploadProductInByte;
+                        var context = HttpContext.Current;
+                        var protectedTask = Task.Run(() => uploadProductInByte.GetProtectedVideoAsync(context));
+                        var compressedTask = Task.Run(() => uploadProductInByte.GetCompresedVideoFrameAsync(context));
+                        data.ProtectedProduct.Content = protectedTask.Result;
+                        data.CompressedProduct.Content = compressedTask.Result;
+                        break;
+                    case ProductType.unknow:
+                        throw new ArgumentException(Resources.UnknowProductType);
+                }
+            }
+
+            var result = await this._repository.AddAsync(data);
+
+            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<ProductDto>(result);
+        }
+
+        /// <summary>
         /// метод удаления продукта
         /// </summary>
         /// <param name="id">id of product</param>
@@ -106,6 +157,29 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var result = _repository.SoftDelete(id);
+
+            return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
+        }
+
+        /// <summary>
+        /// метод удаления продукта
+        /// </summary>
+        /// <param name="id">id of product</param>
+        /// <returns>ProductDto</returns>
+        public async Task<ProductDto> SoftDeleteByIdAsync(long id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidOperationException(Resources.DeleteWithNullId);
+            }
+
+            var currentProduct = _repository.Get(id);
+            if (currentProduct is null)
+            {
+                throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            var result = await _repository.SoftDeleteAsync(id);
 
             return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
         }
@@ -155,6 +229,50 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Async Find Methods
+        /// </summary>
+        /// <param name="conditionsList">принимаем условие</param>
+        /// <returns>возрощаем список product</returns>
+        public async Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList)
+        {
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(Product));
+
+            foreach (var condition in conditionsList)
+            {
+                var parameter = Expression.Property(parameterExpr, condition.LeftValue);
+
+                var propType = typeof(Product).GetProperty(condition.LeftValue).PropertyType;
+                var castValue = Convert.ChangeType(condition.RightValue, propType);
+                ConstantExpression constant = Expression.Constant(castValue);
+                switch (condition.Operand)
+                {
+                    case "=":
+                        operations.Add(Expression.Equal(parameter, constant));
+                        break;
+                    case ">":
+                        operations.Add(Expression.GreaterThan(parameter, constant));
+                        break;
+                    case "<":
+                        operations.Add(Expression.LessThan(parameter, constant));
+                        break;
+                    case "Contains":
+                        {
+                            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                            operations.Add(Expression.Call(parameter, method, constant));
+                            break;
+                        }
+                }
+            }
+
+            var resultFilter = operations.Aggregate(Expression.And);
+
+            var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<List<ProductDto>>(await this._repository.FindAsync(lambda));
+        }
+
+        /// <summary>
         /// Get list purshased products
         /// </summary>
         /// <param name="userId">users id</param>
@@ -184,6 +302,32 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<List<CompressedProductDTO>>(this._cartRepository.Find(lambda));
         }
 
+        public async Task<IEnumerable<CompressedProductDTO>> GetListPurshasedProductsAsync(long userId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<List<CompressedProductDTO>>(await Task.Run(() => this._cartRepository.Find(lambda)));
+        }
+
         /// <summary>
         /// Get list products on sale
         /// </summary>
@@ -194,52 +338,12 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
-        /// Async service for upload product
+        /// Get list products on sale
         /// </summary>
-        /// <param name="uploadModels">UploadProductModel</param>
-        /// <returns>Task ProductDTO</returns>
-        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        /// <param name="">users id</param>
+        public async Task<IEnumerable<CompressedProductDTO>> GetListOnSaleAsync()
         {
-            var data = Mapper.Map<Product>(uploadModels);
-            var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
-            data.ProductType = uploadProductInByte.GetMimeFromByteArray();
-
-            if (string.IsNullOrEmpty(uploadModels.UploadProduct))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyContent);
-            }
-            else
-            {
-                data.OriginalProduct = new OriginalProduct();
-                data.CompressedProduct = new CompressedProduct();
-                data.ProtectedProduct = new ProtectedProduct();
-
-                switch (data.ProductType)
-                {
-                    case ProductType.Image:
-                        data.OriginalProduct.Content = uploadProductInByte;
-                        data.CompressedProduct.Content = uploadProductInByte.GetCompressedImage();
-                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedImage();
-                        break;
-                    case ProductType.Music:
-                        data.OriginalProduct.Content = uploadProductInByte;
-                        data.CompressedProduct.Content = null;
-                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
-                        break;
-                    case ProductType.Video:
-                        data.OriginalProduct.Content = uploadProductInByte;
-                        var context = HttpContext.Current;
-                        data.ProtectedProduct.Content = await uploadProductInByte.GetProtectedVideoAsync(context);
-                        data.CompressedProduct.Content = await uploadProductInByte.GetCompresedVideoFrameAsync(context);
-                        break;
-                    case ProductType.unknow:
-                        throw new ArgumentException(Resources.UnknowProductType);
-                }
-            }
-
-            var result = await this._repository.AddAsync(data);
-
-            return result is null ? throw new InvalidOperationException(Resources.UploadProductError) : Mapper.Map<ProductDto>(result);
+            return Mapper.Map<List<CompressedProductDTO>>(await this._repository.GetListOnSaleAsync());
         }
 
         /// <summary>
@@ -275,6 +379,41 @@ namespace MediaShop.BusinessLogic.Services
             var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
 
             return Mapper.Map<OriginalProductDTO>(this._cartRepository.Find(lambda).FirstOrDefault());
+        }
+
+        /// <summary>
+        /// Get original purshased product Async methods
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public async Task<OriginalProductDTO> GetOriginalPurshasedProductAsync(long userId, long productId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var operations = new List<Expression>();
+            var parameterExpr = Expression.Parameter(typeof(ContentCart));
+
+            // CreatorID = UserID
+            var parameter = Expression.Property(parameterExpr, "CreatorID");
+            ConstantExpression constant = Expression.Constant(userId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // ProductId = productId
+            parameter = Expression.Property(parameterExpr, "ProductId");
+            constant = Expression.Constant(productId);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            // StateContent = inPaid
+            parameter = Expression.Property(parameterExpr, "StateContent");
+            constant = Expression.Constant(CartEnums.StateCartContent.InPaid);
+            operations.Add(Expression.Equal(parameter, constant));
+
+            var resultFilter = operations.Aggregate(Expression.And);
+            var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+
+            return Mapper.Map<OriginalProductDTO>(await Task.Run(() => this._cartRepository.Find(lambda).FirstOrDefault()));
         }
 
         /// <summary>
