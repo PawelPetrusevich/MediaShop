@@ -151,6 +151,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment already exist.
+        /// </summary>
+        internal static string ExistPayment {
+            get {
+                return ResourceManager.GetString("ExistPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product is not exist.
         /// </summary>
         internal static string ExistProductInDataBase {
@@ -228,6 +237,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string InvalidContentId {
             get {
                 return ResourceManager.GetString("InvalidContentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid operation delete object Defrayal.
+        /// </summary>
+        internal static string InvalidDeleteOperationDefrayal {
+            get {
+                return ResourceManager.GetString("InvalidDeleteOperationDefrayal", resourceCulture);
             }
         }
         

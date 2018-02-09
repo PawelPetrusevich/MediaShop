@@ -107,6 +107,8 @@
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\DeleteDefrayalException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\ExistPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
     <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\PaymentException.cs" />

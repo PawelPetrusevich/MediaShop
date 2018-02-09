@@ -29,10 +29,14 @@
 
         private readonly ICartService<ContentCartDto> serviceCart;
 
+        private List<long> listIdForRollBack;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PayPalPaymentService"/> class.
         /// </summary>
-        /// <param name="paymentRepository">instance repository PaymentRepository</param>
+        /// <param name="paymentRepository">repository IPayPalPaymentRepository</param>
+        /// <param name="defrayalRepository">repository IDefrayalRepository</param>
+        /// <param name="cartService">service ICartService</param>
         public PayPalPaymentService(IPayPalPaymentRepository paymentRepository, IDefrayalRepository defrayalRepository, ICartService<ContentCartDto> cartService)
         {
             this.repositoryPayment = paymentRepository;
@@ -56,7 +60,7 @@
             // Check exist Payment in repository
             if (this.ExistInPayment(payment.id))
             {
-                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+                throw new ExistPaymentException(Resources.ExistPayment);
             }
 
             try
@@ -76,17 +80,13 @@
                     switch (enumString)
                     {
                         case PaymentStates.Created:
-                            // Return state content in cart => InCart
-                            this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InCart);
                             throw new OperationPaymentException(Resources.NotApprovedOperationPayment);
                         case PaymentStates.Failed:
-                            // Return state content in cart => InCart
-                            this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InBought);
                             throw new OperationPaymentException(Resources.FailedOperationPayment);
                     }
                 }
 
-                // Change State content in Cart 
+                // Change State content in Cart
                 this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InBought);
 
                 // Get Cart
@@ -142,13 +142,13 @@
         /// <returns>object typeof PayPalPaymentDto</returns>
         public PayPalPaymentDto CreatePayPalPaymentDto(PayPal.Api.Payment payment)
         {
-            var payPalPaymentDto = new PayPalPaymentDto();
+            var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<Item>() };
 
             payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
-                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total);
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total.Replace('.', ','));
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
                     payPalPaymentDto.Items.Add(item);
@@ -165,24 +165,83 @@
         /// <param name="state">state </param>
         public void SetStateItems(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state)
         {
-            foreach (PayPal.Api.Transaction tran in payment.transactions)
+            try
             {
-                foreach (Item item in tran.item_list.items)
+                // List for rollback
+                this.listIdForRollBack = new List<long>();
+
+                foreach (PayPal.Api.Transaction tran in payment.transactions)
                 {
-                    // 3.1 Change state product
-                    var resultChangeState = this.serviceCart.SetState(Convert.ToInt64(item.sku), state);
+                    foreach (Item item in tran.item_list.items)
+                    {
+                        // 3.1 Change state product
+                        var resultChangeState = this.serviceCart.SetState(Convert.ToInt64(item.sku), state);
+
+                        // Write id for rollback
+                        this.listIdForRollBack.Add(resultChangeState.ContentId);
+
+                        // 3.2 Transferring product in Defrayal from ContentCart
+                        var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
+
+                        // 3.3 Save object Defrayal in repository
+                        var resultSaveDefrayal = this.repositoryDefrayal.Add(objectDefrayal);
+                    }
+                }
+            }
+            catch (UpdateContentInCartExseptions error)
+            {
+                // Rollback change set state content
+                foreach (long contentId in this.listIdForRollBack)
+                {
+                        // 3.1 Change state product in cart
+                        var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InPaid);
+                }
+
+                throw new UpdateContentInCartExseptions(error.Message);
+            }
+            catch (AddDefrayalException error)
+            {
+                // Rollback change add new defrayal
+                foreach (long contentId in this.listIdForRollBack)
+                {
+                    // 3.1 Change state product in cart
+                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InPaid);
 
                     // 3.2 Transferring product in Defrayal from ContentCart
                     var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
-                    // 3.3 Save object Defrayal in repository
-                    var resultSaveDefrayal = this.repositoryDefrayal.Add(objectDefrayal);
+                        // 3.3 Save object Defrayal in repository
+                    var resultSaveDefrayal = this.DeleteDefrayal(objectDefrayal);
                 }
+
+                throw new AddDefrayalException(error.Message);
             }
         }
 
         /// <summary>
-        /// Method for add object typeof DefrayalDbModel in repository
+        /// Method for delete object typeof DefrayalDbModel in repository
+        /// </summary>
+        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+        /// <returns>object DefrayalDbModel after delete in repository</returns>
+        public DefrayalDbModel DeleteDefrayal(DefrayalDbModel modelDefrayal)
+        {
+            if (modelDefrayal == null)
+            {
+                throw new ArgumentNullException(Resources.NullModelDefrayal);
+            }
+
+            var resultDeleteDefrayal = this.repositoryDefrayal.Delete(modelDefrayal);
+
+            if (resultDeleteDefrayal == null)
+            {
+                throw new DeleteDefrayalException(Resources.InvalidDeleteOperationDefrayal);
+            }
+
+            return resultDeleteDefrayal;
+        }
+
+        /// <summary>
+        /// Method for delete object typeof DefrayalDbModel in repository
         /// </summary>
         /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
         /// <returns>object DefrayalDbModel after add in repository</returns>

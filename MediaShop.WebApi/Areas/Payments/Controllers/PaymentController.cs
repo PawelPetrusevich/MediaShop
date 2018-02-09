@@ -29,27 +29,6 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             this._paymentService = paymentService;
         }
 
-        /// <summary>
-        /// Method Payment controller
-        /// </summary>
-        /// <param name="payment">deserialize object Payment</param>
-        /// <returns>statusCode</returns>
-        [HttpPost]
-        [Route("resultpayment")]
-        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPal.Api.Payment))]
-        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        public IHttpActionResult ResultPayment([FromBody] PayPal.Api.Payment payment)
-        {
-            try
-            {
-                return Ok(_paymentService.AddPayment(payment));
-            }
-            catch (InvalideDecerializableExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-
         [HttpPost]
         [Route("paypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]

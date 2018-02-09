@@ -4,26 +4,26 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Class AddPaymentException
+    /// Class ExistPaymentException
     /// </summary>
-    public class AddPaymentException : Exception
+    public class ExistPaymentException : Exception
     {
-        public AddPaymentException()
+        public ExistPaymentException()
             : base()
         {
         }
 
-        public AddPaymentException(string message)
+        public ExistPaymentException(string message)
             : base(message)
         {
         }
 
-        public AddPaymentException(string message, Exception inner)
+        public ExistPaymentException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        public AddPaymentException(SerializationInfo info, StreamingContext context)
+        public ExistPaymentException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

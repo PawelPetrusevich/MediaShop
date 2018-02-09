@@ -288,4 +288,10 @@
   <data name="InvalidAddOperationDefrayal" xml:space="preserve">
     <value>Invalid operation add object Defrayal</value>
   </data>
+  <data name="InvalidDeleteOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation delete object Defrayal</value>
+  </data>
+  <data name="ExistPayment" xml:space="preserve">
+    <value>Payment already exist</value>
+  </data>
 </root>

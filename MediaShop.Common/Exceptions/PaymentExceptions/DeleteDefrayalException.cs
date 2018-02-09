@@ -4,26 +4,26 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Class AddPaymentException
+    /// Class DeleteDefrayalException
     /// </summary>
-    public class AddPaymentException : Exception
+    public class DeleteDefrayalException : Exception
     {
-        public AddPaymentException()
+        public DeleteDefrayalException()
             : base()
         {
         }
 
-        public AddPaymentException(string message)
+        public DeleteDefrayalException(string message)
             : base(message)
         {
         }
 
-        public AddPaymentException(string message, Exception inner)
+        public DeleteDefrayalException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        public AddPaymentException(SerializationInfo info, StreamingContext context)
+        public DeleteDefrayalException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
