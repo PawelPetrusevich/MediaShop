@@ -164,5 +164,21 @@ namespace MediaShop.DataAccess.Repositories
 
             return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Login.Equals(login));
         }
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>Account</returns>
+        /// <exception cref="ArgumentException">if login is null or empty string</exception>
+        public AccountDbModel GetByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Email.Equals(email));
+        }
     }
 }

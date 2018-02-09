@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
+    <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
     <Compile Include="Dto\Product\DownloadProductDto.cs" />
     <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\Account.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
     <Compile Include="Dto\Product\ProductContentDTO.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\ResetPasswordDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\PermissionDto.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
@@ -93,6 +96,9 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
+    <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
@@ -101,6 +107,9 @@
     <Compile Include="Exceptions\User\AddStatisticException.cs" />
     <Compile Include="Exceptions\User\IncorrectPasswordException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
+    <Compile Include="Helpers\EmailSettingsConfig.cs" />
+    <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Interfaces\IEmailSettingsConfig.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -174,6 +183,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dto\Messaging\Validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

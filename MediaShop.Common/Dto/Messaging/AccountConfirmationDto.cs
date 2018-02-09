@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MediaShop.Common.Dto.Messaging
+{
+    public class AccountConfirmationDto
+    {
+        public string ConfirmationCode { get; set; }
+
+        public string Email { get; set; }
+    }
+}

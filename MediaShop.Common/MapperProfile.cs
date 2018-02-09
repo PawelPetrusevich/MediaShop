@@ -2,6 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 
@@ -54,6 +55,8 @@ namespace MediaShop.Common
 
             this.CreateMap<Account, AccountDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore()).ReverseMap();
+            this.CreateMap<AccountDbModel, AccountConfirmationDto>().ForMember(item => item.ConfirmationCode, opt => opt.MapFrom(s => s.AccountConfirmationToken));
+            this.CreateMap<AccountDbModel, AccountPwdRestoreDto>().ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
             this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, PermissionDto>();

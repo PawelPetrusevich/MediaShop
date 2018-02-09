@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Resources;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Properties;
@@ -62,21 +64,21 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
-        [Route("confirm/{email}/{id}")]
+        [Route("confirm/{email}/{token}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Confirm(string email, long id)
+        public IHttpActionResult Confirm(string email, string token)
         {
-            if (string.IsNullOrWhiteSpace(email) || id < 1)
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
             {
                 return BadRequest(Resources.EmtyData);
             }
 
             try
             {
-                var account = _accountService.ConfirmRegistration(email, id);
+                var account = _accountService.ConfirmRegistration(email, token);
                 return Ok(account);
             }
             catch (NotFoundUserException ex)
@@ -162,19 +164,71 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("recoveryPassword")]
+        [Route("initRecoveryPassword")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RecoveryPassword([FromBody] string email)
+        public IHttpActionResult InitRecoveryPassword([FromBody] string email)
         {
             if (string.IsNullOrWhiteSpace(email) || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            return Ok(new Account());
+            try
+            {
+                _accountService.InitRecoveryPassword(email);
+                return Ok(email);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("recoveryPassword")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult RecoveryPassword([FromBody] ResetPasswordDto model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var account = _accountService.RecoveryPassword(model);
+                return Ok(account);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmationTokenException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [HttpPost]

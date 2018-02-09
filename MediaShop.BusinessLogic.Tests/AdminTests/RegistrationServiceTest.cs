@@ -2,6 +2,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
@@ -28,11 +29,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public RegistrationServiceTest()
         {
             Mapper.Reset();
-           Mapper.Initialize(config =>
-           {
-               config.CreateMap<RegisterUserDto, AccountDbModel>();
-               config.CreateMap<Account, AccountDbModel>();
-           });
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<RegisterUserDto, AccountDbModel>();
+                config.CreateMap<Account, AccountDbModel>();
+                config.CreateMap<AccountDbModel, AccountConfirmationDto>().ForMember(item => item.ConfirmationCode, opt => opt.MapFrom(s => s.AccountConfirmationToken));
+
+            });
         }
 
         [SetUp]
@@ -42,36 +45,36 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             var mockEmailService = new Mock<IEmailService>();
             var mockValidator = new Mock<IValidator<RegisterUserDto>>();
 
-            _factoryRepository  = mockfactoryRepository;
+            _factoryRepository = mockfactoryRepository;
             _emailService = mockEmailService;
             _validator = mockValidator;
 
             _user = new RegisterUserDto()
-            {                
+            {
                 Login = "User",
-                Password = "12345",  
+                Password = "12345",
                 ConfirmPassword = "12345",
-                Email = "12345",               
+                Email = "12345",
             };
         }
 
         [Test]
         public void TestRegistrationSuccessfull()
-        {            
+        {
             var profile = new ProfileDbModel { Id = 1 };
             var account = new AccountDbModel
             {
                 Id = 2,
                 Login = "Ivan",
                 Password = "111",
-                Profile = profile                
+                Profile = profile
             };
 
             _factoryRepository.Setup(x => x.Accounts.Add(It.IsAny<AccountDbModel>())).Returns(account);
             _factoryRepository.Setup(x => x.Accounts.Find(It.IsAny<Expression<Func<AccountDbModel, bool>>>()))
-                .Returns((IEnumerable<AccountDbModel>) null);
+                .Returns((IEnumerable<AccountDbModel>)null);
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
-            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<AccountConfirmationDto>()));
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
 
@@ -86,32 +89,20 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(false);
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-           
+
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
 
         [Test]
         public void TestRegistraionFailInRepository()
         {
-            _factoryRepository.Setup(x => x.Accounts.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);            
+            _factoryRepository.Setup(x => x.Accounts.Add(It.IsAny<AccountDbModel>())).Returns((AccountDbModel)null);
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
-            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<AccountConfirmationDto>()));
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            
+
             Assert.Throws<AddAccountException>(() => userService.Register(_user));
-        }
-
-        [Test]
-        public void TestRegistraionFailSendConfirmation()
-        {
-            _factoryRepository.Setup(x => x.Accounts.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
-            _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
-            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(false);
-
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
-            
-            Assert.Throws<CanNotSendEmailException>(() => userService.Register(_user));
         }
     }
 }

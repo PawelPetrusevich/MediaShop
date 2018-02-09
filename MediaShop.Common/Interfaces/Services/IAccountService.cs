@@ -4,6 +4,8 @@
 
 using System;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Exceptions;
+using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -26,9 +28,9 @@ namespace MediaShop.Common.Interfaces.Services
         /// Confirm user registration
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="id">id user</param>
+        /// <param name="token">Confirmation token</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Account ConfirmRegistration(string email, long id);
+        Account ConfirmRegistration(string email, string confirmationToken);
 
         /// <summary>
         /// Login user
@@ -48,8 +50,19 @@ namespace MediaShop.Common.Interfaces.Services
         /// Reset user password  for recovery
         /// </summary>
         /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
         /// <returns>account</returns>
-        Account RecoveryPassword(string email);
+        Account RecoveryPassword(ResetPasswordDto model);
+
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        void InitRecoveryPassword(string email);
 
         /// <summary>
         /// Set permission

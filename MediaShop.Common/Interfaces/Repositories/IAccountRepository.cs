@@ -18,5 +18,12 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// <param name="login">The login.</param>
         /// <returns>Entity</returns>
         AccountDbModel GetByLogin(string login);
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The Email.</param>
+        /// <returns>Entity</returns>
+        AccountDbModel GetByEmail(string email);
     }
 }

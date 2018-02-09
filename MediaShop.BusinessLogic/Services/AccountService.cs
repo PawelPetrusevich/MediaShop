@@ -4,10 +4,13 @@
 
 using System;
 using MediaShop.BusinessLogic.Properties;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
+using MediaShop.Common.Helpers;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -58,12 +61,12 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
+
+            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = this._factoryRepository.Accounts.Add(modelDbModel) ?? throw new AddAccountException();
 
-            if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
-            {
-                throw new CanNotSendEmailException();
-            }
+            _emailService.SendConfirmation(confirmationModel);
 
             return Mapper.Map<Account>(account);
         }
@@ -74,23 +77,29 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        public Account ConfirmRegistration(string email, long id)
+        public Account ConfirmRegistration(string email, string confirmationToken)
         {
+            //Todo: set up validator
             if (string.IsNullOrWhiteSpace(email))
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValueString);
             }
 
-            if (id < 1)
+            if (string.IsNullOrWhiteSpace(confirmationToken))
             {
-                throw new ArgumentException(Resources.InvalidIdValue);
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
             }
 
-            var user = this._factoryRepository.Accounts.Get(id);
+            var user = this._factoryRepository.Accounts.GetByEmail(email);
 
-            if (user == null || !user.Email.Equals(email))
+            if (user == null)
             {
                 throw new NotFoundUserException();
+            }
+
+            if (!user.AccountConfirmationToken.Equals(confirmationToken))
+            {
+                throw new ConfirmationTokenException();
             }
 
             if (user.IsConfirmed)
@@ -106,6 +115,7 @@ namespace MediaShop.BusinessLogic.Services
             user.Profile = profile;
             user.SettingsId = settings.Id;
             user.Settings = settings;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(confirmedUser);
@@ -126,7 +136,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var statistic = new StatisticDbModel() { AccountId = user.Id };
-            var result = this._factoryRepository.Statistics.Add(statistic) ?? throw new AddStatisticException();          
+            var result = this._factoryRepository.Statistics.Add(statistic) ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
@@ -136,9 +146,74 @@ namespace MediaShop.BusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        public Account RecoveryPassword(string email)
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        public void InitRecoveryPassword(string email)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            var user = this._factoryRepository.Accounts.GetByEmail(email);
+
+            if (user == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            var resoreDtoModel = Mapper.Map<AccountPwdRestoreDto>(user);
+
+            _emailService.SendRestorePwdLink(resoreDtoModel);
+        }
+
+        /// <summary>
+        /// Reset user password  for recovery
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
+        /// <returns>account</returns>
+        public Account RecoveryPassword(ResetPasswordDto model)
+        {
+            //Todo: set up validator
+            if (model == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Token))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
+
+            if (user == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            if (!user.AccountConfirmationToken.Equals(model.Token, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ConfirmationTokenException();
+            }
+
+            user.Password = model.Password;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
+            var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(restoredUser);
         }
 
         /// <summary>
