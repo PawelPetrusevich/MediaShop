@@ -278,11 +278,10 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="idUser">idUser from claims</param>
         /// <param name="email">email from claims</param>
         /// <returns>account</returns>
-        public Account ValidateUserByToken(LoginDto loginDto, string idUser, string email)
+        public Account ValidateUserByToken(LoginDto loginDto, string email)
         {
             if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
-                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(idUser) ||
-                string.IsNullOrWhiteSpace(email))
+                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(email))
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValue);
             }
@@ -293,7 +292,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new NotFoundUserException();
             }
 
-            if (!user.Id.ToString().Equals(idUser) || !user.Email.Equals(email))
+            if (!user.Email.Equals(email))
             {
                 throw new AuthorizedDataException();
             }
@@ -301,11 +300,10 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<Account>(user);
         }
 
-        public async Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string idUser, string email)
+        public async Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string email)
         {
             if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
-                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(idUser) ||
-                string.IsNullOrWhiteSpace(email))
+                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(email))
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValue);
             }
@@ -316,7 +314,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new NotFoundUserException();
             }
 
-            if (!user.Id.ToString().Equals(idUser) || !user.Email.Equals(email))
+            if (!user.Email.Equals(email))
             {
                 throw new AuthorizedDataException();
             }

@@ -48,17 +48,17 @@ namespace MediaShop.WebApi.Provider
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(Resources.UserId, user.Id.ToString())
+                new Claim(ClaimTypes.Email, user.Email)
             };
 
-            ClaimsIdentity authIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ExternalBearer);
+            ClaimsIdentity authIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ExternalBearer);          
            
             AuthenticationProperties properties = CreateProperties(user.Login);
             AuthenticationTicket ticket = new AuthenticationTicket(authIdentity, properties);
-            context.Validated(ticket);          
 
-            context.Request.Context.Authentication.SignIn(authIdentity);
+            context.Validated(ticket);
+
+            context.Request.Context.Authentication.SignIn(properties, authIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

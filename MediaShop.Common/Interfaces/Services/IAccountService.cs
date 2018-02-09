@@ -83,7 +83,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="idUser">idUser from claims</param>
         /// <param name="email">email from claims</param>
         /// <returns>account</returns>
-        Account ValidateUserByToken(LoginDto loginDto, string idUser, string email);
+        Account ValidateUserByToken(LoginDto loginDto, string email);
 
         /// <summary>
         /// Validate user with data received from token
@@ -92,6 +92,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="idUser">idUser from claims</param>
         /// <param name="email">email from claims</param>
         /// <returns>account</returns>
-        Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string idUser, string email);
+        Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string email);
     }
 }

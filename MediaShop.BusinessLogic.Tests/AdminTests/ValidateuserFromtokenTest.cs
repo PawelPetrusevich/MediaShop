@@ -55,14 +55,14 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(new AccountDbModel() { Password = "password", Id = 1, Email = "testemail@gmail.com" });
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
-            Assert.IsNotNull(userService.ValidateUserByToken(_data,"1","testemail@gmail.com"));
+            Assert.IsNotNull(userService.ValidateUserByToken(_data,"testemail@gmail.com"));
         }
 
         [Test]
         public void NotValidData()
         {
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
-            Assert.Throws<ArgumentNullException>(() => userService.ValidateUserByToken(_data, string.Empty, string.Empty));
+            Assert.Throws<ArgumentNullException>(() => userService.ValidateUserByToken(_data, string.Empty));
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(new AccountDbModel() { Password = "pass" });
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
-            Assert.Throws<NotFoundUserException>(() => userService.ValidateUserByToken(_data, "1", "testemail@gmail.com"));
+            Assert.Throws<NotFoundUserException>(() => userService.ValidateUserByToken(_data,"testemail@gmail.com"));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(new AccountDbModel() { Password = "password", Id = 2, Email = "test@gmail.com"});
 
             var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
-            Assert.Throws<AuthorizedDataException>(() => userService.ValidateUserByToken(_data, "1", "testemail@gmail.com"));
+            Assert.Throws<AuthorizedDataException>(() => userService.ValidateUserByToken(_data,"testemail@gmail.com"));
         }
     }
 }

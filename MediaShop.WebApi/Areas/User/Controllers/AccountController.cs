@@ -143,13 +143,12 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
             var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;
-            var userIdAutorized = result.Claims.FirstOrDefault(x => x.Type.Equals(Resources.UserId))?.Value;
-            if (string.IsNullOrWhiteSpace(emailAuthorized) || string.IsNullOrWhiteSpace(userIdAutorized))
+            if (string.IsNullOrWhiteSpace(emailAuthorized))
             {
                 throw new AuthorizedDataException(Resources.EmptyAutorizedData);
             }
 
-            var user = _accountService.ValidateUserByToken(data, userIdAutorized, emailAuthorized);
+            var user = _accountService.ValidateUserByToken(data, emailAuthorized);
 
             user = _accountService.Login(data);            
 
@@ -172,14 +171,13 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             }
 
             ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
-            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;
-            var userIdAutorized = result.Claims.FirstOrDefault(x => x.Type.Equals(Resources.UserId))?.Value;
-            if (string.IsNullOrWhiteSpace(emailAuthorized) || string.IsNullOrWhiteSpace(userIdAutorized))
+            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;           
+            if (string.IsNullOrWhiteSpace(emailAuthorized))
             {
                 throw new AuthorizedDataException(Resources.EmptyAutorizedData);
             }
 
-            var user = await _accountService.ValidateUserByTokenAsync(data, userIdAutorized, emailAuthorized);
+            var user = await _accountService.ValidateUserByTokenAsync(data, emailAuthorized);
 
             user = await _accountService.LoginAsync(data);
 
