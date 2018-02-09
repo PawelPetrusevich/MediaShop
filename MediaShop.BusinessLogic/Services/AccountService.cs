@@ -217,6 +217,11 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>Authorised user</c></returns>
         public Account Login(LoginDto data)
         {
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(data));
+            }
+
             var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
 
             if (user.Password != data.Password)
