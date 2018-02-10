@@ -113,15 +113,15 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
         public void Add_New_Payment_If_Data_Valid()
         {
             // Object as return in method SetState
-            var contentCartDtoInBougth = new ContentCartDto()
-            { ContentId = 5, StateContent = Common.Enums.CartEnums.StateCartContent.InBought };
+            var contentCartDtoInPaid = new ContentCartDto()
+            { ContentId = 5, StateContent = Common.Enums.CartEnums.StateCartContent.InPaid };
 
             // Setup mockCart
             mockCart.Setup(item => item.SetState(It.IsAny<long>(), 
                 It.Is<MediaShop.Common.Enums.CartEnums.StateCartContent>
-                (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InBought ||
+                (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InPaid ||
                 s == MediaShop.Common.Enums.CartEnums.StateCartContent.InCart)))
-                .Returns(() => contentCartDtoInBougth);
+                .Returns(() => contentCartDtoInPaid);
             mockCart.Setup(item => item.GetCart(It.IsAny<long>()))
                 .Returns(() => cart);
             mockCart.Setup(item => item.DeleteOfCart(It.IsAny<Cart>()))
@@ -233,7 +233,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             // Setup mockCart
             mockCart.Setup(item => item.SetState(It.IsAny<long>(),
                 It.Is<MediaShop.Common.Enums.CartEnums.StateCartContent>
-                (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InBought ||
+                (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InPaid ||
                 s == MediaShop.Common.Enums.CartEnums.StateCartContent.InCart)))
                 .Returns(() => throw new UpdateContentInCartExseptions());
 
