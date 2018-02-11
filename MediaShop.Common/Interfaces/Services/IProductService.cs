@@ -41,11 +41,25 @@ namespace MediaShop.Common.Interfaces.Services
         ProductDto SoftDeleteById(long id);
 
         /// <summary>
+        /// DElete method Async
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>result</returns>
+        Task<ProductDto> SoftDeleteByIdAsync(long id);
+
+        /// <summary>
         /// Find method.
         /// </summary>
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
         IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
+
+        /// <summary>
+        /// Find method Async
+        /// </summary>
+        /// <param name="conditionsList">filter</param>
+        /// <returns>product</returns>
+        Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList);
 
         /// <summary>
         /// Get list purshased products
@@ -55,10 +69,25 @@ namespace MediaShop.Common.Interfaces.Services
         IEnumerable<CompressedProductDTO> GetListPurshasedProducts(long userId);
 
         /// <summary>
+        /// Get list purshased products Async
+        /// </summary>
+        /// <param name="userId">users id</param>
+        /// <returns>return DTO whith product name and original product byte array</returns>
+        Task<IEnumerable<CompressedProductDTO>> GetListPurshasedProductsAsync(long userId);
+
+        /// <summary>
         /// Get original purshased product
         /// </summary>
         /// <param name="userId">users id</param>
         OriginalProductDTO GetOriginalPurshasedProduct(long userId, long productId);
+
+        /// <summary>
+        /// Get original purshased product
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="productId">product id</param>
+        /// <returns>Task Original product</returns>
+        Task<OriginalProductDTO> GetOriginalPurshasedProductAsync(long userId, long productId);
 
         /// <summary>
         /// Get list  products on sale
@@ -66,6 +95,13 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name=""></param>
         /// <returns>return DTO whith product name and original product byte array</returns>
         IEnumerable<CompressedProductDTO> GetListOnSale();
+
+        /// <summary>
+        /// Get list  products on sale Async method
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>return DTO whith product name and original product byte array</returns>
+        Task<IEnumerable<CompressedProductDTO>> GetListOnSaleAsync();
 
         /// <summary>
         /// Async upload service

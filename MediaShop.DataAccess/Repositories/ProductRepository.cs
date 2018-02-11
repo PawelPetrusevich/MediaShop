@@ -41,11 +41,38 @@ namespace MediaShop.DataAccess.Repositories
             return default(Product);
         }
 
-        public List<Product> GetListOnSale()
+        public virtual async Task<Product> SoftDeleteAsync(long id)
+        {
+            using (Context)
+            {
+                var model = DbSet.SingleOrDefault(entity => entity.Id == id);
+
+                if (model != null)
+                {
+                    model.IsDeleted = true;
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
+                    return model;
+                }
+            }
+
+            return default(Product);
+        }
+
+        public IEnumerable<Product> GetListOnSale()
         {
             using (Context)
             {
                 return DbSet.Where(entity => entity.IsDeleted == false).ToList();
+            }
+
+            return default(List<Product>);
+        }
+
+        public virtual async Task<IEnumerable<Product>> GetListOnSaleAsync()
+        {
+            using (Context)
+            {
+                return await DbSet.Where(entity => entity.IsDeleted == false).ToListAsync();
             }
 
             return default(List<Product>);
