@@ -46,13 +46,12 @@ namespace MediaShop.WebApi.Provider
                 return;
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, user.Email)
-            };
+            ClaimsIdentity authIdentity = new ClaimsIdentity(DefaultAuthenticationTypes.ExternalBearer, ClaimTypes.Name, ClaimTypes.Role);
+            authIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), "http://www.w3.org/2001/XMLSchema#string"));
+            authIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Login, "http://www.w3.org/2001/XMLSchema#string"));
+            authIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
+            authIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email, "http://www.w3.org/2001/XMLSchema#string"));
 
-            ClaimsIdentity authIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ExternalBearer);          
-           
             AuthenticationProperties properties = CreateProperties(user.Login);
             AuthenticationTicket ticket = new AuthenticationTicket(authIdentity, properties);
 
