@@ -52,12 +52,9 @@ namespace MediaShop.WebApi.Provider
             authIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
             authIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email, "http://www.w3.org/2001/XMLSchema#string"));
 
-            AuthenticationProperties properties = CreateProperties(user.Login);
-            AuthenticationTicket ticket = new AuthenticationTicket(authIdentity, properties);
+            context.Validated(authIdentity);
 
-            context.Validated(ticket);
-
-            context.Request.Context.Authentication.SignIn(properties, authIdentity);
+            context.Request.Context.Authentication.SignIn(authIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

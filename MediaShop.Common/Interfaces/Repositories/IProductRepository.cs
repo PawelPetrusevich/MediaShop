@@ -19,11 +19,20 @@ namespace MediaShop.Common.Interfaces.Repositories
         Product SoftDelete(long id);
 
         /// <summary>
+        /// Soft delete async
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>Task Product</returns>
+        Task<Product> SoftDeleteAsync(long id);
+
+        /// <summary>
         /// Get list products on sale
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        List<Product> GetListOnSale();
+        IEnumerable<Product> GetListOnSale();
+
+        Task<IEnumerable<Product>> GetListOnSaleAsync();
 
         Task<Product> AddAsync(Product model);
 
