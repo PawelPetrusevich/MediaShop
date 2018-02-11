@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
@@ -28,7 +27,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         {
             this._paymentService = paymentService;
         }
-        
+
         [HttpPost]
         [Route("paypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]

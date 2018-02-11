@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
     using MediaShop.Common.Models;
 
     /// <summary>
     /// Interface describing the methods of
     /// interaction with the repository when working with the ShoppingCart
     /// </summary>
-    public interface ICartRepository : IRepository<ContentCart>
+    public interface ICartRepository : IRepository<ContentCart>, IRepositoryAsync<ContentCart>
     {
         /// <summary>
         /// Method for getting collection objects type ContentCart in state InCart

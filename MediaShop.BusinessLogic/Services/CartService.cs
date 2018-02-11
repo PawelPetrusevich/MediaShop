@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Enums;
@@ -71,6 +72,55 @@
 
             // Get information about Product by Id
             var product = this.repositoryProduct.Get(contentId);
+
+            // Create ContentCartDto
+            var contentCartDto = Mapper.Map<ContentCartDto>(product);
+            contentCartDto.Id = addContentCart.Id;
+            contentCartDto.CreatorId = 1; // Need take CreatorId
+
+            // Output mapping object ContentCart to object ContentCartDto
+            return contentCartDto;
+        }
+
+        /// <summary>
+        /// Async add new item in cart with return save item for update view
+        /// </summary>
+        /// <param name="contentId">contents identifier</param>
+        /// <returns>this save item</returns>
+        public async Task<ContentCartDto> AddInCartAsync(long contentId)
+        {
+            // Verify long contentId
+            if (contentId <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidContentId);
+            }
+
+            // Check exist Product in repository
+            if (await this.repositoryProduct.GetAsync(contentId) == null)
+            {
+                throw new ExistContentInCartExceptions(Resources.ExistProductInDataBase);
+            }
+
+            // Check exist Content in Cart
+            if (await this.ExistInCartAsync(contentId))
+            {
+                throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
+            }
+
+            var contentCart = new ContentCart() { CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
+
+            // Save object ContentCart in repository
+            var addContentCart = await this.repositoryContentCart.AddAsync(contentCart);
+
+            // If the object is not added to the database
+            // return null
+            if (addContentCart == null)
+            {
+                throw new AddContentInCartExceptions(Resources.ResourceManager.GetString("AddContentInCart"));
+            }
+
+            // Get information about Product by Id
+            var product = await this.repositoryProduct.GetAsync(contentId);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
@@ -197,6 +247,18 @@
             .Find(item => item.ProductId == contentId).Count() != 0;
 
         /// <summary>
+        /// Async checking the existence of content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>true - content exist in cart
+        /// false - content doesn`t exist in cart</returns>
+        public async Task<bool> ExistInCartAsync(long contentId)
+        {
+            var resultFindAsync = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId);
+            return resultFindAsync.Count() != 0;
+        }
+
+        /// <summary>
         /// Find items in a cart by user Id and return a item collection
         /// without state InPaid and InBought
         /// </summary>
@@ -243,6 +305,46 @@
 
             // Output mapping object ContentCart to object ContentCartDto
             return Mapper.Map<ContentCartDto>(contentCartAfterUpdate);
+        }
+
+        /// <summary>
+        /// Async method for check object as Bought
+        /// </summary>
+        /// <param name="contentId">contents object</param>
+        /// <param name="contentState">contents state</param>
+        /// <returns>object with update state</returns>
+        public async Task<ContentCartDto> SetStateAsync(long contentId, CartEnums.StateCartContent contentState)
+        {
+            // Verify long contentId
+            if (contentId <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidContentId);
+            }
+
+            // Get object by contentId
+            var contentCartForUpdateList = this.repositoryContentCart.Find(item => item.ProductId == contentId);
+
+            if (contentCartForUpdateList.Count() == 0)
+            {
+                throw new ExistContentInCartExceptions(Resources.NotExistContentInCart);
+            }
+
+            // Change state content
+            contentCartForUpdateList.First().StateContent = contentState;
+
+            // Update change
+            var contentCartAfterUpdate = await this.repositoryContentCart.UpdateAsync(contentCartForUpdateList.First());
+
+            // Check update property StateContent
+            if (contentCartAfterUpdate.StateContent != contentState)
+            {
+                throw new UpdateContentInCartExseptions(Resources.UpdateContentInCart);
+            }
+
+            var contentCart = Mapper.Map<ContentCartDto>(contentCartAfterUpdate);
+
+            // Output mapping object ContentCart to object ContentCartDto
+            return contentCart;
         }
 
         /// <summary>

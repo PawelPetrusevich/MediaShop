@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Net;
 using System;
+using System.Threading.Tasks;
 using MediaShop.Common.Enums;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Exceptions.CartExceptions;
@@ -51,6 +52,46 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             try
             {
                 return this.Ok(_cartService.AddInCart(contentId));
+            }
+            catch (ArgumentException error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (NotExistProductInDataBaseExceptions error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (ExistContentInCartExceptions error)
+            {
+                return BadRequest(error.Message);
+            }
+            catch (AddContentInCartExceptions error)
+            {
+                return InternalServerError(error);
+            }
+            catch (Exception error)
+            {
+                return InternalServerError(error);
+            }
+        }
+
+        /// <summary>
+        /// Method for add content in cart
+        /// </summary>
+        /// <param name="contentId">content id</param>
+        /// <returns>Task<IHttpActionResult></IHttpActionResult></returns>
+        [HttpPost]
+        [Route("addasync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
+        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public async Task<IHttpActionResult> PostAsync(long contentId)
+        {
+            try
+            {
+                var result = await _cartService.AddInCartAsync(contentId);
+                return this.Ok(result);
             }
             catch (ArgumentException error)
             {

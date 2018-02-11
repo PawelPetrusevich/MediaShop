@@ -4,6 +4,7 @@
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.PaymentModel;
     using PayPal.Api;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     /// <summary>
@@ -34,10 +35,10 @@
         PayPalPaymentDto AddPayment(Payment payment);
 
         /// <summary>
-        /// Method for add object typeof DefrayalDbModel in repository
+        /// Async add new model
         /// </summary>
-        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
-        /// <returns>object DefrayalDbModel after add in repository</returns>
-        DefrayalDbModel AddInDefrayal(DefrayalDbModel modelDefrayal);
+        /// <param name="payment">object Payment for save in repository</param>
+        /// <returns>object Payment that save in repository</returns>
+        Task<PayPalPaymentDto> AddPaymentAsync(Payment payment);
     }
 }
