@@ -28,7 +28,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         {
             this._paymentService = paymentService;
         }
-
+        
         [HttpPost]
         [Route("paypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]

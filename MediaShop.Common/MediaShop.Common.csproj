@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Payment\ItemDto.cs" />
     <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
     <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />

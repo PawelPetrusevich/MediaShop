@@ -80,6 +80,11 @@ namespace MediaShop.Common
                 .ForMember(item => item.Id, opt => opt.UseValue<long>(1))
                 .ForMember(item => item.PaymentId, opt => opt.MapFrom(n => n.id))
                 .ForMember(item => item.State, opt => opt.UseValue<Common.Enums.PaymentEnums.PaymentStates>(Common.Enums.PaymentEnums.PaymentStates.Approved));
+            this.CreateMap<PayPal.Api.Item, ItemDto>()
+                .ForMember(item => item.Sku, opt => opt.MapFrom(n => n.sku))
+                .ForMember(item => item.Name, opt => opt.MapFrom(n => n.name))
+                .ForMember(item => item.Description, opt => opt.MapFrom(n => n.description))
+                .ForMember(item => item.Price, opt => opt.MapFrom(n => n.price));
         }
     }
 }

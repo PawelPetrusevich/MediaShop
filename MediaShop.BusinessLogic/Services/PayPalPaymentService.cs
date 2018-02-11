@@ -89,8 +89,6 @@
                 // Change State content in Cart
                 this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InPaid);
 
-                // Delete content in cart ????
-
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
 
@@ -131,7 +129,7 @@
         /// <returns>true - payment exist in repository
         /// false - payment doesn`t exist in repository</returns>
         public bool ExistInPayment(string paymentId) => this.repositoryPayment
-            .Find(item => item.PaymentId == paymentId).Count() != 0;
+            .Find(item => item.PaymentId.Equals(paymentId)).Count() != 0;
 
         /// <summary>
         /// Method for create PayPalPaymentDto
@@ -140,7 +138,7 @@
         /// <returns>object typeof PayPalPaymentDto</returns>
         public PayPalPaymentDto CreatePayPalPaymentDto(PayPal.Api.Payment payment)
         {
-            var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<Item>() };
+            var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<ItemDto>() };
 
             payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
 
@@ -149,7 +147,7 @@
                 payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total.Replace('.', ','));
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
-                    payPalPaymentDto.Items.Add(item);
+                    payPalPaymentDto.Items.Add(Mapper.Map<PayPal.Api.Item, ItemDto>(item));
                 }
             }
 
@@ -194,7 +192,7 @@
                 foreach (long contentId in this.listIdForRollBack)
                 {
                         // 3.1 Change state product in cart
-                        var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InPaid);
+                        var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
                 }
 
                 throw new UpdateContentInCartExseptions(error.Message);
@@ -205,7 +203,7 @@
                 foreach (long contentId in this.listIdForRollBack)
                 {
                     // 3.1 Change state product in cart
-                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InPaid);
+                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
 
                     // 3.2 Transferring product in Defrayal from ContentCart
                     var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);

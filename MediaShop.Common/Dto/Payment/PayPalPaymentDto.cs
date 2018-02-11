@@ -27,6 +27,6 @@
         /// Gets or sets list of items.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "item_list")]
-        public List<PayPal.Api.Item> Items { get; set; }
+        public List<ItemDto> Items { get; set; }
     }
 }
