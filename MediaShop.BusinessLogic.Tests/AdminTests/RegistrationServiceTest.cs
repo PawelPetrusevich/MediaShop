@@ -12,6 +12,8 @@ using NUnit.Framework;
 
 namespace MediaShop.BusinessLogic.Tests.AdminTests
 {
+    using System.Linq;
+
     using FluentValidation;
 
     using Services;
@@ -113,5 +115,49 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             
             Assert.Throws<CanNotSendEmailException>(() => userService.Register(_user));
         }
+        [Test]
+        public void LogoutException()
+        {
+            _validator.Setup(v => v.Validate(It.IsAny<RegisterUserDto>()).IsValid).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
+
+            _factoryRepository.Setup(x => x.Statistics.Find(It.IsAny<Expression<Func<StatisticDbModel, bool>>>()))
+                .Returns(Enumerable.Empty<StatisticDbModel>());
+
+            _factoryRepository.Setup(x => x.Statistics.Update(It.IsAny<StatisticDbModel>())).Returns(new StatisticDbModel());
+
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+
+            Assert.Throws<AddStatisticException>(() => userService.Logout(1));
+        }
+        [Test]
+        public void LogoutSuccessful()
+        {
+            var id = 1;
+            var profile = new ProfileDbModel { Id = 1 };
+            var account = new AccountDbModel
+            {
+                Id = 1,
+                Login = "Koala",
+                Password = "123",
+                Profile = profile
+            };
+            var statistic = new StatisticDbModel()
+                { AccountId = 2, AccountDbModel = account, DateLogIn = DateTime.Now, DateLogOut = null };
+            var statistics = new List<StatisticDbModel> {statistic};
+           
+            _validator.Setup(v => v.Validate(It.IsAny<RegisterUserDto>()).IsValid).Returns(true);
+            _emailService.Setup(x => x.SendConfirmation(It.IsAny<string>(), It.IsAny<long>())).Returns(true);
+
+            _factoryRepository.Setup(x => x.Statistics.Find(It.IsAny<Expression<Func<StatisticDbModel, bool>>>()))
+                .Returns(statistics);
+
+            _factoryRepository.Setup(x => x.Statistics.Update(It.IsAny<StatisticDbModel>())).Returns(statistic);
+
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+
+            Assert.IsNotNull(userService.Logout(1));
+        }
     }
 }
+
