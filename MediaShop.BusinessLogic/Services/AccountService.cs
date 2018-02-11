@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Threading.Tasks;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
@@ -15,6 +16,8 @@ using MediaShop.Common.Helpers;
 namespace MediaShop.BusinessLogic.Services
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using AutoMapper;
 
     using FluentValidation;
@@ -61,10 +64,29 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
+            var account = this._factoryRepository.Accounts.Add(modelDbModel);
+            account = account ?? throw new AddAccountException();
             var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
-            var account = this._factoryRepository.Accounts.Add(modelDbModel) ?? throw new AddAccountException();
+            _emailService.SendConfirmation(confirmationModel);
+
+            return Mapper.Map<Account>(account);
+        }
+
+        public async Task<Account> RegisterAsync(RegisterUserDto userModel)
+        {
+            var result = _validator.Validate(userModel);
+
+            if (!result.IsValid)
+            {
+                throw new ExistingLoginException(result.Errors.Select(m => m.ErrorMessage));
+            }
+
+            var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
+            account = account ?? throw new AddAccountException();
+            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
             _emailService.SendConfirmation(confirmationModel);
 
@@ -107,8 +129,11 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ConfirmedUserException();
             }
 
-            var profile = this._factoryRepository.Profiles.Add(new ProfileDbModel()) ?? throw new AddProfileException();
-            var settings = this._factoryRepository.Settings.Add(new SettingsDbModel()) ?? throw new AddSettingsException();
+            var profile = this._factoryRepository.Profiles.Add(new ProfileDbModel());
+            profile = profile ?? throw new AddProfileException();
+
+            var settings = this._factoryRepository.Settings.Add(new SettingsDbModel());
+            settings = settings ?? throw new AddSettingsException();
 
             user.IsConfirmed = true;
             user.ProfileId = profile.Id;
@@ -117,6 +142,48 @@ namespace MediaShop.BusinessLogic.Services
             user.Settings = settings;
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(confirmedUser);
+        }
+
+        public async Task<Account> ConfirmRegistrationAsync(string email, long id)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var user = this._factoryRepository.Accounts.Get(id);
+
+            if (user == null || !user.Email.Equals(email))
+            {
+                throw new NotFoundUserException();
+            }
+
+            if (user.IsConfirmed)
+            {
+                throw new ConfirmedUserException();
+            }
+
+            var profile = await this._factoryRepository.Profiles.AddAsync(new ProfileDbModel()).ConfigureAwait(false);
+            profile = profile ?? throw new AddProfileException();
+
+            var settings = await this._factoryRepository.Settings.AddAsync(new SettingsDbModel()).ConfigureAwait(false);
+            settings = settings ?? throw new AddSettingsException();
+
+            user.IsConfirmed = true;
+            user.ProfileId = profile.Id;
+            user.Profile = profile;
+            user.SettingsId = settings.Id;
+            user.Settings = settings;
+
+            var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
+            confirmedUser = confirmedUser ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(confirmedUser);
         }
@@ -136,14 +203,24 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var statistic = new StatisticDbModel() { AccountId = user.Id };
-            var result = this._factoryRepository.Statistics.Add(statistic) ?? throw new AddStatisticException();
+            var result = this._factoryRepository.Statistics.Add(statistic);
+            result = result ?? throw new AddStatisticException();          
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
 
         public Account Logout(long id)
         {
-            throw new NotImplementedException();
+            var statistic = this._factoryRepository.Statistics.Find(s => s.AccountId == id && s.DateLogOut == null).FirstOrDefault();
+            if (statistic == null)
+            {
+                throw new AddStatisticException();
+            }
+
+            statistic.DateLogOut = DateTime.Now;
+                var result = this._factoryRepository.Statistics.Update(statistic) ?? throw new AddStatisticException();
+
+                return Mapper.Map<Account>(result.AccountDbModel);
         }
 
         /// <summary>
@@ -214,59 +291,6 @@ namespace MediaShop.BusinessLogic.Services
             var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(restoredUser);
-        }
-
-        /// <summary>
-        /// Set permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        public Account SetPermission(PermissionDto permission)
-        {
-            if (permission == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions |= permission.Permissions;
-
-            var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(result);
-        }
-
-        /// <summary>
-        /// Remove permission
-        /// </summary>
-        /// <param name="permissionDto">Permissions data</param>
-        /// <returns>account</returns>
-        public Account RemovePermission(PermissionDto permission)
-        {
-            if (permission == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = _factoryRepository.Accounts.Get(permission.Id) ?? throw new NotFoundUserException();
-            user.Permissions &= ~permission.Permissions;
-
-            var result = _factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(result);
-        }
-
-        public Account SetRemoveFlagIsBanned(Account accountBLmodel, bool flag)
-        {
-            var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
-                                  throw new NotFoundUserException();
-
-            existingAccount.IsBanned = flag;
-
-            var updatingAccount = this._factoryRepository.Accounts.Update(existingAccount);
-            var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
-
-            return updatingAccountBl;
         }
     }
 }

@@ -160,14 +160,18 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
+    <Compile Include="Areas\Content\Controllers\Filters\StopWatchFilterAttribute.cs" />
     <Compile Include="Areas\Messaging\MessagingAreaRegistration.cs" />
     <Compile Include="Areas\Payments\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Payments\PaymentsAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\BannedController.cs" />
+    <Compile Include="Areas\User\Controllers\PermissionController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\AccountController.cs" />
     <Compile Include="Areas\Content\Controllers\ProductController.cs" />
     <Compile Include="Areas\Content\Controllers\CartController.cs" />
     <Compile Include="Areas\Messaging\Controllers\NotificationController.cs" />
+    <Compile Include="Filters\AccountExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
