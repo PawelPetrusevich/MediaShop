@@ -69,8 +69,16 @@
                 throw new AddContentInCartExceptions(Resources.ResourceManager.GetString("AddContentInCart"));
             }
 
+            // Get information about Product by Id
+            var product = this.repositoryProduct.Get(contentId);
+
+            // Create ContentCartDto
+            var contentCartDto = Mapper.Map<ContentCartDto>(product);
+            contentCartDto.Id = addContentCart.Id;
+            contentCartDto.CreatorId = 1; // Need take CreatorId
+
             // Output mapping object ContentCart to object ContentCartDto
-            return Mapper.Map<ContentCartDto>(addContentCart);
+            return contentCartDto;
         }
 
         /// <summary>
@@ -171,7 +179,8 @@
                 foreach (var content in cart.ContentCartDtoCollection)
                 {
                     var deleteContentCart = this.DeleteContent(content);
-                    id = content.CreatorId; // Get user Id from Token
+
+                    // id = content.CreatorId; // Get user Id from Token
                 }
             }
 

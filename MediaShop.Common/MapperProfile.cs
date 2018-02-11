@@ -36,7 +36,10 @@ namespace MediaShop.Common
             this.CreateMap<Product, ContentCartDto>()
                 .ForMember(item => item.Id, y => y.Ignore())
                 .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
-                .ForMember(item => item.CreatorId, m => m.Ignore());
+                .ForMember(item => item.ContentName, y => y.MapFrom(x => x.ProductName))
+                .ForMember(item => item.DescriptionItem, y => y.MapFrom(x => x.Description))
+                .ForMember(item => item.PriceItem, y => y.MapFrom(x => x.ProductPrice));
+
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap()
                 .ForMember(item => item.ContentName, x => x.MapFrom(y => y.Product.ProductName))
                 .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.ProductPrice))

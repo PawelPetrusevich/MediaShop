@@ -87,7 +87,7 @@
                 }
 
                 // Change State content in Cart
-                this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InBought);
+                this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InPaid);
 
                 // Get Cart
                 var cart = this.serviceCart.GetCart(1); // UserId !!!!
