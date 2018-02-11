@@ -102,7 +102,7 @@
         /// <returns>rezalt operation</returns>
         public IEnumerable<ContentCart> GetById(long userId)
         {
-            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart);
+            var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart).ToList();
             return result;
         }
 
