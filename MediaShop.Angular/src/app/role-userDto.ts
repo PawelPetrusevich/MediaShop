@@ -1,4 +1,4 @@
-export class RoleUser 
+export class RoleUserDto 
 {
     Login:string;
     Role:number;

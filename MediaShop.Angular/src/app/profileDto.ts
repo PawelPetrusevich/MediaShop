@@ -1,4 +1,4 @@
-export class Profile
+export class ProfileDto
 {
     DateOfBirth:string;       
     FirstName:string;

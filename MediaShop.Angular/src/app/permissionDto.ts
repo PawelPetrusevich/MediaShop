@@ -1,5 +1,7 @@
-export class Permission 
+import { Permissions } from "./permissions";
+
+export class PermissionDto 
 {
     Id:number;
-    Permission:string;
+    Permission:Permissions;
 }

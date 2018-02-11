@@ -1,7 +1,9 @@
-export class Settings 
+import { Languages } from "./languages";
+
+export class SettingsDto 
 {   
     TimeZoneId:string;
-    InterfaceLanguage:string;
+    InterfaceLanguage:Languages;
     NotificationStatus:boolean;
     AccountID:number;
 }
