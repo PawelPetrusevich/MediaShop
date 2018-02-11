@@ -89,14 +89,12 @@
                 // Change State content in Cart
                 this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InPaid);
 
-                // Get Cart
-                var cart = this.serviceCart.GetCart(1); // UserId !!!!
-
-                // Clear Cart
-                var resultClearCart = this.serviceCart.DeleteOfCart(cart);
+                // Delete content in cart ????
 
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
+
+                paymentDbModel.CreatorId = 1; // Need initialize CreatorId
 
                 // Add object PaymentDbModel in database
                 var paymentResult = this.repositoryPayment.Add(paymentDbModel);
@@ -182,6 +180,8 @@
 
                         // 3.2 Transferring product in Defrayal from ContentCart
                         var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
+
+                        objectDefrayal.CreatorId = 1; // Need initialize CreatorId
 
                         // 3.3 Save object Defrayal in repository
                         var resultSaveDefrayal = this.repositoryDefrayal.Add(objectDefrayal);

@@ -116,6 +116,10 @@
     <Compile Include="Migrations\201802101807318_PayPalPayment_2.Designer.cs">
       <DependentUpon>201802101807318_PayPalPayment_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802111127004_PayPalPayment_3.cs" />
+    <Compile Include="Migrations\201802111127004_PayPalPayment_3.Designer.cs">
+      <DependentUpon>201802111127004_PayPalPayment_3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\DefrayalRepository.cs" />
     <Compile Include="Repositories\PayPalPaymentRepository.cs" />
     <Compile Include="Repositories\StatisticRepository.cs" />
@@ -187,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802101807318_PayPalPayment_2.resx">
       <DependentUpon>201802101807318_PayPalPayment_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111127004_PayPalPayment_3.resx">
+      <DependentUpon>201802111127004_PayPalPayment_3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

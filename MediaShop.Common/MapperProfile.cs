@@ -70,7 +70,12 @@ namespace MediaShop.Common
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
-            this.CreateMap<ContentCartDto, DefrayalDbModel>().ReverseMap();
+            this.CreateMap<ContentCartDto, DefrayalDbModel>()
+                .ForMember(item => item.Id, opt => opt.Ignore())
+                .ForMember(item => item.CreatorId, opt => opt.Ignore())
+                .ForMember(item => item.CreatedDate, opt => opt.Ignore())
+                .ForMember(item => item.ModifierId, opt => opt.Ignore())
+                .ForMember(item => item.ModifiedDate, opt => opt.Ignore());
             this.CreateMap<PayPal.Api.Payment, PayPalPaymentDbModel>()
                 .ForMember(item => item.Id, opt => opt.UseValue<long>(1))
                 .ForMember(item => item.PaymentId, opt => opt.MapFrom(n => n.id))

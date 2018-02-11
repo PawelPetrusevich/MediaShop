@@ -27,7 +27,7 @@
                 .IsOptional();
             this.HasRequired(x => x.AccountDbModel)
                 .WithMany()
-                .HasForeignKey(x => x.AccountId);
+                .HasForeignKey(x => x.CreatorId);
         }
     }
 }

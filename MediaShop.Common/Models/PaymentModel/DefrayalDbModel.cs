@@ -13,11 +13,6 @@
         public long ContentId { get; set; }
 
         /// <summary>
-        /// Gets or sets as foreign key
-        /// </summary>
-        public long AccountId { get; set; }
-
-        /// <summary>
         /// Gets or sets property AccountDbModel
         /// </summary>
         public virtual AccountDbModel AccountDbModel { get; set; }

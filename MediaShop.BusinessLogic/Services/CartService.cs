@@ -116,7 +116,7 @@
         /// <summary>
         /// Method for deleting selected ContentCartDto
         /// </summary>
-        /// <param name="collectionId">collection users id</param>
+        /// <param name="collectionId">collection content id</param>
         /// <returns>collection of remote objects</returns>
         public ICollection<ContentCartDto> DeleteOfCart(ICollection<long> collectionId)
         {

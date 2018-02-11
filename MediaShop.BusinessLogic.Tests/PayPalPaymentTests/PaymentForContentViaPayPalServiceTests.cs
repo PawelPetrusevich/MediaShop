@@ -104,7 +104,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             payPalPaymentDbModel = new PayPalPaymentDbModel()
             {
                 Id = 1,
-                AccountId = 1,
+                CreatorId = 1,
                 PaymentId = "PAY-5TP98833VT941445HLJ242PI"
             };
         }
