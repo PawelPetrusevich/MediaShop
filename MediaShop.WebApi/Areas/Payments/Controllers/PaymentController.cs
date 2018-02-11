@@ -61,11 +61,11 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         }
 
         [HttpGet]
-        [Route("paypalpayment/executepaypalpayment/{guid}/{paymentid}/{token}")]
+        [Route("paypalpayment/executepaypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult ExecutePayment(string guid, string paymentId, string token)
+        public IHttpActionResult ExecutePayment(string paymentId, string token)
         {
             try
             {
