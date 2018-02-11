@@ -16,7 +16,7 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
-    [StopWatchFilter]
+    [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
     public class ProductController : ApiController
     {
