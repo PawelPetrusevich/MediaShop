@@ -74,24 +74,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="email">user email</param>
         /// <returns>account</returns>
-        Account RecoveryPassword(string email);
-
-        /// <summary>
-        /// Validate user with data received from token
-        /// </summary>
-        /// <param name="loginDto">Login data</param>
-        /// <param name="idUser">idUser from claims</param>
-        /// <param name="email">email from claims</param>
-        /// <returns>account</returns>
-        Account ValidateUserByToken(LoginDto loginDto, string email);
-
-        /// <summary>
-        /// Validate user with data received from token
-        /// </summary>
-        /// <param name="loginDto">Login data</param>
-        /// <param name="idUser">idUser from claims</param>
-        /// <param name="email">email from claims</param>
-        /// <returns>account</returns>
-        Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string email);
+        Account RecoveryPassword(string email);      
     }
 }

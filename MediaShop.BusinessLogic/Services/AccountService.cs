@@ -270,56 +270,5 @@ namespace MediaShop.BusinessLogic.Services
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Validate user with data received from token
-        /// </summary>
-        /// <param name="loginDto">Login data</param>
-        /// <param name="idUser">idUser from claims</param>
-        /// <param name="email">email from claims</param>
-        /// <returns>account</returns>
-        public Account ValidateUserByToken(LoginDto loginDto, string email)
-        {
-            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
-                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(email))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = _factoryRepository.Accounts.GetByLogin(loginDto.Login);
-            if (user == null || !user.Password.Equals(loginDto.Password))
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.Email.Equals(email))
-            {
-                throw new AuthorizedDataException();
-            }
-
-            return Mapper.Map<Account>(user);
-        }
-
-        public async Task<Account> ValidateUserByTokenAsync(LoginDto loginDto, string email)
-        {
-            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) ||
-                string.IsNullOrWhiteSpace(loginDto.Password) || string.IsNullOrWhiteSpace(email))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
-
-            var user = await _factoryRepository.Accounts.GetByLoginAsync(loginDto.Login);
-            if (user == null || !user.Password.Equals(loginDto.Password))
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.Email.Equals(email))
-            {
-                throw new AuthorizedDataException();
-            }
-
-            return Mapper.Map<Account>(user);
-        }
     }
 }
