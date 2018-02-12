@@ -258,7 +258,40 @@
                 "video/3gpp2"</value>
     <comment>mime type for video</comment>
   </data>
-<data name="InvalidIdValue" xml:space="preserve">
+  <data name="InvalidIdValue" xml:space="preserve">
     <value>Incorrect id value</value>
+  </data>
+  <data name="BadDeserializer" xml:space="preserve">
+    <value>Operation deserialization is not successful</value>
+  </data>
+  <data name="BadAddPayment" xml:space="preserve">
+    <value>Payment is not add in repository</value>
+  </data>
+  <data name="FailedOperationPayment" xml:space="preserve">
+    <value>Operation Payment was failed</value>
+  </data>
+  <data name="NotApprovedOperationPayment" xml:space="preserve">
+    <value>Operation payment was Created but not Approved</value>
+  </data>
+  <data name="CountContentInCartIsNull" xml:space="preserve">
+    <value>Count content in can not be null</value>
+  </data>
+  <data name="InvaliContentCartValueOfPrice" xml:space="preserve">
+    <value>Total amount or price of content is not actual</value>
+  </data>
+  <data name="PaymentIsNullOrEmpty" xml:space="preserve">
+    <value>Payment not found</value>
+  </data>
+  <data name="NullModelDefrayal" xml:space="preserve">
+    <value>Object type Defrayal is null </value>
+  </data>
+  <data name="InvalidAddOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation add object Defrayal</value>
+  </data>
+  <data name="InvalidDeleteOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation delete object Defrayal</value>
+  </data>
+  <data name="ExistPayment" xml:space="preserve">
+    <value>Payment already exist</value>
   </data>
 </root>

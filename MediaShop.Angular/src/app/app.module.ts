@@ -4,11 +4,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
+import { CartComponent } from './cart/cart.component';
+import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CartComponent,
+    ExecutePaymentComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot()

@@ -85,7 +85,9 @@
   <ItemGroup>
     <Compile Include="Configurations\AccountConfiguration.cs" />
     <Compile Include="Configurations\CompressedProductConfiguration.cs" />
+    <Compile Include="Configurations\DefrayalConfiguration.cs" />
     <Compile Include="Configurations\OriginalProductConfiguration.cs" />
+    <Compile Include="Configurations\PayPalPaymentConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\ProtectedProductConfiguration.cs" />
     <Compile Include="Configurations\SettingsConfiguration.cs" />
@@ -106,6 +108,20 @@
     <Compile Include="Migrations\201802060632318_AddPropToProduct.Designer.cs">
       <DependentUpon>201802060632318_AddPropToProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081305446_PayPalPayment_1.cs" />
+    <Compile Include="Migrations\201802081305446_PayPalPayment_1.Designer.cs">
+      <DependentUpon>201802081305446_PayPalPayment_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802101807318_PayPalPayment_2.cs" />
+    <Compile Include="Migrations\201802101807318_PayPalPayment_2.Designer.cs">
+      <DependentUpon>201802101807318_PayPalPayment_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802111127004_PayPalPayment_3.cs" />
+    <Compile Include="Migrations\201802111127004_PayPalPayment_3.Designer.cs">
+      <DependentUpon>201802111127004_PayPalPayment_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DefrayalRepository.cs" />
+    <Compile Include="Repositories\PayPalPaymentRepository.cs" />
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +185,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802060632318_AddPropToProduct.resx">
       <DependentUpon>201802060632318_AddPropToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081305446_PayPalPayment_1.resx">
+      <DependentUpon>201802081305446_PayPalPayment_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802101807318_PayPalPayment_2.resx">
+      <DependentUpon>201802101807318_PayPalPayment_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111127004_PayPalPayment_3.resx">
+      <DependentUpon>201802111127004_PayPalPayment_3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
