@@ -68,13 +68,39 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("AddContentInCart", resourceCulture);
             }
         }
-        
         /// <summary>
         ///   Looks up a localized string similar to Email not sent after {0} attempted.
         /// </summary>
         internal static string CountOfTryToEmailSendExceptionMessage {
             get {
                 return ResourceManager.GetString("CountOfTryToEmailSendExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment is not add in repository.
+        /// </summary>
+        internal static string BadAddPayment {
+            get {
+                return ResourceManager.GetString("BadAddPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation deserialization is not successful.
+        /// </summary>
+        internal static string BadDeserializer {
+            get {
+                return ResourceManager.GetString("BadDeserializer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count content in can not be null.
+        /// </summary>
+        internal static string CountContentInCartIsNull {
+            get {
+                return ResourceManager.GetString("CountContentInCartIsNull", resourceCulture);
             }
         }
         
@@ -133,11 +159,29 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment already exist.
+        /// </summary>
+        internal static string ExistPayment {
+            get {
+                return ResourceManager.GetString("ExistPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product is not exist.
         /// </summary>
         internal static string ExistProductInDataBase {
             get {
                 return ResourceManager.GetString("ExistProductInDataBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation Payment was failed.
+        /// </summary>
+        internal static string FailedOperationPayment {
+            get {
+                return ResourceManager.GetString("FailedOperationPayment", resourceCulture);
             }
         }
         
@@ -178,11 +222,38 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total amount or price of content is not actual.
+        /// </summary>
+        internal static string InvaliContentCartValueOfPrice {
+            get {
+                return ResourceManager.GetString("InvaliContentCartValueOfPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid operation add object Defrayal.
+        /// </summary>
+        internal static string InvalidAddOperationDefrayal {
+            get {
+                return ResourceManager.GetString("InvalidAddOperationDefrayal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid content identificator.
         /// </summary>
         internal static string InvalidContentId {
             get {
                 return ResourceManager.GetString("InvalidContentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid operation delete object Defrayal.
+        /// </summary>
+        internal static string InvalidDeleteOperationDefrayal {
+            get {
+                return ResourceManager.GetString("InvalidDeleteOperationDefrayal", resourceCulture);
             }
         }
         
@@ -297,6 +368,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation payment was Created but not Approved.
+        /// </summary>
+        internal static string NotApprovedOperationPayment {
+            get {
+                return ResourceManager.GetString("NotApprovedOperationPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content is not exist in Cart.
         /// </summary>
         internal static string NotExistContentInCart {
@@ -311,6 +391,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string NotSubscribedUserMessage {
             get {
                 return ResourceManager.GetString("NotSubscribedUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object type Defrayal is null .
+        /// </summary>
+        internal static string NullModelDefrayal {
+            get {
+                return ResourceManager.GetString("NullModelDefrayal", resourceCulture);
             }
         }
         
@@ -338,6 +427,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string NullOrEmptyValueString {
             get {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment not found.
+        /// </summary>
+        internal static string PaymentIsNullOrEmpty {
+            get {
+                return ResourceManager.GetString("PaymentIsNullOrEmpty", resourceCulture);
             }
         }
         

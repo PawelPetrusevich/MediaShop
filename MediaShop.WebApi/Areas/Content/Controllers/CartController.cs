@@ -3,7 +3,7 @@ using System.Net;
 using System;
 using MediaShop.Common.Enums;
 using Swashbuckle.Swagger.Annotations;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
@@ -29,15 +29,9 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [Route("getcart")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(string))]
         public IHttpActionResult Get([FromUri] long id) //id User
         {
             var cart = _cartService.GetCart(id);
-            if (cart == null)
-            {
-                return InternalServerError();
-            }
-
             return this.Ok(cart);
         }
 
@@ -73,29 +67,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             catch (AddContentInCartExceptions error)
             {
                 return InternalServerError(error);
-            }
-            catch (Exception error)
-            {
-                return InternalServerError(error);
-            }
-        }
-
-        /// <summary>
-        /// Method for buy content in cart
-        /// </summary>
-        /// <param name="contentId">content id</param>
-        /// <returns>IHttpActionResult</returns>
-        [HttpPut]
-        [Route("buy")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(statusCode: HttpStatusCode.Found, description: "")]
-        [SwaggerResponse(statusCode: HttpStatusCode.NotFound, description: "", type: typeof(string))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Put([FromUri] long contentId)
-        {
-            try
-            {
-                return this.Ok();
             }
             catch (Exception error)
             {

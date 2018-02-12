@@ -23,11 +23,6 @@
         /// </summary>
         public string ContentName { get; set; }
 
-         /// <summary>
-        /// Gets or sets cart creator name
-        /// </summary>
-        public string CreatorName { get; set; }
-
         /// <summary>
         /// Gets or sets description media content
         /// </summary>

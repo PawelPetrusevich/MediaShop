@@ -2,6 +2,7 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
 using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
@@ -12,11 +13,13 @@ namespace MediaShop.Common
 
     using AutoMapper;
     using MediaShop.Common.Dto;
+    using MediaShop.Common.Dto.Payment;
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
     using MediaShop.Common.Dto.Product;
     using MediaShop.Common.Models.Content;
+    using MediaShop.Common.Models.PaymentModel;
 
     using Profile = AutoMapper.Profile;
 
@@ -34,8 +37,12 @@ namespace MediaShop.Common
             this.CreateMap<Product, ContentCartDto>()
                 .ForMember(item => item.Id, y => y.Ignore())
                 .ForMember(item => item.ContentId, y => y.MapFrom(x => x.Id))
-                .ForMember(item => item.CreatorId, m => m.Ignore());
+                .ForMember(item => item.ContentName, y => y.MapFrom(x => x.ProductName))
+                .ForMember(item => item.DescriptionItem, y => y.MapFrom(x => x.Description))
+                .ForMember(item => item.PriceItem, y => y.MapFrom(x => x.ProductPrice));
+
             this.CreateMap<ContentCartDto, ContentCart>().ReverseMap()
+                .ForMember(item => item.ContentId, x => x.MapFrom(y => y.ProductId))
                 .ForMember(item => item.ContentName, x => x.MapFrom(y => y.Product.ProductName))
                 .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.ProductPrice))
                 .ForMember(item => item.DescriptionItem, x => x.MapFrom(y => y.Product.Description));
@@ -69,14 +76,21 @@ namespace MediaShop.Common
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
-            this.CreateMap<ContentCart, CompressedProductDTO>()
-                .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
-                .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
-                .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.CompressedProduct.Content)));
-            this.CreateMap<ContentCart, OriginalProductDTO>()
-                .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
-                .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
-                .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.OriginalProduct.Content)));
+            this.CreateMap<ContentCartDto, DefrayalDbModel>()
+                .ForMember(item => item.Id, opt => opt.Ignore())
+                .ForMember(item => item.CreatorId, opt => opt.Ignore())
+                .ForMember(item => item.CreatedDate, opt => opt.Ignore())
+                .ForMember(item => item.ModifierId, opt => opt.Ignore())
+                .ForMember(item => item.ModifiedDate, opt => opt.Ignore());
+            this.CreateMap<PayPal.Api.Payment, PayPalPaymentDbModel>()
+                .ForMember(item => item.Id, opt => opt.UseValue<long>(1))
+                .ForMember(item => item.PaymentId, opt => opt.MapFrom(n => n.id))
+                .ForMember(item => item.State, opt => opt.UseValue<Common.Enums.PaymentEnums.PaymentStates>(Common.Enums.PaymentEnums.PaymentStates.Approved));
+            this.CreateMap<PayPal.Api.Item, ItemDto>()
+                .ForMember(item => item.Sku, opt => opt.MapFrom(n => n.sku))
+                .ForMember(item => item.Name, opt => opt.MapFrom(n => n.name))
+                .ForMember(item => item.Description, opt => opt.MapFrom(n => n.description))
+                .ForMember(item => item.Price, opt => opt.MapFrom(n => n.price));
         }
     }
 }

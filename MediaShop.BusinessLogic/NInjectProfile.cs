@@ -46,8 +46,8 @@ namespace MediaShop.BusinessLogic
             Bind<IValidator<ResetPasswordDto>>().To<ExtAccountPwdRestoreValidator>();
             Bind<IAccountTokenFactoryValidator>().To<AccountTokenFactoryValidator>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
-            Bind<IValidator<RegisterUserDto>>().To<RegisterUserVaildator>();
-            Bind<IPaymentService>().To<PaymentService>();
+            Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
+            Bind<IPayPalPaymentService>().To<PayPalPaymentService>();
             Bind<IProductService>().To<ProductService>();
             Bind<IBannedService>().To<BannedService>();
             Bind<IEmailSettingsConfig>().ToMethod(context => EmailSettingsConfigHelper.InitWithAppConf());
