@@ -33,7 +33,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             {
                 config.CreateMap<RegisterUserDto, AccountDbModel>();
                 config.CreateMap<Account, AccountDbModel>();
-                config.CreateMap<AccountDbModel, AccountConfirmationDto>().ForMember(item => item.ConfirmationCode, opt => opt.MapFrom(s => s.AccountConfirmationToken));
+                config.CreateMap<AccountDbModel, AccountConfirmationDto>().ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
 
             });
         }

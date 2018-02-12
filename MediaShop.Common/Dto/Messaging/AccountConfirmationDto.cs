@@ -8,7 +8,7 @@ namespace MediaShop.Common.Dto.Messaging
 {
     public class AccountConfirmationDto
     {
-        public string ConfirmationCode { get; set; }
+        public string Token { get; set; }
 
         public string Email { get; set; }
     }

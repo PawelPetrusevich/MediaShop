@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -111,6 +112,7 @@
     <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
     <Compile Include="Helpers\EmailSettingsConfig.cs" />
+    <Compile Include="Helpers\EmailSettingsConfigHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Interfaces\IEmailSettingsConfig.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
@@ -190,7 +192,9 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dto\Messaging\Validators\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

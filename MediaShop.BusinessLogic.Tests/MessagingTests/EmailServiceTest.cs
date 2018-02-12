@@ -61,7 +61,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             _mailService = new EmailService(_smtpClientMock.Object, emailConf);
             _confirmDto = new AccountConfirmationDto()
             {
-                ConfirmationCode = TokenHelper.NewToken(),
+                Token = TokenHelper.NewToken(),
                 Email = "noreply.mediashop@gmail.com"
             };
 

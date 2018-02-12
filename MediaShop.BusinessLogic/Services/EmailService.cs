@@ -56,7 +56,7 @@ namespace MediaShop.BusinessLogic.Services
         public void SendConfirmation(AccountConfirmationDto model)
         {
             var htmlBody = GetTemplateText("AccountConfirmationEmailTemplate");
-            htmlBody = string.Format(htmlBody, _config.WebApiUri.Uri, HttpUtility.UrlEncode(model.Email), model.ConfirmationCode);
+            htmlBody = string.Format(htmlBody, _config.WebApiUri.Uri, HttpUtility.UrlEncode(model.Email), model.Token);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Media shop", ((NetworkCredential)_config.Credentials).UserName));
@@ -99,7 +99,7 @@ namespace MediaShop.BusinessLogic.Services
         public async Task SendConfirmationAsync(AccountConfirmationDto model)
         {
             var htmlBody = await GetTemplateTextAsync("AccountConfirmationEmailTemplate").ConfigureAwait(false);
-            htmlBody = string.Format(htmlBody, _config.WebApiUri.Uri, HttpUtility.UrlEncode(model.Email), model.ConfirmationCode);
+            htmlBody = string.Format(htmlBody, _config.WebApiUri.Uri, HttpUtility.UrlEncode(model.Email), model.Token);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Media shop", ((NetworkCredential)_config.Credentials).UserName));
