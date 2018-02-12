@@ -9,12 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './Content/Component/product/product.component';
 import { ProductService } from './Content/Component/shared/product-service.service';
+import { CartComponent } from './cart/cart.component';
+import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent
+    CartComponent,
+    ExecutePaymentComponent
   ],
   imports: [
     BrowserModule,

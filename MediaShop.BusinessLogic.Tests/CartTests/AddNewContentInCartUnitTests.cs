@@ -8,7 +8,7 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models;
 using MediaShop.Common;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.BusinessLogic.Services;
 using NUnit.Framework;
 using MediaShop.Common.Models.Content;
@@ -23,9 +23,6 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
 
         // Field for MockProduct
         private Mock<IProductRepository> mockProduct;
-
-        // Field for MockPayment
-        private Mock<IPaymentService> mockPayment;
 
         public AddNewContentInCartUnitTests()
         {
@@ -45,8 +42,6 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
-            var _mockPayment = new Mock<IPaymentService>();
-            mockPayment = _mockPayment;
         }
 
         [Test]
@@ -73,7 +68,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objContentCart).Callback(() => objContentCart.Id++);
 
             // Create CartService object with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
             var actual3 = service.AddInCart(objContentCart.Id);
@@ -108,7 +103,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => null);
 
             // Create CartService object with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
             Assert.Throws<AddContentInCartExceptions>(() => service.AddInCart(objContentCart.Id));
@@ -128,7 +123,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
-            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Call method for find content by id in repository
             var actual1 = service.ExistInCart(1);
@@ -147,7 +142,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
-            var service = new CartService(mock.Object, mockProduct.Object, mockPayment.Object);
+            var service = new CartService(mock.Object, mockProduct.Object);
 
             // Call method for find content by id in repository
             var actual1 = service.ExistInCart(6);

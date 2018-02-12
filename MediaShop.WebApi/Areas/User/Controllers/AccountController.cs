@@ -8,7 +8,7 @@ using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
-using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
