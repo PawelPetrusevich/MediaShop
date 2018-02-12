@@ -7,13 +7,13 @@ namespace MediaShop.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Fix : IMigrationMetadata
+    public sealed partial class Add_confirmation_token : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Fix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_confirmation_token));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801311739101_Fix"; }
+            get { return "201802091414328_Add_confirmation_token"; }
         }
         
         string IMigrationMetadata.Source

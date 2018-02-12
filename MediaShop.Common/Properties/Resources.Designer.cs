@@ -133,6 +133,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid confirmation token.
+        /// </summary>
+        internal static string IncorrectToken {
+            get {
+                return ResourceManager.GetString("IncorrectToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User not found.
         /// </summary>
         internal static string UserNotFound {
