@@ -71,6 +71,8 @@ namespace MediaShop.Common
                 .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
                 .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
                 .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.OriginalProduct.Content)));
+            this.CreateMap<Product, CompressedProductDTO>()
+                .ForMember(item => item.Content, obj => obj.MapFrom(y => Convert.ToBase64String(y.CompressedProduct.Content)));
         }
     }
 }
