@@ -46,15 +46,19 @@ namespace MediaShop.WebApi.Provider
                 return;
             }
 
-            ClaimsIdentity authIdentity = new ClaimsIdentity(DefaultAuthenticationTypes.ExternalBearer, ClaimTypes.Name, ClaimTypes.Role);
-            authIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Login, "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email, "http://www.w3.org/2001/XMLSchema#string"));
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+            
+            var oauthIdentity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
 
-            context.Validated(authIdentity);
+            AuthenticationProperties properties = CreateProperties(user.Login);
+            AuthenticationTicket ticket = new AuthenticationTicket(oauthIdentity, properties);
+            context.Validated(ticket);
 
-            context.Request.Context.Authentication.SignIn(authIdentity);
+            //context.Request.Context.Authentication.SignIn(authIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
