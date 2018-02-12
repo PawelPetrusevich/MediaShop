@@ -84,9 +84,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 else
                 {
                     return BadRequest(Resources.EmptyConditionList);
-                }
-                
-                
+                }  
             }
 
             if (conditionsList.Count <= 0)
