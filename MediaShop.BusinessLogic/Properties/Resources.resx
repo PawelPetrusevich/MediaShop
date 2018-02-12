@@ -294,4 +294,13 @@
   <data name="ExistPayment" xml:space="preserve">
     <value>Payment already exist</value>
   </data>
+  <data name="CountOfTryToEmailSendExceptionMessage" xml:space="preserve">
+    <value>Email not sent after {0} attempted</value>
+  </data>
+  <data name="TemplateFileNotFoundExceptionMessage" xml:space="preserve">
+    <value>Template file {0} not found</value>
+  </data>
+  <data name="UnspecifiedPathToTheMessageTemplate" xml:space="preserve">
+    <value>Unspecified path in {0} to the message template {1}.</value>
+  </data>
 </root>

@@ -122,6 +122,10 @@
     </Compile>
     <Compile Include="Repositories\DefrayalRepository.cs" />
     <Compile Include="Repositories\PayPalPaymentRepository.cs" />
+    <Compile Include="Migrations\201802091414328_Add_confirmation_token.cs" />
+    <Compile Include="Migrations\201802091414328_Add_confirmation_token.Designer.cs">
+      <DependentUpon>201802091414328_Add_confirmation_token.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\StatisticRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802111127004_PayPalPayment_3.resx">
       <DependentUpon>201802111127004_PayPalPayment_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802091414328_Add_confirmation_token.resx">
+      <DependentUpon>201802091414328_Add_confirmation_token.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

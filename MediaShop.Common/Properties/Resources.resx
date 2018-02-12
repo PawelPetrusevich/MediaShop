@@ -141,6 +141,9 @@
   <data name="IncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
+  <data name="IncorrectToken" xml:space="preserve">
+    <value>Invalid confirmation token</value>
+  </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
   </data>
