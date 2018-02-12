@@ -204,5 +204,21 @@ namespace MediaShop.DataAccess.Repositories
 
             return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Email.Equals(email));
         }
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>Account</returns>
+        /// <exception cref="ArgumentException">if login is null or empty string</exception>
+        public Task<AccountDbModel> GetByEmailAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Email.Equals(email));
+        }
     }
 }

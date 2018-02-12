@@ -46,7 +46,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Task<Account> ConfirmRegistrationAsync(string email, long id);
+        Task<Account> ConfirmRegistrationAsync(string email, string confirmationToken);
 
         /// <summary>
         /// Login user
@@ -73,11 +73,29 @@ namespace MediaShop.Common.Interfaces.Services
         Account RecoveryPassword(ResetPasswordDto model);
 
         /// <summary>
+        /// Reset user password  for recovery
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
+        /// <returns>account</returns>
+        Task<Account> RecoveryPasswordAsync(ResetPasswordDto model);
+
+        /// <summary>
         /// Init procedure password recovery
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
         void InitRecoveryPassword(string email);
+
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        Task InitRecoveryPasswordAsync(string email);
     }
 }

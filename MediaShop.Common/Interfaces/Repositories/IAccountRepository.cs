@@ -29,5 +29,12 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// <param name="email">The Email.</param>
         /// <returns>Entity</returns>
         AccountDbModel GetByEmail(string email);
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The Email.</param>
+        /// <returns>Entity</returns>
+        Task<AccountDbModel> GetByEmailAsync(string email);
     }
 }

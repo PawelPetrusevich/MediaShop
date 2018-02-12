@@ -49,7 +49,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                         sb.AppendFormat("{0} ! ", error.ErrorMessage);
                     }
                 }
-               
+
                 return BadRequest(sb.ToString());
             }
 
@@ -133,15 +133,42 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> ConfirmAsync(string email, long id)
+        public async Task<IHttpActionResult> ConfirmAsync(string email, string token)
         {
-            if (string.IsNullOrWhiteSpace(email) || id <= 0)
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var account = await _accountService.ConfirmRegistrationAsync(email, id);
-            return Ok(account);
+            try
+            {
+                var account = await _accountService.ConfirmRegistrationAsync(email, token);
+                return Ok(account);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmedUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddProfileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddSettingsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [HttpPost]
@@ -184,7 +211,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult InitRecoveryPassword([FromBody] string email)
+        public async Task<IHttpActionResult> InitRecoveryPasswordAync([FromBody] string email)
         {
             if (string.IsNullOrWhiteSpace(email) || !ModelState.IsValid)
             {
@@ -193,7 +220,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                _accountService.InitRecoveryPassword(email);
+                await _accountService.InitRecoveryPasswordAsync(email);
                 return Ok(email);
             }
             catch (ArgumentNullException ex)
@@ -216,7 +243,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RecoveryPassword([FromBody] ResetPasswordDto model)
+        public async Task<IHttpActionResult> RecoveryPasswordAsync([FromBody] ResetPasswordDto model)
         {
             if (model == null || !ModelState.IsValid)
             {
@@ -225,7 +252,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = _accountService.RecoveryPassword(model);
+                var account = await _accountService.RecoveryPasswordAsync(model);
                 return Ok(account);
             }
             catch (ArgumentNullException ex)
