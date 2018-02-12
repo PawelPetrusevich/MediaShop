@@ -284,10 +284,8 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         /// </summary>
         /// <param name="originalVideoInBytes">byte array whith original video</param>
         /// <returns>return byte array</returns>
-        public static Task<byte[]> GetProtectedVideoAsync(this byte[] originalVideoInBytes, HttpContext context)
+        public static byte[] GetProtectedVideoAsync(this byte[] originalVideoInBytes, HttpContext context)
         {
-            return Task.Run(() =>
-            {
                 string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
                 string protectedVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
                 File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
@@ -306,7 +304,6 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 File.Delete(originalVideoPath);
                 File.Delete(protectedVideoPath);
                 return result;
-            });
         }
 
         public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
@@ -322,11 +319,9 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             return result;
         }
 
-        public static Task<byte[]> GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
+        public static byte[] GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
         {
-            return Task.Run(() =>
-            {
-                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
                 string compresedVideoFramePath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
                 File.WriteAllBytes(originalVideoPath, originalVideoBytes);
                 var ffmpegconverter = new FFMpegConverter();
@@ -335,7 +330,6 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 File.Delete(originalVideoPath);
                 File.Delete(compresedVideoFramePath);
                 return result;
-            });
         }
 
         [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
