@@ -181,7 +181,7 @@
     <value>Content is not update in cart</value>
   </data>
   <data name="StateContentError" xml:space="preserve">
-    <value>Satate of Content is not valid</value>
+    <value>State of Content is not valid</value>
   </data>
   <data name="InvalidTransactionBuyContent" xml:space="preserve">
     <value>Purchase transaction is not successfully</value>

@@ -21,6 +21,14 @@
         IEnumerable<TModel> GetContent(long userId);
 
         /// <summary>
+        /// Find items in a cart by user Id and return a item collection
+        /// without state InPaid and InBought
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns> shopping cart for a user </returns>
+        Task<IEnumerable<TModel>> GetContentAsync(long userId);
+
+        /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
@@ -58,6 +66,13 @@
         Cart GetCart(long userId);
 
         /// <summary>
+        /// Get created Cart model object
+        /// </summary>
+        /// <param name="userId">user Id</param>
+        /// <returns>Cart</returns>
+        Task<Cart> GetCartAsync(long userId);
+
+        /// <summary>
         /// Get sum price items for User
         /// </summary>
         /// <param name="userId">user Id</param>
@@ -93,6 +108,13 @@
         TModel DeleteContent(TModel model);
 
         /// <summary>
+        /// Method for deleting selected ContentCart
+        /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        Task<TModel> DeleteContentAsync(TModel model);
+
+        /// <summary>
         /// Method for deleting selected items
         /// </summary>
         /// <param name="itemsId">collection users id</param>
@@ -105,6 +127,13 @@
         /// <param name="cart">Cart</param>
         /// <returns>Cart after clearing</returns>
         Cart DeleteOfCart(Cart cart);
+
+        /// <summary>
+        /// Method for deleting Content from cart
+        /// </summary>
+        /// <param name="cart">Cart</param>
+        /// <returns>Cart after clearing</returns>
+        Task<Cart> DeleteOfCartAsync(Cart cart);
 
         /// <summary>
         /// Method for check object as Bought

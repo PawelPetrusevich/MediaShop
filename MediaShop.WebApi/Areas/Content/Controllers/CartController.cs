@@ -37,6 +37,21 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         /// <summary>
+        /// Get Cart for User
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>Cart</returns>
+        [HttpGet]
+        [Route("getcartasync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
+        public async Task<IHttpActionResult> GetAsync([FromUri] long id) //id User
+        {
+            var cart = await _cartService.GetCartAsync(id);
+            return this.Ok(cart);
+        }
+
+        /// <summary>
         /// Method for add content in cart
         /// </summary>
         /// <param name="contentId">content id</param>
@@ -149,6 +164,39 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         /// <summary>
+        /// Delete content from Cart
+        /// </summary>
+        /// <param name="data">Content for delete</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("deletecontentasync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public async Task<IHttpActionResult> DeleteAsync([FromBody] ContentCartDto data)
+        {
+            if (data == null)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var result = await _cartService.DeleteContentAsync(data);
+                return this.Ok(result);
+            }
+            catch (DeleteContentInCartExseptions ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        /// <summary>
         /// Delete all content from Cart
         /// </summary>
         /// <param name="data">Cart</param>
@@ -169,6 +217,39 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             try
             {
                 var result = _cartService.DeleteOfCart(data);
+                return this.Ok(result);
+            }
+            catch (DeleteContentInCartExseptions ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Delete all content from Cart
+        /// </summary>
+        /// <param name="data">Cart</param>
+        /// <returns>Cart</returns>
+        [HttpDelete]
+        [Route("clearcartasync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public async Task<IHttpActionResult> DeleteAsync([FromBody] Cart data)
+        {
+            if (data == null)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var result = await _cartService.DeleteOfCartAsync(data);
                 return this.Ok(result);
             }
             catch (DeleteContentInCartExseptions ex)

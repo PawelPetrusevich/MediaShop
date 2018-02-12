@@ -164,6 +164,38 @@
         }
 
         /// <summary>
+        /// Method for deleting selected ContentCart
+        /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        public async Task<ContentCartDto> DeleteContentAsync(ContentCartDto model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(model));
+            }
+
+            if (model.StateContent != CartEnums.StateCartContent.InCart)
+            {
+                throw new DeleteContentInCartExseptions(Resources.StateContentError);
+            }
+
+            // Final mapping object ContentCartDto to object ContentCart
+            var contentCart = Mapper.Map<ContentCart>(model);
+
+            var deleteContentCart = await this.repositoryContentCart.DeleteAsync(contentCart).ConfigureAwait(false);
+            if (deleteContentCart == 0)
+            {
+                throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
+            }
+
+            //// Output mapping object ContentCart to object ContentCartDto
+            // var deleteContentCartDto = Mapper.Map<ContentCartDto>(deleteContentCart);
+            // return deleteContentCartDto;
+            return model;
+        }
+
+        /// <summary>
         /// Method for deleting selected ContentCartDto
         /// </summary>
         /// <param name="collectionId">collection content id</param>
@@ -238,6 +270,31 @@
         }
 
         /// <summary>
+        /// Method for deleting Content from cart
+        /// </summary>
+        /// <param name="cart">Cart</param>
+        /// <returns>Cart after clearing</returns>
+        public async Task<Cart> DeleteOfCartAsync(Cart cart)
+        {
+            if (cart == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+            }
+
+            long id = 0;
+            if (cart.ContentCartDtoCollection != null)
+            {
+                foreach (var content in cart.ContentCartDtoCollection)
+                {
+                    var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
+                    id = content.CreatorId; // Get user Id from Token
+                }
+            }
+
+            return await this.GetCartAsync(id);
+        }
+
+        /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content id</param>
@@ -267,6 +324,18 @@
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
             var contentInCart = this.repositoryContentCart.GetById(id);
+            return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart);
+        }
+
+        /// <summary>
+        /// Find items in a cart by user Id and return a item collection
+        /// without state InPaid and InBought
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns> shopping cart for a user </returns>
+        public async Task<IEnumerable<ContentCartDto>> GetContentAsync(long id)
+        {
+            var contentInCart = await this.repositoryContentCart.GetByIdAsync(id).ConfigureAwait(false);
             return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart);
         }
 
@@ -355,6 +424,24 @@
         public Cart GetCart(long userId)
         {
             var itemsInCart = this.GetContent(userId);
+            var model = new Cart()
+            {
+                ContentCartDtoCollection = itemsInCart,
+                CountItemsInCollection = this.GetCountItems(itemsInCart),
+                PriceAllItemsCollection = this.GetPrice(itemsInCart)
+            };
+            return model;
+        }
+
+        /// <summary>
+        /// Get created Cart model object
+        /// </summary>
+        /// <param name="userId">user Id</param>
+        /// <returns>Cart</returns>
+        public async Task<Cart> GetCartAsync(long userId)
+        {
+            var itemsInCart = await this.GetContentAsync(userId).ConfigureAwait(false);
+
             var model = new Cart()
             {
                 ContentCartDtoCollection = itemsInCart,

@@ -72,6 +72,18 @@
         /// <summary>
         /// Method for delete object type ContentCart
         /// </summary>
+        /// <param name="model">object for delete</param>
+        /// <returns>rezalt operation</returns>
+        public async Task<int> DeleteAsync(ContentCart model)
+        {
+            this.Context.Entry(model).State = EntityState.Deleted;
+            var result = await this.Context.SaveChangesAsync().ConfigureAwait(false);
+            return result;
+        }
+
+        /// <summary>
+        /// Method for delete object type ContentCart
+        /// </summary>
         /// <param name="id">id for delete</param>
         /// <returns>rezalt operation</returns>
         public override ContentCart Delete(long id)
@@ -80,6 +92,20 @@
                 && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart);
             var result = this.DbSet.Remove(contentCart);
             this.Context.SaveChanges();
+            return result;
+        }
+
+        /// <summary>
+        /// Method for delete object type ContentCart
+        /// </summary>
+        /// <param name="id">id for delete</param>
+        /// <returns>rezalt operation</returns>
+        public async Task<int> DeleteAsync(long id)
+        {
+            var contentCart = this.DbSet.SingleOrDefault(x => x.Id == id
+                && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart);
+            var model = this.DbSet.Remove(contentCart);
+            var result = await this.Context.SaveChangesAsync().ConfigureAwait(false);
             return result;
         }
 
@@ -96,6 +122,18 @@
         }
 
         /// <summary>
+        /// Method for getting object type ContentCart
+        /// by Id
+        /// </summary>
+        /// <param name="id">identificator</param>
+        /// <returns>rezalt operation</returns>
+        public async Task<ContentCart> GetAsync(long id)
+        {
+            var result = await this.DbSet.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <summary>
         /// Method for getting collection objects type ContentCart in state InCart
         /// by user identificator
         /// </summary>
@@ -104,6 +142,18 @@
         public IEnumerable<ContentCart> GetById(long userId)
         {
             var result = this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart).ToList();
+            return result;
+        }
+
+                /// <summary>
+        /// Method for getting collection objects type ContentCart in state InCart
+        /// by user identificator
+        /// </summary>
+        /// <param name="userId">identificator user</param>
+        /// <returns>rezalt operation</returns>
+        public async Task<IEnumerable<ContentCart>> GetByIdAsync(long userId)
+        {
+            var result = await this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart).ToListAsync().ConfigureAwait(false);
             return result;
         }
 
