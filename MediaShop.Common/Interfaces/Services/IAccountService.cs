@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
@@ -38,7 +39,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">User email</param>
         /// <param name="token">Confirmation token</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Account ConfirmRegistration(string email, string confirmationToken);
+        Account ConfirmRegistration(AccountConfirmationDto model);
 
         /// <summary>
         /// Confirm user registration
@@ -46,7 +47,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Task<Account> ConfirmRegistrationAsync(string email, string confirmationToken);
+        Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model);
 
         /// <summary>
         /// Login user

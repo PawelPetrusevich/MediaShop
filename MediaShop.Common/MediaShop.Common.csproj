@@ -78,6 +78,11 @@
   <ItemGroup>
     <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
     <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
+    <Compile Include="Dto\Messaging\AccountTokenFactoryValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountPwdRestoreValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountPwdRestoreValidator.cs" />
     <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />
     <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
@@ -98,6 +103,7 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Exceptions\ModelValidateException.cs" />
     <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
     <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
     <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
@@ -131,6 +137,7 @@
     <Compile Include="Interfaces\Repositories\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountTokenFactoryValidator.cs" />
     <Compile Include="Interfaces\Services\IBannedService.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
@@ -192,9 +199,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dto\Messaging\Validators\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

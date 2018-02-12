@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
@@ -98,7 +99,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = _accountService.ConfirmRegistration(email, token);
+                var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
                 return Ok(account);
             }
             catch (NotFoundUserException ex)
@@ -142,7 +143,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var account = await _accountService.ConfirmRegistrationAsync(email, token);
+                var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
                 return Ok(account);
             }
             catch (NotFoundUserException ex)

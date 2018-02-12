@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using MailKit;
 using MailKit.Net.Smtp;
+using MediaShop.Common.Dto.Messaging;
+using MediaShop.Common.Dto.Messaging.Validators;
 using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces;
 
@@ -40,6 +42,9 @@ namespace MediaShop.BusinessLogic
             Bind<IProfileService>().To<ProfileService>();
             Bind<INotificationService>().To<NotificationService>();
             Bind<IEmailService>().To<EmailService>();
+            Bind<IValidator<AccountConfirmationDto>>().To<ExtAccountConfirmationValidator>();
+            Bind<IValidator<ResetPasswordDto>>().To<ExtAccountPwdRestoreValidator>();
+            Bind<IAccountTokenFactoryValidator>().To<AccountTokenFactoryValidator>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
             Bind<IValidator<RegisterUserDto>>().To<RegisterUserVaildator>();
             Bind<IPaymentService>().To<PaymentService>();

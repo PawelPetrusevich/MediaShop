@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using FluentValidation.Results;
 using MediaShop.BusinessLogic.Services;
 using MediaShop.Common;
 using MediaShop.Common.Dto.Messaging;
+using MediaShop.Common.Dto.Messaging.Validators;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
@@ -28,6 +30,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         private Mock<IAccountFactoryRepository> _factoryRepositoryMock;
         private Mock<IEmailService> _emailServiceMock;
         private Mock<IValidator<RegisterUserDto>> _validatorMock;
+        private IAccountTokenFactoryValidator _tokenValidator;
 
         private AccountDbModel _accountDb;
         private ResetPasswordDto _resetPasswordDto;
@@ -50,14 +53,18 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepositoryMock.Setup(x => x.Accounts.Add(It.IsAny<AccountDbModel>())).Returns(new AccountDbModel());
             _emailServiceMock.Setup(x => x.SendRestorePwdLink(It.IsAny<AccountPwdRestoreDto>()));
 
-            _accountService = new AccountService(_factoryRepositoryMock.Object, _emailServiceMock.Object, this._validatorMock.Object);
+            _tokenValidator = new AccountTokenFactoryValidator(new ExtAccountConfirmationValidator(_factoryRepositoryMock.Object.Accounts), new ExtAccountPwdRestoreValidator(_factoryRepositoryMock.Object.Accounts));
+
+
+
+            _accountService = new AccountService(_factoryRepositoryMock.Object, _emailServiceMock.Object, this._validatorMock.Object, _tokenValidator);
 
             _accountDb = new AccountDbModel() { Email = "noreply.mediashop@gmail.com" };
 
             _resetPasswordDto = new ResetPasswordDto()
             {
-                Password = "123",
-                ConfirmPassword = "123",
+                Password = "123456",
+                ConfirmPassword = "123456",
                 Email = "noreply.mediashop@gmail.com"
             };
         }
@@ -103,11 +110,11 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepositoryMock.Setup(x => x.Accounts.GetByEmail(It.IsAny<string>())).Returns((AccountDbModel)null);
             _factoryRepositoryMock.Setup(x => x.Accounts.Update(It.IsAny<AccountDbModel>())).Returns<AccountDbModel>(m => m);
 
-            Assert.Throws<NotFoundUserException>(() => _accountService.RecoveryPassword(_resetPasswordDto));
+            Assert.Throws<ModelValidateException>(() => _accountService.RecoveryPassword(_resetPasswordDto));
 
             _factoryRepositoryMock.Setup(x => x.Accounts.GetByEmail(It.IsAny<string>())).Returns(_accountDb);
 
-            Assert.Throws<ConfirmationTokenException>(() => _accountService.RecoveryPassword(_resetPasswordDto));
+            Assert.Throws<ModelValidateException>(() => _accountService.RecoveryPassword(_resetPasswordDto));
         }
     }
 }

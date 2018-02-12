@@ -25,6 +25,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         private Mock<IAccountFactoryRepository> _factoryRepository;
         private Mock<IEmailService> _emailService;
         private Mock<IValidator<RegisterUserDto>> _validator;
+        private Mock<IAccountTokenFactoryValidator> _tokenValidatorMock;
 
         public RegistrationServiceTest()
         {
@@ -48,6 +49,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepository = mockfactoryRepository;
             _emailService = mockEmailService;
             _validator = mockValidator;
+            _tokenValidatorMock = new Mock<IAccountTokenFactoryValidator>();
+
+            _tokenValidatorMock.Setup(v => v.AccountPwdRestore.Validate(It.IsAny<AccountPwdRestoreDto>()).IsValid)
+                .Returns(true);
+
+            _tokenValidatorMock.Setup(v => v.AccountConfirmation.Validate(It.IsAny<AccountConfirmationDto>()).IsValid)
+                .Returns(true);
 
             _user = new RegisterUserDto()
             {
@@ -76,7 +84,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<AccountConfirmationDto>()));
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object, _tokenValidatorMock.Object);
 
             Assert.IsNotNull(userService.Register(_user));
         }
@@ -88,7 +96,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepository.Setup(x => x.Accounts.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel());
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(false);
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object, _tokenValidatorMock.Object);
 
             Assert.Throws<ExistingLoginException>(() => userService.Register(_user));
         }
@@ -100,7 +108,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _validator.Setup(v => v.Validate(new RegisterUserDto()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<AccountConfirmationDto>()));
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, this._validator.Object, _tokenValidatorMock.Object);
 
             Assert.Throws<AddAccountException>(() => userService.Register(_user));
         }

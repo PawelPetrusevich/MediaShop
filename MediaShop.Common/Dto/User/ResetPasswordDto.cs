@@ -1,5 +1,9 @@
-﻿namespace MediaShop.Common.Dto.User
+﻿using FluentValidation.Attributes;
+using MediaShop.Common.Dto.Messaging.Validators;
+
+namespace MediaShop.Common.Dto.User
 {
+    [Validator(typeof(AccountPwdRestoreValidator))]
     public class ResetPasswordDto
     {
         public string Token { get; set; }

@@ -35,17 +35,19 @@ namespace MediaShop.BusinessLogic.Services
         private readonly IAccountFactoryRepository _factoryRepository;
         private readonly IEmailService _emailService;
         private readonly IValidator<RegisterUserDto> _validator;
+        private readonly IAccountTokenFactoryValidator _tokenValidator;
 
         /// <summary>
         /// account service
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public AccountService(IAccountFactoryRepository factoryRepository, IEmailService emailService, IValidator<RegisterUserDto> validator)
+        public AccountService(IAccountFactoryRepository factoryRepository, IEmailService emailService, IValidator<RegisterUserDto> validator, IAccountTokenFactoryValidator tokenValidator)
         {
             this._factoryRepository = factoryRepository;
             this._emailService = emailService;
             this._validator = validator;
+            _tokenValidator = tokenValidator;
         }
 
         /// <summary>
@@ -99,31 +101,17 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        public Account ConfirmRegistration(string email, string confirmationToken)
+        public Account ConfirmRegistration(AccountConfirmationDto model)
         {
-            //Todo: set up validator
-            if (string.IsNullOrWhiteSpace(email))
+            var result = _tokenValidator.AccountConfirmation.Validate(model);
+
+            if (!result.IsValid)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
-
-            if (string.IsNullOrWhiteSpace(confirmationToken))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
-            }
-
-            var user = this._factoryRepository.Accounts.GetByEmail(email);
-
-            if (user == null)
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.AccountConfirmationToken.Equals(confirmationToken))
-            {
-                throw new ConfirmationTokenException();
-            }
-
+            
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
+            
             if (user.IsConfirmed)
             {
                 throw new ConfirmedUserException();
@@ -146,30 +134,17 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<Account>(confirmedUser);
         }
 
-        public async Task<Account> ConfirmRegistrationAsync(string email, string confirmationToken)
+        public async Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            var result = _tokenValidator.AccountConfirmation.Validate(model);
+
+            if (!result.IsValid)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            if (string.IsNullOrWhiteSpace(confirmationToken))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
-            }
-
-            var user = this._factoryRepository.Accounts.GetByEmail(email);
-
-            if (user == null)
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.AccountConfirmationToken.Equals(confirmationToken))
-            {
-                throw new ConfirmationTokenException();
-            }
-
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
+            
             if (user.IsConfirmed)
             {
                 throw new ConfirmedUserException();
@@ -289,33 +264,14 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>account</returns>
         public Account RecoveryPassword(ResetPasswordDto model)
         {
-            //Todo: set up validator
-            if (model == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
+            var result = _tokenValidator.AccountPwdRestore.Validate(model);
 
-            if (string.IsNullOrWhiteSpace(model.Email))
+            if (!result.IsValid)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
-            }
-
-            if (string.IsNullOrWhiteSpace(model.Token))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
 
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
-
-            if (user == null)
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.AccountConfirmationToken.Equals(model.Token, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ConfirmationTokenException();
-            }
 
             user.Password = model.Password;
             user.AccountConfirmationToken = TokenHelper.NewToken();
@@ -334,33 +290,14 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>account</returns>
         public async Task<Account> RecoveryPasswordAsync(ResetPasswordDto model)
         {
-            //Todo: set up validator
-            if (model == null)
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue);
-            }
+            var result = _tokenValidator.AccountPwdRestore.Validate(model);
 
-            if (string.IsNullOrWhiteSpace(model.Email))
+            if (!result.IsValid)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
-            }
-
-            if (string.IsNullOrWhiteSpace(model.Token))
-            {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
 
             var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
-
-            if (user == null)
-            {
-                throw new NotFoundUserException();
-            }
-
-            if (!user.AccountConfirmationToken.Equals(model.Token, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ConfirmationTokenException();
-            }
 
             user.Password = model.Password;
             user.AccountConfirmationToken = TokenHelper.NewToken();
