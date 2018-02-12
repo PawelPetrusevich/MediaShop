@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExseptions;
+using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
+using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
@@ -21,6 +26,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     [RoutePrefix("api/account")]
     [AccountExceptionFilter]
+    [Authorize]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -31,6 +37,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -57,6 +64,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("registerAsync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -83,6 +91,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("confirm/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -100,6 +109,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("confirmAsync/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -118,19 +128,60 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Login([FromBody] LoginDto data)
+        public IHttpActionResult Login([FromBody]LoginDto data)
         {
-            if (data == null || !ModelState.IsValid)
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password) || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var user = _accountService.Login(data);
-            return Ok(user);
+            ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
+            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;
+            if (string.IsNullOrWhiteSpace(emailAuthorized))
+            {
+                throw new AuthorizedDataException(Resources.EmptyAutorizedData);
+            }
+
+            var user = _accountService.ValidateUserByToken(data, emailAuthorized);
+
+            user = _accountService.Login(data);            
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("loginAsync")]
+        [AllowAnonymous]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> LoginAsync([FromBody]LoginDto data)
+        {
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password) || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            ClaimsIdentity result = HttpContext.Current.User as ClaimsIdentity;
+            var emailAuthorized = result.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Email))?.Value;           
+            if (string.IsNullOrWhiteSpace(emailAuthorized))
+            {
+                throw new AuthorizedDataException(Resources.EmptyAutorizedData);
+            }
+
+            var user = await _accountService.ValidateUserByTokenAsync(data, emailAuthorized);
+
+            user = await _accountService.LoginAsync(data);
+
+            return Ok(result);
         }
 
         [HttpPost]

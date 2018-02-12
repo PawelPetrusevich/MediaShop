@@ -151,4 +151,10 @@
     <value>Product not found</value>
     <comment>продукт не найден</comment>
   </data>
+  <data name="UserId" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="EmptyAutorizedData" xml:space="preserve">
+    <value>Authorized data is empty</value>
+  </data>
 </root>

@@ -95,6 +95,21 @@ namespace MediaShop.DataAccess.Repositories
             return model;
         }
 
+        /// <summary>
+        /// Get user by login
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<AccountDbModel> GetByLoginAsync(string login)
+        {
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return await this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Login.Equals(login));
+        }
+
         public async Task<AccountDbModel> UpdateAsync(AccountDbModel model)
         {
             if (model == null)
