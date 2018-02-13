@@ -11,12 +11,12 @@ export class Cartservice {
   static url = 'http://localhost:51289/api/cart';
   constructor(private http: Http) {}
 
-  get(id: number): Observable<Cart> {
+  get(id: string): Observable<Cart> {
     const options = new RequestOptions();
     options.headers = new Headers();
-    options.headers.append('id', id.toString());
+    options.headers.append('id', id);
     return this.http
-      .get(Cartservice.url + '/getcartasync', options)
+      .get(Cartservice.url + '/getcartasync' + '?id=1', options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
