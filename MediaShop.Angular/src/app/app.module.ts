@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
+import { Cartservice } from './services/cartservice';
+import { Paymentservice } from './services/paymentservice';
 
 
 @NgModule({
@@ -19,7 +21,7 @@ import { ContentCartComponent } from './components/content-cart/content-cart.com
   imports: [
     BrowserModule, NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [Cartservice, Paymentservice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
