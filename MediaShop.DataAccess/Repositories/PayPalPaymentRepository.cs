@@ -40,10 +40,5 @@
             this.Context.SaveChanges();
             return result;
         }
-
-        public Task<PayPalPaymentDbModel> AddAsync(PayPalPaymentDbModel payment)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

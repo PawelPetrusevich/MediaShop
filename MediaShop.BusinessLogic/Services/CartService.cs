@@ -388,7 +388,7 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = this.repositoryContentCart.Find(item => item.ProductId == contentId);
+            var contentCartForUpdateList = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId);
 
             if (contentCartForUpdateList.Count() == 0)
             {
@@ -396,10 +396,12 @@
             }
 
             // Change state content
-            contentCartForUpdateList.First().StateContent = contentState;
+            var contentObjForUpdate = contentCartForUpdateList.AsQueryable().ElementAt(0);
+
+            contentObjForUpdate.StateContent = contentState;
 
             // Update change
-            var contentCartAfterUpdate = await this.repositoryContentCart.UpdateAsync(contentCartForUpdateList.First());
+            var contentCartAfterUpdate = await this.repositoryContentCart.UpdateAsync(contentObjForUpdate);
 
             // Check update property StateContent
             if (contentCartAfterUpdate.StateContent != contentState)

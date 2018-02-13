@@ -120,12 +120,9 @@ namespace MediaShop.DataAccess.Repositories.Base
                 throw new ArgumentNullException(nameof(model));
             }
 
-            using (Context)
-            {
-                var result = DbSet.Add(model);
-                await Context.SaveChangesAsync().ConfigureAwait(false);
-                return result;
-            }
+            var result = DbSet.Add(model);
+            await Context.SaveChangesAsync().ConfigureAwait(false);
+            return result;
         }
 
         /// <summary>
@@ -164,16 +161,13 @@ namespace MediaShop.DataAccess.Repositories.Base
                 throw new ArgumentNullException(nameof(model));
             }
 
-            using (Context)
-            {
-                T entity = Get(model.Id);
+            T entity = Get(model.Id);
 
-                entity = Mapper.Map(model, entity);
-                Context.Entry(entity).State = EntityState.Modified;
+            entity = Mapper.Map(model, entity);
+            Context.Entry(entity).State = EntityState.Modified;
 
-                await Context.SaveChangesAsync().ConfigureAwait(false);
-                return entity;
-            }
+            await Context.SaveChangesAsync().ConfigureAwait(false);
+            return entity;
         }
 
         /// <summary>
@@ -215,12 +209,9 @@ namespace MediaShop.DataAccess.Repositories.Base
 
             if (DbSet.Contains(model))
             {
-                using (Context)
-                {
-                    DbSet.Remove(model);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
-                    return model;
-                }
+                DbSet.Remove(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return model;
             }
 
             return default(T);
@@ -269,12 +260,9 @@ namespace MediaShop.DataAccess.Repositories.Base
 
             if (model != null)
             {
-                using (Context)
-                {
-                    DbSet.Remove(model);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
-                    return model;
-                }
+                DbSet.Remove(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return model;
             }
 
             return default(T);
