@@ -110,7 +110,7 @@ namespace MediaShop.BusinessLogic.Services
 
             message.Body = builder.ToMessageBody();
 
-            ConnectClientAsync().ContinueWith(t => AutenticateClientAsync()).ContinueWith(t => SendEmailAsync(message));
+            await ConnectClientAsync().ContinueWith(t => AutenticateClientAsync().ContinueWith(tt => SendEmailAsync(message))).ConfigureAwait(false);
         }
 
         public async Task SendRestorePwdLinkAsync(AccountPwdRestoreDto model)
@@ -127,7 +127,7 @@ namespace MediaShop.BusinessLogic.Services
 
             message.Body = builder.ToMessageBody();
 
-            ConnectClientAsync().ContinueWith(t => AutenticateClientAsync()).ContinueWith(t => SendEmailAsync(message));
+            await ConnectClientAsync().ContinueWith(t => AutenticateClientAsync().ContinueWith(tt => SendEmailAsync(message))).ConfigureAwait(false);
         }
 
         protected virtual void Dispose(bool flag)
@@ -175,7 +175,7 @@ namespace MediaShop.BusinessLogic.Services
             return templateText;
         }
 
-        private Task<string> GetTemplateTextAsync(string templateName)
+        private async Task<string> GetTemplateTextAsync(string templateName)
         {
             string templatePath;
             Task<string> templateText;
@@ -188,7 +188,7 @@ namespace MediaShop.BusinessLogic.Services
             try
             {
                 sourceReader = File.OpenText(templatePath);
-                return sourceReader.ReadToEndAsync();
+                return await sourceReader.ReadToEndAsync();
             }
             catch (FileNotFoundException)
             {
@@ -236,7 +236,7 @@ namespace MediaShop.BusinessLogic.Services
             }
         }
 
-        private Task SendEmailAsync(MimeMessage message, int tryCount = 0)
+        private async Task<Task> SendEmailAsync(MimeMessage message, int tryCount = 0)
         {
             if (tryCount > SendEmailTryCount)
             {
@@ -254,12 +254,12 @@ namespace MediaShop.BusinessLogic.Services
             }
             catch (ServiceNotConnectedException)
             {
-                ConnectClient();
+                await ConnectClientAsync();
                 return SendEmailAsync(message, tryCount++);
             }
             catch (ServiceNotAuthenticatedException)
             {
-                AutenticateClient();
+                await AutenticateClientAsync();
                 return SendEmailAsync(message, tryCount++);
             }
         }
@@ -299,7 +299,7 @@ namespace MediaShop.BusinessLogic.Services
             }
             catch (OperationCanceledException)
             {
-                return ConnectClientAsync(tryCount);
+                return ConnectClientAsync(tryCount++);
             }
         }
 
@@ -333,7 +333,7 @@ namespace MediaShop.BusinessLogic.Services
             }
             catch (AuthenticationException)
             {
-                return AutenticateClientAsync(tryCount);
+                return AutenticateClientAsync(tryCount++);
             }
         }
     }
