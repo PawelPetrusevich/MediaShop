@@ -189,9 +189,6 @@
                 throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
             }
 
-            //// Output mapping object ContentCart to object ContentCartDto
-            // var deleteContentCartDto = Mapper.Map<ContentCartDto>(deleteContentCart);
-            // return deleteContentCartDto;
             return model;
         }
 
