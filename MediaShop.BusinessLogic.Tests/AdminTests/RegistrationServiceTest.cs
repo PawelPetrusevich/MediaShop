@@ -142,9 +142,9 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 Profile = profile
             };
             var statistic = new StatisticDbModel()
-                { AccountId = 2, AccountDbModel = account, DateLogIn = DateTime.Now, DateLogOut = null };
-            var statistics = new List<StatisticDbModel> {statistic};
-           
+            { AccountId = 2, AccountDbModel = account, DateLogIn = DateTime.Now, DateLogOut = null };
+            var statistics = new List<StatisticDbModel> { statistic };
+
             _validator.Setup(v => v.Validate(It.IsAny<RegisterUserDto>()).IsValid).Returns(true);
             _emailService.Setup(x => x.SendConfirmation(It.IsAny<AccountConfirmationDto>()));
 
