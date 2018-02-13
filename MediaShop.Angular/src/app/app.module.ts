@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
+import { RegisterUserComponent } from './components/user/register-user/register-user.component';
 
 @NgModule({
   declarations: [
