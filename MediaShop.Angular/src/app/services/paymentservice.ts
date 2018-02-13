@@ -9,13 +9,15 @@ import {Cart} from '../Models/Cart/cart';
 
 @Injectable()
 export class Paymentservice {
-    constructor(private http: Http){}
+  static url = 'http://localhost:51289/api/payment';
+  constructor(private http: Http) {}
 
-    payPalPayment(cart:Cart): Observable<string>{
-        var options = new RequestOptions();
-        options.body = cart;
-        return this.http.post('http://localhost:51289/api/payment/paypalpayment', options)
-        .map(resp=>resp.json())
-        .catch(err=>Observable.throw(err));
-    }
+  payPalPayment(cart: Cart): Observable<string> {
+    const options = new RequestOptions();
+    options.body = cart;
+    return this.http
+      .post(Paymentservice.url + '/paypalpayment', options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
 }

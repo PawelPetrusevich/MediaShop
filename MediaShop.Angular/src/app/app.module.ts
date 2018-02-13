@@ -9,6 +9,9 @@ import { ExecutePaymentComponent } from './components/execute-payment/execute-pa
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
 import { Cartservice } from './services/cartservice';
 import { Paymentservice } from './services/paymentservice';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -19,7 +22,7 @@ import { Paymentservice } from './services/paymentservice';
     ContentCartComponent
   ],
   imports: [
-    BrowserModule, NgbModule.forRoot()
+    BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
   ],
   providers: [Cartservice, Paymentservice],
   bootstrap: [AppComponent]

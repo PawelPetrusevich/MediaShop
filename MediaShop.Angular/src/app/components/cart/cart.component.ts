@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../../Models/Cart/cart';
 import { Cartservice } from '../../services/cartservice';
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -9,17 +8,19 @@ import { Cartservice } from '../../services/cartservice';
 })
 export class CartComponent implements OnInit {
   cart: Cart = new Cart();
-  id:number = 1;
-  
+  isLoaded = false;
+  showError = false;
+  id: number;
 
   constructor(private cartService: Cartservice) { }
 
   ngOnInit() {
   }
 
-  getCart(cart: Cart): void {
-    this.cartService.get(this.id).subscribe(resp=>{
+  getCart(cart: Cart) {
+    this.cartService.get(this.id).subscribe(resp => {
       this.cart = resp;
+      this.isLoaded = true;
     }
     );
   }
