@@ -10,7 +10,6 @@ export class CartComponent implements OnInit {
   cart: Cart = new Cart();
   isLoaded = false;
   showError = false;
-  id: string;
 
   constructor(private cartService: Cartservice) { }
 
@@ -18,8 +17,7 @@ export class CartComponent implements OnInit {
   }
 
   getCart(cart: Cart) {
-    this.id = '1';
-    this.cartService.get(this.id).subscribe(resp => {
+    this.cartService.get().subscribe(resp => {
       this.cart = resp;
       this.isLoaded = true;
     }

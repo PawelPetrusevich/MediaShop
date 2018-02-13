@@ -24,14 +24,14 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// <summary>
         /// Get Cart for User
         /// </summary>
-        /// <param name="id">user Id</param>
         /// <returns>Cart</returns>
         [HttpGet]
         [Route("getcart")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
-        public IHttpActionResult Get([FromUri] long id) //id User
+        public IHttpActionResult Get()
         {
+            var id = 1; //userId from claim
             var cart = _cartService.GetCart(id);
             return this.Ok(cart);
         }
@@ -39,14 +39,14 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// <summary>
         /// Get Cart for User
         /// </summary>
-        /// <param name="id">user Id</param>
         /// <returns>Cart</returns>
         [HttpGet]
         [Route("getcartasync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
-        public async Task<IHttpActionResult> GetAsync([FromUri] long id) //id User
+        public async Task<IHttpActionResult> GetAsync()
         {
+            var id = 1; //userId from claim
             var cart = await _cartService.GetCartAsync(id);
             return this.Ok(cart);
         }
