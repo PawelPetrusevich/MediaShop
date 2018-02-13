@@ -13,7 +13,7 @@ namespace MediaShop.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201802091414328_Add_confirmation_token"; }
+            get { return "201802131000576_Add_confirmation_token"; }
         }
         
         string IMigrationMetadata.Source

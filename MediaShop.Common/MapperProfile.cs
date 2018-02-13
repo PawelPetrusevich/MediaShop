@@ -66,7 +66,7 @@ namespace MediaShop.Common
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
             this.CreateMap<AccountDbModel, AccountPwdRestoreDto>()
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
-            
+
             this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, PermissionDto>();

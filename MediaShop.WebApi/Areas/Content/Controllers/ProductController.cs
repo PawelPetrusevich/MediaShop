@@ -309,7 +309,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.ContentDownloadError);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return InternalServerError();
             }
