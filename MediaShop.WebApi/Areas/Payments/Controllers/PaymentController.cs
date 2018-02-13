@@ -1,84 +1,106 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.PaymentModel;
+using MediaShop.Common.Exceptions.PaymentExceptions;
+using MediaShop.Common.Models;
+using MediaShop.Common.Exceptions.PaymentExceptions;
+using MediaShop.Common.Exceptions.CartExceptions;
+using MediaShop.Common.Dto.Payment;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
     [RoutePrefix("api/payment")]
     public class PaymentController : ApiController
     {
-        private readonly IPaymentService _paymentService;
+        private readonly IPayPalPaymentService _paymentService;
 
-        public PaymentController(IPaymentService paymentService)
+        public PaymentController(IPayPalPaymentService paymentService)
         {
             this._paymentService = paymentService;
         }
-
-        /// <summary>
-        /// Get all transaction
-        /// </summary>
-        /// <returns>collection transactions</returns>
-        [HttpGet]
-        [Route("getall")]
-        public IHttpActionResult Get()
-        {
-            return this.Ok();
-        }
-
-        /// <summary>
-        /// Get all transaction by account
-        /// </summary>
-        /// <param name="id">account`s identificator</param>
-        /// <returns>IHttpActionResult</returns>
-        [HttpGet]
-        [Route("gettransactions")]
-        public IHttpActionResult Get([FromUri] long id)
-        {
-            return this.Ok();
-        }
-
-        /// <summary>
-        /// Method of payment for the content by the buyer
-        /// </summary>
-        /// <param name="contentId">contents identifier</param>
-        /// <returns>transaction`s identificator</returns>
+        
         [HttpPost]
-        [Route("paymentbuyer")]
-        [SwaggerResponseRemoveDefaults]
-        public IHttpActionResult Post([FromUri] long contentId)
+        [Route("paypalpayment")]
+        [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
-                return this.Ok();
+            try
+            {
+                string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
+                this.StatusCode(HttpStatusCode.Redirect);
+                return Redirect(paymentUrl);  
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (EmptyCartException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ContentCartPriceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        /// <summary>
-        /// Update transaction
-        /// </summary>
-        /// <param name="id">transaction`s identificator</param>
-        /// <returns>IHttpActionResult</returns>
-        [HttpPut]
-        [Route("updatetransaction")]
-        [SwaggerResponseRemoveDefaults]
-        public IHttpActionResult Put([FromUri] long id)
+        [HttpGet]
+        [Route("paypalpayment/executepaypalpayment")]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
+        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public IHttpActionResult ExecutePayment(string paymentId, string token)
         {
-                return this.Ok();
+            try
+            {
+                var payment = _paymentService.ExecutePayment(paymentId);
+                return Ok(payment);
+            }
+            catch (PayPalException ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (PaymentsException ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        /// <summary>
-        /// Delete transaction
-        /// </summary>
-        /// <param name="id">transaction`s identificator</param>
-        /// <returns>IHttpActionResult</returns>
-        [HttpDelete]
-        [Route("deletetransaction")]
-        public IHttpActionResult Delete([FromUri] long id)
+        [HttpGet]
+        [Route("paypalpayment/paymentcancelled/{token}")]
+        [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public IHttpActionResult PaymentCancelled(string token)
         {
-                return this.Ok();
+            try
+            {
+                this.StatusCode(HttpStatusCode.Redirect);
+                return Redirect("api/cart/getcart");
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

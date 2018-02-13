@@ -62,8 +62,16 @@
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.3.4\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -75,6 +83,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Payment\ItemDto.cs" />
+    <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
+
+    <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
+    <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
+    <Compile Include="Dto\Messaging\AccountTokenFactoryValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountPwdRestoreValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountPwdRestoreValidator.cs" />
     <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />
     <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
@@ -86,6 +104,7 @@
     <Compile Include="Dto\Product\ProductSearchModel.cs" />
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\ResetPasswordDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\PermissionDto.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
@@ -94,6 +113,22 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
+    <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
+    <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\DeleteDefrayalException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\ExistPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentsException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PayPalException.cs" />
+    <Compile Include="Exceptions\ModelValidateException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
+    <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
     <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
@@ -105,22 +140,29 @@
     <Compile Include="Exceptions\User\CreateProfileException.cs" />
     <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
+    <Compile Include="Interfaces\Repositories\IDefrayalRepository.cs" />
+    <Compile Include="Helpers\EmailSettingsConfig.cs" />
+    <Compile Include="Helpers\EmailSettingsConfigHelper.cs" />
+    <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Interfaces\IEmailSettingsConfig.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
     <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
-    <Compile Include="Exceptions\CartExseptions\AddContentInCartExceptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\DeleteContentInCartExseptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\NotExistProductInDataBaseExceptions.cs" />
-    <Compile Include="Exceptions\CartExseptions\UpdateContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\AddContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\NotExistProductInDataBaseExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Enums\ProductType.cs" />
     <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
     <Compile Include="Exceptions\User\NotFoundUserException.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IPayPalPaymentRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountTokenFactoryValidator.cs" />
     <Compile Include="Interfaces\Services\IBannedService.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
@@ -130,7 +172,7 @@
     <Compile Include="Dto\Product\ProductDto.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountService.cs" />
-    <Compile Include="Interfaces\Services\IPaymentService.cs" />
+    <Compile Include="Interfaces\Services\IPayPalPaymentService.cs" />
     <Compile Include="Enums\CartEnums.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\Services\IEmailService.cs" />
@@ -143,7 +185,7 @@
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />
-    <Compile Include="Exceptions\CartExseptions\ExistContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\ExistContentInCartExceptions.cs" />
     <Compile Include="Models\Content\CompressedProduct.cs" />
     <Compile Include="Models\Content\OriginalProduct.cs" />
     <Compile Include="Models\Content\Product.cs" />
@@ -151,7 +193,8 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Notification\Notification.cs" />
     <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
-    <Compile Include="Models\PaymentModel\PaymentTransaction.cs" />
+    <Compile Include="Models\PaymentModel\DefrayalDbModel.cs" />
+    <Compile Include="Models\PaymentModel\PayPalPaymentDbModel.cs" />
     <Compile Include="Models\User\AccountDbModel.cs" />
     <Compile Include="Models\User\SettingsDbModel.cs" />
     <Compile Include="Exceptions\User\ExistingLoginException.cs" />
@@ -182,6 +225,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

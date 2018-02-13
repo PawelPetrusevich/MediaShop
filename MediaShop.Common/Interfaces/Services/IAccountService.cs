@@ -4,7 +4,10 @@
 
 using System;
 using System.Threading.Tasks;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Exceptions;
+using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -36,9 +39,9 @@ namespace MediaShop.Common.Interfaces.Services
         /// Confirm user registration
         /// </summary>
         /// <param name="email">User email</param>
-        /// <param name="id">id user</param>
+        /// <param name="token">Confirmation token</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Account ConfirmRegistration(string email, long id);
+        Account ConfirmRegistration(AccountConfirmationDto model);
 
         /// <summary>
         /// Confirm user registration
@@ -46,7 +49,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        Task<Account> ConfirmRegistrationAsync(string email, long id);
+        Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model);
 
         /// <summary>
         /// Login user
@@ -73,7 +76,36 @@ namespace MediaShop.Common.Interfaces.Services
         /// Reset user password  for recovery
         /// </summary>
         /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
         /// <returns>account</returns>
-        Account RecoveryPassword(string email);      
+        Account RecoveryPassword(ResetPasswordDto model);
+
+        /// <summary>
+        /// Reset user password  for recovery
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
+        /// <returns>account</returns>
+        Task<Account> RecoveryPasswordAsync(ResetPasswordDto model);
+
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        void InitRecoveryPassword(string email);
+
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        Task InitRecoveryPasswordAsync(string email);
     }
 }
