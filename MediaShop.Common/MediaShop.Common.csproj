@@ -129,6 +129,7 @@
     <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
     <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
     <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
+    <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />

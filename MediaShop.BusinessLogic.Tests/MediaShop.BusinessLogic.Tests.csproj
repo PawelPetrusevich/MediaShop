@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminTests\AccountPermissionTest.cs" />
+    <Compile Include="AdminTests\LoginTest.cs" />
     <Compile Include="AdminTests\RegistrationServiceTest.cs" />
     <Compile Include="PayPalPaymentTests\PaymentForContentViaPayPalServiceTests.cs" />
     <Compile Include="AdminTests\RestorePasswordTest.cs" />
