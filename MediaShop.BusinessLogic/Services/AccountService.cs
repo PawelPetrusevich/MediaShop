@@ -50,6 +50,34 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         /// <summary>
+        /// Find user for login
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<AccountDbModel> FindUserAsync(string userName, string password)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(userName));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(password));
+            }
+
+            var user = await _factoryRepository.Accounts.GetByLoginAsync(userName);
+
+            if (user == null || !user.Password.Equals(password))
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        /// <summary>
         /// Registers the user.
         /// </summary>
         /// <param name="userModel">The user to register.</param>
@@ -67,7 +95,7 @@ namespace MediaShop.BusinessLogic.Services
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
             modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = this._factoryRepository.Accounts.Add(modelDbModel);
-            account = account ?? throw new AddAccountException();
+             account = account ?? throw new AddAccountException();
             var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
             _emailService.SendConfirmation(confirmationModel);
@@ -101,16 +129,16 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
         public Account ConfirmRegistration(AccountConfirmationDto model)
-        {
+            {
             var result = _tokenValidator.AccountConfirmation.Validate(model);
 
             if (!result.IsValid)
             {
                 throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
-            
+
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
-            
+
             if (user.IsConfirmed)
             {
                 throw new ConfirmedUserException();
@@ -134,7 +162,7 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         public async Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model)
-        {
+            {
             var result = _tokenValidator.AccountConfirmation.Validate(model);
 
             if (!result.IsValid)
@@ -143,7 +171,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
-            
+
             if (user.IsConfirmed)
             {
                 throw new ConfirmedUserException();
@@ -175,6 +203,11 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>Authorised user</c></returns>
         public Account Login(LoginDto data)
         {
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(data));
+            }
+
             var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
 
             if (user.Password != data.Password)
@@ -185,6 +218,22 @@ namespace MediaShop.BusinessLogic.Services
             var statistic = new StatisticDbModel() { AccountId = user.Id };
             var result = this._factoryRepository.Statistics.Add(statistic);
             result = result ?? throw new AddStatisticException();          
+
+            return Mapper.Map<Account>(result.AccountDbModel);
+        }
+
+        public async Task<Account> LoginAsync(LoginDto data)
+        {
+            var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
+
+            if (user.Password != data.Password)
+            {
+                throw new IncorrectPasswordException();
+            }
+
+            var statistic = new StatisticDbModel() { AccountId = user.Id };
+            var result = await this._factoryRepository.Statistics.AddAsync(statistic);
+            result = result ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
