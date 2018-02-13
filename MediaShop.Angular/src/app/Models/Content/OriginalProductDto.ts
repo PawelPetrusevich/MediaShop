@@ -1,4 +1,4 @@
-export class CompressedProductDto {
+export class OriginalProductDTO {
   id: number;
   productName: string;
   content: string;
