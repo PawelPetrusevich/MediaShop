@@ -95,6 +95,21 @@ namespace MediaShop.DataAccess.Repositories
             return model;
         }
 
+        /// <summary>
+        /// Get user by login
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<AccountDbModel> GetByLoginAsync(string login)
+        {
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return await this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Login.Equals(login));
+        }
+
         public async Task<AccountDbModel> UpdateAsync(AccountDbModel model)
         {
             if (model == null)
@@ -187,6 +202,38 @@ namespace MediaShop.DataAccess.Repositories
             }
 
             return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Login.Equals(login));
+        }
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>Account</returns>
+        /// <exception cref="ArgumentException">if login is null or empty string</exception>
+        public AccountDbModel GetByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Email.Equals(email));
+        }
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>Account</returns>
+        /// <exception cref="ArgumentException">if login is null or empty string</exception>
+        public Task<AccountDbModel> GetByEmailAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(Resources.InvalidLoginValue);
+            }
+
+            return this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Email.Equals(email));
         }
     }
 }

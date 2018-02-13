@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -84,6 +85,14 @@
   <ItemGroup>
     <Compile Include="Dto\Payment\ItemDto.cs" />
     <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
+
+    <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
+    <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
+    <Compile Include="Dto\Messaging\AccountTokenFactoryValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountPwdRestoreValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountPwdRestoreValidator.cs" />
     <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />
     <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
@@ -95,6 +104,7 @@
     <Compile Include="Dto\Product\ProductSearchModel.cs" />
     <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
     <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\ResetPasswordDto.cs" />
     <Compile Include="Dto\User\UpdateModelDto.cs" />
     <Compile Include="Dto\User\PermissionDto.cs" />
     <Compile Include="Dto\User\RoleUserDto.cs" />
@@ -115,6 +125,11 @@
     <Compile Include="Exceptions\PaymentExceptions\PaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\PaymentsException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\PayPalException.cs" />
+    <Compile Include="Exceptions\ModelValidateException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
+    <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
+    <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
@@ -126,6 +141,10 @@
     <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
     <Compile Include="Interfaces\Repositories\IDefrayalRepository.cs" />
+    <Compile Include="Helpers\EmailSettingsConfig.cs" />
+    <Compile Include="Helpers\EmailSettingsConfigHelper.cs" />
+    <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Interfaces\IEmailSettingsConfig.cs" />
     <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
     <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
@@ -143,6 +162,7 @@
     <Compile Include="Interfaces\Repositories\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
     <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountTokenFactoryValidator.cs" />
     <Compile Include="Interfaces\Services\IBannedService.cs" />
     <Compile Include="Interfaces\Services\INotificationService.cs" />
     <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
@@ -205,6 +225,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
