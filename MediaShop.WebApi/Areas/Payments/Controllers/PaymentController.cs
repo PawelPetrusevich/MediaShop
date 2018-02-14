@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Interfaces.Services;

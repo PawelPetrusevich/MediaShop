@@ -45,6 +45,24 @@
         }
 
         /// <summary>
+        /// Override async add model to repository
+        /// </summary>
+        /// <param name="model">model user</param>
+        /// <returns>db entry</returns>
+        /// <exception cref="ArgumentNullException">if model = null</exception>
+        public override async Task<ContentCart> AddAsync(ContentCart model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var result = this.DbSet.Add(model);
+            await this.Context.SaveChangesAsync().ConfigureAwait(false);
+            return result;
+        }
+
+        /// <summary>
         /// Method for update object type ContentCart
         /// </summary>
         /// <param name="model">updating object</param>
@@ -56,6 +74,27 @@
             this.Context.Entry(model).State = EntityState.Modified;
             this.Context.SaveChanges();
             return model;
+        }
+
+        /// <summary>
+        /// Override async method update for type ContentCart
+        /// </summary>
+        /// <param name="model">Model to update</param>
+        /// <returns>Updated model</returns>
+        public override async Task<ContentCart> UpdateAsync(ContentCart model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var entity = await this.GetAsync(model.Id);
+
+            entity = Mapper.Map(model, entity);
+            this.Context.Entry(entity).State = EntityState.Modified;
+
+            await this.Context.SaveChangesAsync().ConfigureAwait(false);
+            return entity;
         }
 
         /// <summary>
