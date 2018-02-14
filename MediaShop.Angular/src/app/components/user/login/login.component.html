@@ -1,3 +1,26 @@
 <p>
   login works!
 </p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <label>UserName</label>
+    </div>
+    <div class="col-md-4">
+      <input type="text" #username class="" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <label>Password</label>
+    </div>
+    <div class="col-md-4">
+      <input type="text" #login class="" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="row">
+      <button type="submit" class="btn btn-primary" (click)="login(username.value,password.value)">Login</button>
+    </div>
+  </div>
+</div>

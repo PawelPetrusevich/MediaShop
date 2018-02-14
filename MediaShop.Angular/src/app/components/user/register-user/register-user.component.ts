@@ -13,14 +13,20 @@ import { Account } from '../../../Models/User/account';
 export class RegisterUserComponent implements OnInit {
 
   status : number;
-  user : Account = new Account();
+  userInfo : Account =new Account();
   
   constructor(private accountService : AccountService) { }
 
-  register(registerUser : RegisterUserDto): void {
+  register(username : string, password : string, confirmPassword : string, email : string): void {
+    const user = new RegisterUserDto();
+    user.Email = username;
+    user.Password = password;
+    user.ConfirmPassword = confirmPassword;
+    user.Email = email;
+    
     this.accountService
-      .register(registerUser)
-      .subscribe(resp =>  this.user = resp, err => console.log(err));
+      .register(user)
+      .subscribe(resp =>  this.userInfo = resp, err => console.log(err));
   }
   
   ngOnInit() {
