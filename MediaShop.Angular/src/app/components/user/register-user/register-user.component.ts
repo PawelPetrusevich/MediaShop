@@ -17,9 +17,9 @@ export class RegisterUserComponent implements OnInit {
   
   constructor(private accountService : AccountService) { }
 
-  register(username : string, password : string, confirmPassword : string, email : string): void {
+  register(login : string, password : string, confirmPassword : string, email : string): void {
     const user = new RegisterUserDto();
-    user.Email = username;
+    user.Login = login;
     user.Password = password;
     user.ConfirmPassword = confirmPassword;
     user.Email = email;

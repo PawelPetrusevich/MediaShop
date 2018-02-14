@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Messaging;
@@ -26,6 +27,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using System.Text;
 
     [RoutePrefix("api/account")]
+    [EnableCors("*", "*", "*")]
     [AccountExceptionFilter]
     [Authorize]
     public class AccountController : ApiController

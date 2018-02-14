@@ -18,10 +18,10 @@ export class AccountService {
     .catch(err => Observable.throw(err));
   }
 
-  login(username: string, password: string) : Observable<TokenResponse> {
+  login(login: string, password: string) : Observable<TokenResponse> {
 
     const body =
-    'grant_type=password&username=' + username + '&password=' + password;
+    'grant_type=password&username=' + login + '&password=' + password;
 
     const options = new RequestOptions();
     options.headers = new Headers();

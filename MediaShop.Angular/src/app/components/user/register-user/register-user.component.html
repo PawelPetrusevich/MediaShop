@@ -5,10 +5,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-1">
-      <label>UserName</label>
+      <label>Login</label>
     </div>
     <div class="col-md-4">
-      <input type="text" #username class="" />
+      <input type="text" #login class="" />
     </div>
   </div>
   <div class="row">
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="row">
-    <button type="submit" class="btn btn-primary" (click)="register(username.value, password.value, confirmPassword.value, email.value)">Register</button>
+    <button type="submit" class="btn btn-primary" (click)="register(login.value, password.value, confirmPassword.value, email.value)">Register</button>
   </div>
 </div>
 
