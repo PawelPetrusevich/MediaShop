@@ -1,5 +1,5 @@
 export class ProductSearchModel {
-  leftValue: string;
-  operand: string;
-  rightValue: string;
+  LeftValue: string;
+  Operand: string;
+  RightValue: string;
 }

@@ -1,3 +1,3 @@
-<ul>
-  <li *ngFor = "let product of compressedProductList"><app-product [compressedProduct] = "product"></app-product></li>
-</ul>
+<div>
+    <app-product *ngFor = "let product of compressedProductList" [compressedProduct] = "product"></app-product>
+</div>

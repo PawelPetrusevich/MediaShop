@@ -15,5 +15,4 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.productService.getListProduct().subscribe((resp: CompressedProductDto[]) => this.compressedProductList = resp);
   }
-
 }

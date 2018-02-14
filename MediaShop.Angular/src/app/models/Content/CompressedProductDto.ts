@@ -1,5 +1,5 @@
 export class CompressedProductDto {
-  id: number;
-  productName: string;
-  content: string;
+  Id: number;
+  ProductName: string;
+  Content: string;
 }

@@ -1,9 +1,9 @@
 import { ContentType } from './ContentType';
 
 export class ProductDto {
-   id: number;
-   productName: string;
-   productPrice: number;
+   Id: number;
+   ProductName: string;
+   ProductPrice: number;
    ProductType: ContentType;
    Description: number;
 }
