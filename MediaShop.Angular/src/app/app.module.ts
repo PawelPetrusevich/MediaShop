@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { PaymentComponent } from './components/payment/payment.component';
+import { AddProductInCartComponent } from './components/add-product-in-cart/add-product-in-cart/add-product-in-cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
-    PaymentComponent
+    PaymentComponent,
+    AddProductInCartComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
