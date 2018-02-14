@@ -38,9 +38,9 @@ export class CartComponent implements OnInit {
   delete(element: ContentCartDto) {
     this.showError = false;
     this.cartService.delete(element).subscribe(resp => {
-      const index = this.cart.ContentCartCollection.indexOf(resp, 0);
+      const index = this.cart.ContentCartDtoCollection.indexOf(resp, 0);
       if (index > -1) {
-        this.cart.ContentCartCollection.splice(index, 1);
+        this.cart.ContentCartDtoCollection.splice(index, 1);
       }
     }, (err: HttpErrorResponse) => {
       if (err.status === 404) {
@@ -64,7 +64,7 @@ export class CartComponent implements OnInit {
   );
   }
 
-  paypalPayment(cart: Cart) {
+  paypalPayment() {
     this.paymentService.payPalPayment(this.cart).subscribe(resp => {
       this.url = resp;
     }, (err: HttpErrorResponse) => {
