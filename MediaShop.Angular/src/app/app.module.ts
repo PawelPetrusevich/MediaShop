@@ -12,13 +12,15 @@ import { Paymentservice } from './services/paymentservice';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
     ExecutePaymentComponent,
-    ContentCartComponent
+    ContentCartComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule

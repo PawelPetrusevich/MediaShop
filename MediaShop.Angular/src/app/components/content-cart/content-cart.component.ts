@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ContentCartDto } from '../../Models/Cart/content-cart-dto';
 
 @Component({
   selector: 'app-content-cart',
@@ -6,8 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-cart.component.css']
 })
 export class ContentCartComponent implements OnInit {
+  contentCart1: ContentCartDto;
+  @Input()contentCart: ContentCartDto;
 
-  constructor() { }
+  constructor() {
+  }
+
+ // constructor(object: ContentCartDto) {
+//    this.contentCart = object;
+ // }
 
   ngOnInit() {
   }
