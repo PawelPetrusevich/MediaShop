@@ -48,6 +48,8 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             _smtpClientMock = new Mock<SmtpClient>();
             var temapltesPath = new Dictionary<string, string>();
             var pathFolders = AppContext.BaseDirectory.Split('\\').ToList();
+            if (string.IsNullOrWhiteSpace(pathFolders[pathFolders.Count - 1]))
+                pathFolders = pathFolders.Take(pathFolders.Count - 1).ToList();
             pathFolders[0] += '\\';
             pathFolders = pathFolders.Take(pathFolders.Count - 3).ToList();
             pathFolders.Add("MediaShop.WebApi");
