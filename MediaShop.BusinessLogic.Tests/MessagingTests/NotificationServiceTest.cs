@@ -13,6 +13,7 @@ using Moq;
 using NUnit.Framework;
 using BLResources = MediaShop.BusinessLogic.Properties.Resources;
 using MediaShop.Common.Dto.Messaging;
+using FluentValidation;
 
 namespace MediaShop.BusinessLogic.Tests.MessagingTests
 {
@@ -31,6 +32,8 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         private NotificationService _service;
         private List<string> _testTokens;
 
+        private Mock<IValidator<NotificationDto>> _validator;
+
         public NotificationServiceTest()
         {
             Mapper.Reset();
@@ -42,8 +45,9 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         {
             _notificationSubscrubedUserMock = new Mock<INotificationSubscribedUserRepository>();
             _notificationRepoMock = new Mock<INotificationRepository>();
+            _validator = new Mock<IValidator<NotificationDto>>();
 
-            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object);
+            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator.Object);
             _notification = new Notification()
             {
                 CreatorId = 1,

@@ -42,7 +42,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(result.Errors.FirstOrDefault().ErrorMessage, result.Errors.SingleOrDefault(m => m == m));
+                throw new ArgumentException(/*result.Errors.FirstOrDefault().ErrorMessage, result.Errors.SingleOrDefault(m => m == m)*/);
             }
 
             if (string.IsNullOrWhiteSpace(notification.Title))

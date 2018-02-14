@@ -14,7 +14,7 @@
         public virtual Product Product { get; set; }
 
         /// <summary>
-        /// Gets or sets cart creator name
+        /// Gets or sets ProductId
         /// </summary>
         public long ProductId { get; set; }
 

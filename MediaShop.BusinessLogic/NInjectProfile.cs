@@ -33,8 +33,8 @@ namespace MediaShop.BusinessLogic
             Bind<INotificationService>().To<NotificationService>();
             Bind<IEmailService>().To<EmailService>();
             Bind<ICartService<ContentCartDto>>().To<CartService>();
-            Bind<IValidator<RegisterUserDto>>().To<RegisterUserVaildator>();
-            Bind<IPaymentService>().To<PaymentService>();
+            Bind<IValidator<RegisterUserDto>>().To<ExistingUserValidator>();
+            Bind<IPayPalPaymentService>().To<PayPalPaymentService>();
             Bind<IProductService>().To<ProductService>();
             Bind<IBannedService>().To<BannedService>();
             Bind<IValidator<NotificationDto>>().To<NotificationDtoValidator>();

@@ -7,7 +7,7 @@
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
     using MediaShop.Common.Enums;
-    using MediaShop.Common.Exceptions.CartExseptions;
+    using MediaShop.Common.Exceptions.CartExceptions;
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models;
@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository, IPaymentService paymentService)
+        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository)
         {
             this.repositoryContentCart = contentCartRepository;
             this.repositoryProduct = productRepository;
@@ -69,8 +69,16 @@
                 throw new AddContentInCartExceptions(Resources.ResourceManager.GetString("AddContentInCart"));
             }
 
+            // Get information about Product by Id
+            var product = this.repositoryProduct.Get(contentId);
+
+            // Create ContentCartDto
+            var contentCartDto = Mapper.Map<ContentCartDto>(product);
+            contentCartDto.Id = addContentCart.Id;
+            contentCartDto.CreatorId = 1; // Need take CreatorId
+
             // Output mapping object ContentCart to object ContentCartDto
-            return Mapper.Map<ContentCartDto>(addContentCart);
+            return contentCartDto;
         }
 
         /// <summary>
@@ -108,7 +116,7 @@
         /// <summary>
         /// Method for deleting selected ContentCartDto
         /// </summary>
-        /// <param name="collectionId">collection users id</param>
+        /// <param name="collectionId">collection content id</param>
         /// <returns>collection of remote objects</returns>
         public ICollection<ContentCartDto> DeleteOfCart(ICollection<long> collectionId)
         {
@@ -171,7 +179,8 @@
                 foreach (var content in cart.ContentCartDtoCollection)
                 {
                     var deleteContentCart = this.DeleteContent(content);
-                    id = content.CreatorId; // Get user Id from Token
+
+                    // id = content.CreatorId; // Get user Id from Token
                 }
             }
 
@@ -195,7 +204,7 @@
         /// <returns> shopping cart for a user </returns>
         public IEnumerable<ContentCartDto> GetContent(long id)
         {
-            var contentInCart = this.repositoryContentCart.GetAll(id).Where(x => x.StateContent == CartEnums.StateCartContent.InCart);
+            var contentInCart = this.repositoryContentCart.GetById(id);
             return Mapper.Map<IEnumerable<ContentCartDto>>(contentInCart);
         }
 
