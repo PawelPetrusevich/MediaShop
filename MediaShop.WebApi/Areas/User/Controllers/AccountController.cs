@@ -92,7 +92,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
-        [Route("confirm/{email}/{id}")]
+        [AllowAnonymous]
+        [Route("confirm/{email}/{token}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
@@ -137,7 +138,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("confirmAsync/{email}/{id}")]
+        [Route("confirmAsync/{email}/{token}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
