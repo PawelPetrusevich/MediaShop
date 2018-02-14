@@ -89,6 +89,32 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         }
 
         [HttpGet]
+        [Route("paypalpayment/executepaypalpaymentasync")]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
+        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public async Task<IHttpActionResult> ExecutePaymentAsync(string paymentId, string token)
+        {
+            try
+            {
+                var payment = await _paymentService.ExecutePaymentAsync(paymentId);
+                return Ok(payment);
+            }
+            catch (PayPalException ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (PaymentsException ex)
+            {
+                return InternalServerError(ex);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("paypalpayment/paymentcancelled/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]

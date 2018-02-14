@@ -28,6 +28,13 @@
         PayPalPaymentDto ExecutePayment(string paymentId);
 
         /// <summary>
+        /// Executes, or completes, a PayPal payment that the payer has approved
+        /// </summary>
+        /// <param name="paymentId">paymentId</param>
+        /// <returns>Executed Payment</returns>
+        Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId);
+
+        /// <summary>
         /// Add new model
         /// </summary>
         /// <param name="payment">object Payment for save in repository</param>

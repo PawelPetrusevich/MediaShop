@@ -585,6 +585,29 @@
         }
 
         /// <summary>
+        /// Executes, or completes, a PayPal payment that the payer has approved
+        /// </summary>
+        /// <param name="paymentId">paymentId</param>
+        /// <returns>Executed Payment</returns>
+        public async Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId)
+        {
+            var config = Configuration.GetConfig();
+            var accessToken = new OAuthTokenCredential(config).GetAccessToken();
+            var apiContext = new APIContext(accessToken);
+            var payment = Payment.Get(apiContext, paymentId);
+            payment = payment ?? throw new PaymentException(Resources.PaymentIsNullOrEmpty);
+            var paymentExecution = new PaymentExecution()
+            {
+                payer_id = payment.payer.payer_info.payer_id
+            };
+
+            var executedPayment = new Payment();
+            executedPayment = payment.Execute(apiContext, paymentExecution);
+            var result = await this.AddPaymentAsync(executedPayment);
+            return result;
+        }
+
+        /// <summary>
         /// Get new redirectUrls
         /// </summary>
         /// <param name="baseUrl">base Uri of Request</param>
