@@ -1,14 +1,10 @@
-<p>
-  register-user works!
-</p>
-
 <div class="container">
   <div class="row">
     <div class="col-md-1">
-      <label>Login</label>
+      <label>UserName</label>
     </div>
     <div class="col-md-4">
-      <input type="text" #login class="" />
+      <input type="text" [(ngModel)]="login" class="" />
     </div>
   </div>
   <div class="row">
@@ -16,7 +12,7 @@
       <label>Password</label>
     </div>
     <div class="col-md-4">
-      <input type="text" #password class="" />
+      <input type="text" [(ngModel)]="password" class="" />
     </div>
   </div>
   <div class="row">
@@ -24,7 +20,7 @@
       <label>ConfirmPassword</label>
     </div>
     <div class="col-md-4">
-      <input type="text" #confirmPassword class="" />
+      <input type="text" [(ngModel)]="confirmPassword" class="" />
     </div>
   </div>
   <div class="row">
@@ -32,11 +28,11 @@
       <label>Email</label>
     </div>
     <div class="col-md-4">
-      <input type="text" #email class="" />
+      <input type="text" [(ngModel)]="email" class="" />
     </div>
   </div>
   <div class="row">
-    <button type="submit" class="btn btn-primary" (click)="register(login.value, password.value, confirmPassword.value, email.value)">Register</button>
+    <button type="submit" class="btn btn-primary" (click)="register(login, password, confirmPassword, email)">Register</button>
   </div>
 </div>
 
