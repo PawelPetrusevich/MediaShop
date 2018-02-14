@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.IO;
 using System.Threading.Tasks;
+using MediaShop.WebApi.Filters;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Interfaces.Services;
@@ -20,6 +21,7 @@ using System.Web.Http.Cors;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
+    [PayPalPaymentExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/payment")]
     public class PaymentController : ApiController

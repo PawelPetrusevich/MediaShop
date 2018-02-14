@@ -3,6 +3,7 @@ using System.Net;
 using System;
 using System.Threading.Tasks;
 using MediaShop.Common.Enums;
+using MediaShop.WebApi.Filters;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Interfaces.Services;
@@ -12,6 +13,7 @@ using System.Web.Http.Cors;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
+    [CartExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
@@ -66,30 +68,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult Post(long contentId)
         {
-            try
-            {
                 return this.Ok(_cartService.AddInCart(contentId));
-            }
-            catch (ArgumentException error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (NotExistProductInDataBaseExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (ExistContentInCartExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (AddContentInCartExceptions error)
-            {
-                return InternalServerError(error);
-            }
-            catch (Exception error)
-            {
-                return InternalServerError(error);
-            }
         }
 
         /// <summary>
@@ -105,31 +84,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public async Task<IHttpActionResult> PostAsync(long contentId)
         {
-            try
-            {
                 var result = await _cartService.AddInCartAsync(contentId);
                 return this.Ok(result);
-            }
-            catch (ArgumentException error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (NotExistProductInDataBaseExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (ExistContentInCartExceptions error)
-            {
-                return BadRequest(error.Message);
-            }
-            catch (AddContentInCartExceptions error)
-            {
-                return InternalServerError(error);
-            }
-            catch (Exception error)
-            {
-                return InternalServerError(error);
-            }
         }
 
         /// <summary>
