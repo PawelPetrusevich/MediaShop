@@ -6,7 +6,7 @@ namespace MediaShop.Common.Helpers
     {
         public static string NewToken()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Replace('/', '=');
         }
     }
 }

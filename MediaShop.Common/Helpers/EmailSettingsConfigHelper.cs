@@ -22,8 +22,11 @@ namespace MediaShop.Common.Helpers
             var temapltesPath = new Dictionary<string, string>();
             var pathFolders = AppContext.BaseDirectory.Split('\\').ToList();
             pathFolders[0] += '\\';
-            pathFolders = pathFolders.Take(pathFolders.Count - 3).ToList();
-            pathFolders.Add("MediaShop.WebApi");
+            if (string.IsNullOrWhiteSpace(pathFolders[pathFolders.Count - 1]))
+            {
+                pathFolders = pathFolders.Take(pathFolders.Count - 1).ToList();
+            }
+
             pathFolders.Add("Content");
             pathFolders.Add("Templates");
             var templatesFoldePath = Path.Combine(pathFolders.ToArray());

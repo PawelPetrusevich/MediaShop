@@ -113,11 +113,12 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
             account = account ?? throw new AddAccountException();
             var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            _emailService.SendConfirmationAsync(confirmationModel);
+            await _emailService.SendConfirmationAsync(confirmationModel).ConfigureAwait(false);
 
             return Mapper.Map<Account>(account);
         }
