@@ -1,14 +1,4 @@
-<table class = "table">
-  <thead>
-    <td>ID</td>
-    <td>Name</td>
-    <td>Content</td>
-  </thead>
-  <tbody>
-    <tr  *ngFor = "let item of compressedProductList">
-      <td>{{item.Id}}</td>
-      <td>{{item.ProductName}}</td>
-      <td><img src = "data:image/jpg;base64,{{item.Content}}" width="100" height="100"/></td>
-    </tr>
-  </tbody>
-</table>
+<ul>
+  <li>{{compressedProduct.id}}</li>
+  <li>{{compressedProduct.productName}}</li>
+</ul>

@@ -27,6 +27,33 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             _productService = productService;
         }
 
+        [HttpGet]
+        [Route("getById/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        public IHttpActionResult GetProductById([FromUri]long id)
+        {
+            if (id == null || id <= 0)
+            {
+                return BadRequest(Resources.IncorrectId);
+            }
+
+            try
+            {
+                return Ok(_productService.GetById(id));
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(Resources.NotFoundProduct);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError();
+            }
+        }
+
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("add")]
         [SwaggerResponseRemoveDefaults]

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { CompressedProductDto } from '../Models/Content/CompressedProductDto';
+import { UploadProductModel } from '../Models/Content/UploadProductModel';
+import { ProductDto } from '../Models/Content/ProductDto';
 
 @Injectable()
 export class ProductService {
@@ -16,6 +18,14 @@ export class ProductService {
   private webApiUrl = 'http://localhost:51289/api/product/';
 
   getListProduct() {
-    return this.http.get(this.webApiUrl + 'GetListOnSale');
+    return this.http.get<CompressedProductDto[]>(this.webApiUrl + 'GetListOnSale');
+  }
+
+  uploadProduct(uploadProduct: UploadProductModel) {
+    return this.http.post(this.webApiUrl + 'add', uploadProduct);
+  }
+
+  getProductById(ID: number) {
+    return this.http.get<ProductDto>(this.webApiUrl + 'getById/' + ID);
   }
 }

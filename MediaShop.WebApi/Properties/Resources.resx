@@ -151,4 +151,7 @@
     <value>Product not found</value>
     <comment>продукт не найден</comment>
   </data>
+  <data name="NotFoundProduct" xml:space="preserve">
+    <value>Not found product with this ID</value>
+  </data>
 </root>

@@ -142,6 +142,15 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Not found product with this ID.
+        /// </summary>
+        internal static string NotFoundProduct {
+            get {
+                return ResourceManager.GetString("NotFoundProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Notification is not valid.
         /// </summary>
         internal static string NotValidNotification {

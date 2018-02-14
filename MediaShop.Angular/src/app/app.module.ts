@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -11,6 +11,8 @@ import { ProductComponent } from './components/Content/product/product.component
 import { ProductService } from './Services/product-service.service';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
+import { ProductListComponent } from './components/Content/product-list/product-list.component';
+import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ExecutePaymentComponent } from './components/execute-payment/execute-pa
     AppComponent,
     ProductComponent,
     CartComponent,
-    ExecutePaymentComponent
+    ExecutePaymentComponent,
+    ProductListComponent,
+    ProductInfoComponent
   ],
   imports: [
     BrowserModule,

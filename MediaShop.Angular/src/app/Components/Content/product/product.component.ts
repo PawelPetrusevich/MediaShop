@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { ProductService } from '../../../Services/product-service.service';
 import { CompressedProductDto } from '../../../Models/Content/CompressedProductDto';
+import { Observable } from 'rxjs/observable';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({
   selector: 'app-product',
@@ -10,15 +12,10 @@ import { CompressedProductDto } from '../../../Models/Content/CompressedProductD
 })
 export class ProductComponent implements OnInit {
 
-  compressedProductList: CompressedProductDto[];
-
-  constructor(private productService: ProductService) { }
+  @Input() compressedProduct: CompressedProductDto;
+  constructor(private productService: ProductService) {
+   }
 
   ngOnInit() {
-    this.loadCompressedProductList();
-  }
-
-  loadCompressedProductList() {
-    return this.productService.getListProduct().subscribe((response: CompressedProductDto[]) => this.compressedProductList = response);
   }
 }
