@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {HttpClientModule} from '@angular/common/http';
-import {HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { HttpClient } from 'selenium-webdriver/http';
     LoginComponent
   ],
   imports: [
-    BrowserModule, NgbModule.forRoot(),HttpClientModule,
+    BrowserModule, NgbModule.forRoot(),HttpClientModule,FormsModule,HttpModule
   ],
   providers: [AccountService],
   bootstrap: [AppComponent]
