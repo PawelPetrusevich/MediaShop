@@ -149,7 +149,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.EmptyConditionList);
             }
-
+                
             try
             {
                 return Ok(_productService.Find(conditionsList));
@@ -163,7 +163,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
-
+                
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("FindAsync")]
         [SwaggerResponseRemoveDefaults]

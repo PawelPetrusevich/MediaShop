@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using MediaShop.Common.Dto;
@@ -15,6 +18,7 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
+using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.User.Controllers
@@ -23,6 +27,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     [RoutePrefix("api/account")]
     [AccountExceptionFilter]
+    [Authorize]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -33,6 +38,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -50,7 +56,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                         sb.AppendFormat("{0} ! ", error.ErrorMessage);
                     }
                 }
-
+               
                 return BadRequest(sb.ToString());
             }
 
@@ -59,6 +65,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("registerAsync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -85,7 +92,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
-        [Route("confirm/{email}/{token}")]
+        [Route("confirm/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
@@ -100,8 +107,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
-                return Ok(account);
-            }
+            return Ok(account);
+        }
             catch (NotFoundUserException ex)
             {
                 return BadRequest(ex.Message);
@@ -129,6 +136,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("confirmAsync/{email}/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
@@ -144,8 +152,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
-                return Ok(account);
-            }
+            return Ok(account);
+        }
             catch (NotFoundUserException ex)
             {
                 return BadRequest(ex.Message);
@@ -170,23 +178,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             {
                 return InternalServerError(ex);
             }
-        }
-
-        [HttpPost]
-        [Route("login")]
-        [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult Login([FromBody] LoginDto data)
-        {
-            if (data == null || !ModelState.IsValid)
-            {
-                return BadRequest(Resources.EmtyData);
-            }
-
-            var user = _accountService.Login(data);
-            return Ok(user);
         }
 
         [HttpPost]

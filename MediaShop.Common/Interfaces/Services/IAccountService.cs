@@ -19,6 +19,8 @@ namespace MediaShop.Common.Interfaces.Services
     /// </summary>
     public interface IAccountService
     {
+        Task<AccountDbModel> FindUserAsync(string userName, string password);
+
         /// <summary>
         /// Registers the user.
         /// </summary>
@@ -55,6 +57,13 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="data">Login data</param>
         /// <returns><c>Login account</c></returns>
         Account Login(LoginDto data);
+
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <param name="data">Login data</param>
+        /// <returns><c>Login account</c></returns>
+        Task<Account> LoginAsync(LoginDto data);
 
         /// <summary>
         /// Logout user
