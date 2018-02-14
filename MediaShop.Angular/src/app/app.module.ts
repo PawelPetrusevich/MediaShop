@@ -4,16 +4,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
+import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
+import { UserService } from './Services/User/userservise';
 
-
+// не забываем декларировать добавленные компоненты и сервисы чтобы их видели остальные
 @NgModule({
   declarations: [
-    AppComponent
+    // сюда компоненты
+    AppComponent, SetPermissionComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    // сюда сервисы
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
