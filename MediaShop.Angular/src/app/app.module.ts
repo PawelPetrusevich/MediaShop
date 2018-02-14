@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegisterUserComponent } from './components/user/register-user/register-user.component';
 import {LoginComponent} from './components/user/login/login.component';
-import { AccountService } from './Services/AccountService';
+import { AccountService } from './Services/User/AccountService';
 import { HttpClient } from 'selenium-webdriver/http';
 
 @NgModule({

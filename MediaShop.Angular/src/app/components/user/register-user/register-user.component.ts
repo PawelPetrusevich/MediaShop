@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RegisterUserDto} from '../../../Models/User/register-userDto';
-import {AccountService} from '../../../Services/AccountService';
+import {AccountService} from '../../../Services/User/AccountService';
 import { Account } from '../../../Models/User/account';
 
 @Component({
@@ -12,7 +12,7 @@ import { Account } from '../../../Models/User/account';
 
 export class RegisterUserComponent implements OnInit {
 
-  status : number;
+  status : any;
   userInfo : Account =new Account();
   
   constructor(private accountService : AccountService) { }
@@ -26,7 +26,7 @@ export class RegisterUserComponent implements OnInit {
     
     this.accountService
       .register(user)
-      .subscribe(resp =>  this.userInfo = resp, err => console.log(err));
+      .subscribe(resp =>  (this.userInfo = resp), err => console.log(err));
   }
   
   ngOnInit() {

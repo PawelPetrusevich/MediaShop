@@ -4,9 +4,9 @@ import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { RegisterUserDto } from '../Models/User/register-userDto';
-import { Account } from '../Models/User/account';
-import { TokenResponse } from '../Models/User/token-response';
+import { RegisterUserDto } from '../../Models/User/register-userDto';
+import { Account } from '../../Models/User/account';
+import { TokenResponse } from '../../Models/User/token-response';
 
 @Injectable()
 export class AccountService {
@@ -29,7 +29,7 @@ export class AccountService {
     options.headers.append('Access-Control-Allow-Origin', '*');
 
     return this.http
-    .post('http://localhost:1787/token', body, options)
+    .post('http://localhost:51289/token', body, options)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
