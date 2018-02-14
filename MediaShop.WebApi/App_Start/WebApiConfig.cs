@@ -7,9 +7,7 @@ using FluentValidation.WebApi;
 using Microsoft.Owin.Security.OAuth;
 
 namespace MediaShop.WebApi
-{
-    using System.Web.Http;
-
+{      
     /// <summary>
     /// Class WebApiConfig.
     /// </summary>
@@ -29,6 +27,7 @@ namespace MediaShop.WebApi
 
             // Web API configuration and services
             FluentValidationModelValidatorProvider.Configure(config);
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

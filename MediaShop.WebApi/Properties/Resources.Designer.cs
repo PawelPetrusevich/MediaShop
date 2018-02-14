@@ -61,6 +61,24 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        internal static string ClaimTypeId {
+            get {
+                return ResourceManager.GetString("ClaimTypeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission.
+        /// </summary>
+        internal static string ClaimTypePermission {
+            get {
+                return ResourceManager.GetString("ClaimTypePermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product not found.
         /// </summary>
         internal static string ContentDownloadError {

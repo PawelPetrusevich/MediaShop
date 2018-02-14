@@ -10,20 +10,22 @@
         /// </summary>
         public enum StateCartContent : byte
         {
+            None = 0,
+
             /// <summary>
             /// content add in cart but did not Bought
             /// </summary>
-            InCart = 0,
+            InCart = 1,
 
             /// <summary>
             /// content object Bought but did not  Paid
             /// </summary>
-            InBought = 1,
+            InBought = 2,
 
             /// <summary>
             /// content object Paid
             /// </summary>
-            InPaid = 2
+            InPaid = 3
         }
     }
 }

@@ -2,6 +2,7 @@
 using AutoMapper;
 using FluentValidation;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Interfaces.Repositories;
@@ -18,6 +19,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         private Mock<IAccountFactoryRepository> _factoryRepository;
         private Mock<IEmailService> _emailService;
         private Mock<IValidator<RegisterUserDto>> _validator;
+        private Mock<IAccountTokenFactoryValidator> _tokenValidatorMock;
         private LoginDto _data;
 
         public LoginTest()
@@ -27,6 +29,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             {
                 config.CreateMap<RegisterUserDto, AccountDbModel>();
                 config.CreateMap<Account, AccountDbModel>();
+                config.CreateMap<AccountDbModel, AccountConfirmationDto>().ForMember(item => item.Token,
+                    opt => opt.MapFrom(s => s.AccountConfirmationToken));
             });
         }
 
@@ -39,7 +43,15 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             _factoryRepository = mockfactoryRepository;
             _emailService = mockEmailService;
-            _validator = mockValidator;            
+            _validator = mockValidator;
+
+            _tokenValidatorMock = new Mock<IAccountTokenFactoryValidator>();
+
+            _tokenValidatorMock.Setup(v => v.AccountPwdRestore.Validate(It.IsAny<AccountPwdRestoreDto>()).IsValid)
+                .Returns(true);
+
+            _tokenValidatorMock.Setup(v => v.AccountConfirmation.Validate(It.IsAny<AccountConfirmationDto>()).IsValid)
+                .Returns(true);
 
             _data = new LoginDto()
             {
@@ -55,7 +67,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(new StatisticDbModel{AccountDbModel = new AccountDbModel()});
             _factoryRepository.Setup(x => x.Accounts.GetByLogin(It.IsAny<string>())).Returns(new AccountDbModel(){Password = "password" });
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             Assert.IsNotNull(userService.Login(_data));
         }
 
@@ -66,7 +78,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
                 .Returns(new StatisticDbModel{ AccountDbModel = new AccountDbModel() });
             _factoryRepository.Setup(x => x.Accounts.GetByLogin(It.IsAny<string>())).Returns((AccountDbModel)null);
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             Assert.Throws<NotFoundUserException>(() => userService.Login(_data));
         }
 
@@ -78,7 +90,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepository.Setup(x => x.Accounts.GetByLogin(It.IsAny<string>()))
                 .Returns(new AccountDbModel {Password = "pass"});
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             Assert.Throws<IncorrectPasswordException>(() => userService.Login(_data));
         }
 
@@ -90,14 +102,14 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
             _factoryRepository.Setup(x => x.Accounts.GetByLogin(It.IsAny<string>()))
                 .Returns(new AccountDbModel { Password = "password" });
 
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             Assert.Throws<AddStatisticException>(() => userService.Login(_data));
         }
 
         [Test]
         public void LoginNotvalidDataNull()
         {
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             _data = null;
 
             Assert.Throws<ArgumentNullException>(() =>userService.Login(_data));
@@ -106,7 +118,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void LoginNotvalidDataEmptyLogin()
         {
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             _data.Login = String.Empty;
 
             Assert.Throws<ArgumentNullException>(() => userService.Login(_data));
@@ -115,7 +127,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void LoginNotvalidDataEmptyPassword()
         {
-            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object);
+            var userService = new AccountService(_factoryRepository.Object, _emailService.Object, _validator.Object, _tokenValidatorMock.Object);
             _data.Password = String.Empty;
 
             Assert.Throws<ArgumentNullException>(() => userService.Login(_data));

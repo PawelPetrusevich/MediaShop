@@ -85,5 +85,10 @@ namespace MediaShop.Common.Models.User
         /// </summary>
         /// <value>The statistics.</value>
         public virtual ICollection<StatisticDbModel> Statistics { get; set; } = new List<StatisticDbModel>();
+
+        /// <summary>
+        /// AccountConfirmationToken rendered when accunt wil created. Need for confirm account and reset password
+        /// </summary>
+        public string AccountConfirmationToken { get; set; }
     }
 }

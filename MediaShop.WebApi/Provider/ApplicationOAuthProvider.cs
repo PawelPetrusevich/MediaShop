@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MediaShop.Common.Dto.User;
 using MediaShop.Common.Interfaces.Services;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -36,6 +37,11 @@ namespace MediaShop.WebApi.Provider
             return new AuthenticationProperties(data);
         }
 
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var user = await _accountService.FindUserAsync(context.UserName, context.Password);
@@ -46,15 +52,20 @@ namespace MediaShop.WebApi.Provider
                 return;
             }
 
-            ClaimsIdentity authIdentity = new ClaimsIdentity(DefaultAuthenticationTypes.ExternalBearer, ClaimTypes.Name, ClaimTypes.Role);
-            authIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim(ClaimTypes.Name, user.Login, "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
-            authIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email, "http://www.w3.org/2001/XMLSchema#string"));
+            var account = _accountService.Login(new LoginDto { Login = user.Login, Password = user.Password });          
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(Resources.ClaimTypeId, user.Id.ToString()),
+                new Claim(Resources.ClaimTypePermission, user.Permissions.ToString())
+            };
 
-            context.Validated(authIdentity);
+            var oauthIdentity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
 
-            context.Request.Context.Authentication.SignIn(authIdentity);
+            AuthenticationProperties properties = CreateProperties(user.Login);
+            AuthenticationTicket ticket = new AuthenticationTicket(oauthIdentity, properties);
+            context.Validated(ticket);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
