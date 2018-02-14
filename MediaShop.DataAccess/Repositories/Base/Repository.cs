@@ -120,9 +120,12 @@ namespace MediaShop.DataAccess.Repositories.Base
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var result = DbSet.Add(model);
-            await Context.SaveChangesAsync().ConfigureAwait(false);
-            return result;
+            using (Context)
+            {
+                var result = DbSet.Add(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return result;
+            }
         }
 
         /// <summary>
@@ -161,13 +164,16 @@ namespace MediaShop.DataAccess.Repositories.Base
                 throw new ArgumentNullException(nameof(model));
             }
 
-            T entity = Get(model.Id);
+            using (Context)
+            {
+                T entity = Get(model.Id);
 
-            entity = Mapper.Map(model, entity);
-            Context.Entry(entity).State = EntityState.Modified;
+                entity = Mapper.Map(model, entity);
+                Context.Entry(entity).State = EntityState.Modified;
 
-            await Context.SaveChangesAsync().ConfigureAwait(false);
-            return entity;
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return entity;
+            }
         }
 
         /// <summary>
