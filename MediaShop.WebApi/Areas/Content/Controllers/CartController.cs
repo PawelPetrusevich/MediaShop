@@ -8,9 +8,11 @@ using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
+using System.Web.Http.Cors;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
+    [EnableCors("*", "*", "*")]
     [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {

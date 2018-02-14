@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../../Models/Cart/cart';
 import { Cartservice } from '../../services/cartservice';
+import { Paymentservice } from '../../services/paymentservice';
 import { ContentCartDto } from '../../Models/Cart/content-cart-dto';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -10,31 +11,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cart: Cart = new Cart();
+  cart: Cart;
   isLoaded = false;
   showError = false;
   errorMessage: string;
-  id: number;
+  url: string;
 
-  constructor(private cartService: Cartservice) {
-    const item: ContentCartDto = new ContentCartDto();
-    item.ContentId = 1;
-    item.ContentName = 'name';
-    item.DescriptionItem = 'Descr';
-    item.PriceItem = 100;
-    const item2: ContentCartDto = new ContentCartDto();
-    item2.ContentId = 2;
-    item2.ContentName = 'name2';
-    item2.DescriptionItem = 'Descr2';
-    item2.PriceItem = 20;
-    const items: ContentCartDto[] = [ item, item2 ];
-    this.cart.ContentCartCollection = items;
+  constructor(private cartService: Cartservice, private paymentService: Paymentservice) {
   }
 
   ngOnInit() {
   }
 
-  getCart(cart: Cart) {
+  getCart() {
     this.cartService.get().subscribe(resp => {
       this.cart = resp;
       this.isLoaded = true;
@@ -73,6 +62,18 @@ export class CartComponent implements OnInit {
       this.errorMessage = err.statusText;
     }
   );
+  }
+
+  paypalPayment(cart: Cart) {
+    this.paymentService.payPalPayment(this.cart).subscribe(resp => {
+      this.url = resp;
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 404) {
+        this.showError = true;
+      }
+      this.errorMessage = err.statusText;
+    }
+    );
   }
 
 }

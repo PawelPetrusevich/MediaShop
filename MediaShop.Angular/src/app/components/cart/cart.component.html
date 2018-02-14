@@ -2,7 +2,7 @@
   <!--<table class="table" *ngIf="isLoaded">-->
   <div class="row">
     <div class="col">
-      <table class="table table-bordered">
+      <table class="table table-bordered" *ngIf="isLoaded">
         <thead>
           <th class="col-md-3">Наименование</th>
           <th class="col-md-3">Описание</th>
@@ -10,13 +10,6 @@
           <th class="col-md-3"></th>
         </thead>
         <tbody>
-          <tr *ngFor="let item of cart.ContentCartCollection">
-            <app-content-cart [contentCart]=item>
-            </app-content-cart>
-            <td class="col-md-3">
-              <input type="button" class="btn btn-primary col-md-3 btn-sm" value="Удалить" (click)="delete()" />
-            </td>
-          </tr>
           <tr *ngFor="let item of cart.ContentCartCollection">
               <td class="col-md-3">{{item.ContentName}}</td>
               <td class="col-md-3">{{item.DescriptionItem}}</td>
@@ -36,6 +29,7 @@
     <button class="btn btn-primary btn-sm" (click)="getCart()">GetCart</button>
     <app-payment [cart]=cart>
     </app-payment>
+    <button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Jgk</button>
     <button type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
   </div>
 </div>

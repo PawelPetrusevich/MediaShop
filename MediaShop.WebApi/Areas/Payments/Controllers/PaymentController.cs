@@ -16,9 +16,11 @@ using MediaShop.Common.Models;
 using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Dto.Payment;
+using System.Web.Http.Cors;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
+    [EnableCors("*", "*", "*")]
     [RoutePrefix("api/payment")]
     public class PaymentController : ApiController
     {
