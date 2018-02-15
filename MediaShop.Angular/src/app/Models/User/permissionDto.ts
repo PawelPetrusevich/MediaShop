@@ -1,7 +1,6 @@
-import { Permissions } from "./permissions";
+import { Permissions } from './permissions';
 
-export class PermissionDto 
-{
-    Id:number;
-    Permission:Permissions;
+export class PermissionDto {
+    Id: number;
+    Permission: Permissions;
 }

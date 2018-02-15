@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { PaymentComponent } from './components/payment/payment.component';
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
+import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
+import { LogoutComponent } from './components/user/logout/logout.component';
+
 import { UserService } from './Services/User/userservise';
 
 
@@ -24,15 +27,14 @@ import { UserService } from './Services/User/userservise';
     ExecutePaymentComponent,
     ContentCartComponent,
     PaymentComponent,
-   
-   SetPermissionComponent
+    SetPermissionComponent,
+    RemovePermissionComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
   ],
-  providers: [Cartservice, Paymentservice,
-    // сюда сервисы
-    UserService
+  providers: [Cartservice, Paymentservice, UserService
   ],
   bootstrap: [AppComponent]
 })
