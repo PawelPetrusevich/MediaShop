@@ -215,12 +215,9 @@ namespace MediaShop.DataAccess.Repositories.Base
 
             if (DbSet.Contains(model))
             {
-                using (Context)
-                {
-                    DbSet.Remove(model);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
-                    return model;
-                }
+                DbSet.Remove(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return model;
             }
 
             return default(T);
@@ -269,12 +266,9 @@ namespace MediaShop.DataAccess.Repositories.Base
 
             if (model != null)
             {
-                using (Context)
-                {
-                    DbSet.Remove(model);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
-                    return model;
-                }
+                DbSet.Remove(model);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
+                return model;
             }
 
             return default(T);
