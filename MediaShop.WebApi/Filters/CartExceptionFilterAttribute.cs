@@ -45,7 +45,16 @@ namespace MediaShop.WebApi.Filters
                             HttpStatusCode.InternalServerError, error.Message);
                         break;
 
-                     // Exception: not counted exceptions
+                    case DeleteContentInCartExseptions error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                            HttpStatusCode.InternalServerError, error.Message);
+
+                    case ArgumentNullException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.BadRequest, error.Message);
+                        break;
+
+                    // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, actionExecutedContext.Exception);

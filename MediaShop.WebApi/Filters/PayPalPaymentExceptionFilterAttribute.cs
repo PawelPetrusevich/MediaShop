@@ -82,6 +82,27 @@ namespace MediaShop.WebApi.Filters
                            HttpStatusCode.BadRequest, error.Message);
                         break;
 
+                    case EmptyCartException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.BadRequest, error.Message);
+                        break;
+
+                    case ContentCartPriceException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.BadRequest, error.Message);
+                        break;
+
+                    case PayPalException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.InternalServerError, error.Message);
+                        break;
+
+                    case PaymentsException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.InternalServerError, error.Message);
+                        break;
+
+
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(

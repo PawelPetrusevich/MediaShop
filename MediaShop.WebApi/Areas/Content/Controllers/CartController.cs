@@ -106,19 +106,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var result = _cartService.DeleteContent(data);
-                return this.Ok(result);
-            }
-            catch (DeleteContentInCartExseptions ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var result = _cartService.DeleteContent(data);
+            return this.Ok(result);
         }
 
         /// <summary>
@@ -139,19 +128,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var result = await _cartService.DeleteContentAsync(data);
-                return this.Ok(result);
-            }
-            catch (DeleteContentInCartExseptions ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var result = await _cartService.DeleteContentAsync(data);
+            return this.Ok(result);
         }
 
         /// <summary>
@@ -172,19 +150,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var result = _cartService.DeleteOfCart(data);
-                return this.Ok(result);
-            }
-            catch (DeleteContentInCartExseptions ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var result = _cartService.DeleteOfCart(data);
+            return this.Ok(result);
         }
 
         /// <summary>
@@ -205,19 +172,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var result = await _cartService.DeleteOfCartAsync(data);
-                return this.Ok(result);
-            }
-            catch (DeleteContentInCartExseptions ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var result = await _cartService.DeleteOfCartAsync(data);
+            return this.Ok(result);
         }
     }
 }
