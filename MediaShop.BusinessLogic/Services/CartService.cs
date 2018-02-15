@@ -288,7 +288,7 @@
                 }
             }
 
-            return await this.GetCartAsync(id);
+            return await this.GetCartAsync(id).ConfigureAwait(false);
         }
 
         /// <summary>

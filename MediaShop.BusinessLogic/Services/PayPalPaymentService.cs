@@ -611,8 +611,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = await this.AddPaymentAsync(executedPayment)
-                .ConfigureAwait(false);
+            var result = await this.AddPaymentAsync(executedPayment).ConfigureAwait(false);
             return result;
         }
 
