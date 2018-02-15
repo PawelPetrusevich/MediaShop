@@ -193,7 +193,9 @@
         /// <returns>rezalt operation</returns>
         public async Task<IEnumerable<ContentCart>> GetByIdAsync(long userId)
         {
-            var result = await this.DbSet.AsNoTracking().Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart).ToListAsync().ConfigureAwait(false);
+            var result = await this.DbSet.AsNoTracking()
+                .Where(x => x.CreatorId == userId && x.StateContent == CartEnums.StateCartContent.InCart).ToListAsync()
+                .ConfigureAwait(false);
             return result;
         }
 

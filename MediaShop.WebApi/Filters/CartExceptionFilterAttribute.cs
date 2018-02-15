@@ -21,12 +21,18 @@ namespace MediaShop.WebApi.Filters
             {
                 switch (actionExecutedContext.Exception)
                 {
+                    // Exception: if controllers or methods argument is null
+                    case ArgumentNullException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                           HttpStatusCode.BadRequest, error.Message);
+                        break;
+
                     // Exception: if controllers argument is not valid
                     case ArgumentException error:
                          actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
                         break;
-
+                    
                     // Exception: if product is not exist in database
                     case NotExistProductInDataBaseExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
@@ -45,15 +51,12 @@ namespace MediaShop.WebApi.Filters
                             HttpStatusCode.InternalServerError, error.Message);
                         break;
 
+                    // Exception: if content do not delete from database
                     case DeleteContentInCartExseptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
-
-                    case ArgumentNullException error:
-                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
-                           HttpStatusCode.BadRequest, error.Message);
                         break;
-
+                  
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(

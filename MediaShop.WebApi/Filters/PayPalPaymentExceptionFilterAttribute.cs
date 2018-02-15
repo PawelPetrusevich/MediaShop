@@ -28,7 +28,7 @@ namespace MediaShop.WebApi.Filters
                            HttpStatusCode.BadRequest, error.Message);
                         break;
 
-                    // Exception: if controllers or methods argument is do not valid
+                    // Exception: if controllers or methods argument is not valid
                     case ArgumentException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
@@ -101,7 +101,6 @@ namespace MediaShop.WebApi.Filters
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
                         break;
-
 
                     // Exception: not counted exceptions
                     default:

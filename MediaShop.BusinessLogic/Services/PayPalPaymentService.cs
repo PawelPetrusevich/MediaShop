@@ -137,7 +137,7 @@
             }
 
             // Check exist Payment in repository
-            if (await this.ExistInPaymentAsync(payment.id))
+            if (await this.ExistInPaymentAsync(payment.id).ConfigureAwait(false))
             {
                 throw new ExistPaymentException(Resources.ExistPayment);
             }
@@ -166,7 +166,7 @@
                 }
 
                 // Change State content in Cart
-                await this.SetStateItemsAsync(payment, Common.Enums.CartEnums.StateCartContent.InPaid);
+                await this.SetStateItemsAsync(payment, Common.Enums.CartEnums.StateCartContent.InPaid).ConfigureAwait(false);
 
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
@@ -174,7 +174,7 @@
                 paymentDbModel.CreatorId = 1; // Need initialize CreatorId
 
                 // Add object PaymentDbModel in database
-                var paymentResult = await this.repositoryPayment.AddAsync(paymentDbModel);
+                var paymentResult = await this.repositoryPayment.AddAsync(paymentDbModel).ConfigureAwait(false);
 
                 // throw new AddPaymentException
                 if (paymentResult == null)
@@ -218,7 +218,7 @@
         /// false - payment doesn`t exist in repository</returns>
         public async Task<bool> ExistInPaymentAsync(string paymentId)
         {
-            var result = await this.repositoryPayment.FindAsync(item => item.PaymentId.Equals(paymentId));
+            var result = await this.repositoryPayment.FindAsync(item => item.PaymentId.Equals(paymentId)).ConfigureAwait(false);
             return result.Count() != 0;
         }
 
@@ -324,7 +324,7 @@
                     foreach (Item item in tran.item_list.items)
                     {
                         // 3.1 Change state product
-                        var resultChangeState = await this.serviceCart.SetStateAsync(Convert.ToInt64(item.sku), state);
+                        var resultChangeState = await this.serviceCart.SetStateAsync(Convert.ToInt64(item.sku), state).ConfigureAwait(false);
 
                         // Write id for rollback
                         this.listIdForRollBack.Add(resultChangeState.ContentId);
@@ -335,7 +335,7 @@
                         objectDefrayal.CreatorId = 1; // Need initialize CreatorId
 
                         // 3.3 Save object Defrayal in repository
-                        var resultSaveDefrayal = await this.repositoryDefrayal.AddAsync(objectDefrayal);
+                        var resultSaveDefrayal = await this.repositoryDefrayal.AddAsync(objectDefrayal).ConfigureAwait(false);
                     }
                 }
             }
@@ -345,7 +345,9 @@
                 foreach (long contentId in this.listIdForRollBack)
                 {
                     // 3.1 Change state product in cart
-                    var resultChangeState = this.serviceCart.SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
+                    var resultChangeState = await this.serviceCart
+                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .ConfigureAwait(false);
                 }
 
                 throw new UpdateContentInCartExseptions(error.Message);
@@ -356,13 +358,15 @@
                 foreach (long contentId in this.listIdForRollBack)
                 {
                     // 3.1 Change state product in cart
-                    var resultChangeState = this.serviceCart.SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
+                    var resultChangeState = await this.serviceCart
+                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .ConfigureAwait(false);
 
                     // 3.2 Transferring product in Defrayal from ContentCart
-                    var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState.Result);
+                    var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
                     // 3.3 Save object Defrayal in repository
-                    var resultSaveDefrayal = await this.DeleteDefrayalAsync(objectDefrayal);
+                    var resultSaveDefrayal = await this.DeleteDefrayalAsync(objectDefrayal).ConfigureAwait(false);
                 }
 
                 throw new AddDefrayalException(error.Message);
@@ -403,7 +407,9 @@
                 throw new ArgumentNullException(Resources.NullModelDefrayal);
             }
 
-            var resultDeleteDefrayal = await this.repositoryDefrayal.DeleteAsync(modelDefrayal);
+            var resultDeleteDefrayal = await this.repositoryDefrayal
+                .DeleteAsync(modelDefrayal)
+                .ConfigureAwait(false);
 
             if (resultDeleteDefrayal == null)
             {
@@ -447,7 +453,9 @@
                 throw new ArgumentNullException(Resources.NullModelDefrayal);
             }
 
-            var resultAddDefrayal = await this.repositoryDefrayal.AddAsync(modelDefrayal);
+            var resultAddDefrayal = await this.repositoryDefrayal
+                .AddAsync(modelDefrayal)
+                .ConfigureAwait(false);
 
             if (resultAddDefrayal == null)
             {
@@ -603,7 +611,8 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = await this.AddPaymentAsync(executedPayment);
+            var result = await this.AddPaymentAsync(executedPayment)
+                .ConfigureAwait(false);
             return result;
         }
 

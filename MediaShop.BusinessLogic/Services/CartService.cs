@@ -96,13 +96,13 @@
             }
 
             // Check exist Product in repository
-            if (await this.repositoryProduct.GetAsync(contentId) == null)
+            if (await this.repositoryProduct.GetAsync(contentId).ConfigureAwait(false) == null)
             {
                 throw new ExistContentInCartExceptions(Resources.ExistProductInDataBase);
             }
 
             // Check exist Content in Cart
-            if (await this.ExistInCartAsync(contentId))
+            if (await this.ExistInCartAsync(contentId).ConfigureAwait(false))
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
@@ -110,7 +110,7 @@
             var contentCart = new ContentCart() { CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
 
             // Save object ContentCart in repository
-            var addContentCart = await this.repositoryContentCart.AddAsync(contentCart);
+            var addContentCart = await this.repositoryContentCart.AddAsync(contentCart).ConfigureAwait(false);
 
             // If the object is not added to the database
             // return null
@@ -120,7 +120,7 @@
             }
 
             // Get information about Product by Id
-            var product = await this.repositoryProduct.GetAsync(contentId);
+            var product = await this.repositoryProduct.GetAsync(contentId).ConfigureAwait(false);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
@@ -308,7 +308,7 @@
         /// false - content doesn`t exist in cart</returns>
         public async Task<bool> ExistInCartAsync(long contentId)
         {
-            var resultFindAsync = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId);
+            var resultFindAsync = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
             return resultFindAsync.Count() != 0;
         }
 
@@ -388,7 +388,7 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId);
+            var contentCartForUpdateList = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
 
             if (contentCartForUpdateList.Count() == 0)
             {
@@ -401,7 +401,7 @@
             contentObjForUpdate.StateContent = contentState;
 
             // Update change
-            var contentCartAfterUpdate = await this.repositoryContentCart.UpdateAsync(contentObjForUpdate);
+            var contentCartAfterUpdate = await this.repositoryContentCart.UpdateAsync(contentObjForUpdate).ConfigureAwait(false);
 
             // Check update property StateContent
             if (contentCartAfterUpdate.StateContent != contentState)
