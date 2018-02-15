@@ -9,6 +9,7 @@ import { CompressedProductDto } from '../Models/Content/CompressedProductDto';
 import { UploadProductModel } from '../Models/Content/UploadProductModel';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductSearchModel } from '../Models/Content/ProductSearchModel';
+import { OriginalProductDTO } from '../Models/Content/OriginalProductDto';
 
 @Injectable()
 export class ProductService {
@@ -32,5 +33,13 @@ export class ProductService {
 
   searchProduct(productSearchModel: ProductSearchModel) {
     return this.http.post<ProductDto>(this.webApiUrl + 'Find', productSearchModel);
+  }
+
+  getListPurshasedProducts(UserID: number) {
+    return this.http.get<ProductDto>(this.webApiUrl + 'GetPurshasedProducts');
+  }
+
+  downloadProduct(ID: number, UserID: Number) {
+    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct');
   }
 }
