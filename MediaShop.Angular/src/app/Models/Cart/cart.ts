@@ -1,7 +1,7 @@
 import { ContentCartDto } from './content-cart-dto';
 
 export class Cart {
-  ContentCartCollection: [ContentCartDto];
-  PriceAllItemsColection: number;
+  ContentCartDtoCollection: ContentCartDto[];
+  PriceAllItemsCollection: number;
   CountItemsInCollection: number;
 }

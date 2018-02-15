@@ -6,6 +6,13 @@ import { HttpModule } from '@angular/http';
 import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
+import { ContentCartComponent } from './components/content-cart/content-cart.component';
+import { Cartservice } from './services/cartservice';
+import { Paymentservice } from './services/paymentservice';
+
+import { PaymentComponent } from './components/payment/payment.component';
 import { RegisterUserComponent } from './components/user/register-user/register-user.component';
 import {LoginComponent} from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
@@ -15,12 +22,16 @@ import { HttpClient } from 'selenium-webdriver/http';
   declarations: [
     AppComponent,
     RegisterUserComponent,
-    LoginComponent
+    LoginComponent,
+    CartComponent,
+    ExecutePaymentComponent,
+    ContentCartComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(),HttpClientModule,FormsModule,HttpModule
   ],
-  providers: [AccountService],
+  providers: [AccountService,Cartservice, Paymentservice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

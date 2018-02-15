@@ -1,0 +1,4 @@
+<button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
+<div class="alert alert-danger" role="alert" *ngIf="showError">
+    {{errorMessage}}
+</div>
