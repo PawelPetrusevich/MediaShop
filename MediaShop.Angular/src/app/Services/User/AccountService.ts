@@ -7,13 +7,14 @@ import 'rxjs/add/operator/catch';
 import { RegisterUserDto } from '../../Models/User/register-userDto';
 import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
+import {AppSettings} from '../../Settings/AppSettings'
 
 @Injectable()
 export class AccountService {
   constructor(private http: Http) {}
 
   register(registerUser : RegisterUserDto) : Observable<Account>{
-    return this.http.post('http://localhost:51289/api/account/register', registerUser)
+    return this.http.post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
@@ -29,7 +30,7 @@ export class AccountService {
     options.headers.append('Access-Control-Allow-Origin', '*');
 
     return this.http
-    .post('http://localhost:51289/token', body, options)
+    .post(AppSettings.API_ENDPOINT + 'token', body, options)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
@@ -37,7 +38,7 @@ export class AccountService {
   logout(id : number)
   {
     return this.http
-    .post('http://localhost:51289/api/account/logout',id)
+    .post(AppSettings.API_ENDPOINT + 'api/account/logout',id)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }

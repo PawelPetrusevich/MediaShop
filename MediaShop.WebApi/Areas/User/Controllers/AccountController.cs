@@ -107,35 +107,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
+            var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
             return Ok(account);
-        }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ConfirmedUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddProfileException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddSettingsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
         }
 
         [HttpGet]
@@ -152,35 +125,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
+            var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
             return Ok(account);
-        }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ConfirmedUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddProfileException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddSettingsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
         }
 
         [HttpPost]
