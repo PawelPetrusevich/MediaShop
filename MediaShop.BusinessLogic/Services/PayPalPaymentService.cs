@@ -603,7 +603,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = await this.AddPaymentAsync(executedPayment);
+            var result = await this.AddPaymentAsync(executedPayment).ConfigureAwait(false);
             return result;
         }
 
