@@ -13,6 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { PaymentComponent } from './components/payment/payment.component';
+import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
+import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
+import { LogoutComponent } from './components/user/logout/logout.component';
+
+import { UserService } from './Services/User/userservise';
+
 
 @NgModule({
   declarations: [
@@ -21,11 +27,15 @@ import { PaymentComponent } from './components/payment/payment.component';
     ExecutePaymentComponent,
     ContentCartComponent,
     PaymentComponent,
+    SetPermissionComponent,
+    RemovePermissionComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
   ],
-  providers: [Cartservice, Paymentservice],
+  providers: [Cartservice, Paymentservice, UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
