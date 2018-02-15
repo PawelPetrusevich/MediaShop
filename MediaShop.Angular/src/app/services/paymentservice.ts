@@ -13,10 +13,8 @@ export class Paymentservice {
   constructor(private http: Http) {}
 
   payPalPayment(cart: Cart): Observable<string> {
-    const options = new RequestOptions();
-    options.body = cart;
     return this.http
-      .post(Paymentservice.url + '/paypalpayment', options)
+      .post(Paymentservice.url + '/paypalpayment', cart)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
