@@ -1,6 +1,7 @@
 ﻿namespace MediaShop.Common.Interfaces.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using MediaShop.Common.Enums;
     using MediaShop.Common.Models;
 
@@ -20,11 +21,26 @@
         IEnumerable<TModel> GetContent(long userId);
 
         /// <summary>
+        /// Find items in a cart by user Id and return a item collection
+        /// without state InPaid and InBought
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns> shopping cart for a user </returns>
+        Task<IEnumerable<TModel>> GetContentAsync(long userId);
+
+        /// <summary>
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
         /// <returns>this save item</returns>
         TModel AddInCart(long contentId);
+
+        /// <summary>
+        /// Add new item in cart with return save item for update view
+        /// </summary>
+        /// <param name="contentId">contents object</param>
+        /// <returns>item that add in repository</returns>
+        Task<TModel> AddInCartAsync(long contentId);
 
         /// <summary>
         /// Checking the existence of content in cart
@@ -35,11 +51,26 @@
         bool ExistInCart(long contentId);
 
         /// <summary>
+        /// Async checking the existence of content in cart
+        /// </summary>
+        /// <param name="contentId">content identificator</param>
+        /// <returns>true - content exist in cart
+        /// false - content does not exist in cart</returns>
+        Task<bool> ExistInCartAsync(long contentId);
+
+        /// <summary>
         /// Get created Cart model object
         /// </summary>
         /// <param name="userId">user Id</param>
         /// <returns>Cart</returns>
         Cart GetCart(long userId);
+
+        /// <summary>
+        /// Get created Cart model object
+        /// </summary>
+        /// <param name="userId">user Id</param>
+        /// <returns>Cart</returns>
+        Task<Cart> GetCartAsync(long userId);
 
         /// <summary>
         /// Get sum price items for User
@@ -77,6 +108,13 @@
         TModel DeleteContent(TModel model);
 
         /// <summary>
+        /// Method for deleting selected ContentCart
+        /// </summary>
+        /// <param name="model">model ContentCartDto for delete</param>
+        /// <returns>return deleting  model element</returns>
+        Task<TModel> DeleteContentAsync(TModel model);
+
+        /// <summary>
         /// Method for deleting selected items
         /// </summary>
         /// <param name="itemsId">collection users id</param>
@@ -91,12 +129,28 @@
         Cart DeleteOfCart(Cart cart);
 
         /// <summary>
+        /// Method for deleting Content from cart
+        /// </summary>
+        /// <param name="cart">Cart</param>
+        /// <returns>Cart after clearing</returns>
+        Task<Cart> DeleteOfCartAsync(Cart cart);
+
+        /// <summary>
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
         ContentCartDto SetState(
+            long contentId, CartEnums.StateCartContent contentState);
+
+        /// <summary>
+        /// Async method for check object as Bought
+        /// </summary>
+        /// <param name="contentId">contents object</param>
+        /// <param name="contentState">contents state</param>
+        /// <returns>update objects state</returns>
+        Task<ContentCartDto> SetStateAsync(
             long contentId, CartEnums.StateCartContent contentState);
     }
 }
