@@ -33,4 +33,12 @@ export class AccountService {
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
+
+  logout(id : number)
+  {
+    return this.http
+    .post('http://localhost:51289/api/account/logout',id)
+    .map(resp => resp.json())
+    .catch(err => Observable.throw(err));
+  }
 }
