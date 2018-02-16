@@ -1,4 +1,11 @@
-<ul>
-  <li>{{compressedProduct.Id}}</li>
-  <li>{{compressedProduct.ProductName}}</li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4" style="height: 60px">
+      <img src="{{Base64Content}}" style="height: 100%" />
+    </div>
+    <div class="col-lg-2">{{compressedProduct.ProductName}}</div>
+    <div class="col-lg-2">{{compressedProduct.ProductPrice}}</div>
+    <div class="col-lg-2"><button class="btn">Send</button></div>
+    <div class="col-lg-2"><button class="btn">To Favorit</button></div>
+  </div>
+</div>

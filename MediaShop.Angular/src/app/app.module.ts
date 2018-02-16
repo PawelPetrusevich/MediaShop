@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,Input } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -14,9 +14,6 @@ import { ExecutePaymentComponent } from './components/execute-payment/execute-pa
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
 import { Cartservice } from './services/cartservice';
 import { Paymentservice } from './services/paymentservice';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { PaymentComponent } from './components/payment/payment.component';
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
 import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
@@ -25,6 +22,8 @@ import { LogoutComponent } from './components/user/logout/logout.component';
 import { UserService } from './Services/User/userservise';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
+import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
 
 
 @NgModule({
@@ -34,17 +33,19 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
     CartComponent,
     ExecutePaymentComponent,
     ProductListComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
     ContentCartComponent,
     PaymentComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
-    LogoutComponent
+    LogoutComponent,
+    ProductUploadComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
   ],
-  providers: [Cartservice, Paymentservice, UserService,ProductService
+  providers: [Cartservice, Paymentservice, UserService, ProductService
   ],
   bootstrap: [AppComponent]
 })

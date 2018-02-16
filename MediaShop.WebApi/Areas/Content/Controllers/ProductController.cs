@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Product;
@@ -16,6 +17,7 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
+    [EnableCors("*", "*", "*")]
     [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
     public class ProductController : ApiController
@@ -149,7 +151,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.EmptyConditionList);
             }
-                
+
             try
             {
                 return Ok(_productService.Find(conditionsList));
@@ -163,7 +165,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
-                
+
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("FindAsync")]
         [SwaggerResponseRemoveDefaults]

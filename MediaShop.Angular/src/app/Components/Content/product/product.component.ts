@@ -18,4 +18,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  get Base64Content(): string {
+    return 'data:image/jpg;base64,' + this.compressedProduct.Content;
+  }
 }
