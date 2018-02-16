@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class NotificationComponent implements OnInit {
 
   constructor() { }
+  title: string;
+  message: string;
 
   ngOnInit() {
   }
