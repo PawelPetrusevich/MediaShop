@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { Paymentservice } from './services/paymentservice';
 
 import { PaymentComponent } from './components/payment/payment.component';
 import { RegisterUserComponent } from './components/user/register-user/register-user.component';
-import {LoginComponent} from './components/user/login/login.component';
+import { LoginComponent } from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
 
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
@@ -23,6 +23,8 @@ import { RemovePermissionComponent } from './components/user/remove-permission/r
 import { LogoutComponent } from './components/user/logout/logout.component';
 
 import { UserService } from './Services/User/userservise';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ApproutingModule } from './approuting/approuting.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,12 +36,18 @@ import { UserService } from './Services/User/userservise';
     PaymentComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
-    LogoutComponent
+    LogoutComponent,
+    NavbarComponent
   ],
   imports: [
-    BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
+    BrowserModule,
+    NgbModule.forRoot(),
+    HttpClientModule,
+    FormsModule,
+    HttpModule,
+    ApproutingModule
   ],
-  providers: [AccountService,Cartservice, Paymentservice,UserService],
+  providers: [AccountService, Cartservice, Paymentservice, UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
