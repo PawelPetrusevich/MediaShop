@@ -26,8 +26,8 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         [HttpGet]
         [Route("/GetNotificationsForUser")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.NotFound, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(IEnumerable<NotificationDto>))]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Notifications for this user not found", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Notifications've got", typeof(IEnumerable<NotificationDto>))]
         public IHttpActionResult Get(long userId)
         {
             var result = _notificationService.GetByUserId(userId);
@@ -42,10 +42,10 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         [HttpPost]
         [Route("/CreateNotification")]
         [SwaggerResponseRemoveDefaults]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(ArgumentException))]
-        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(NotSubscribedUserException))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        [SwaggerResponse(HttpStatusCode.OK, "", typeof(NotificationDto))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Model is not valid", typeof(ArgumentException))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Not Subscribed user", typeof(NotSubscribedUserException))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Notification created", typeof(NotificationDto))]
         public IHttpActionResult CreateNotification([FromBody] NotificationDto notification)
         {
             if (ReferenceEquals(notification, null) || !ModelState.IsValid)

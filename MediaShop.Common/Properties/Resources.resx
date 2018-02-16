@@ -146,6 +146,7 @@
   </data>
   <data name="IncorrectToken" xml:space="preserve">
     <value>Invalid confirmation token</value>
+  </data>
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
   </data>

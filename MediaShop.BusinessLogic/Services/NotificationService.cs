@@ -28,8 +28,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="subscribedUserStore">Repository subscribed users</param>
         /// <param name="notifcationStore">Repository of notifications</param>
-        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore,
-            INotificationRepository notifcationStore, IValidator<NotificationDto> validator)
+        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore, IValidator<NotificationDto> validator)
         {
             this._subscribedUserStore = subscribedUserStore;
             this._notifcationStore = notifcationStore;
