@@ -35,4 +35,12 @@ export class Cartservice {
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
+
+  addContent(product: ProductDto): Observable<ContentCartDto> {
+    const params = new HttpParams().set('contentId', product.id.toString());
+    return this.http
+      .post(Cartservice.url + '/addasync', {params})
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
 }
