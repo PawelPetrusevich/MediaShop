@@ -1,5 +1,6 @@
 export enum StateCartContent {
-  InCart= 0,
-  InBought = 1,
-  InPaid = 2,
+  None = 0,
+  InCart= 1,
+  InBought = 2,
+  InPaid = 3,
 }
