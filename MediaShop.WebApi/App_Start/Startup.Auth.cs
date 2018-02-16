@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Provider;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
@@ -21,6 +22,7 @@ namespace MediaShop.WebApi
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             // Configure the db context and user manager to use a single instance per request
+            app.UseCors(CorsOptions.AllowAll);
 
             PublicClientId = "MediaShop";
 
