@@ -1,34 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <app-cart>
-
-  </app-cart>
-  <app-login></app-login>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-1">
-        <label>UserName</label>
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1">
-        <label>Password</label>
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="" />
-      </div>
-    </div>
-    <div class="row">
-      <button class="col-md-1 col-md-offset-2">Login</button>
-    </div>
-  </div>
-
-  </div>
-
-  <app-product-upload></app-product-upload>
+<app-navbar></app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
