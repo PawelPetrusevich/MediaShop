@@ -23,6 +23,7 @@ import { RemovePermissionComponent } from './components/user/remove-permission/r
 import { LogoutComponent } from './components/user/logout/logout.component';
 
 import { UserService } from './Services/User/userservise';
+import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { UserService } from './Services/User/userservise';
     PaymentComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
-    LogoutComponent
+    LogoutComponent,
+    PasswordRecoveryComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
