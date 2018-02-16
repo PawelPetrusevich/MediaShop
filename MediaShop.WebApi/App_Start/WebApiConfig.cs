@@ -29,6 +29,12 @@ namespace MediaShop.WebApi
             FluentValidationModelValidatorProvider.Configure(config);
 
             // Web API routes
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
         }
     }
 }
