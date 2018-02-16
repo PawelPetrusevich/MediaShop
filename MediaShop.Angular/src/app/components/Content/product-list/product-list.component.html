@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="#">List product</a>
+      </li>
+      <li>
+        <a href="#">Search Product</a>
+      </li>
+      <li>
+        <a href="#">Upload Product</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div>
+  <app-product class="p-2" *ngFor="let product of compressedProductList" [compressedProduct]="product"></app-product>
+</div>

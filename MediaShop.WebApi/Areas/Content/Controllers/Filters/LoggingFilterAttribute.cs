@@ -17,6 +17,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers.Filters
 {
     public class LoggingFilterAttribute : ActionFilterAttribute
     {
+#if DEBUG
         private Stopwatch _watch = new Stopwatch();
         private Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -35,5 +36,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers.Filters
 
             logger.Trace($"executed: {_watch.ElapsedMilliseconds} ms, response: { actionExecutedContext.Response.StatusCode}");
         }
+#endif
     }
 }
