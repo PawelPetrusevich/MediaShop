@@ -5,10 +5,12 @@
 using System;
 using System.Threading.Tasks;
 using MediaShop.BusinessLogic.Properties;
+using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
+using MediaShop.Common.Helpers;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -32,17 +34,47 @@ namespace MediaShop.BusinessLogic.Services
         private readonly IAccountFactoryRepository _factoryRepository;
         private readonly IEmailService _emailService;
         private readonly IValidator<RegisterUserDto> _validator;
+        private readonly IAccountTokenFactoryValidator _tokenValidator;
 
         /// <summary>
         /// account service
         /// Initializes a new instance of the <see cref="AccountService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public AccountService(IAccountFactoryRepository factoryRepository, IEmailService emailService, IValidator<RegisterUserDto> validator)
+        public AccountService(IAccountFactoryRepository factoryRepository, IEmailService emailService, IValidator<RegisterUserDto> validator, IAccountTokenFactoryValidator tokenValidator)
         {
             this._factoryRepository = factoryRepository;
             this._emailService = emailService;
             this._validator = validator;
+            _tokenValidator = tokenValidator;
+        }
+
+        /// <summary>
+        /// Find user for login
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<AccountDbModel> FindUserAsync(string userName, string password)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(userName));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(password));
+            }
+
+            var user = await _factoryRepository.Accounts.GetByLoginAsync(userName);
+
+            if (user == null || !user.Password.Equals(password))
+            {
+                return null;
+            }
+
+            return user;
         }
 
         /// <summary>
@@ -61,13 +93,12 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = this._factoryRepository.Accounts.Add(modelDbModel);
              account = account ?? throw new AddAccountException();
+            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
-            {
-                throw new CanNotSendEmailException();
-            }
+            _emailService.SendConfirmation(confirmationModel);
 
             return Mapper.Map<Account>(account);
         }
@@ -82,13 +113,12 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
             account = account ?? throw new AddAccountException();
+            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            if (!_emailService.SendConfirmation(modelDbModel.Email, modelDbModel.Id))
-            {
-                throw new CanNotSendEmailException();
-            }
+            await _emailService.SendConfirmationAsync(confirmationModel).ConfigureAwait(false);
 
             return Mapper.Map<Account>(account);
         }
@@ -99,24 +129,16 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="email">User email</param>
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
-        public Account ConfirmRegistration(string email, long id)
-        {
-            if (string.IsNullOrWhiteSpace(email))
+        public Account ConfirmRegistration(AccountConfirmationDto model)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            var result = _tokenValidator.AccountConfirmation.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            if (id <= 0)
-            {
-                throw new ArgumentException(Resources.InvalidIdValue);
-            }
-
-            var user = this._factoryRepository.Accounts.Get(id);
-
-            if (user == null || !user.Email.Equals(email))
-            {
-                throw new NotFoundUserException();
-            }
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
             if (user.IsConfirmed)
             {
@@ -134,29 +156,22 @@ namespace MediaShop.BusinessLogic.Services
             user.Profile = profile;
             user.SettingsId = settings.Id;
             user.Settings = settings;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(confirmedUser);
         }
 
-        public async Task<Account> ConfirmRegistrationAsync(string email, long id)
-        {
-            if (string.IsNullOrWhiteSpace(email))
+        public async Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            var result = _tokenValidator.AccountConfirmation.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            if (id <= 0)
-            {
-                throw new ArgumentException(Resources.InvalidIdValue);
-            }
-
-            var user = this._factoryRepository.Accounts.Get(id);
-
-            if (user == null || !user.Email.Equals(email))
-            {
-                throw new NotFoundUserException();
-            }
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
             if (user.IsConfirmed)
             {
@@ -174,6 +189,7 @@ namespace MediaShop.BusinessLogic.Services
             user.Profile = profile;
             user.SettingsId = settings.Id;
             user.Settings = settings;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
 
             var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
             confirmedUser = confirmedUser ?? throw new UpdateAccountException();
@@ -188,6 +204,11 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns><c>Authorised user</c></returns>
         public Account Login(LoginDto data)
         {
+            if (data == null || string.IsNullOrWhiteSpace(data.Login) || string.IsNullOrWhiteSpace(data.Password))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(data));
+            }
+
             var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
 
             if (user.Password != data.Password)
@@ -198,6 +219,22 @@ namespace MediaShop.BusinessLogic.Services
             var statistic = new StatisticDbModel() { AccountId = user.Id };
             var result = this._factoryRepository.Statistics.Add(statistic);
             result = result ?? throw new AddStatisticException();          
+
+            return Mapper.Map<Account>(result.AccountDbModel);
+        }
+
+        public async Task<Account> LoginAsync(LoginDto data)
+        {
+            var user = _factoryRepository.Accounts.GetByLogin(data.Login) ?? throw new NotFoundUserException();
+
+            if (user.Password != data.Password)
+            {
+                throw new IncorrectPasswordException();
+            }
+
+            var statistic = new StatisticDbModel() { AccountId = user.Id };
+            var result = await this._factoryRepository.Statistics.AddAsync(statistic);
+            result = result ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
@@ -216,9 +253,106 @@ namespace MediaShop.BusinessLogic.Services
                 return Mapper.Map<Account>(result.AccountDbModel);
         }
 
-        public Account RecoveryPassword(string email)
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        public void InitRecoveryPassword(string email)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            var user = this._factoryRepository.Accounts.GetByEmail(email);
+
+            if (user == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            var resoreDtoModel = Mapper.Map<AccountPwdRestoreDto>(user);
+
+            _emailService.SendRestorePwdLink(resoreDtoModel);
+        }
+
+        /// <summary>
+        /// Init procedure password recovery
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <param name="email">Account Email</param>
+        public async Task InitRecoveryPasswordAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+            }
+
+            var user = await this._factoryRepository.Accounts.GetByEmailAsync(email).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            var resoreDtoModel = Mapper.Map<AccountPwdRestoreDto>(user);
+
+            _emailService.SendRestorePwdLinkAsync(resoreDtoModel).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Reset user password  for recovery
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
+        /// <returns>account</returns>
+        public Account RecoveryPassword(ResetPasswordDto model)
+        {
+            var result = _tokenValidator.AccountPwdRestore.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
+            }
+
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
+
+            user.Password = model.Password;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
+            var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(restoredUser);
+        }
+
+        /// <summary>
+        /// Reset user password  for recovery
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <exception cref="ConfirmationTokenException"></exception>
+        /// <returns>account</returns>
+        public async Task<Account> RecoveryPasswordAsync(ResetPasswordDto model)
+        {
+            var result = _tokenValidator.AccountPwdRestore.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new ModelValidateException(result.Errors.Select(m => m.ErrorMessage));
+            }
+
+            var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
+
+            user.Password = model.Password;
+            user.AccountConfirmationToken = TokenHelper.NewToken();
+            var restoredUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(restoredUser);
         }
     }
 }

@@ -20,8 +20,28 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// <returns>Entity</returns>
         AccountDbModel GetByLogin(string login);
 
-        /*Task<AccountDbModel> UpdateAsync(AccountDbModel user);
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns>Entity</returns>
+        Task<AccountDbModel> GetByLoginAsync(string login);
 
+        /*Task<AccountDbModel> UpdateAsync(AccountDbModel user);
         Task<AccountDbModel> GetAsync(long id);*/
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The Email.</param>
+        /// <returns>Entity</returns>
+        AccountDbModel GetByEmail(string email);
+
+        /// <summary>
+        /// Gets the specified login.
+        /// </summary>
+        /// <param name="email">The Email.</param>
+        /// <returns>Entity</returns>
+        Task<AccountDbModel> GetByEmailAsync(string email);
     }
 }

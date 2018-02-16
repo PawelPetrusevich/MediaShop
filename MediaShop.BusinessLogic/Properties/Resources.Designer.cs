@@ -68,6 +68,14 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("AddContentInCart", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Email not sent after {0} attempted.
+        /// </summary>
+        internal static string CountOfTryToEmailSendExceptionMessage {
+            get {
+                return ResourceManager.GetString("CountOfTryToEmailSendExceptionMessage", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Payment is not add in repository.
@@ -441,11 +449,20 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Satate of Content is not valid.
+        ///   Looks up a localized string similar to State of Content is not valid.
         /// </summary>
         internal static string StateContentError {
             get {
                 return ResourceManager.GetString("StateContentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template file {0} not found.
+        /// </summary>
+        internal static string TemplateFileNotFoundExceptionMessage {
+            get {
+                return ResourceManager.GetString("TemplateFileNotFoundExceptionMessage", resourceCulture);
             }
         }
         
@@ -455,6 +472,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string UnknowProductType {
             get {
                 return ResourceManager.GetString("UnknowProductType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unspecified path in {0} to the message template {1}..
+        /// </summary>
+        internal static string UnspecifiedPathToTheMessageTemplate {
+            get {
+                return ResourceManager.GetString("UnspecifiedPathToTheMessageTemplate", resourceCulture);
             }
         }
         

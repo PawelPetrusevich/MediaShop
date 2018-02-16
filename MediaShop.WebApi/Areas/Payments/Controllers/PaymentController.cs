@@ -5,8 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Threading.Tasks;
 using System.IO;
+using System.Threading.Tasks;
+using MediaShop.WebApi.Filters;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 using MediaShop.Common.Interfaces.Services;
@@ -16,9 +17,12 @@ using MediaShop.Common.Models;
 using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Dto.Payment;
+using System.Web.Http.Cors;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
+    [PayPalPaymentExceptionFilter]
+    [EnableCors("*", "*", "*")]
     [RoutePrefix("api/payment")]
     public class PaymentController : ApiController
     {
@@ -28,7 +32,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         {
             this._paymentService = paymentService;
         }
-        
+
         [HttpPost]
         [Route("paypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
@@ -36,28 +40,9 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
-            try
-            {
-                string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
-                this.StatusCode(HttpStatusCode.Redirect);
-                return Redirect(paymentUrl);  
-            }
-            catch (ArgumentNullException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (EmptyCartException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ContentCartPriceException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
+            this.StatusCode(HttpStatusCode.Redirect);
+            return Redirect(paymentUrl);
         }
 
         [HttpGet]
@@ -67,23 +52,19 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult ExecutePayment(string paymentId, string token)
         {
-            try
-            {
-                var payment = _paymentService.ExecutePayment(paymentId);
-                return Ok(payment);
-            }
-            catch (PayPalException ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (PaymentsException ex)
-            {
-                return InternalServerError(ex);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            var payment = _paymentService.ExecutePayment(paymentId);
+            return Ok(payment);
+        }
+
+        [HttpGet]
+        [Route("paypalpayment/executepaypalpaymentasync")]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
+        [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        public async Task<IHttpActionResult> ExecutePaymentAsync(string paymentId, string token)
+        {
+            var payment = await _paymentService.ExecutePaymentAsync(paymentId);
+            return Ok(payment);
         }
 
         [HttpGet]
@@ -92,15 +73,8 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PaymentCancelled(string token)
         {
-            try
-            {
-                this.StatusCode(HttpStatusCode.Redirect);
-                return Redirect("api/cart/getcart");
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+            this.StatusCode(HttpStatusCode.Redirect);
+            return Redirect("api/cart/getcart");
         }
     }
 }

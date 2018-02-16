@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using AutoMapper;
     using MediaShop.BusinessLogic.ExtensionMethods;
     using MediaShop.BusinessLogic.Properties;
@@ -123,6 +124,84 @@
         }
 
         /// <summary>
+        /// Add object payment in repository
+        /// </summary>
+        /// <param name="payment">object Payment after decerializer</param>
+        /// <returns>object payment</returns>
+        public async Task<PayPalPaymentDto> AddPaymentAsync(PayPal.Api.Payment payment)
+        {
+            // Check payment for null
+            if (payment == null)
+            {
+                throw new InvalideDecerializableExceptions(Resources.BadDeserializer);
+            }
+
+            // Check exist Payment in repository
+            if (await this.ExistInPaymentAsync(payment.id).ConfigureAwait(false))
+            {
+                throw new ExistPaymentException(Resources.ExistPayment);
+            }
+
+            try
+            {
+                // Check state payment
+                if (payment.state == null)
+                {
+                    throw new InvalideDecerializableExceptions(Resources.BadDeserializer);
+                }
+
+                var stringFirstUpper = $"{payment.state.Substring(0, 1).ToUpper()}{payment.state.Substring(1)}";
+
+                var enumString = (PaymentStates)Enum.Parse(typeof(PaymentStates), stringFirstUpper);
+
+                if (enumString != PaymentStates.Approved)
+                {
+                    switch (enumString)
+                    {
+                        case PaymentStates.Created:
+                            throw new OperationPaymentException(Resources.NotApprovedOperationPayment);
+                        case PaymentStates.Failed:
+                            throw new OperationPaymentException(Resources.FailedOperationPayment);
+                    }
+                }
+
+                // Change State content in Cart
+                await this.SetStateItemsAsync(payment, Common.Enums.CartEnums.StateCartContent.InPaid).ConfigureAwait(false);
+
+                // Mapping PaymentTransaction to PaymentDbModel
+                var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
+
+                paymentDbModel.CreatorId = 1; // Need initialize CreatorId
+
+                // Add object PaymentDbModel in database
+                var paymentResult = await this.repositoryPayment.AddAsync(paymentDbModel).ConfigureAwait(false);
+
+                // throw new AddPaymentException
+                if (paymentResult == null)
+                {
+                    throw new AddPaymentException(Resources.BadAddPayment);
+                }
+
+                // else create PayPalPaymentDto and return user
+                var paymentDto = this.CreatePayPalPaymentDto(payment);
+
+                return paymentDto;
+            }
+            catch (ArgumentNullException error)
+            {
+                throw new ArgumentNullException(error.Message);
+            }
+            catch (ArgumentException error)
+            {
+                throw new ArgumentException(error.Message);
+            }
+            catch (OverflowException error)
+            {
+                throw new OverflowException(error.Message);
+            }
+        }
+
+        /// <summary>
         /// Checking the existence of payment in repository
         /// </summary>
         /// <param name="paymentId">payment id</param>
@@ -130,6 +209,18 @@
         /// false - payment doesn`t exist in repository</returns>
         public bool ExistInPayment(string paymentId) => this.repositoryPayment
             .Find(item => item.PaymentId.Equals(paymentId)).Count() != 0;
+
+        /// <summary>
+        /// Async checking the existence of payment in repository
+        /// </summary>
+        /// <param name="paymentId">payment id</param>
+        /// <returns>true - payment exist in repository
+        /// false - payment doesn`t exist in repository</returns>
+        public async Task<bool> ExistInPaymentAsync(string paymentId)
+        {
+            var result = await this.repositoryPayment.FindAsync(item => item.PaymentId.Equals(paymentId)).ConfigureAwait(false);
+            return result.Count() != 0;
+        }
 
         /// <summary>
         /// Method for create PayPalPaymentDto
@@ -217,6 +308,72 @@
         }
 
         /// <summary>
+        /// Async method for set state item all product in payment
+        /// </summary>
+        /// <param name="payment">payment</param>
+        /// <param name="state">state </param>
+        public async Task SetStateItemsAsync(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state)
+        {
+            try
+            {
+                // List for rollback
+                this.listIdForRollBack = new List<long>();
+
+                foreach (PayPal.Api.Transaction tran in payment.transactions)
+                {
+                    foreach (Item item in tran.item_list.items)
+                    {
+                        // 3.1 Change state product
+                        var resultChangeState = await this.serviceCart.SetStateAsync(Convert.ToInt64(item.sku), state).ConfigureAwait(false);
+
+                        // Write id for rollback
+                        this.listIdForRollBack.Add(resultChangeState.ContentId);
+
+                        // 3.2 Transferring product in Defrayal from ContentCart
+                        var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
+
+                        objectDefrayal.CreatorId = 1; // Need initialize CreatorId
+
+                        // 3.3 Save object Defrayal in repository
+                        var resultSaveDefrayal = await this.repositoryDefrayal.AddAsync(objectDefrayal).ConfigureAwait(false);
+                    }
+                }
+            }
+            catch (UpdateContentInCartExseptions error)
+            {
+                // Rollback change set state content
+                foreach (long contentId in this.listIdForRollBack)
+                {
+                    // 3.1 Change state product in cart
+                    var resultChangeState = await this.serviceCart
+                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .ConfigureAwait(false);
+                }
+
+                throw new UpdateContentInCartExseptions(error.Message);
+            }
+            catch (AddDefrayalException error)
+            {
+                // Rollback change add new defrayal
+                foreach (long contentId in this.listIdForRollBack)
+                {
+                    // 3.1 Change state product in cart
+                    var resultChangeState = await this.serviceCart
+                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .ConfigureAwait(false);
+
+                    // 3.2 Transferring product in Defrayal from ContentCart
+                    var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
+
+                    // 3.3 Save object Defrayal in repository
+                    var resultSaveDefrayal = await this.DeleteDefrayalAsync(objectDefrayal).ConfigureAwait(false);
+                }
+
+                throw new AddDefrayalException(error.Message);
+            }
+        }
+
+        /// <summary>
         /// Method for delete object typeof DefrayalDbModel in repository
         /// </summary>
         /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
@@ -239,6 +396,30 @@
         }
 
         /// <summary>
+        /// Async method for delete object typeof DefrayalDbModel in repository
+        /// </summary>
+        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+        /// <returns>object DefrayalDbModel after delete in repository</returns>
+        public async Task<DefrayalDbModel> DeleteDefrayalAsync(DefrayalDbModel modelDefrayal)
+        {
+            if (modelDefrayal == null)
+            {
+                throw new ArgumentNullException(Resources.NullModelDefrayal);
+            }
+
+            var resultDeleteDefrayal = await this.repositoryDefrayal
+                .DeleteAsync(modelDefrayal)
+                .ConfigureAwait(false);
+
+            if (resultDeleteDefrayal == null)
+            {
+                throw new DeleteDefrayalException(Resources.InvalidDeleteOperationDefrayal);
+            }
+
+            return resultDeleteDefrayal;
+        }
+
+        /// <summary>
         /// Method for delete object typeof DefrayalDbModel in repository
         /// </summary>
         /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
@@ -251,6 +432,30 @@
             }
 
             var resultAddDefrayal = this.repositoryDefrayal.Add(modelDefrayal);
+
+            if (resultAddDefrayal == null)
+            {
+                throw new AddDefrayalException(Resources.InvalidAddOperationDefrayal);
+            }
+
+            return resultAddDefrayal;
+        }
+
+        /// <summary>
+        /// Method for delete object typeof DefrayalDbModel in repository
+        /// </summary>
+        /// <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+        /// <returns>object DefrayalDbModel after add in repository</returns>
+        public async Task<DefrayalDbModel> AddInDefrayalAsync(DefrayalDbModel modelDefrayal)
+        {
+            if (modelDefrayal == null)
+            {
+                throw new ArgumentNullException(Resources.NullModelDefrayal);
+            }
+
+            var resultAddDefrayal = await this.repositoryDefrayal
+                .AddAsync(modelDefrayal)
+                .ConfigureAwait(false);
 
             if (resultAddDefrayal == null)
             {
@@ -384,6 +589,29 @@
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
             var result = this.AddPayment(executedPayment);
+            return result;
+        }
+
+        /// <summary>
+        /// Executes, or completes, a PayPal payment that the payer has approved
+        /// </summary>
+        /// <param name="paymentId">paymentId</param>
+        /// <returns>Executed Payment</returns>
+        public async Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId)
+        {
+            var config = Configuration.GetConfig();
+            var accessToken = new OAuthTokenCredential(config).GetAccessToken();
+            var apiContext = new APIContext(accessToken);
+            var payment = Payment.Get(apiContext, paymentId);
+            payment = payment ?? throw new PaymentException(Resources.PaymentIsNullOrEmpty);
+            var paymentExecution = new PaymentExecution()
+            {
+                payer_id = payment.payer.payer_info.payer_id
+            };
+
+            var executedPayment = new Payment();
+            executedPayment = payment.Execute(apiContext, paymentExecution);
+            var result = await this.AddPaymentAsync(executedPayment).ConfigureAwait(false);
             return result;
         }
 

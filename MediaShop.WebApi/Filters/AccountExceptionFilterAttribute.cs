@@ -59,6 +59,10 @@ namespace MediaShop.WebApi.Filters
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, addStatistic.Message);
                         break;
+                    case AuthorizedDataException authorizedData:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                            HttpStatusCode.BadRequest, authorizedData.Message);
+                        break;
                     default:
                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, actionExecutedContext.Exception);
