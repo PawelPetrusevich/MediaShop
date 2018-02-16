@@ -28,6 +28,7 @@ import { ProductListComponent } from './components/Content/product-list/product-
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
+import { ProductDownloadComponent } from './Components/Content/product-download/product-download.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ProductFilterComponent } from './components/Content/product-filter/prod
     RemovePermissionComponent,
     LogoutComponent,
     ProductUploadComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductDownloadComponent
   ],
   imports: [
     BrowserModule, NgbModule.forRoot(), HttpClientModule, FormsModule, HttpModule
