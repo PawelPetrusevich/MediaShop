@@ -27,15 +27,8 @@ namespace MediaShop.WebApi
 
             // Web API configuration and services
             FluentValidationModelValidatorProvider.Configure(config);
-            config.EnableCors();
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
         }
     }
 }
