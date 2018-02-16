@@ -5,7 +5,7 @@
     /// <summary>
     /// Interface IDefrayalRepository
     /// </summary>
-    public interface IDefrayalRepository : IRepository<DefrayalDbModel>
+    public interface IDefrayalRepository : IRepository<DefrayalDbModel>, IRepositoryAsync<DefrayalDbModel>
     {
     }
 }

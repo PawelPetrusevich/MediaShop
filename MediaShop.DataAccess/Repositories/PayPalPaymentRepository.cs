@@ -41,9 +41,22 @@
             return result;
         }
 
-        public Task<PayPalPaymentDbModel> AddAsync(PayPalPaymentDbModel payment)
+        /// <summary>
+        /// Override async add model to repository
+        /// </summary>
+        /// <param name="model">model user</param>
+        /// <returns>db entry</returns>
+        /// <exception cref="ArgumentNullException">if model = null</exception>
+        public override async Task<PayPalPaymentDbModel> AddAsync(PayPalPaymentDbModel model)
         {
-            throw new NotImplementedException();
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var result = this.DbSet.Add(model);
+            await this.Context.SaveChangesAsync().ConfigureAwait(false);
+            return result;
         }
     }
 }

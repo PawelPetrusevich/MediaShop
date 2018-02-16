@@ -449,7 +449,7 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Satate of Content is not valid.
+        ///   Looks up a localized string similar to State of Content is not valid.
         /// </summary>
         internal static string StateContentError {
             get {
