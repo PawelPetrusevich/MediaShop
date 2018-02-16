@@ -11,6 +11,7 @@ using MediaShop.Common.Exceptions;
 using MediaShop.Common.Dto.Messaging;
 using FluentValidation;
 using MediaShop.Common.Dto.Messaging.Validators;
+using System.Threading.Tasks;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -71,6 +72,46 @@ namespace MediaShop.BusinessLogic.Services
                 .FirstOrDefault();
 
             notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
+
+            return Mapper.Map<NotificationDto>(notify);
+        }
+
+        public async Task<NotificationDto> NotifyAsync(NotificationDto notification)
+        {
+            var result = this._validator.Validate(notification);
+
+            if (!result.IsValid)
+            {
+                throw new ArgumentException(/*result.Errors.FirstOrDefault().ErrorMessage, result.Errors.SingleOrDefault(m => m == m)*/);
+            }
+
+            if (string.IsNullOrWhiteSpace(notification.Title))
+            {
+                notification.Title = Resources.DefaultNotificationTitle;
+            }
+
+            if (notification.ReceiverId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.ReceiverId));
+            }
+
+            if (notification.SenderId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.SenderId));
+            }
+
+            var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
+            if (!tokens.Any())
+            {
+                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
+            }
+
+            var notify = _notifcationStore
+                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message &&
+                           n.Title == notification.Title)
+                .FirstOrDefault();
+
+            notify = notify ?? await this._notifcationStore.AddAsync(Mapper.Map<Notification>(notification));
 
             return Mapper.Map<NotificationDto>(notify);
         }
