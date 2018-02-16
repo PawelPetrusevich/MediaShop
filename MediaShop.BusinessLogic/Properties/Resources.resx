@@ -303,4 +303,7 @@
   <data name="UnspecifiedPathToTheMessageTemplate" xml:space="preserve">
     <value>Unspecified path in {0} to the message template {1}.</value>
   </data>
+  <data name="NotFoundProduct" xml:space="preserve">
+    <value>Product not found with this ID.</value>
+  </data>
 </root>

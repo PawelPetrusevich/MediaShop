@@ -62,7 +62,7 @@ namespace MediaShop.DataAccess.Repositories
         {
             using (Context)
             {
-                return DbSet.Where(entity => entity.IsDeleted == false).ToList();
+                return DbSet.Where(entity => entity.IsDeleted == false).Include(c => c.CompressedProduct).ToList();
             }
 
             return default(List<Product>);
@@ -72,7 +72,7 @@ namespace MediaShop.DataAccess.Repositories
         {
             using (Context)
             {
-                return await DbSet.Where(entity => entity.IsDeleted == false).ToListAsync();
+                return await DbSet.Where(entity => entity.IsDeleted == false).Include(c => c.CompressedProduct).ToListAsync();
             }
 
             return default(List<Product>);

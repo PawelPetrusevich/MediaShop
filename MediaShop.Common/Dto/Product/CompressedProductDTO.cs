@@ -17,6 +17,11 @@
         public string ProductName { get; set; }
 
         /// <summary>
+        /// Gets or sets ProductPrice
+        /// </summary>
+        public decimal ProductPrice { get; set; }
+
+        /// <summary>
         /// картинка, видео, музыка в формате Base64
         /// </summary>
         public string Content { get; set; }
