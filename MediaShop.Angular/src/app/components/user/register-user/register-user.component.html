@@ -1,39 +1,13 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-1">
-      <label>UserName</label>
-    </div>
-    <div class="col-md-4">
-      <input type="text" [(ngModel)]="login" class="" />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1">
-      <label>Password</label>
-    </div>
-    <div class="col-md-4">
-      <input type="text" [(ngModel)]="password" class="" />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1">
-      <label>ConfirmPassword</label>
-    </div>
-    <div class="col-md-4">
-      <input type="text" [(ngModel)]="confirmPassword" class="" />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1">
-      <label>Email</label>
-    </div>
-    <div class="col-md-4">
-      <input type="text" [(ngModel)]="email" class="" />
-    </div>
-  </div>
-  <div class="row">
-    <button type="submit" class="btn btn-primary" (click)="register(login, password, confirmPassword, email)">Register</button>
-  </div>
-</div>
-
+<form class="form-signin">
+  <h2 class="form-signin-heading">Please register</h2>
+  <label for="inputLogin" class="sr-only">Login</label>
+  <input name = "username" [(ngModel)]="username" type="email" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input  name = "password" [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+  <label for="inputConfirmPassword" class="sr-only">Confirmed password</label>
+  <input name = "confirmPassword" [(ngModel)]="confirmPassword" type="password" id="inputConfirmPassword" class="form-control" placeholder="ConfirmPassword" required="">
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input  name = "email" [(ngModel)]="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" >
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="register(username, password, confirmPassword, email)">Register</button>
+</form>
 

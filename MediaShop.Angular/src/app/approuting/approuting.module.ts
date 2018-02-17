@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from '../components/user/login/login.component';
+import { RegisterUserComponent } from '../components/user/register-user/register-user.component';
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
@@ -10,8 +11,8 @@ import { AuthGuard } from '../guards/auth.guard';
   imports: [
     CommonModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent },
-      {
+     { path: '', component: LoginComponent },
+     {
         path: 'product-list',
         component: ProductListComponent,
         canActivate: [AuthGuard],

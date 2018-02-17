@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { RegisterUserDto } from '../../Models/User/register-userDto';
 import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
-import {AppSettings} from '../../Settings/AppSettings'
+import {AppSettings} from '../../Settings/AppSettings';
 
 @Injectable()
 export class AccountService {
