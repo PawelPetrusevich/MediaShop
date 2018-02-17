@@ -1,4 +1,4 @@
-export enum Permissions 
+export enum Permissions
 {
     See = 1,
     Create = 2,

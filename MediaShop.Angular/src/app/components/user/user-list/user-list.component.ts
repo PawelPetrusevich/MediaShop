@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Permissions } from '../../../Models/User/permissions';
 import { UserService } from '../../../Services/User/userservise';
 import { PermissionDto } from '../../../Models/User/permissionDto';
 
 @Component({
-  selector: 'app-set-permission',
-  templateUrl: './set-permission.component.html',
-  styleUrls: ['./set-permission.component.css']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class SetPermissionComponent {
+export class UserListComponent  implements OnInit {
 
   users: PermissionDto[];
   currentUser: PermissionDto;
@@ -17,7 +17,8 @@ export class SetPermissionComponent {
 
   status: any;
   constructor(private userService: UserService) {}
-
+  ngOnInit() { this.getAll();
+  }
   getAll() {
     this.userService.GetAllUsers().subscribe(result => {
       this.users = result;
@@ -29,4 +30,4 @@ export class SetPermissionComponent {
       this.userService.SetPermission(id, login, email, permission)
         .subscribe(resp => (this.status = resp.status), err => console.log(err));
     }
-}
+ }

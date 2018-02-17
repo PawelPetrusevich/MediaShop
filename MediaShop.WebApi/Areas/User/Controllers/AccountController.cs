@@ -213,5 +213,24 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("getAllUsers")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult GetAllUsers()
+        {
+            try
+            {
+                return Ok(this._accountService.GetAllUsers());
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

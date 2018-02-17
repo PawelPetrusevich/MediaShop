@@ -1,0 +1,13 @@
+<tbody>
+            <tr *ngFor="let user of users  let i=index">
+                <th>{{i + 1}}</th>
+                <th>{{user.Id}}</th>
+                <th>{{user.Login}}</th>
+                <th>{{user.Email}}</th>
+                <th>
+
+                    <button *ngIf="isLoaded==false" class="btn btn-success btn-xs" (click)="SetPermission(user.Id)"> <i class="fa fa-check"></i> Active </button>
+                    <button *ngIf="isLoaded==true" class="btn btn-danger btn-xs" (click)="changeStatus(user.Id)"><i class="fa fa-trash-o"></i> Block</button>}}
+                </th>
+            </tr>
+        </tbody>

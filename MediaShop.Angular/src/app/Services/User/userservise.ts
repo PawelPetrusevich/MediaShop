@@ -11,9 +11,11 @@ export class UserService {
   static url = 'http://localhost:51289/api';
   constructor(private http: Http) {}
 
-  SetPermission(id: number, permission: Permissions) {
+  SetPermission(id: number, login: string, email: string, permission: Permissions) {
     const permissionDto = new PermissionDto();
     permissionDto.Id = id;
+    permissionDto.Login = login;
+    permissionDto.Email = email;
     permissionDto.Permission = permission;
     return this.http.post(UserService.url + permissionDto.Id + '/user/permission/add', permissionDto).map(resp => resp.json())
     .catch(err => Observable.throw(err));
@@ -26,7 +28,11 @@ export class UserService {
     .catch(err => Observable.throw(err));
   }
  Logout(id: number) {
- return this.http.post(UserService.url + 'account/account/logout', id).map(resp => resp.json())
+ return this.http.post(UserService.url + '/account/logout', id).map(resp => resp.json())
  .catch(err => Observable.throw(err));
+ }
+ GetAllUsers() {
+  return this.http.get(UserService.url + '/account/GetAllUsers').map(resp => resp.json())
+  .catch(err => Observable.throw(err));
  }
 }

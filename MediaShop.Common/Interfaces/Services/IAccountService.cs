@@ -11,6 +11,8 @@ using MediaShop.Common.Exceptions.User;
 
 namespace MediaShop.Common.Interfaces.Services
 {
+    using System.Collections.Generic;
+
     using MediaShop.Common.Dto;
     using MediaShop.Common.Models.User;
 
@@ -107,5 +109,11 @@ namespace MediaShop.Common.Interfaces.Services
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
         Task InitRecoveryPasswordAsync(string email);
+
+        /// <summary>
+        /// Get All Users
+        /// </summary>
+        /// <returns>IEnumerable<PermissionDto></returns>
+        IEnumerable<PermissionDto> GetAllUsers();
     }
 }
