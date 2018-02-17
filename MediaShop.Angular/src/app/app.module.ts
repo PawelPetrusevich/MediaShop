@@ -25,6 +25,9 @@ import { LogoutComponent } from './components/user/logout/logout.component';
 import { UserService } from './Services/User/userservise';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ApproutingModule } from './approuting/approuting.module';
+import { ProductService } from './Services/product-service.service';
+import { ProductComponent } from './Components/Content/product/product.component';
+import { ProductListComponent } from './components/Content/product-list/product-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,9 @@ import { ApproutingModule } from './approuting/approuting.module';
     SetPermissionComponent,
     RemovePermissionComponent,
     LogoutComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProductComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,7 @@ import { ApproutingModule } from './approuting/approuting.module';
     HttpModule,
     ApproutingModule
   ],
-  providers: [AccountService, Cartservice, Paymentservice, UserService],
+  providers: [AccountService, Cartservice, Paymentservice, UserService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
