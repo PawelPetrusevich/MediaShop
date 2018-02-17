@@ -33,7 +33,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         private NotificationService _service;
         private List<string> _testTokens;
 
-        private Mock<NotificationDtoValidator> _validator;
+        private NotificationDtoValidator _validator;
 
         public NotificationServiceTest()
         {
@@ -46,9 +46,9 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         {
             _notificationSubscrubedUserMock = new Mock<INotificationSubscribedUserRepository>();
             _notificationRepoMock = new Mock<INotificationRepository>();
-            _validator = new Mock<NotificationDtoValidator>();
+            _validator = new NotificationDtoValidator();
 
-            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator.Object);
+            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator);
             _notification = new Notification()
             {
                 CreatorId = 1,
@@ -147,7 +147,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         [Test]
         public void NotifyArgumentValidationTest()
         {
-            Assert.Throws<ArgumentException>(() => _service.Notify(null));
+            Assert.Throws<ArgumentNullException>(() => _service.Notify(null));
             Assert.Throws<ArgumentException>(() => _service.Notify(new NotificationDto()));
             Assert.Throws<ArgumentException>(() =>
                 _service.Notify(new NotificationDto() {ReceiverId = 0, Message = "test", SenderId = 1}));
