@@ -1,18 +1,7 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li>
-        <a href="#">List product</a>
-      </li>
-      <li>
-        <a href="#">Search Product</a>
-      </li>
-      <li>
-        <a href="#">Upload Product</a>
-      </li>
-    </ul>
+<div class="album text-muted">
+  <div class="container" >
+    <div class="row">
+      <app-product class="card" *ngFor="let product of compressedProductList" [compressedProduct]="product"></app-product>
+    </div>
   </div>
-</nav>
-<div>
-  <app-product class="p-2" *ngFor="let product of compressedProductList" [compressedProduct]="product"></app-product>
 </div>

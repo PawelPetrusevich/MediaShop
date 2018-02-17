@@ -17,7 +17,6 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
-    [EnableCors("*", "*", "*")]
     [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
     public class ProductController : ApiController
@@ -321,7 +320,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
-
+        
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSale")]
         [SwaggerResponseRemoveDefaults]
