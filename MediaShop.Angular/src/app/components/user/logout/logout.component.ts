@@ -10,7 +10,7 @@ export class LogoutComponent implements OnInit {
 
   constructor(private accountService : AccountService) { }
 
-  login(id : number): void {
+  logut(id : number): void {
     this.accountService.logout(id).subscribe(resp => {
       localStorage.removeItem('token');
       localStorage.setItem('isAuthorized', 'false');

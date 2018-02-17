@@ -6,12 +6,18 @@ import { RegisterUserComponent } from '../components/user/register-user/register
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { LogoutComponent } from '../components/user/logout/logout.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
      { path: '', component: LoginComponent },
+     { path: 'logOut',
+       component: LogoutComponent,
+       canActivate: [AuthGuard],
+       canLoad: [AuthGuard]
+       },
      { path: 'register', component: RegisterUserComponent },
      {
         path: 'product-list',
