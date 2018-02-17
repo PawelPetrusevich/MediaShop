@@ -29,6 +29,7 @@ import { ProductComponent } from './components/Content/product/product.component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
+import { ProductService } from './Services/product-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { AuthInterceptor } from './interceptors/http.auth.interceptor';
     Cartservice,
     Paymentservice,
     UserService,
+    ProductService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
