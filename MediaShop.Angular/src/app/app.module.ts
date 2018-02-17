@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
@@ -21,16 +20,23 @@ import { AccountService } from './Services/User/AccountService';
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
 import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
+import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
 import { UserService } from './Services/User/userservise';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ApproutingModule } from './approuting/approuting.module';
+import { ProductComponent } from './components/Content/product/product.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './interceptors/http.auth.interceptor';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ProductListComponent,
+    ProductComponent,
     RegisterUserComponent,
     LoginComponent,
     CartComponent,
@@ -42,17 +48,24 @@ import { ProductListComponent } from './components/Content/product-list/product-
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
-    UserListComponent
+    NotfoundComponent,
+   UserListComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule.forRoot(),
     HttpClientModule,
     FormsModule,
     HttpModule,
     ApproutingModule
   ],
-  providers: [AccountService, Cartservice, Paymentservice, UserService],
+  providers: [
+    AccountService,
+    Cartservice,
+    Paymentservice,
+    UserService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
