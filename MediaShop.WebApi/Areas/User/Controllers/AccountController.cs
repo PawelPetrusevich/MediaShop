@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AutoMapper;
 using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Messaging;
@@ -26,6 +27,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using System.Text;
 
     [RoutePrefix("api/account")]
+    [EnableCors("*", "*", "*")]
     [AccountExceptionFilter]
     [Authorize]
     public class AccountController : ApiController
@@ -105,35 +107,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
+            var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
             return Ok(account);
-        }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ConfirmedUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddProfileException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddSettingsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
         }
 
         [HttpGet]
@@ -150,35 +125,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            try
-            {
-                var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
+            var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
             return Ok(account);
-        }
-            catch (NotFoundUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (ConfirmedUserException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddProfileException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (AddSettingsException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (UpdateAccountException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
         }
 
         [HttpPost]

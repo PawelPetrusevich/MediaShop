@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Provider;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
@@ -15,13 +17,12 @@ namespace MediaShop.WebApi
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static string PublicClientId { get; private set; } 
+        public static string PublicClientId { get; private set; }
 
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             // Configure the db context and user manager to use a single instance per request
-
             PublicClientId = "MediaShop";
 
             var accountService = DependencyResolver.Current.GetService<IAccountService>();
@@ -40,7 +41,12 @@ namespace MediaShop.WebApi
             };
 
             // Token Generation
-            app.UseOAuthBearerTokens(OAuthOptions);    
+            app.UseOAuthBearerTokens(OAuthOptions);
+
+            app.UseCors(CorsOptions.AllowAll);
+            var config = new HttpConfiguration();
+
+            app.UseWebApi(config);
         }
     }
 }

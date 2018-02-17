@@ -73,7 +73,7 @@ namespace MediaShop.Common
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
             this.CreateMap<AccountDbModel, AccountPwdRestoreDto>()
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
-            
+
             this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, PermissionDto>();
@@ -83,6 +83,16 @@ namespace MediaShop.Common
             this.CreateMap<ProductDto, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, Product>().ReverseMap();
             this.CreateMap<UploadProductModel, ProductDto>().ReverseMap();
+            this.CreateMap<ContentCart, CompressedProductDTO>()
+                .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
+                .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
+                .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.CompressedProduct.Content)));
+            this.CreateMap<ContentCart, OriginalProductDTO>()
+                .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
+                .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
+                .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.OriginalProduct.Content)));
+            this.CreateMap<Product, CompressedProductDTO>()
+                .ForMember(item => item.Content, obj => obj.MapFrom(y => Convert.ToBase64String(y.CompressedProduct.Content)));
             this.CreateMap<ContentCartDto, DefrayalDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore())
                 .ForMember(item => item.CreatorId, opt => opt.Ignore())
