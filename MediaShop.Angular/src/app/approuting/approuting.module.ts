@@ -7,19 +7,23 @@ import { ProductListComponent } from '../components/Content/product-list/product
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { LogoutComponent } from '../components/user/logout/logout.component';
+import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
-     { path: '', component: LoginComponent },
+      { path: '', component: LoginComponent },
      { path: 'logOut',
        component: LogoutComponent,
        canActivate: [AuthGuard],
        canLoad: [AuthGuard]
        },
      { path: 'register', component: RegisterUserComponent },
-     {
+      { path: 'recovery-password', component: PasswordRecoveryComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      {
         path: 'product-list',
         component: ProductListComponent,
         canActivate: [AuthGuard],
