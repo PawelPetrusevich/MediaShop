@@ -3,6 +3,7 @@ import { ProductService } from '../../../Services/product-service.service';
 import { CompressedProductDto } from '../../../Models/Content/CompressedProductDto';
 import { Observable } from 'rxjs/observable';
 import { ProductListComponent } from '../product-list/product-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -13,7 +14,7 @@ import { ProductListComponent } from '../product-list/product-list.component';
 export class ProductComponent implements OnInit {
 
   @Input() compressedProduct: CompressedProductDto;
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private router: Router) {
    }
 
   ngOnInit() {
@@ -21,5 +22,9 @@ export class ProductComponent implements OnInit {
 
   get Base64Content(): string {
     return 'data:image/jpg;base64,' + this.compressedProduct.Content;
+  }
+
+  GoInfo() {
+    this.router.navigate(['product-info', this.compressedProduct.Id]);
   }
 }

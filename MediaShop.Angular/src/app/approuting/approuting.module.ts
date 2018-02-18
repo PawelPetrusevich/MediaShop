@@ -29,7 +29,7 @@ import { ProductInfoComponent } from '../components/Content/product-info/product
         component: ProductFilterComponent
       },
       {
-        path: 'product-info',
+        path: 'product-info/:id',
         component: ProductInfoComponent
       },
 

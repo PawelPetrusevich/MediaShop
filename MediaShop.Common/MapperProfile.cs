@@ -101,6 +101,8 @@ namespace MediaShop.Common
                 .ForMember(item => item.Name, opt => opt.MapFrom(n => n.name))
                 .ForMember(item => item.Description, opt => opt.MapFrom(n => n.description))
                 .ForMember(item => item.Price, opt => opt.MapFrom(n => n.price));
+            this.CreateMap<Product, ProductInfoDto>()
+                .ForMember(x => x.Content, obj => obj.MapFrom(y => Convert.ToBase64String(y.ProtectedProduct.Content)));
         }
     }
 }
