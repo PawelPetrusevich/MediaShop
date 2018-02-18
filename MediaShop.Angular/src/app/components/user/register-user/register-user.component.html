@@ -1,13 +1,13 @@
-<form class="form-signin col-md-4 col-md-offset-4">
+<form class="form-signin">
   <h2 class="form-signin-heading">Registration</h2>
   <label for="inputLogin" class="sr-only">Login</label>
   <input name = "username" [(ngModel)]="username" type="email" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
+  <label for="inputEmail" class="sr-only">Password</label>
+  <input  name = "email" [(ngModel)]="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" >
   <label for="inputPassword" class="sr-only">Password</label>
   <input  name = "password" [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
   <label for="inputConfirmPassword" class="sr-only">Confirmed password</label>
   <input name = "confirmPassword" [(ngModel)]="confirmPassword" type="password" id="inputConfirmPassword" class="form-control" placeholder="ConfirmPassword" required="">
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input  name = "email" [(ngModel)]="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" >
   <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="register(username, password, confirmPassword, email)">Register</button>
 </form>
 
