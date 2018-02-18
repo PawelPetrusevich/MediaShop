@@ -42,9 +42,16 @@ export class AccountService {
       .catch(err => Observable.throw(err));
   }
 
+  forgotPassword(email: string) {
+    return this.http
+      .post(AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword', email)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/recoveryPassword', PasswordRecovery)
+      .post(AppSettings.API_ENDPOINT + 'api/account/recoveryPassword', resetMasswor)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
