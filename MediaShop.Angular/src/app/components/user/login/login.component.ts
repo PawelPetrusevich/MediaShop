@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TokenResponse} from '../../../Models/User/token-response';
 import {AccountService} from '../../../Services/User/AccountService';
 import { HttpErrorResponse } from '@angular/common/http';
+import {AppSettings} from '../../../Settings/AppSettings';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +24,8 @@ export class LoginComponent implements OnInit {
     this.accountService.login(name, password)
     .subscribe(resp => {
       this.data = resp;
-      localStorage.setItem('token', this.data.access_token);
-      localStorage.setItem('isAuthorized', 'true');
+      localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
+      localStorage.setItem(AppSettings.authorizationFlag, 'true');
       console.log(resp);
     }, err => console.log(err));
   }

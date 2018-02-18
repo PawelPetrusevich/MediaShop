@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../../Services/User/AccountService';
+import {AppSettings} from '../../../Settings/AppSettings';
 
 @Component({
   selector: 'app-logout',
@@ -12,8 +13,8 @@ export class LogoutComponent implements OnInit {
 
   logut(id : number): void {
     this.accountService.logout(id).subscribe(resp => {
-      localStorage.removeItem('token');
-      localStorage.setItem('isAuthorized', 'false');
+      localStorage.removeItem(AppSettings.tokenKey);
+      localStorage.setItem(AppSettings.authorizationFlag, 'false');
     });
   }
 
