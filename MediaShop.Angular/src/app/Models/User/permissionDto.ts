@@ -2,8 +2,9 @@ import { Permissions } from './permissions';
 
 export class PermissionDto {
     Id: number;
-    Permission: Permissions;
+    Permission: number;
     Login: string;
     Email: string;
     IsBanned: boolean;
 }
+

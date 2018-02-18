@@ -36,4 +36,14 @@ export class UserListComponent  implements OnInit {
       this.userService.SetPermission(id, login, email, permission)
         .subscribe(resp => (this.status = resp.status), err => console.log(err));
     }
-  }
+    GetPermission(user: PermissionDto) {
+      console.log(user.Permission);
+      console.log(Permissions.See);
+      console.log(user.Permission & Permissions.See);
+      console.log((user.Permission & Permissions.See) === 0);
+
+      const see = (user.Permission & Permissions.See) === 0;
+      const create = (user.Permission & Permissions.Create) === 0;
+      const del = (user.Permission & Permissions.Delete) === 0;
+      return {See: see, Create: create, Delete: del};
+  }}
