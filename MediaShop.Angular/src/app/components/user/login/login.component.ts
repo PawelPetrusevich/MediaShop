@@ -27,12 +27,7 @@ export class LoginComponent implements OnInit {
       this.data = resp;
       localStorage.setItem('token', this.data.access_token);
       localStorage.setItem('isAuthorized', 'true');
-
-    }, (err: HttpErrorResponse) => {
-      if (err.status === 404) {
-        this.showErr = true;
-      }
-      this.errorMsg = err.statusText;
-    });
+      console.log(resp);
+    }, err => console.log(err));
   }
 }

@@ -28,13 +28,7 @@ export class RegisterUserComponent implements OnInit {
 
     this.accountService
       .register(user)
-      .subscribe(resp =>  (this.userInfo = resp),
-      (err: HttpErrorResponse) => {
-        if (err.status === 404) {
-          this.showErr = true;
-        }
-        this.errorMsg = err.statusText;
-      });
+      .subscribe(resp =>  (this.userInfo = resp, console.log(resp) ), err => console.log(err));
   }
 
   ngOnInit() {
