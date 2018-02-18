@@ -40,11 +40,6 @@ body {
   border: 0;
 }
 
-.card > img {
-  margin-bottom: .75rem;
-  height: 280px;
-  width: 100%;
-}
 
 .card-text {
   font-size: 85%;

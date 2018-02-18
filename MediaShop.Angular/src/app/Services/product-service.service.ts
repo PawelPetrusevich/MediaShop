@@ -24,7 +24,8 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    return this.http.post(this.webApiUrl + 'add', uploadProduct);
+    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.webApiUrl + 'add', uploadProduct, {headers: header});
   }
 
   getProductById(ID: number) {

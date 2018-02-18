@@ -5,6 +5,9 @@ import { LoginComponent } from '../components/user/login/login.component';
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
+import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
 
 @NgModule({
   imports: [
@@ -17,6 +20,19 @@ import { AuthGuard } from '../guards/auth.guard';
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
       },
+      {
+        path: 'product-upload',
+        component: ProductUploadComponent
+      },
+      {
+        path: 'product-filter',
+        component: ProductFilterComponent
+      },
+      {
+        path: 'product-info',
+        component: ProductInfoComponent
+      },
+
       { path: '**', component: NotfoundComponent }
     ])
   ],

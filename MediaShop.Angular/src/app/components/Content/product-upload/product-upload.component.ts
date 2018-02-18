@@ -5,10 +5,13 @@ import { ProductService } from '../../../Services/product-service.service';
 @Component({
   selector: 'app-product-upload',
   templateUrl: './product-upload.component.html',
-  styleUrls: ['./product-upload.component.css']
+  styleUrls: ['./product-upload.component.css'],
+  providers: [ProductService]
 })
+
 export class ProductUploadComponent implements OnInit {
   uploadProduct: UploadProductModel = new UploadProductModel();
+  addProduct: UploadProductModel;
   constructor(private productService: ProductService) {}
 
   ngOnInit() {}
@@ -28,10 +31,8 @@ export class ProductUploadComponent implements OnInit {
     this.uploadProduct.UploadProduct = btoa(binaryString);
   }
 
-  AddProduct(name: string, description: string) {
-    this.uploadProduct.ProductName = name;
-    this.uploadProduct.Description = description;
-    this.uploadProduct.ProductPrice = 150;
-    this.productService.uploadProduct(this.uploadProduct);
+  AddProduct() {
+    console.log('upload');
+    this.productService.uploadProduct(this.uploadProduct).subscribe(data => this.addProduct = data as UploadProductModel);
   }
 }

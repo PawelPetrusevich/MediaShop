@@ -30,6 +30,10 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
 import { ProductService } from './Services/product-service.service';
+import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
+import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +49,10 @@ import { ProductService } from './Services/product-service.service';
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ProductUploadComponent,
+    ProductFilterComponent,
+    ProductInfoComponent
   ],
   imports: [
     BrowserModule,
