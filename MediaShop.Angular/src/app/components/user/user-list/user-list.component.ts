@@ -36,4 +36,4 @@ export class UserListComponent  implements OnInit {
       this.userService.SetPermission(id, login, email, permission)
         .subscribe(resp => (this.status = resp.status), err => console.log(err));
     }
- }
+  }

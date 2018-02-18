@@ -114,6 +114,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// Get All Users
         /// </summary>
         /// <returns>IEnumerable<PermissionDto></returns>
-        IEnumerable<PermissionDto> GetAllUsers();
+        IEnumerable<UserDto> GetAllUsers();
     }
 }

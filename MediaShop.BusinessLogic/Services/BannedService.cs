@@ -22,7 +22,7 @@ namespace MediaShop.BusinessLogic.Services
             this.accountRepository = accountRepository;
         }
 
-        public Account SetFlagIsBanned(long id, bool flag)
+        public UserDto SetFlagIsBanned(long id, bool flag)
         {
             var existingAccount = this.accountRepository.Get(id) ??
                                   throw new NotFoundUserException();
@@ -30,7 +30,7 @@ namespace MediaShop.BusinessLogic.Services
             existingAccount.IsBanned = flag;
 
             var updatingAccount = this.accountRepository.Update(existingAccount);
-            var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
+            var updatingAccountBl = Mapper.Map<UserDto>(updatingAccount);
 
             return updatingAccountBl;
         }
@@ -41,7 +41,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        public async Task<Account> SetFlagIsBannedAsync(long id, bool flag)
+        public async Task<UserDto> SetFlagIsBannedAsync(long id, bool flag)
         {
             var existingAccount = this.accountRepository.Get(id) ??
                                   throw new NotFoundUserException();
@@ -49,7 +49,7 @@ namespace MediaShop.BusinessLogic.Services
             existingAccount.IsBanned = flag;
 
             var updatingAccount = await this.accountRepository.UpdateAsync(existingAccount);
-            var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
+            var updatingAccountBl = Mapper.Map<UserDto>(updatingAccount);
 
             return updatingAccountBl;
         }

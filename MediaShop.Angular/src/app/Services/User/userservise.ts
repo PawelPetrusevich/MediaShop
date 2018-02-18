@@ -32,7 +32,7 @@ export class UserService {
  .catch(err => Observable.throw(err));
  }
  GetAllUsers() {
-  return this.http.get(UserService.url + '/account/GetAllUsers').map(resp => resp.json())
+  return this.http.get(UserService.url + '/account/GetAllUsers').map(resp => {console.log(resp.json()); return resp.json(); } )
   .catch(err => Observable.throw(err));
  }
  SetFlagIsBanned(id: number) {

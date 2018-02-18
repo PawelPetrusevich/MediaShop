@@ -1,5 +1,5 @@
   <div class="row" *ngFor="let user of users let i=index">
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-1 col-sm-1 col-xs-1">
       {{user.Id}}
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
@@ -11,5 +11,11 @@
     <div class="col-md-2 col-sm-2 col-xs-2">
       <button *ngIf="!user.IsBanned" class="btn btn-success btn-xs" (click)="SetFlagIsBanned(user)"> <i class="fa fa-check"></i> Set ban </button>
       <button *ngIf="user.IsBanned" class="btn btn-danger btn-xs" (click)="RemoveFlagIsBanned(user)"><i class="fa fa-trash-o"></i> Remove ban</button>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <!-- <button class="btn btn-success btn-xs" (click)="GetPermission(user)"> <i class="fa fa-check"></i> set app-set-permission </button> -->
+      <input type="checkbox" ng-value="user.GetPermission().See"/>
+      <input type="checkbox" ng-value="GetPermission(user).Create"/>
+      <input type="checkbox" ng-value="GetPermission(user).Delete"/>
     </div>
   </div>

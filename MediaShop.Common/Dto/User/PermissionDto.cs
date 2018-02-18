@@ -2,11 +2,11 @@
 
 namespace MediaShop.Common.Dto.User
 {
-    public class PermissionDto
+    public class UserDto
     {
         public long Id { get; set; }
 
-        public Permissions Permission { get; set; }
+        public Permissions Permissions { get; set; }
 
         public string Email { get; set; }
 

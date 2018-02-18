@@ -360,9 +360,9 @@ namespace MediaShop.BusinessLogic.Services
         /// GetAllUsers
         /// </summary>
         /// <returns>IEnumerable<PermissionDto></returns>
-        public IEnumerable<PermissionDto> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
-            return Mapper.Map<IEnumerable<PermissionDto>>(_factoryRepository.Accounts.GetAllUsers());
+            return Mapper.Map<IEnumerable<UserDto>>(_factoryRepository.Accounts.GetAllUsers());
         }
     }
 }

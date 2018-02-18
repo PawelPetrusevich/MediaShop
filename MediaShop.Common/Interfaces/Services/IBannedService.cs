@@ -16,7 +16,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        Account SetFlagIsBanned(long id, bool flag);
+        UserDto SetFlagIsBanned(long id, bool flag);
 
         /// <summary>
         /// Set or remove flag banned async
@@ -24,6 +24,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        Task<Account> SetFlagIsBannedAsync(long id, bool flag);
+        Task<UserDto> SetFlagIsBannedAsync(long id, bool flag);
     }
 }

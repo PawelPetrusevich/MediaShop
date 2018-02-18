@@ -42,7 +42,9 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(Mapper.Map<PermissionDto>(_bannedService.SetFlagIsBanned(id, true)));
+                var a = _bannedService.SetFlagIsBanned(id, true);
+                var b = Mapper.Map<UserDto>(a);
+                return Ok(b);
             }
             catch (NotFoundUserException ex)
             {
@@ -69,7 +71,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(Mapper.Map<PermissionDto>(_bannedService.SetFlagIsBanned(id, false)));
+                return Ok(Mapper.Map<UserDto>(_bannedService.SetFlagIsBanned(id, false)));
             }
             catch (NotFoundUserException ex)
             {
@@ -96,7 +98,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(Mapper.Map<PermissionDto>(_bannedService.SetFlagIsBannedAsync(id, true)));
+                return Ok(Mapper.Map<UserDto>(_bannedService.SetFlagIsBannedAsync(id, true)));
             }
             catch (NotFoundUserException ex)
             {
@@ -123,7 +125,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                return Ok(Mapper.Map<PermissionDto>(_bannedService.SetFlagIsBannedAsync(id, false)));
+                return Ok(Mapper.Map<UserDto>(_bannedService.SetFlagIsBannedAsync(id, false)));
             }
             catch (NotFoundUserException ex)
             {
