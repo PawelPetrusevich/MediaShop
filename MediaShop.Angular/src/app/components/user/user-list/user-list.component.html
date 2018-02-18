@@ -1,12 +1,15 @@
-<tbody>
-            <tr *ngFor="let user of users  let i=index">
-                <th>{{i + 1}}</th>
-                <th>{{user.Id}}</th>
-                <th>{{user.Login}}</th>
-                <th>{{user.Email}}</th>
-                <th>
-                    <button *ngIf="!user.IsBanned" class="btn btn-success btn-xs" (click)="SetFlagIsBanned(user)"> <i class="fa fa-check"></i> Set ban </button>
-                    <button *ngIf="user.IsBanned" class="btn btn-danger btn-xs" (click)="RemoveFlagIsBanned(user)"><i class="fa fa-trash-o"></i> Remove ban</button>
-                </th>
-            </tr>
-        </tbody>
+  <div class="row" *ngFor="let user of users let i=index">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      {{user.Id}}
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      {{user.Login}}
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      {{user.Email}}
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <button *ngIf="!user.IsBanned" class="btn btn-success btn-xs" (click)="SetFlagIsBanned(user)"> <i class="fa fa-check"></i> Set ban </button>
+      <button *ngIf="user.IsBanned" class="btn btn-danger btn-xs" (click)="RemoveFlagIsBanned(user)"><i class="fa fa-trash-o"></i> Remove ban</button>
+    </div>
+  </div>
