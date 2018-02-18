@@ -5,6 +5,7 @@ import { LoginComponent } from '../components/user/login/login.component';
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { CartComponent } from '../components/cart/cart.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,12 @@ import { AuthGuard } from '../guards/auth.guard';
       {
         path: 'product-list',
         component: ProductListComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
       },

@@ -15,28 +15,25 @@
               <td class="col-md-3">{{item.DescriptionItem}}</td>
               <td class="col-md-3">{{item.PriceItem}}</td>
               <td class="col-md-3">
-                <input type="button" class="btn btn-primary btn-sm" value="Удалить" (click)="delete()" />
+                <input type="button" class="btn btn-primary btn-sm" value="Удалить" (click)="delete(item)" />
               </td>
             </tr>
             <tr>
-                <td class="col-md-3"></td>
-                <td class="col-md-3"></td>
                 <td class="col-md-3"><label>Количетсво элементов: {{cart.CountItemsInCollection}}</label></td>
+                <td class="col-md-3"></td>
                 <td class="col-md-3"><label>Сумма: {{cart.PriceAllItemsCollection}}</label></td>
+                <td class="col-md-3"></td>
             </tr>
         </tbody>
       </table>
-
     </div>
   </div>
   <div class="alert alert-danger" role="alert" *ngIf="showError">
     {{errorMessage}}
   </div>
   <div class="row">
-    <button class="btn btn-primary btn-sm" (click)="getCart()">GetCart</button>
-    <app-payment [cart]=cart>
-    </app-payment>
-    <button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Jgk</button>
+    <button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
     <button type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
   </div>
+  <!--<app-payment [cart]=cart></app-payment>-->
 </div>

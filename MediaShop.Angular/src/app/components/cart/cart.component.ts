@@ -16,11 +16,22 @@ export class CartComponent implements OnInit {
   showError = false;
   errorMessage: string;
   url: string;
+  indexCurrentElement: number;
 
   constructor(private cartService: Cartservice, private paymentService: Paymentservice) {
   }
 
   ngOnInit() {
+    this.cartService.get().subscribe(resp => {
+      this.cart = resp;
+      this.isLoaded = true;
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 404) {
+        this.showError = true;
+      }
+      this.errorMessage = err.statusText;
+    }
+    );
   }
 
   getCart() {
@@ -35,12 +46,22 @@ export class CartComponent implements OnInit {
     }
     );
   }
+
   delete(element: ContentCartDto) {
     this.showError = false;
-    this.cartService.delete(element).subscribe(resp => {
-      const index = this.cart.ContentCartDtoCollection.indexOf(resp, 0);
-      if (index > -1) {
-        this.cart.ContentCartDtoCollection.splice(index, 1);
+    this.indexCurrentElement = this.cart.ContentCartDtoCollection.indexOf(element, 0);
+    this.indexCurrentElement = -1;
+    if (this.indexCurrentElement < 0) {
+      this.showError = true;
+      this.errorMessage = 'element index not found';
+      return;
+    }
+    this.cartService.deleteById(element.Id).subscribe(resp => {
+      if (this.indexCurrentElement > -1) {
+        this.cart.ContentCartDtoCollection.splice(this.indexCurrentElement, 1);
+      } else {
+        this.showError = true;
+        this.errorMessage = 'element index not found';
       }
     }, (err: HttpErrorResponse) => {
       if (err.status === 404) {
@@ -50,6 +71,7 @@ export class CartComponent implements OnInit {
     }
   );
   }
+
   clearCart() {
     this.showError = false;
     this.cartService.clearCart(this.cart).subscribe(resp => {
