@@ -14,8 +14,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterUserComponent implements OnInit {
 
   userInfo : Account =new Account();
-  showErr = false;
-  errorMsg: string;
 
   constructor(private accountService : AccountService) { }
 

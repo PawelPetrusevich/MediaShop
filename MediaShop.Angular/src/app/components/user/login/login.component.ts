@@ -13,8 +13,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   data: TokenResponse;
-  showErr = false;
-  errorMsg: string;
 
   constructor(private accountService : AccountService) { }
 
