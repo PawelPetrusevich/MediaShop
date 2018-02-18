@@ -10,20 +10,26 @@ namespace MediaShop.BusinessLogic.Services
 
     using MediaShop.Common.Dto.User;
     using MediaShop.Common.Exceptions;
+    using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Interfaces.Services;
 
     public class BannedService : IBannedService
     {
-        private readonly IAccountFactoryRepository _factoryRepository;
-
-        public Account SetFlagIsBanned(Account accountBLmodel, bool flag)
+        private readonly IAccountRepository accountRepository;
+     
+        public BannedService(IAccountRepository accountRepository)
         {
-            var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
+            this.accountRepository = accountRepository;
+        }
+
+        public Account SetFlagIsBanned(long id, bool flag)
+        {
+            var existingAccount = this.accountRepository.Get(id) ??
                                   throw new NotFoundUserException();
 
             existingAccount.IsBanned = flag;
 
-            var updatingAccount = this._factoryRepository.Accounts.Update(existingAccount);
+            var updatingAccount = this.accountRepository.Update(existingAccount);
             var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
 
             return updatingAccountBl;
@@ -32,17 +38,17 @@ namespace MediaShop.BusinessLogic.Services
         /// <summary>
         /// Set or remove flag banned
         /// </summary>
-        /// <param name="accountBLmodel"></param>
+        /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        public async Task<Account> SetFlagIsBannedAsync(Account accountBLmodel, bool flag)
+        public async Task<Account> SetFlagIsBannedAsync(long id, bool flag)
         {
-            var existingAccount = this._factoryRepository.Accounts.GetByLogin(accountBLmodel.Login) ??
+            var existingAccount = this.accountRepository.Get(id) ??
                                   throw new NotFoundUserException();
 
             existingAccount.IsBanned = flag;
 
-            var updatingAccount = await this._factoryRepository.Accounts.UpdateAsync(existingAccount);
+            var updatingAccount = await this.accountRepository.UpdateAsync(existingAccount);
             var updatingAccountBl = Mapper.Map<Account>(updatingAccount);
 
             return updatingAccountBl;

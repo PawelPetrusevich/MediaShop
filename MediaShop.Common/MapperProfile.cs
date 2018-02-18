@@ -71,6 +71,7 @@ namespace MediaShop.Common
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, PermissionDto>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
+            this.CreateMap<Account, PermissionDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
             this.CreateMap<Settings, SettingsDto>().ReverseMap();
             this.CreateMap<ProductDto, Product>().ReverseMap();

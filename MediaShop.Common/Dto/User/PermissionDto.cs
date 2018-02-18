@@ -11,5 +11,7 @@ namespace MediaShop.Common.Dto.User
         public string Email { get; set; }
 
         public string Login { get; set; }
+
+        public bool IsBanned { get; set; }
     }
 }

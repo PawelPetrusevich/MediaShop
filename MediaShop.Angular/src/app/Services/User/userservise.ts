@@ -35,4 +35,18 @@ export class UserService {
   return this.http.get(UserService.url + '/account/GetAllUsers').map(resp => resp.json())
   .catch(err => Observable.throw(err));
  }
+ SetFlagIsBanned(id: number) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+
+  return this.http.post(UserService.url + '/user/banned/set', id, options).map(resp => resp.json())
+  .catch(err => Observable.throw(err));
+  }
+  RemoveFlagIsBanned(id: number) {
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  const options = new RequestOptions({ headers: headers });
+
+  return this.http.post(UserService.url + '/user/banned/remove', id, options).map(resp => resp.json())
+    .catch(err => Observable.throw(err));
+  }
 }

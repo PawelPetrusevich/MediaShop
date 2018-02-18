@@ -5,9 +5,8 @@
                 <th>{{user.Login}}</th>
                 <th>{{user.Email}}</th>
                 <th>
-
-                    <button *ngIf="isLoaded==false" class="btn btn-success btn-xs" (click)="SetPermission(user.Id)"> <i class="fa fa-check"></i> Active </button>
-                    <button *ngIf="isLoaded==true" class="btn btn-danger btn-xs" (click)="changeStatus(user.Id)"><i class="fa fa-trash-o"></i> Block</button>}}
+                    <button *ngIf="!user.IsBanned" class="btn btn-success btn-xs" (click)="SetFlagIsBanned(user)"> <i class="fa fa-check"></i> Set ban </button>
+                    <button *ngIf="user.IsBanned" class="btn btn-danger btn-xs" (click)="RemoveFlagIsBanned(user)"><i class="fa fa-trash-o"></i> Remove ban</button>
                 </th>
             </tr>
         </tbody>

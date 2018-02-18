@@ -18,10 +18,10 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
       },
-      { path: '**', component: NotfoundComponent },
-      { path: 'user-list', component: UserListComponent }
+      { path: 'user-list', component: UserListComponent },
+      { path: '**', component: NotfoundComponent }
     ])
-   
+
 
 
   ],

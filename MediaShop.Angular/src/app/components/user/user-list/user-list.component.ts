@@ -12,7 +12,6 @@ export class UserListComponent  implements OnInit {
 
   users: PermissionDto[];
   currentUser: PermissionDto;
-  isLoaded = false;
   showError = false;
 
   status: any;
@@ -22,8 +21,15 @@ export class UserListComponent  implements OnInit {
   getAll() {
     this.userService.GetAllUsers().subscribe(result => {
       this.users = result;
-      this.isLoaded = true;
     });
+  }
+  SetFlagIsBanned(permissionDto: PermissionDto) {
+    this.userService.SetFlagIsBanned(permissionDto.Id)
+    .subscribe(resp => (console.log(resp), this.status = resp.status, permissionDto.IsBanned = resp.IsBanned), err => console.log(err));
+  }
+  RemoveFlagIsBanned(permissionDto: PermissionDto) {
+    this.userService.RemoveFlagIsBanned(permissionDto.Id)
+    .subscribe(resp => (console.log(resp), this.status = resp.status, permissionDto.IsBanned = resp.IsBanned), err => console.log(err));
   }
   SetPermission(id: number, login: string, email: string, permission: Permissions): void {
     // тут два аргумента надо передать ))
