@@ -6,12 +6,16 @@ import { ProductListComponent } from '../components/Content/product-list/product
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { CartComponent } from '../components/cart/cart.component';
+import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+      { path: 'recovery-password', component: PasswordRecoveryComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
       {
         path: 'product-list',
         component: ProductListComponent,
