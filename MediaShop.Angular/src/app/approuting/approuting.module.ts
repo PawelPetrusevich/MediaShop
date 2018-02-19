@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from '../components/user/login/login.component';
+import { RegisterUserComponent } from '../components/user/register-user/register-user.component';
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { LogoutComponent } from '../components/user/logout/logout.component';
 import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
@@ -17,6 +19,12 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+     { path: 'logOut',
+       component: LogoutComponent,
+       canActivate: [AuthGuard],
+       canLoad: [AuthGuard]
+       },
+     { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -48,4 +56,4 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
