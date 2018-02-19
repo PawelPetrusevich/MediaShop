@@ -252,3 +252,4 @@ paket-files/
 .idea/
 *.sln.iml
 MediaShop.WebApi/ffmpeg.exe
+MediaShop.Angular/.vscode/launch.json

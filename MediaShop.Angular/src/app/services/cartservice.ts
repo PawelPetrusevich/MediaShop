@@ -8,7 +8,7 @@ import { ContentCartDto } from '../Models/Cart/content-cart-dto';
 
 @Injectable()
 export class Cartservice {
-  static url = 'http://localhost:51289/api/cart';
+  static url = 'http://demo.belpyro.net/api/cart';
   constructor(private http: Http) {}
 
   get(): Observable<Cart> {
