@@ -42,22 +42,12 @@ namespace MediaShop.BusinessLogic.Services
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(/*result.Errors.FirstOrDefault().ErrorMessage, result.Errors.SingleOrDefault(m => m == m)*/);
+                throw new ArgumentException(result?.Errors.LastOrDefault().ErrorMessage);
             }
 
             if (string.IsNullOrWhiteSpace(notification.Title))
             {
                 notification.Title = Resources.DefaultNotificationTitle;
-            }
-
-            if (notification.ReceiverId < 1)
-            {
-                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.ReceiverId));
-            }
-
-            if (notification.SenderId < 1)
-            {
-                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.SenderId));
             }
 
             var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
@@ -82,22 +72,12 @@ namespace MediaShop.BusinessLogic.Services
 
             if (!result.IsValid)
             {
-                throw new ArgumentException(/*result.Errors.FirstOrDefault().ErrorMessage, result.Errors.SingleOrDefault(m => m == m)*/);
+                throw new ArgumentException(result?.Errors.LastOrDefault().ErrorMessage);
             }
 
             if (string.IsNullOrWhiteSpace(notification.Title))
             {
                 notification.Title = Resources.DefaultNotificationTitle;
-            }
-
-            if (notification.ReceiverId < 1)
-            {
-                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.ReceiverId));
-            }
-
-            if (notification.SenderId < 1)
-            {
-                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(notification.SenderId));
             }
 
             var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
@@ -152,9 +132,51 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<NotificationDto>(notify);
         }
 
+        public async Task<NotificationDto> AddToCartNotifyAsync(AddToCartNotifyDto data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValue, nameof(data));
+            }
+
+            if (string.IsNullOrWhiteSpace(data.ProductName))
+            {
+                throw new ArgumentException(Resources.NullOrEmptyValueString, nameof(data.ProductName));
+            }
+
+            if (data.ReceiverId < 1)
+            {
+                throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(data.ReceiverId));
+            }
+
+            var tokens = _subscribedUserStore.GetUserDeviceTokens(data.ReceiverId);
+            if (!tokens.Any())
+            {
+                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
+            }
+
+            var notification = Mapper.Map<NotificationDto>(data);
+            notification.Title = Resources.DefaultNotificationTitle;
+
+            var notify = _notifcationStore
+                .Find(n => n.ReceiverId == data.ReceiverId && n.Message == notification.Message &&
+                           n.Title == notification.Title)
+                .FirstOrDefault();
+
+            notify = notify ?? await _notifcationStore.AddAsync(Mapper.Map<Notification>(notification));
+
+            return Mapper.Map<NotificationDto>(notify);
+        }
+
         public IEnumerable<NotificationDto> GetByUserId(long userId)
         {
             var result = _notifcationStore.Find(n => n.ReceiverId == userId);
+            return Mapper.Map<List<NotificationDto>>(result);
+        }
+
+        public async Task<IEnumerable<NotificationDto>> GetByUserIdAsync(long userId)
+        {
+            var result = await _notifcationStore.FindAsync(n => n.ReceiverId == userId);
             return Mapper.Map<List<NotificationDto>>(result);
         }
     }
