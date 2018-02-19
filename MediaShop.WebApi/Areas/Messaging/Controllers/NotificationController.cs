@@ -9,6 +9,7 @@ using System.Web.Http;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
@@ -39,6 +40,22 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             return this.Ok(result);
         }
 
+        [HttpGet]
+        [Route("/GetNotificationsForUserAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Notifications for this user not found", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Notifications've got", typeof(IEnumerable<NotificationDto>))]
+        public async Task<IHttpActionResult> GetAsync(long userId)
+        {
+            var result = await _notificationService.GetByUserIdAsync(userId);
+            if (ReferenceEquals(result, null))
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(result);
+        }
+
         [HttpPost]
         [Route("/CreateNotification")]
         [SwaggerResponseRemoveDefaults]
@@ -56,6 +73,34 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
             try
             {
                 return this.Ok(_notificationService.Notify(notification));
+            }
+            catch (ArgumentException ex)
+            {
+                return this.InternalServerError(ex);
+            }
+            catch (NotSubscribedUserException ex)
+            {
+                return this.InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("/CreateNotificationAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Model is not valid", typeof(ArgumentException))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Not Subscribed user", typeof(NotSubscribedUserException))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Model is not valid", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "Notification created", typeof(NotificationDto))]
+        public async Task<IHttpActionResult> CreateNotificationAsync([FromBody] NotificationDto notification)
+        {
+            if (ReferenceEquals(notification, null) || !ModelState.IsValid)
+            {
+                return this.BadRequest(Resources.NotValidNotification);
+            }
+
+            try
+            {
+                return this.Ok(await _notificationService.NotifyAsync(notification));
             }
             catch (ArgumentException ex)
             {
