@@ -38,6 +38,9 @@ import { ProductFilterComponent } from './components/Content/product-filter/prod
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
+import { UserListComponent } from './components/user/user-list/user-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,16 +54,21 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     ExecutePaymentComponent,
     ContentCartComponent,
     PaymentComponent,
+    ProductListComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
+
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent,
     NotfoundComponent,
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent,
+    UserListComponent,
     PaymentInfoComponent
   ],
   imports: [
