@@ -11,12 +11,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cart: Cart;
+  cart: Cart = new Cart();
   isLoaded = false;
   showError = false;
   errorMessage: string;
   url: string;
   indexCurrentElement: number;
+  isPayment = false;
 
   constructor(private cartService: Cartservice, private paymentService: Paymentservice) {
   }
@@ -97,5 +98,11 @@ export class CartComponent implements OnInit {
     }
     );
   }
-
+/*  paypalPayment() {
+    if (!this.isPayment) {
+      this.isPayment = true;
+    } else {
+      this.isPayment = false;
+    }
+  }*/
 }

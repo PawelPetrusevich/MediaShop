@@ -24,9 +24,7 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
       },
       {
         path: 'cart',
-        component: CartComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        component: CartComponent
       },
       { path: '**', component: NotfoundComponent }
     ])
