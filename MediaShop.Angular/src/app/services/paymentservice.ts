@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ItemDto } from '../Models/Payment/item-dto';
 import { PayPalPaymentDto } from '../Models/Payment/pay-pal-payment-dto';
-import {Cart} from '../Models/Cart/cart';
+import { Cart } from '../Models/Cart/cart';
 
 @Injectable()
 export class Paymentservice {

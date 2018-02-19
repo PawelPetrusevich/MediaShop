@@ -39,6 +39,9 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
 import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { UserListComponent } from './components/user/user-list/user-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,16 +55,21 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ExecutePaymentComponent,
     ContentCartComponent,
     PaymentComponent,
+    ProductListComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
+
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent,
     NotfoundComponent,
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent,
+   UserListComponent
   ],
   imports: [
     BrowserModule,

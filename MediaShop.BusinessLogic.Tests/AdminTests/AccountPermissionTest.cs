@@ -17,8 +17,8 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
     public class AccountPermissionTest
     {
         private Mock<IAccountRepository> _accountRepository;       
-        private PermissionDto _permissionCreate;
-        private PermissionDto _permissionDelete;
+        private UserDto _permissionCreate;
+        private UserDto _permissionDelete;
 
         public AccountPermissionTest()
         {
@@ -37,15 +37,15 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             _accountRepository = mockAccountRepository;
 
-            _permissionCreate = new PermissionDto()
+            _permissionCreate = new UserDto()
             {
                 Id = 1,
-                Permission = Permissions.Create
+                Permissions = Permissions.Create
             };
-            _permissionDelete = new PermissionDto()
+            _permissionDelete = new UserDto()
             {
                 Id = 1,
-                Permission = Permissions.Delete
+                Permissions = Permissions.Delete
             };
 
         }
@@ -93,10 +93,10 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         [Test]
         public void RemovePermissionNotFoundUser()
         {
-            var permissionCreate = new PermissionDto()
+            var permissionCreate = new UserDto()
             {
                 Id = 1,
-                Permission = Permissions.Create
+                Permissions = Permissions.Create
             };
             _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns((AccountDbModel)null);
 
