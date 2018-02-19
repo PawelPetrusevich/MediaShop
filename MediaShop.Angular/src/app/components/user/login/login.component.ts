@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   data: TokenResponse;
 
-  constructor(private accountService : AccountService) { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit() {
   }

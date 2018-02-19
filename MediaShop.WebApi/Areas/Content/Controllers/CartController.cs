@@ -133,6 +133,28 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         /// <summary>
+        /// Delete content from Cart
+        /// </summary>
+        /// <param name="id">ContentId for delete</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("deletecontentbyidasync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(long))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        public async Task<IHttpActionResult> DeleteAsync([FromBody] long id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(Resources.IncorrectId);
+            }
+
+            var result = await _cartService.DeleteContentAsync(id);
+            return this.Ok(result);
+        }
+
+        /// <summary>
         /// Delete all content from Cart
         /// </summary>
         /// <param name="data">Cart</param>

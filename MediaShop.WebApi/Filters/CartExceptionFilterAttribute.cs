@@ -32,7 +32,12 @@ namespace MediaShop.WebApi.Filters
                          actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
                         break;
-                    
+
+                    case InvalidIdException error:
+                        actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                            HttpStatusCode.BadRequest, error.Message);
+                        break;
+
                     // Exception: if product is not exist in database
                     case NotExistProductInDataBaseExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
@@ -52,11 +57,11 @@ namespace MediaShop.WebApi.Filters
                         break;
 
                     // Exception: if content do not delete from database
-                    case DeleteContentInCartExseptions error:
+                    case DeleteContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
                         break;
-                  
+                        
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(

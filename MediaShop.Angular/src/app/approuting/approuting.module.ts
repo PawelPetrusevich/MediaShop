@@ -7,6 +7,7 @@ import { ProductListComponent } from '../components/Content/product-list/product
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { LogoutComponent } from '../components/user/logout/logout.component';
+import { CartComponent } from '../components/cart/cart.component';
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
@@ -29,10 +30,14 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
       },
+      {
+        path: 'cart',
+        component: CartComponent
+      },
       { path: '**', component: NotfoundComponent }
     ])
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
