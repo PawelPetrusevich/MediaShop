@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,10 +11,12 @@ import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductSearchModel } from '../Models/Content/ProductSearchModel';
 import { OriginalProductDTO } from '../Models/Content/OriginalProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
   constructor(private http: HttpClient) {}
+
 
   compressedProductList: CompressedProductDto[];
   private webApiUrl = 'http://localhost:51289/api/product/';

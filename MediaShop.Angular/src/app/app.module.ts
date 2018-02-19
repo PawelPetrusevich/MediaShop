@@ -36,6 +36,8 @@ import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
+import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
 
@@ -74,7 +76,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     HttpClientModule,
     FormsModule,
     HttpModule,
-    ApproutingModule
+    ApproutingModule,
+    NgxPaginationModule
   ],
   providers: [
     AccountService,
@@ -83,6 +86,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     UserService,
     ProductService,
     AuthGuard,
+    NgbPaginationConfig,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

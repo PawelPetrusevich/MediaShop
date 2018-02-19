@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadProductModel } from '../../../Models/Content/UploadProductModel';
 import { ProductService } from '../../../Services/product-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-upload',
@@ -34,5 +35,6 @@ export class ProductUploadComponent implements OnInit {
   AddProduct() {
     console.log('upload');
     this.productService.uploadProduct(this.uploadProduct).subscribe(data => this.addProduct = data as UploadProductModel);
+
   }
 }
