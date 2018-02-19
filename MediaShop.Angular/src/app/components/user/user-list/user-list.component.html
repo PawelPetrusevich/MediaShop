@@ -2,7 +2,7 @@
     <div class="col-md-1 col-sm-1 col-xs-1">
       {{user.Id}}
     </div>
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-2 col-sm-2 col-xs-2">
       {{user.Login}}
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
@@ -14,8 +14,26 @@
     </div>
     <div class="col-md-2 col-sm-2 col-xs-2">
       <!-- <button class="btn btn-success btn-xs" (click)="GetPermission(user)"> <i class="fa fa-check"></i> set app-set-permission </button> -->
-      <input type="checkbox" ng-value="user.GetPermission().See"/>
-      <input type="checkbox" ng-value="GetPermission(user).Create"/>
-      <input type="checkbox" ng-value="GetPermission(user).Delete"/>
+      <input #SeeCheckBox
+      id="SeeCheckBox"
+      type="checkbox"
+      [checked]="user.CanSee"
+      (change)="GetPermission(user)" />
+
+      <input #CreateCheckBox
+      id="CreateCheckBox"
+      type="checkbox"
+      [checked]="user.CanCreate"
+      (change)="GetPermission(user)" />
+
+      <input #CreateCheckBox
+      id="CreateCheckBox"
+      type="checkbox"
+      [checked]="user.CanDelete"
+      (change)="GetPermission(user)" />
+
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <button  class="btn btn-success btn-xs" (click)="SetPermission(user)"><i class="fa fa-trash-o"></i> Set permission</button>
     </div>
   </div>

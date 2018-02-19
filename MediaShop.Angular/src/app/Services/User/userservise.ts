@@ -16,14 +16,14 @@ export class UserService {
     permissionDto.Id = id;
     permissionDto.Login = login;
     permissionDto.Email = email;
-    permissionDto.Permission = permission;
-    return this.http.post(UserService.url + permissionDto.Id + '/user/permission/add', permissionDto).map(resp => resp.json())
+    permissionDto.Permissions = permission;
+    return this.http.post(UserService.url +  '/user/permission/add', permissionDto).map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
   RemovePermission(id: number, permission: Permissions) {
     const permissionDto = new PermissionDto();
     permissionDto.Id = id;
-    permissionDto.Permission = permission;
+    permissionDto.Permissions = permission;
     return this.http.post(UserService.url + permissionDto.Id + '/user/permission/delete', permissionDto).map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
