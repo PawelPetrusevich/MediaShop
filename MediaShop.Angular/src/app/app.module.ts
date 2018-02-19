@@ -60,7 +60,7 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
     PaymentInfoComponent
   ],
   imports: [
