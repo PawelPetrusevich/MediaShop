@@ -1,3 +1,6 @@
-<div class="flex-container">
-      <app-product class="card" *ngFor="let product of compressedProductList" [compressedProduct]="product"></app-product>
+<div class="row">
+<div class="flex-column">
+      <app-product class="card" *ngFor="let product of compressedProductList| paginate: { itemsPerPage: 6, currentPage: p }" [compressedProduct]="product"></app-product>
 </div>
+</div>
+<div class="row"><pagination-controls (pageChange)="p = $event"></pagination-controls></div>
