@@ -421,7 +421,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto GetById(long id)
+        public ProductInfoDto GetById(long id)
         {
             if (id <= 0)
             {
@@ -430,7 +430,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var result = this._repository.Get(id);
 
-            return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductDto>(result);
+            return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductInfoDto>(result);
         }
     }
 }

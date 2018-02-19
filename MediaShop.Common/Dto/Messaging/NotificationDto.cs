@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MediaShop.Common.Dto
+namespace MediaShop.Common.Dto.Messaging
 {
     public class NotificationDto
     {

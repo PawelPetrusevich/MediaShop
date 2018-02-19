@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Helpers;
 using MediaShop.Common.Dto.User.Validators;
 
 namespace MediaShop.Common
@@ -17,6 +18,7 @@ namespace MediaShop.Common
     using MediaShop.Common.Models;
     using MediaShop.Common.Models.User;
     using MediaShop.Common.Models.Notification;
+    using MediaShop.Common.Dto.Messaging;
     using MediaShop.Common.Dto.Product;
     using MediaShop.Common.Models.Content;
     using MediaShop.Common.Models.PaymentModel;
@@ -59,6 +61,11 @@ namespace MediaShop.Common
             this.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
+            this.CreateMap<AddToCartNotifyDto, NotificationDto>()
+                .ForMember(
+                    n => n.Message,
+                    obj => obj.ResolveUsing(d => NotificationHelper.FormatAddProductToCartMessage(d.ProductName)))
+                .ForMember(n => n.SenderId, obj => obj.MapFrom(s => s.ReceiverId));
 
             this.CreateMap<Account, AccountDbModel>()
                 .ForMember(item => item.Id, opt => opt.Ignore()).ReverseMap();
@@ -101,6 +108,8 @@ namespace MediaShop.Common
                 .ForMember(item => item.Name, opt => opt.MapFrom(n => n.name))
                 .ForMember(item => item.Description, opt => opt.MapFrom(n => n.description))
                 .ForMember(item => item.Price, opt => opt.MapFrom(n => n.price));
+            this.CreateMap<Product, ProductInfoDto>()
+                .ForMember(x => x.Content, obj => obj.MapFrom(y => Convert.ToBase64String(y.ProtectedProduct.Content)));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="id">product Id</param>
         /// <returns>result</returns>
-        ProductDto GetById(long id);
+        ProductInfoDto GetById(long id);
 
         /// <summary>
         /// Upload products.

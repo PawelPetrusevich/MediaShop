@@ -8,6 +8,7 @@ import { RegisterUserDto } from '../../Models/User/register-userDto';
 import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
 import {AppSettings} from '../../Settings/AppSettings'
+import { PasswordRecovery } from '../../Models/User/password-recovery';
 
 @Injectable()
 export class AccountService {
@@ -20,7 +21,6 @@ export class AccountService {
   }
 
   login(login: string, password: string) : Observable<TokenResponse> {
-
     const body =
     'grant_type=password&username=' + login + '&password=' + password;
 
@@ -35,11 +35,24 @@ export class AccountService {
     .catch(err => Observable.throw(err));
   }
 
-  logout(id : number)
-  {
+  logout(id: number) {
     return this.http
     .post(AppSettings.API_ENDPOINT + 'api/account/logout',id)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
+  }
+
+  forgotPassword(email: string) {
+    return this.http
+      .post(AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword', email)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
+  recoveryPassword(resetMasswor: PasswordRecovery) {
+    return this.http
+      .post(AppSettings.API_ENDPOINT + 'api/account/recoveryPassword', resetMasswor)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
   }
 }
