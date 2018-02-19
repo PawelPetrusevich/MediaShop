@@ -21,13 +21,13 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-      {
-        path: 'logOut',
-        component: LogoutComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
-      },
-      { path: 'register', component: RegisterUserComponent },
+      { path: 'login', component: LoginComponent },
+     { path: 'logOut',
+       component: LogoutComponent,
+       canActivate: [AuthGuard],
+       canLoad: [AuthGuard]
+       },
+     { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -63,4 +63,4 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }

@@ -43,6 +43,14 @@ export class AccountService {
       .catch(err => Observable.throw(err));
   }
 
+  isAuthorized(): boolean {
+    if (localStorage.getItem(AppSettings.tokenKey) === null ) {
+    return false;
+    }
+
+    return true;
+  }
+
   forgotPassword(email: string) {
     return this.http
       .post(
