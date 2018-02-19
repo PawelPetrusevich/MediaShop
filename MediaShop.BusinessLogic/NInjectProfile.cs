@@ -19,6 +19,8 @@ namespace MediaShop.BusinessLogic
     using FluentValidation;
 
     using MediaShop.BusinessLogic.Services;
+    using MediaShop.Common.Dto.Messaging;
+    using MediaShop.Common.Dto.Messaging.Validators;
     using MediaShop.Common.Dto.User;
     using MediaShop.Common.Dto.User.Validators;
     using MediaShop.Common.Interfaces.Services;
@@ -50,6 +52,7 @@ namespace MediaShop.BusinessLogic
             Bind<IPayPalPaymentService>().To<PayPalPaymentService>();
             Bind<IProductService>().To<ProductService>();
             Bind<IBannedService>().To<BannedService>();
+            Bind<IValidator<NotificationDto>>().To<NotificationDtoValidator>();
             Bind<IEmailSettingsConfig>().ToMethod(context => EmailSettingsConfigHelper.InitWithAppConf());
             Bind<IMailService>().To<SmtpClient>();
         }

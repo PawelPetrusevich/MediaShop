@@ -84,8 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Payment\ItemDto.cs" />
+    <Compile Include="Dto\AddToCartNotifyDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\NotificationDtoValidator.cs" />
     <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
-
     <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
     <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
     <Compile Include="Dto\Messaging\AccountTokenFactoryValidator.cs" />
@@ -111,11 +112,12 @@
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
-    <Compile Include="Dto\NotificationDto.cs" />
+    <Compile Include="Dto\Messaging\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
+    <Compile Include="Exceptions\CartExceptions\InvalidIdException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\DeleteDefrayalException.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
     <Compile Include="Exceptions\User\AddProfileException.cs" />
     <Compile Include="Exceptions\User\AddSettingsException.cs" />
@@ -151,7 +154,7 @@
     <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
     <Compile Include="Exceptions\CartExceptions\AddContentInCartExceptions.cs" />
-    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExceptions\NotExistProductInDataBaseExceptions.cs" />
     <Compile Include="Exceptions\CartExceptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Enums\ProductType.cs" />

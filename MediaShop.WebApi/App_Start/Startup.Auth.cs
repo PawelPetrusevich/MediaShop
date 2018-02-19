@@ -24,6 +24,7 @@ namespace MediaShop.WebApi
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             // Configure the db context and user manager to use a single instance per request
             PublicClientId = "MediaShop";
+            app.UseCors(CorsOptions.AllowAll);
 
             var accountService = DependencyResolver.Current.GetService<IAccountService>();
 
@@ -42,8 +43,7 @@ namespace MediaShop.WebApi
 
             // Token Generation
             app.UseOAuthBearerTokens(OAuthOptions);
-
-            app.UseCors(CorsOptions.AllowAll);
+           
             var config = new HttpConfiguration();
 
             app.UseWebApi(config);

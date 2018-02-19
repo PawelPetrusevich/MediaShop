@@ -61,6 +61,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product &quot;{0}&quot; was added to cart.
+        /// </summary>
+        internal static string AddContentToCartNotificationTemplate {
+            get {
+                return ResourceManager.GetString("AddContentToCartNotificationTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User is already confirmed.
         /// </summary>
         internal static string ConfirmedUser {
@@ -140,7 +149,34 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("IncorrectToken", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Value can not be less than or equal zerro.
+        /// </summary>
+        internal static string LessThanOrEqualToZeroValue {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Value can not be null.
+        /// </summary>
+        internal static string NullOrEmptyValue {
+            get {
+                return ResourceManager.GetString("NullOrEmptyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String can not be null or empty.
+        /// </summary>
+        internal static string NullOrEmptyValueString {
+            get {
+                return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to User not found.
         /// </summary>
