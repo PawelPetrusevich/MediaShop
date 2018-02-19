@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PaymentComponent implements OnInit {
   @Input() cart: Cart = new Cart;
-  url: string;
+  @Input() url: string;
   showError = false;
   errorMessage: string;
 

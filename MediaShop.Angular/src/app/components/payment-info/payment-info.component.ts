@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PaymentInfoComponent implements OnInit {
 paymentId: string;
 token: string;
-payment: PayPalPaymentDto;
+payment: PayPalPaymentDto = new PayPalPaymentDto();
 
   constructor(private paymentService: Paymentservice, private route: ActivatedRoute) { }
 
@@ -22,6 +22,7 @@ payment: PayPalPaymentDto;
       this.paymentId = params['paymentId'];
       this.token = params['token'];
     });
+    this.getPaimentInfo();
   }
 
   getPaimentInfo() {

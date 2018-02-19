@@ -10,9 +10,15 @@ import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class Paymentservice {
-  static url = 'http://demo.belpyro.net/api/payment';
+  static url = 'http://localhost:51289/api/payment';
   constructor(private http: Http) {}
 
+  /*payPalPayment(cart: Cart): Observable<string> {
+    return this.http
+      .post(Paymentservice.url + '/paypalpayment', cart)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }*/
   payPalPayment(cart: Cart): Observable<string> {
     return this.http
       .post(Paymentservice.url + '/paypalpayment', cart)
@@ -25,7 +31,7 @@ export class Paymentservice {
     .set('paymentId', paymentId.toString())
     .set('token', token.toString());
     return this.http
-      .get(Paymentservice.url + '/executepaypalpaymentasync', {params})
+      .get(Paymentservice.url + '/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }

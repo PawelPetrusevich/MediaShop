@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
   isLoaded = false;
   showError = false;
   errorMessage: string;
-  url: string;
+  urlForPayment: string;
   indexCurrentElement: number;
   isPayment = false;
 
@@ -89,7 +89,8 @@ export class CartComponent implements OnInit {
 
   paypalPayment() {
     this.paymentService.payPalPayment(this.cart).subscribe(resp => {
-      this.url = resp;
+      this.urlForPayment = resp;
+      this.isPayment = true;
     }, (err: HttpErrorResponse) => {
       if (err.status === 404) {
         this.showError = true;

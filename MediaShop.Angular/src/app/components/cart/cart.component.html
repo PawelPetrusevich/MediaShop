@@ -1,5 +1,5 @@
 <!--<div class="container" *ngIf="!isPayment">-->
-<div class="container">
+<div class="starter-template">
   <div class="row">
     <table class="table table-bordered">
       <thead>
@@ -39,6 +39,6 @@
   </div>
 
 </div>
-<!--<div class="container" *ngIf="isPayment">
-  <app-payment [cart]=cart></app-payment>
-</div>-->
+<div class="container" *ngIf="isPayment">
+  <app-payment [cart]=cart [url]=urlForPayment></app-payment>
+</div>
