@@ -6,8 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
-
-import { NotificationComponent } from './components/messaging/notification/notification.component';
+import { NotificationComponent } from './components/Messaging/notification/notification.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
@@ -33,6 +32,10 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
 import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
+import { ProductService } from './Services/product-service.service';
+import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
+import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 @NgModule({
@@ -43,6 +46,7 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
+    NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
@@ -54,6 +58,9 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     NotfoundComponent,
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
+    ProductUploadComponent,
+    ProductFilterComponent,
+    ProductInfoComponent
     PaymentInfoComponent
   ],
   imports: [
@@ -68,6 +75,7 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     Cartservice,
     Paymentservice,
     UserService,
+    ProductService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

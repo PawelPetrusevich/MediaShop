@@ -10,6 +10,7 @@ import { UploadProductModel } from '../Models/Content/UploadProductModel';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductSearchModel } from '../Models/Content/ProductSearchModel';
 import { OriginalProductDTO } from '../Models/Content/OriginalProductDto';
+import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 
 @Injectable()
 export class ProductService {
@@ -24,11 +25,12 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    return this.http.post(this.webApiUrl + 'add', uploadProduct);
+    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.webApiUrl + 'add', uploadProduct, {headers: header});
   }
 
   getProductById(ID: number) {
-    return this.http.get<ProductDto>(this.webApiUrl + 'getById/' + ID);
+    return this.http.get<ProductInfoDto>(this.webApiUrl + 'getById/' + ID);
   }
 
   searchProduct(productSearchModel: ProductSearchModel) {
