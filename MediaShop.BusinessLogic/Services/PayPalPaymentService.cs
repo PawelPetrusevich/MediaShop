@@ -624,7 +624,7 @@
         {
             return new RedirectUrls()
             {
-                cancel_url = $"{baseUrl}/failpayment",
+                cancel_url = $"{baseUrl}/cart",
                 return_url = $"{baseUrl}/payment-info"
             };
         }
