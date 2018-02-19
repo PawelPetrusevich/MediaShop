@@ -22,15 +22,20 @@ namespace MediaShop.WebApi.Filters
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
             var principal = actionContext.RequestContext.Principal;
-            var currentUserClaims = principal?.Identity as ClaimsIdentity;
-            int currentUserPermissions;
-            var parseFlag = int.TryParse(currentUserClaims?.Claims.SingleOrDefault(x => x.Type == "Permission").Value, out currentUserPermissions);                        
-            if (!ReferenceEquals(principal, null) && !parseFlag && !Permission.HasFlag((Permissions)currentUserPermissions))
+            var currentUserClaims = (principal?.Identity as ClaimsIdentity).Claims?.SingleOrDefault(x => x.Type == "Permission")?.Value;
+            int currentUserPermissions = 0;
+            bool parseFlag = false;
+            if (!ReferenceEquals(currentUserClaims, null))
+            {
+                parseFlag = int.TryParse(currentUserClaims, out currentUserPermissions);
+            }
+
+            if (!parseFlag || !Permission.HasFlag((Permissions)currentUserPermissions))
             {
                 return Task.FromResult<HttpResponseMessage>(actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             }
             else
-            {                
+            {
                 return continuation();
             }
         }
