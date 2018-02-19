@@ -12,6 +12,7 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
 using MediaShop.WebApi.Areas.Content.Controllers;
 using MediaShop.WebApi.Areas.Content.Controllers.Filters;
+using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
 
@@ -19,6 +20,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
+    [ProductExeptionFilter]
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;
