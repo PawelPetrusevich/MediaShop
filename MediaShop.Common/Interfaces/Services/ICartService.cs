@@ -115,6 +115,13 @@
         Task<TModel> DeleteContentAsync(TModel model);
 
         /// <summary>
+        /// Method for deleting selected ContentCart
+        /// </summary>
+        /// <param name="id">ContentCart Id for delete</param>
+        /// <returns>return count</returns>
+        Task<int> DeleteContentAsync(long id);
+
+        /// <summary>
         /// Method for deleting selected items
         /// </summary>
         /// <param name="itemsId">collection users id</param>

@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidId" xml:space="preserve">
+    <value>Content cart not found or invalid state</value>
+  </data>
   <data name="InvalidIdValue" xml:space="preserve">
     <value>Id = 0</value>
   </data>
   <data name="InvalidLoginValue" xml:space="preserve">
     <value>Login is null or empty string</value>
   </data>
- <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
+  <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
   </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
