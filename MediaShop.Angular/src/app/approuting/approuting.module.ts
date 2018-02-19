@@ -28,7 +28,8 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
       {
         path: 'cart',
         component: CartComponent
-},
+      },
+      {
         path: 'product-upload',
         component: ProductUploadComponent
       },
