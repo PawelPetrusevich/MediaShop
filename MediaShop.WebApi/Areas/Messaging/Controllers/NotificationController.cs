@@ -25,7 +25,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpGet]
-        [Route("/GetNotificationsForUser")]
+        [Route("GetNotificationsForUser")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Notifications for this user not found", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Notifications've got", typeof(IEnumerable<NotificationDto>))]
@@ -41,7 +41,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpGet]
-        [Route("/GetNotificationsForUserAsync")]
+        [Route("GetNotificationsForUserAsync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.NotFound, "Notifications for this user not found", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "Notifications've got", typeof(IEnumerable<NotificationDto>))]
@@ -57,7 +57,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpPost]
-        [Route("/CreateNotification")]
+        [Route("CreateNotification")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Model is not valid", typeof(ArgumentException))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Not Subscribed user", typeof(NotSubscribedUserException))]
@@ -85,7 +85,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
         }
 
         [HttpPost]
-        [Route("/CreateNotificationAsync")]
+        [Route("CreateNotificationAsync")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Model is not valid", typeof(ArgumentException))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Not Subscribed user", typeof(NotSubscribedUserException))]
