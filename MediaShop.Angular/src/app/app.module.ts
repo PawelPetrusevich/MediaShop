@@ -29,6 +29,8 @@ import { ProductComponent } from './components/Content/product/product.component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import { AuthInterceptor } from './interceptors/http.auth.interceptor';
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    PaymentInfoComponent
   ],
   imports: [
     BrowserModule,
