@@ -37,6 +37,9 @@ import { ProductUploadComponent } from './components/Content/product-upload/prod
 import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 
+import { UserListComponent } from './components/user/user-list/user-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,16 +53,21 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
     ExecutePaymentComponent,
     ContentCartComponent,
     PaymentComponent,
+    ProductListComponent,
     SetPermissionComponent,
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
+
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent,
     NotfoundComponent,
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
+   UserListComponent
   ],
   imports: [
     BrowserModule,

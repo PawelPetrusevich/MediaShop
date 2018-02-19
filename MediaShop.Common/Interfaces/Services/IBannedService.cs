@@ -13,17 +13,17 @@ namespace MediaShop.Common.Interfaces.Services
         /// <summary>
         /// Set or remove flag banned
         /// </summary>
-        /// <param name="accountBLmodel"></param>
+        /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        Account SetFlagIsBanned(Account accountBLmodel, bool flag);
+        UserDto SetFlagIsBanned(long id, bool flag);
 
         /// <summary>
         /// Set or remove flag banned async
         /// </summary>
-        /// <param name="accountBLmodel"></param>
+        /// <param name="id"></param>
         /// <param name="flag"></param>
         /// <returns>account</returns>
-        Task<Account> SetFlagIsBannedAsync(Account accountBLmodel, bool flag);
+        Task<UserDto> SetFlagIsBannedAsync(long id, bool flag);
     }
 }
