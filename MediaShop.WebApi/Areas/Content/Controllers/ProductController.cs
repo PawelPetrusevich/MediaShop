@@ -12,14 +12,15 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
 using MediaShop.WebApi.Areas.Content.Controllers;
 using MediaShop.WebApi.Areas.Content.Controllers.Filters;
+using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
-    [EnableCors("*", "*", "*")]
     [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
+    [ProductExeptionFilter]
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;
@@ -321,7 +322,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
-
+        
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSale")]
         [SwaggerResponseRemoveDefaults]

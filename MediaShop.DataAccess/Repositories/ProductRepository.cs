@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediaShop.Common.Dto.Product;
+using MediaShop.DataAccess.Properties;
 using MediaShop.DataAccess.Repositories.Base;
 
 namespace MediaShop.DataAccess.Repositories
@@ -160,6 +161,22 @@ namespace MediaShop.DataAccess.Repositories
                 await Context.SaveChangesAsync().ConfigureAwait(false);
                 return entity;
             }
+        }
+
+        /// <summary>
+        /// Method Get
+        /// gets user by ID
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <returns>db entry</returns>
+        public override Product Get(long id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            return DbSet.Include(c => c.ProtectedProduct).SingleOrDefault(entity => entity.Id == id);
         }
     }
 }

@@ -96,6 +96,7 @@
     <Compile Include="Dto\Messaging\Validators\ExtAccountPwdRestoreValidator.cs" />
     <Compile Include="Dto\Product\CompressedProductDTO.cs" />
     <Compile Include="Dto\Product\OriginalProductDTO.cs" />
+    <Compile Include="Dto\Product\ProductInfoDto.cs" />
     <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
     <Compile Include="Dto\Product\UploadProductModel.cs" />
     <Compile Include="Dto\User\Account.cs" />
