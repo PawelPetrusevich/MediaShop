@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../../Services/User/AccountService';
 import { PasswordRecovery } from '../../../Models/User/password-recovery';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-password-recovery',

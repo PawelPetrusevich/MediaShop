@@ -4,12 +4,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common;
 using MediaShop.Common.Dto;
+using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Models.Notification;
 using Moq;
 using NUnit.Framework;
 using BLResources = MediaShop.BusinessLogic.Properties.Resources;
+using MediaShop.Common.Dto.Messaging;
+using FluentValidation;
+using MediaShop.Common.Dto.Messaging.Validators;
 
 namespace MediaShop.BusinessLogic.Tests.MessagingTests
 {
@@ -28,18 +33,12 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         private NotificationService _service;
         private List<string> _testTokens;
 
+        private NotificationDtoValidator _validator;
+
         public NotificationServiceTest()
         {
             Mapper.Reset();
-            Mapper.Initialize(config =>
-            {
-                config.CreateMap<Notification, NotificationDto>().ReverseMap()
-                    .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
-                    .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
-                config.CreateMap<NotificationSubscribedUser, NotificationSubscribedUserDto>().ReverseMap()
-                    .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
-                    .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.UserId));
-            });
+            Mapper.Initialize(x => { x.AddProfile<MapperProfile>(); });
         }
 
         [SetUp]
@@ -47,8 +46,9 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         {
             _notificationSubscrubedUserMock = new Mock<INotificationSubscribedUserRepository>();
             _notificationRepoMock = new Mock<INotificationRepository>();
+            _validator = new NotificationDtoValidator();
 
-            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object);
+            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator);
             _notification = new Notification()
             {
                 CreatorId = 1,
@@ -102,7 +102,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         }
 
         [Test]
-        public void SndNoTitleNotification()
+        public void SendNoTitleNotification()
         {
             _notificationSubscrubedUserMock.Setup(r => r.GetUserDeviceTokens(It.IsAny<long>())).Returns(_testTokens);
             _notificationRepoMock.Setup(r => r.Find(It.IsAny<Expression<Func<Notification, bool>>>()))
@@ -124,9 +124,30 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
         }
 
         [Test]
+        public void SendAddToCartNotification()
+        {
+            _notificationSubscrubedUserMock.Setup(r => r.GetUserDeviceTokens(It.IsAny<long>())).Returns(_testTokens);
+            _notificationRepoMock.Setup(r => r.Find(It.IsAny<Expression<Func<Notification, bool>>>()))
+                .Returns(new List<Notification>());
+
+            _notificationRepoMock.Setup(r => r.Add(It.IsAny<Notification>()))
+                .Returns<Notification>(n => n);
+            var notificationActual = _service.AddToCartNotify(new AddToCartNotifyDto()
+            {
+                ReceiverId = 1,
+                ProductName = "test"
+            });
+
+            Assert.IsNotNull(notificationActual);
+            Assert.AreEqual(1, notificationActual.ReceiverId);
+            Assert.AreEqual(NotificationHelper.FormatAddProductToCartMessage("test"), notificationActual.Message);
+            Assert.AreEqual(BLResources.DefaultNotificationTitle, notificationActual.Title);
+        }
+
+        [Test]
         public void NotifyArgumentValidationTest()
         {
-            Assert.Throws<ArgumentException>(() => _service.Notify(null));
+            Assert.Throws<ArgumentNullException>(() => _service.Notify(null));
             Assert.Throws<ArgumentException>(() => _service.Notify(new NotificationDto()));
             Assert.Throws<ArgumentException>(() =>
                 _service.Notify(new NotificationDto() {ReceiverId = 0, Message = "test", SenderId = 1}));

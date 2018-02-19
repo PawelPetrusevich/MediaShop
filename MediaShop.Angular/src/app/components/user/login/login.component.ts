@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenResponse} from '../../../Models/User/token-response';
 import {AccountService} from '../../../Services/User/AccountService';
+import { HttpErrorResponse } from '@angular/common/http';
+import {AppSettings} from '../../../Settings/AppSettings';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +17,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private accountService: AccountService) { }
 
-  login(name: string, password: string): void {
-    this.accountService.login(name, password).subscribe(resp => {
-      this.data = resp;
-      localStorage.setItem('token', this.data.access_token);
-    });
-  }
-
   ngOnInit() {
   }
 
+  login(name: string, password: string): void {
+    this.accountService.login(name, password)
+    .subscribe(resp => {
+      this.data = resp;
+      localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
+      localStorage.setItem(AppSettings.authorizationFlag, 'true');
+      console.log(resp);
+    }, err => console.log(err));
+  }
 }

@@ -36,6 +36,7 @@ namespace MediaShop.DataAccess
             this.Bind<IStatisticRepository>().To<StatisticRepository>();
             this.Bind<DbContext>().To<MediaContext>();
             this.Bind<INotificationRepository>().To<NotificationRepository>();
+            this.Bind<INotificationSubscribedUserRepository>().To<NotificationSubscribedUserRepository>();
             this.Bind<IAccountFactoryRepository>().To<AccountFactoryRepository>();
             this.Bind<IPayPalPaymentRepository>().To<PayPalPaymentRepository>();
             this.Bind<IDefrayalRepository>().To<DefrayalRepository>();
