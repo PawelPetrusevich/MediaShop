@@ -32,6 +32,8 @@ import { ProductComponent } from './components/Content/product/product.component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
+import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,9 @@ import { AuthInterceptor } from './interceptors/http.auth.interceptor';
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
