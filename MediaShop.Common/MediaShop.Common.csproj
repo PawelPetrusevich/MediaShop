@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Payment\ItemDto.cs" />
+    <Compile Include="Dto\AddToCartNotifyDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\NotificationDtoValidator.cs" />
     <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
     <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
     <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
-    <Compile Include="Dto\NotificationDto.cs" />
+    <Compile Include="Dto\Messaging\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
     <Compile Include="Exceptions\User\AddProfileException.cs" />
     <Compile Include="Exceptions\User\AddSettingsException.cs" />
