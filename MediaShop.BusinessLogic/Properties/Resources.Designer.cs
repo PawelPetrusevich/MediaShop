@@ -68,14 +68,6 @@ namespace MediaShop.BusinessLogic.Properties {
                 return ResourceManager.GetString("AddContentInCart", resourceCulture);
             }
         }
-        /// <summary>
-        ///   Looks up a localized string similar to Email not sent after {0} attempted.
-        /// </summary>
-        internal static string CountOfTryToEmailSendExceptionMessage {
-            get {
-                return ResourceManager.GetString("CountOfTryToEmailSendExceptionMessage", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Payment is not add in repository.
@@ -101,6 +93,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string CountContentInCartIsNull {
             get {
                 return ResourceManager.GetString("CountContentInCartIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email not sent after {0} attempted.
+        /// </summary>
+        internal static string CountOfTryToEmailSendExceptionMessage {
+            get {
+                return ResourceManager.GetString("CountOfTryToEmailSendExceptionMessage", resourceCulture);
             }
         }
         
@@ -386,6 +387,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product not found with this ID..
+        /// </summary>
+        internal static string NotFoundProduct {
+            get {
+                return ResourceManager.GetString("NotFoundProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User has not been subscribed to receive notification.
         /// </summary>
         internal static string NotSubscribedUserMessage {
@@ -539,7 +549,7 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.5.
+        ///   Looks up a localized string similar to 0,5.
         /// </summary>
         internal static string WatermarkOpacity {
             get {
