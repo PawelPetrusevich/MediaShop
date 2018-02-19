@@ -8,7 +8,7 @@ import { ContentCartDto } from '../Models/Cart/content-cart-dto';
 
 @Injectable()
 export class Cartservice {
-  static url = 'http://localhost:51289/api/cart';
+  static url = 'http://demo.belpyro.net/api/cart';
   constructor(private http: Http) {}
 
   get(): Observable<Cart> {
@@ -23,6 +23,15 @@ export class Cartservice {
     options.body = contentCart;
     return this.http
       .delete(Cartservice.url + '/deletecontentasync', options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
+  deleteById(id: number): Observable<number> {
+    const options = new RequestOptions();
+    options.body = id;
+    return this.http
+      .delete(Cartservice.url + '/deletecontentbyidasync', options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }

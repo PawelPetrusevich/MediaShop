@@ -145,7 +145,7 @@
 
             if (model.StateContent != CartEnums.StateCartContent.InCart)
             {
-                throw new DeleteContentInCartExseptions(Resources.StateContentError);
+                throw new DeleteContentInCartExceptions(Resources.StateContentError);
             }
 
             // Final mapping object ContentCartDto to object ContentCart
@@ -154,7 +154,7 @@
             var deleteContentCart = this.repositoryContentCart.Delete(contentCart);
             if (deleteContentCart == null)
             {
-                throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
+                throw new DeleteContentInCartExceptions(Resources.DeleteContentFromCart);
             }
 
             // Output mapping object ContentCart to object ContentCartDto
@@ -177,7 +177,7 @@
 
             if (model.StateContent != CartEnums.StateCartContent.InCart)
             {
-                throw new DeleteContentInCartExseptions(Resources.StateContentError);
+                throw new DeleteContentInCartExceptions(Resources.StateContentError);
             }
 
             // Final mapping object ContentCartDto to object ContentCart
@@ -186,10 +186,31 @@
             var deleteContentCart = await this.repositoryContentCart.DeleteAsync(contentCart).ConfigureAwait(false);
             if (deleteContentCart == 0)
             {
-                throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
+                throw new DeleteContentInCartExceptions(Resources.DeleteContentFromCart);
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// Method for deleting selected ContentCart
+        /// </summary>
+        /// <param name="id">ContentCart Id for delete</param>
+        /// <returns>return count</returns>
+        public async Task<int> DeleteContentAsync(long id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidIdException(Resources.InvalidIdValue);
+            }
+
+            var result = await this.repositoryContentCart.DeleteAsync(id).ConfigureAwait(false);
+            if (result == 0)
+            {
+                throw new DeleteContentInCartExceptions(Resources.DeleteContentFromCart);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -219,7 +240,7 @@
                         }
                     }
 
-                    throw new DeleteContentInCartExseptions(Resources.DeleteContentFromCart);
+                    throw new DeleteContentInCartExceptions(Resources.DeleteContentFromCart);
                 }
                 else
                 {

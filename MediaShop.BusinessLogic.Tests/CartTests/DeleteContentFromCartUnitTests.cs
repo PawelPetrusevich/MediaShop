@@ -206,7 +206,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var collectionId = new Collection<long>() { 5, 6, 7 };
 
             // Delete content
-            Assert.Throws<DeleteContentInCartExseptions>(() => service.DeleteOfCart(collectionId));
+            Assert.Throws<DeleteContentInCartExceptions>(() => service.DeleteOfCart(collectionId));
         }
 
         [Test]

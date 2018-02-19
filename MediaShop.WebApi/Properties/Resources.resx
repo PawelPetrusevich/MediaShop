@@ -163,4 +163,7 @@
   <data name="ClaimTypePermission" xml:space="preserve">
     <value>Permission</value>
   </data>
+  <data name="NotFoundProduct" xml:space="preserve">
+    <value>Not found product with this ID</value>
+  </data>
 </root>

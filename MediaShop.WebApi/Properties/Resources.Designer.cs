@@ -169,11 +169,20 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notification is not valid.
+        ///   Ищет локализованную строку, похожую на Notification is not valid.
         /// </summary>
         internal static string NotValidNotification {
             get {
                 return ResourceManager.GetString("NotValidNotification", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Not found product with this ID.
+        /// </summary>
+        internal static string NotFoundProduct {
+            get {
+                return ResourceManager.GetString("NotFoundProduct", resourceCulture);
             }
         }
         
