@@ -6,9 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
-import { NotificationComponent } from './Messaging/notification/notification.component';
-import { CartComponent } from './cart/cart.component';
-import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
+import { NotificationComponent } from './components/Messaging/notification/notification.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
@@ -34,6 +32,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
 import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
+import { ProductService } from './Services/product-service.service';
+import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
+import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
+
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -42,9 +45,10 @@ import { ProductListComponent } from './components/Content/product-list/product-
     AppComponent,
     ProductListComponent,
     ProductComponent,
+    NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
-    NotificationComponent
+    NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
@@ -58,6 +62,11 @@ import { ProductListComponent } from './components/Content/product-list/product-
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
     NotfoundComponent,
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent,
+    ProductUploadComponent,
+    ProductFilterComponent,
+    ProductInfoComponent
    UserListComponent
   ],
   imports: [
@@ -72,9 +81,10 @@ import { ProductListComponent } from './components/Content/product-list/product-
     Cartservice,
     Paymentservice,
     UserService,
+    ProductService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
