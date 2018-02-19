@@ -13,6 +13,7 @@ import { ProductInfoComponent } from '../components/Content/product-info/product
 import { CartComponent } from '../components/cart/cart.component';
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
+import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 @NgModule({
@@ -20,13 +21,13 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-      {
-        path: 'logOut',
-        component: LogoutComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
-      },
-      { path: 'register', component: RegisterUserComponent },
+      { path: 'login', component: LoginComponent },
+     { path: 'logOut',
+       component: LogoutComponent,
+       canActivate: [AuthGuard],
+       canLoad: [AuthGuard]
+       },
+     { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -51,7 +52,10 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
         path: 'product-info/:id',
         component: ProductInfoComponent
       },
-
+      {
+        path: 'confirm',
+        component: ConfirmComponent
+      },
       { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
@@ -59,4 +63,4 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }

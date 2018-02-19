@@ -9,7 +9,7 @@
       </select>
     </div>
     <div class="col-md-2">
-      <label for="Operand"></label>
+      <label for="Operand">&nbsp;</label>
       <select class="custom-select d-block w-100" id="Operand" required="" [(ngModel)] = "item.Operand" [ngModelOptions]="{standalone: true}">
         <option value="=">=</option>
         <option value="<">&lt;</option>
@@ -17,15 +17,17 @@
         <option value="Contains">Contains</option>
       </select>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <label for="value">Value &nbsp;</label>
-      <input type="text" class="form-control-sm" id="Value" required="" [(ngModel)] = "item.RightValue" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control-sm w-100" id="Value" required="" [(ngModel)] = "item.RightValue" [ngModelOptions]="{standalone: true}">
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-1">
+      <label>&nbsp;</label>
       <button class="btn btn-xs btn-block" type="submit" (click) = "DeleteCondition(item)">-</button>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
+        <label>&nbsp;</label>
       <button class="btn btn-xs btn-block" type="submit" (click) = "AddCondition()">+</button>
     </div>
   </div>
@@ -33,10 +35,10 @@
     &nbsp;
   </div>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
         &nbsp;
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
      <button class="btn btn-primary btn-lg btn-block" type="submit" (click) = "FindProduct()">Search</button>
     </div>
   </div>
