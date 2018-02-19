@@ -50,7 +50,7 @@ import { PaymentInfoComponent } from './components/payment-info/payment-info.com
     NavbarComponent,
     NotfoundComponent,
     PasswordRecoveryComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
     PaymentInfoComponent
   ],
   imports: [
