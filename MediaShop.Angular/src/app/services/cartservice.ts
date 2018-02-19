@@ -27,6 +27,15 @@ export class Cartservice {
       .catch(err => Observable.throw(err));
   }
 
+  deleteById(id: number): Observable<number> {
+    const options = new RequestOptions();
+    options.body = id;
+    return this.http
+      .delete(Cartservice.url + '/deletecontentbyidasync', options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
   clearCart(cart: Cart): Observable<Cart> {
     const options = new RequestOptions();
     options.body = cart;

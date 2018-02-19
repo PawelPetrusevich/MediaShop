@@ -25,8 +25,4 @@ export class UserService {
     return this.http.post(UserService.url + permissionDto.Id + '/user/permission/delete', permissionDto).map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
- Logout(id: number) {
- return this.http.post(UserService.url + 'account/account/logout', id).map(resp => resp.json())
- .catch(err => Observable.throw(err));
- }
 }
