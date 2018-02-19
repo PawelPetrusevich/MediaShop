@@ -32,8 +32,8 @@ export class ProductService {
     return this.http.get<ProductDto>(this.webApiUrl + 'getById/' + ID);
   }
 
-  searchProduct(productSearchModel: ProductSearchModel) {
-    return this.http.post<ProductDto>(this.webApiUrl + 'Find', productSearchModel);
+  searchProduct(conditionList: ProductSearchModel[]) {
+    return this.http.post<CompressedProductDto[]>(this.webApiUrl + 'Find', conditionList);
   }
 
   getListPurshasedProducts(UserID: number) {

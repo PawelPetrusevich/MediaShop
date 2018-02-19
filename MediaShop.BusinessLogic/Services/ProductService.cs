@@ -189,7 +189,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="conditionsList">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        public IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList)
+        public IEnumerable<CompressedProductDTO> Find(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(Product));
@@ -225,7 +225,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
-            return Mapper.Map<List<ProductDto>>(this._repository.Find(lambda));
+            return Mapper.Map<List<CompressedProductDTO>>(this._repository.Find(lambda));
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="conditionsList">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        public async Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList)
+        public async Task<IEnumerable<CompressedProductDTO>> FindAsync(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(Product));
@@ -269,7 +269,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
-            return Mapper.Map<List<ProductDto>>(await this._repository.FindAsync(lambda));
+            return Mapper.Map<List<CompressedProductDTO>>(await this._repository.FindAsync(lambda));
         }
 
         /// <summary>
