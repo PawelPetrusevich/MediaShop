@@ -42,6 +42,8 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         {
             string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
             this.StatusCode(HttpStatusCode.Redirect);
+
+            // Request.Headers.Add("Access-Control-Allow-Origin", "*");
             return Redirect(paymentUrl);
         }
 

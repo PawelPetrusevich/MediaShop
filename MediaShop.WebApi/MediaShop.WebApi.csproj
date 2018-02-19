@@ -200,6 +200,7 @@
   <ItemGroup>
     <Content Include="Content\Templates\AccountConfirmationEmailTemplate.html" />
     <Content Include="Content\Templates\AccountPwdRestoreEmailTemplate.html" />
+    <Content Include="firebase-messaging-sw.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -212,6 +213,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
     <Compile Include="Areas\Content\Controllers\Filters\LoggingFilterAttribute.cs" />
+    <Compile Include="Filters\NotificationExceptionFilterAttribute.cs" />
     <Compile Include="Areas\Messaging\MessagingAreaRegistration.cs" />
     <Compile Include="Areas\Payments\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Payments\PaymentsAreaRegistration.cs" />

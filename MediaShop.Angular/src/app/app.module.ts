@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
+import { NotificationComponent } from './Messaging/notification/notification.component';
+import { CartComponent } from './cart/cart.component';
+import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
@@ -29,6 +32,8 @@ import { ProductComponent } from './components/Content/product/product.component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
+import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -39,6 +44,7 @@ import { ProductListComponent } from './components/Content/product-list/product-
     ProductComponent,
     RegisterUserComponent,
     LoginComponent,
+    NotificationComponent
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
@@ -48,6 +54,9 @@ import { ProductListComponent } from './components/Content/product-list/product-
     RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
+
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent,
     NotfoundComponent,
    UserListComponent
   ],
@@ -68,4 +77,4 @@ import { ProductListComponent } from './components/Content/product-list/product-
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
