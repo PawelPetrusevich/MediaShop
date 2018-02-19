@@ -9,12 +9,11 @@ import {AppSettings} from '../../../Settings/AppSettings';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private accountService : AccountService) { }
+  constructor(private accountService: AccountService) { }
 
-  logut(id : number): void {
+  logut(id: number): void {
     this.accountService.logout(id).subscribe(resp => {
       localStorage.removeItem(AppSettings.tokenKey);
-      localStorage.setItem(AppSettings.authorizationFlag, 'false');
     });
   }
 

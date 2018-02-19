@@ -62,8 +62,19 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(sb.ToString());
             }
 
-            var result = _accountService.Register(data);
-            return Ok(result);
+            try
+            {
+                var result = _accountService.Register(data);
+                return Ok(result);
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -89,8 +100,19 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(sb.ToString());
             }
 
-            var result = await _accountService.RegisterAsync(data);
-            return Ok(result);
+            try
+            {
+                var result = await _accountService.RegisterAsync(data);
+                return Ok(result);
+            }
+            catch (ExistingLoginException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -105,10 +127,33 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
             {
                 return BadRequest(Resources.EmtyData);
+            }      
+            
+            try
+            {
+                var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
+                return Ok(account);
             }
-
-            var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
-            return Ok(account);
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmedUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddProfileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddSettingsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -125,8 +170,31 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
-            return Ok(account);
+            try
+            {
+                var account = await _accountService.ConfirmRegistrationAsync(new AccountConfirmationDto() { Email = email, Token = token });
+                return Ok(account);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ConfirmedUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddProfileException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddSettingsException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -135,8 +203,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult LogOut([FromBody] long id)
+        public IHttpActionResult LogOut()
         {
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity;
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value);
+
             if (id < 1 || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);

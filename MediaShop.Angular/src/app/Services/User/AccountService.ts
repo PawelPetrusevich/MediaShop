@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { RegisterUserDto } from '../../Models/User/register-userDto';
 import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
-import { AppSettings } from '../../Settings/AppSettings'
+import { AppSettings } from '../../Settings/AppSettings';
 import { PasswordRecovery } from '../../Models/User/password-recovery';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AccountService {
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
+      .post(AppSettings.API_ENDPOINT + 'api/account/registerAsync', registerUser)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
