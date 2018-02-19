@@ -6,9 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
-import { NotificationComponent } from './Messaging/notification/notification.component';
-import { CartComponent } from './cart/cart.component';
-import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
+
+import { NotificationComponent } from './components/messaging/notification/notification.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
@@ -39,9 +38,9 @@ import { ForgotPasswordComponent } from './Components/user/forgot-password/forgo
     AppComponent,
     ProductListComponent,
     ProductComponent,
+    NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
-    NotificationComponent
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
@@ -71,4 +70,4 @@ import { ForgotPasswordComponent } from './Components/user/forgot-password/forgo
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
