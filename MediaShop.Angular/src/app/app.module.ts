@@ -7,8 +7,6 @@ import { HttpClient } from 'selenium-webdriver/http';
 
 import { AppComponent } from './app.component';
 import { NotificationComponent } from './Messaging/notification/notification.component';
-import { CartComponent } from './cart/cart.component';
-import { ExecutePaymentComponent } from './execute-payment/execute-payment.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ExecutePaymentComponent } from './components/execute-payment/execute-payment.component';
 import { ContentCartComponent } from './components/content-cart/content-cart.component';
@@ -46,7 +44,7 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
     ProductComponent,
     RegisterUserComponent,
     LoginComponent,
-    NotificationComponent
+    NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
     ContentCartComponent,
