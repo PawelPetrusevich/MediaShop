@@ -235,7 +235,8 @@
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
-                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total.Replace('.', ','));
+                CultureInfo.CurrentCulture = new CultureInfo("en-US");
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total);
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
                     payPalPaymentDto.Items.Add(Mapper.Map<PayPal.Api.Item, ItemDto>(item));
