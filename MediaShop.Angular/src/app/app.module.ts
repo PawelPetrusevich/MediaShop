@@ -38,7 +38,7 @@ import { ProductFilterComponent } from './components/Content/product-filter/prod
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
-import { ProductListComponent } from './components/Content/product-list/product-list.component';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +66,7 @@ import { ProductListComponent } from './components/Content/product-list/product-
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
    UserListComponent
   ],
   imports: [
