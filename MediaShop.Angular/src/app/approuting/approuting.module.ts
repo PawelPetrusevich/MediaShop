@@ -15,6 +15,7 @@ import { PasswordRecoveryComponent } from '../components/user/password-recovery/
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
+import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -53,6 +54,11 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
       },
 
       { path: 'user-list', component: UserListComponent },
+
+      {
+        path: 'payment-info', component: PaymentInfoComponent
+      },
+
       { path: '**', component: NotfoundComponent }
     ])
   ],
