@@ -116,6 +116,7 @@
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
+    <Compile Include="Exceptions\CartExceptions\InvalidIdException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
     <Compile Include="Exceptions\PaymentExceptions\DeleteDefrayalException.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="Dto\User\Settings.cs" />
     <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
     <Compile Include="Exceptions\CartExceptions\AddContentInCartExceptions.cs" />
-    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExseptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExceptions.cs" />
     <Compile Include="Exceptions\CartExceptions\NotExistProductInDataBaseExceptions.cs" />
     <Compile Include="Exceptions\CartExceptions\UpdateContentInCartExseptions.cs" />
     <Compile Include="Enums\ProductType.cs" />

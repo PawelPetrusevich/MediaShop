@@ -5,10 +5,13 @@ import { LoginComponent } from '../components/user/login/login.component';
 import { ProductListComponent } from '../components/Content/product-list/product-list.component';
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
+<<<<<<< HEAD
 import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
+=======
 import { CartComponent } from '../components/cart/cart.component';
+>>>>>>> develop
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
@@ -26,9 +29,7 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         canLoad: [AuthGuard]
       },
       {
-        path: 'cart',
-        component: CartComponent
-},
+<<<<<<< HEAD
         path: 'product-upload',
         component: ProductUploadComponent
       },
@@ -41,6 +42,11 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         component: ProductInfoComponent
       },
 
+=======
+        path: 'cart',
+        component: CartComponent
+      },
+>>>>>>> develop
       { path: '**', component: NotfoundComponent }
     ])
   ],

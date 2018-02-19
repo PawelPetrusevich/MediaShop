@@ -12,6 +12,8 @@
     using MediaShop.Common.Interfaces.Repositories;
     using MediaShop.Common.Models;
     using MediaShop.DataAccess.Context;
+    using MediaShop.Common.Exceptions.CartExceptions;
+    using MediaShop.DataAccess.Properties;
 
     /// <summary>
     /// Class for work with repository
@@ -144,6 +146,11 @@
         {
             var contentCart = this.DbSet.SingleOrDefault(x => x.Id == id
                 && x.StateContent == Common.Enums.CartEnums.StateCartContent.InCart);
+            if (contentCart == null)
+            {
+                throw new DeleteContentInCartExceptions(Resources.InvalidId);
+            }
+
             var model = this.DbSet.Remove(contentCart);
             var result = await this.Context.SaveChangesAsync().ConfigureAwait(false);
             return result;

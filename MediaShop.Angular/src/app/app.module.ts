@@ -53,7 +53,7 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
     NavbarComponent,
     NotfoundComponent,
     PasswordRecoveryComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent
