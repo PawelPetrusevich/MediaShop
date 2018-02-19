@@ -15,7 +15,8 @@ export class AccountService {
   constructor(private http: Http) { }
 
   register(registerUser: RegisterUserDto): Observable<Account> {
-    return this.http.post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
+    return this.http
+      .post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
@@ -44,7 +45,10 @@ export class AccountService {
 
   forgotPassword(email: string) {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword', email)
+      .post(
+        AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
+        email
+      )
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
@@ -58,7 +62,10 @@ export class AccountService {
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/recoveryPassword', resetMasswor)
+      .post(
+        AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
+        resetMasswor
+      )
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }

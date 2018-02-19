@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Notification} from '../../Models/Messaging/notification';
+
 @Injectable()
 export class NotificationService {
   static url = 'http://localhost:51289/api';

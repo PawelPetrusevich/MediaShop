@@ -4,8 +4,10 @@
 
 namespace MediaShop.Common.Interfaces.Repositories
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using MediaShop.Common.Dto.User;
     using MediaShop.Common.Models.User;
 
     /// <summary>
@@ -43,5 +45,7 @@ namespace MediaShop.Common.Interfaces.Repositories
         /// <param name="email">The Email.</param>
         /// <returns>Entity</returns>
         Task<AccountDbModel> GetByEmailAsync(string email);
+
+        IEnumerable<AccountDbModel> GetAllUsers();
     }
 }

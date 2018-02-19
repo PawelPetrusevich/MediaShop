@@ -15,6 +15,7 @@ import { PasswordRecoveryComponent } from '../components/user/password-recovery/
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
+import { UserListComponent } from '../components/user/user-list/user-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -55,10 +56,11 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
         path: 'confirm',
         component: ConfirmComponent
       },
+      { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule { }
+export class ApproutingModule {}
