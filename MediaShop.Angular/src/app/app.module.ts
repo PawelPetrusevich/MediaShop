@@ -29,6 +29,8 @@ import { ProductComponent } from './components/Content/product/product.component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
+import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
 import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
@@ -50,6 +52,8 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
     LogoutComponent,
     NavbarComponent,
     NotfoundComponent,
+    PasswordRecoveryComponent,
+    ForgotPasswordComponent
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent

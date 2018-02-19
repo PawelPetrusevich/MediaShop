@@ -8,12 +8,16 @@ import { AuthGuard } from '../guards/auth.guard';
 import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
+import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
+import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+      { path: 'recovery-password', component: PasswordRecoveryComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
       {
         path: 'product-list',
         component: ProductListComponent,
@@ -39,4 +43,4 @@ import { ProductInfoComponent } from '../components/Content/product-info/product
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
