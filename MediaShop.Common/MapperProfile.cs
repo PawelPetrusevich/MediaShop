@@ -73,11 +73,12 @@ namespace MediaShop.Common
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
             this.CreateMap<AccountDbModel, AccountPwdRestoreDto>()
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
-
+            this.CreateMap<AccountDbModel, UserDto>();
             this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
-            this.CreateMap<RoleUserDto, PermissionDto>();
+            this.CreateMap<RoleUserDto, UserDto>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
+            this.CreateMap<Account, UserDto>().ReverseMap();
             this.CreateMap<Dto.User.Profile, ProfileDto>().ReverseMap();
             this.CreateMap<Settings, SettingsDto>().ReverseMap();
             this.CreateMap<ProductDto, Product>().ReverseMap();
@@ -108,6 +109,8 @@ namespace MediaShop.Common
                 .ForMember(item => item.Name, opt => opt.MapFrom(n => n.name))
                 .ForMember(item => item.Description, opt => opt.MapFrom(n => n.description))
                 .ForMember(item => item.Price, opt => opt.MapFrom(n => n.price));
+            this.CreateMap<Product, ProductInfoDto>()
+                .ForMember(x => x.Content, obj => obj.MapFrom(y => Convert.ToBase64String(y.ProtectedProduct.Content)));
         }
     }
 }

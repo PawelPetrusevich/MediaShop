@@ -7,10 +7,15 @@ import { ProductListComponent } from '../components/Content/product-list/product
 import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { LogoutComponent } from '../components/user/logout/logout.component';
+import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
+import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
+import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
 import { CartComponent } from '../components/cart/cart.component';
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
+import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
+import { UserListComponent } from '../components/user/user-list/user-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +40,23 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         path: 'cart',
         component: CartComponent
       },
+      {
+        path: 'product-upload',
+        component: ProductUploadComponent
+      },
+      {
+        path: 'product-filter',
+        component: ProductFilterComponent
+      },
+      {
+        path: 'product-info/:id',
+        component: ProductInfoComponent
+      },
+      {
+        path: 'confirm',
+        component: ConfirmComponent
+      },
+      { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
   ],

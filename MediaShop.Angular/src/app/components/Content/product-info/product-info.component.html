@@ -1,3 +1,23 @@
-<p>
-  product-info works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{Base64Content}}" />
+    </div>
+    <div class="col-md-6">
+      <div class="list-group">
+        <div class="list-group-item-text">
+          <h4>Price</h4>
+          <p>{{productInfo.ProductPrice}}</p>
+        </div>
+        <div class="list-group-item-text">
+          <h4>Name</h4>
+          <p>{{productInfo.ProductName}}</p>
+        </div>
+        <div class="list-group-item-text">
+          <h4>Description</h4>
+          <p>{{productInfo.Description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 export class UploadProductModel {
-  ProductNmae: string;
+  ProductName: string;
   ProductPrice: number;
-  Description: number;
+  Description: string;
   UploadProduct: string;
 }

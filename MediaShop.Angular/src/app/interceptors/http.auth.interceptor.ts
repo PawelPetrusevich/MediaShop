@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const headers = req.headers
       .set('Content-Type', 'application/json');
       if (this.accountService.isAuthorized()) {
-        headers.append('Authorization', 'Bearer' + localStorage.getItem(AppSettings.tokenKey));
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(AppSettings.tokenKey));
       }
 
     const authReq = req.clone({ headers });

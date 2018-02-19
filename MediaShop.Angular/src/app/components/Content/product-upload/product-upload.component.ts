@@ -5,10 +5,13 @@ import { ProductService } from '../../../Services/product-service.service';
 @Component({
   selector: 'app-product-upload',
   templateUrl: './product-upload.component.html',
-  styleUrls: ['./product-upload.component.css']
+  styleUrls: ['./product-upload.component.css'],
+  providers: [ProductService]
 })
+
 export class ProductUploadComponent implements OnInit {
-  uploadProduct: UploadProductModel = new UploadProductModel;
+  uploadProduct: UploadProductModel = new UploadProductModel();
+  addProduct: UploadProductModel;
   constructor(private productService: ProductService) {}
 
   ngOnInit() {}
@@ -17,7 +20,7 @@ export class ProductUploadComponent implements OnInit {
     const files = evt.target.files;
     const file = files[0];
     if (files && file) {
-      let read = new FileReader();
+      const read = new FileReader();
       read.onload = this._handleReaderLoaded.bind(this);
       read.readAsBinaryString(file);
     }
@@ -28,7 +31,8 @@ export class ProductUploadComponent implements OnInit {
     this.uploadProduct.UploadProduct = btoa(binaryString);
   }
 
-  uploadFile() {
-    this.productService.uploadProduct(this.uploadProduct);
+  AddProduct() {
+    console.log('upload');
+    this.productService.uploadProduct(this.uploadProduct).subscribe(data => this.addProduct = data as UploadProductModel);
   }
 }
