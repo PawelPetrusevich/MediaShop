@@ -4,19 +4,25 @@ import {
   CanActivate,
   CanLoad,
   RouterStateSnapshot,
-  Route
+  Route,
+  Router
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { AccountService } from '../Services/User/AccountService';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor() {}
+  constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return true;
+    return this.accountService.isAuthorized();
   }
 
   canLoad(route: Route): boolean {
-    return true;
+    if (this.accountService.isAuthorized()) {
+      return true;
+    }
+    this.router.navigate(['login']);
+    return false;
   }
 }

@@ -33,6 +33,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/http.auth.interceptor';
 import { PasswordRecoveryComponent } from './components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,

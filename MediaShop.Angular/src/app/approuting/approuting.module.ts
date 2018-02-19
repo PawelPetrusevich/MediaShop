@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
      { path: 'logOut',
        component: LogoutComponent,
        canActivate: [AuthGuard],
