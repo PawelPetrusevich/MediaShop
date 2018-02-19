@@ -9,9 +9,15 @@ import { Cart } from '../Models/Cart/cart';
 
 @Injectable()
 export class Paymentservice {
-  static url = 'http://demo.belpyro.net/api/payment';
+  static url = 'http://localhost:51289/api/payment';
   constructor(private http: Http) {}
 
+  /*payPalPayment(cart: Cart): Observable<string> {
+    return this.http
+      .post(Paymentservice.url + '/paypalpayment', cart)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }*/
   payPalPayment(cart: Cart): Observable<string> {
     return this.http
       .post(Paymentservice.url + '/paypalpayment', cart)
