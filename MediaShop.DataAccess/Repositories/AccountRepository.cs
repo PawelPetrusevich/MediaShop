@@ -235,5 +235,14 @@ namespace MediaShop.DataAccess.Repositories
 
             return this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Email.Equals(email));
         }
+
+        /// <summary>
+        /// GetAllUsers
+        /// </summary>
+        /// <returns>IEnumerable<AccountDbModel</returns>
+        public IEnumerable<AccountDbModel> GetAllUsers()
+        {
+            return this.DbSet.ToList();
+        }
     }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SetFlagIsBannedComponent } from './set-flag-is-banned.component';
+import { ConfirmComponent } from './confirm.component';
 
-describe('SetFlagIsBannedComponent', () => {
-  let component: SetFlagIsBannedComponent;
-  let fixture: ComponentFixture<SetFlagIsBannedComponent>;
+describe('ConfirmComponent', () => {
+  let component: ConfirmComponent;
+  let fixture: ComponentFixture<ConfirmComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetFlagIsBannedComponent ]
+      declarations: [ ConfirmComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SetFlagIsBannedComponent);
+    fixture = TestBed.createComponent(ConfirmComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

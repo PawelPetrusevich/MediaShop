@@ -13,12 +13,15 @@ import { ProductInfoComponent } from '../components/Content/product-info/product
 import { CartComponent } from '../components/cart/cart.component';
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
+import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
+import { UserListComponent } from '../components/user/user-list/user-list.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
      { path: 'logOut',
        component: LogoutComponent,
        canActivate: [AuthGuard],
@@ -49,7 +52,11 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         path: 'product-info/:id',
         component: ProductInfoComponent
       },
-
+      {
+        path: 'confirm',
+        component: ConfirmComponent
+      },
+      { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
   ],
