@@ -38,8 +38,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public IHttpActionResult Get()
         {
-            //var user = HttpContext.Current.User as ClaimsIdentity;
-            //var id = user.Claims.FirstOrDefault(XmlSiteMapProvider => x.Type == ClaimTypes.);
+            var user = HttpContext.Current.User as ClaimsIdentity;
+            if (user != null)
+            {
+                var id1 = user.Claims.FirstOrDefault(XmlSiteMapProvider => XmlSiteMapProvider.Type == ClaimTypes.Email);
+            }
+
             var id = 1; //userId from claim
             var cart = _cartService.GetCart(id);
             return this.Ok(cart);
@@ -55,6 +59,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public async Task<IHttpActionResult> GetAsync()
         {
+            var user = HttpContext.Current.User as ClaimsIdentity;
+            if (user != null)
+            {
+                var id1 = user.Claims.FirstOrDefault(XmlSiteMapProvider => XmlSiteMapProvider.Type == ClaimTypes.Email);
+            }
+
             var id = 1; //userId from claim
             var cart = await _cartService.GetCartAsync(id);
             return this.Ok(cart);

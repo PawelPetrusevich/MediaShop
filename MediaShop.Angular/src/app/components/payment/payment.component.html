@@ -14,13 +14,14 @@
               <h6 class="my-0">{{item.ContentName}}</h6>
               <small class="text-muted">{{item.DescriptionItem}}</small>
             </div>
-            <span class="text-muted">${{item.PriceItem}}</span>
+            <span class="text-muted">{{item.PriceItem | currency}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between bg-light">
+              <span class="text-muted">Комиссия {{item.PriceItem * 0.1 | currency}}</span>
           </li>
         </ul>
         <span>Всего</span>
-        <strong>{{cart.PriceAllItemsCollection | currency}}</strong>
+        <strong>{{cart.PriceAllItemsCollection + tax | currency}}</strong>
       </div>
         <form class="needs-validation" novalidate="">
           <h4 class="mb-3">Способ оплаты</h4>

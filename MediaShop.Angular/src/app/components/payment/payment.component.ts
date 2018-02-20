@@ -15,10 +15,12 @@ export class PaymentComponent implements OnInit {
   url: string;
   showError = false;
   errorMessage: string;
+  tax: number;
 
   constructor(private paymentService: Paymentservice, private route: ActivatedRoute, private dataProvider: CartDataProvider) {
     this.cart = dataProvider.storageCart;
     this.url = dataProvider.storageUrl;
+    this.tax = this.cart.PriceAllItemsCollection * 0.1;
   }
 
   ngOnInit() {
