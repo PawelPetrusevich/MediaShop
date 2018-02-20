@@ -28,5 +28,33 @@ namespace MediaShop.Common.Interfaces.Services
         /// Get user information
         /// </summary>
         Task<Account> GetUserInfoAsync(long idUser);
+
+        /// <summary>
+        /// Modiffy user settings
+        /// </summary>
+        /// <param name="settings">settings</param>
+        /// <returns>account</returns>
+        Account ModifySettings(SettingsDto settings);
+
+        /// <summary>
+        /// Modiffy user settings
+        /// </summary>
+        /// <param name="settings">settings</param>
+        /// <returns>account</returns>
+        Task<Account> ModifySettingsAsync(SettingsDto settings);
+
+        /// <summary>
+        /// Modiffy user profile
+        /// </summary>
+        /// <param name="profile">profile</param>
+        /// <returns>account</returns>
+        Account ModifyProfile(ProfileDto profile);
+
+        /// <summary>
+        /// Modiffy user profile
+        /// </summary>
+        /// <param name="profile">profile</param>
+        /// <returns>account</returns>
+        Task<Account> ModifyProfileAsync(ProfileDto profile);
     }
 }

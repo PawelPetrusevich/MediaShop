@@ -40,9 +40,8 @@ namespace MediaShop.Common.Dto.User
         public string Phone { get; set; }
 
         /// <summary>
-        /// Gets or sets the login.
+        /// Account  id
         /// </summary>
-        /// <value>The login.</value>
-        public string Login { get; set; }
+        public long AccountId { get; set; }
     }
 }

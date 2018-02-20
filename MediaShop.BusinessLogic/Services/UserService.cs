@@ -6,15 +6,17 @@ using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.User;
+using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.BusinessLogic.Services
 {
     public class UserService : IUserService
     {
-        private IUserFactoryRepository _userRepository;
+        private IAccountRepository _userRepository;
 
-        public UserService(IUserFactoryRepository userRepository)
+        public UserService(IAccountRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -33,9 +35,9 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = _userRepository.Accounts.Get(idUser) ?? throw new NotFoundUserException();
+            var user = _userRepository.Get(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = _userRepository.Accounts.SoftDelete(user.Id) ??
+            var deletedUser = _userRepository.SoftDelete(user.Id) ??
                               throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
@@ -55,9 +57,9 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.GetAsync(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id) ??
+            var deletedUser = await _userRepository.SoftDeleteAsync(user.Id) ??
                               throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
@@ -77,7 +79,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = _userRepository.Accounts.Get(idUser) ?? throw new NotFoundUserException();
+            var user = _userRepository.Get(idUser) ?? throw new NotFoundUserException();
 
             return Mapper.Map<Account>(user);
         }
@@ -96,9 +98,61 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.GetAsync(idUser) ?? throw new NotFoundUserException();
 
             return Mapper.Map<Account>(user);
+        }
+
+        public Account ModifySettings(SettingsDto settings)
+        {
+            //Validator
+            var user = _userRepository.Get(settings.AccountId) ?? throw new NotFoundUserException();
+
+            var settingsUpdated = Mapper.Map<SettingsDbModel>(settings);
+            user.Settings = settingsUpdated;
+            
+            var updatedUser = _userRepository.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(updatedUser);
+        }
+
+        public async Task<Account> ModifySettingsAsync(SettingsDto settings)
+        {
+            //Validator
+            var user = await _userRepository.GetAsync(settings.AccountId) ?? throw new NotFoundUserException();
+
+            var settingsUpdated = Mapper.Map<SettingsDbModel>(settings);
+            user.Settings = settingsUpdated;
+
+            var updatedUser = await _userRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
+       
+            return Mapper.Map<Account>(updatedUser);
+        }
+
+        public Account ModifyProfile(ProfileDto profile)
+        {
+            //Validator
+            var user = _userRepository.Get(profile.AccountId) ?? throw new NotFoundUserException();
+
+            var profileUpdated = Mapper.Map<ProfileDbModel>(profile);
+            user.Profile = profileUpdated;
+
+            var updatedUser = _userRepository.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(updatedUser);
+        }
+
+        public async Task<Account> ModifyProfileAsync(ProfileDto profile)
+        {
+            //Validator
+            var user = await _userRepository.GetAsync(profile.AccountId) ?? throw new NotFoundUserException();
+
+            var profileUpdated = Mapper.Map<ProfileDbModel>(profile);
+            user.Profile = profileUpdated;
+
+            var updatedUser = await _userRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(updatedUser);
         }
     }
 }
