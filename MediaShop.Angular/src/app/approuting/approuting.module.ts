@@ -58,11 +58,9 @@ import { PaymentInfoComponent } from '../components/payment-info/payment-info.co
         component: ConfirmComponent
       },
       { path: 'user-list', component: UserListComponent },
-
       {
         path: 'payment-info', component: PaymentInfoComponent
       },
-
       { path: '**', component: NotfoundComponent }
     ])
   ],

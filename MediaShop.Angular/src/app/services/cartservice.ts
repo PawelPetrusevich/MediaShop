@@ -10,7 +10,7 @@ import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class Cartservice {
-  static url = 'http://demo.belpyro.net/api/cart';
+  static url = 'http://localhost:51289/api/cart';
   constructor(private http: Http) {}
 
   get(): Observable<Cart> {

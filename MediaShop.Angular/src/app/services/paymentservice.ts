@@ -27,9 +27,6 @@ export class Paymentservice {
   }
 
   executePayment(paymentId: string, token: string): Observable<PayPalPaymentDto> {
-    const params = new HttpParams()
-    .set('paymentId', paymentId.toString())
-    .set('token', token.toString());
     return this.http
       .get(Paymentservice.url + '/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token)
       .map(resp => resp.json())
