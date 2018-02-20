@@ -41,7 +41,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             var user = HttpContext.Current.User as ClaimsIdentity;
             if (user != null)
             {
-                var id1 = user.Claims.FirstOrDefault(XmlSiteMapProvider => XmlSiteMapProvider.Type == ClaimTypes.Email);
+                var id1 = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
             }
 
             var id = 1; //userId from claim
@@ -59,10 +59,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public async Task<IHttpActionResult> GetAsync()
         {
+            var cl = this.RequestContext.Principal.Identity as ClaimsIdentity;
+
             var user = HttpContext.Current.User as ClaimsIdentity;
             if (user != null)
             {
-                var id1 = user.Claims.FirstOrDefault(XmlSiteMapProvider => XmlSiteMapProvider.Type == ClaimTypes.Email);
+                var id1 = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
             }
 
             var id = 1; //userId from claim
