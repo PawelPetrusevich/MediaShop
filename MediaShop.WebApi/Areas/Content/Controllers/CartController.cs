@@ -10,6 +10,9 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
 using System.Web.Http.Cors;
+using System.Web;
+using System.Security.Claims;
+using System.Linq;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
@@ -35,6 +38,8 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public IHttpActionResult Get()
         {
+            //var user = HttpContext.Current.User as ClaimsIdentity;
+            //var id = user.Claims.FirstOrDefault(XmlSiteMapProvider => x.Type == ClaimTypes.);
             var id = 1; //userId from claim
             var cart = _cartService.GetCart(id);
             return this.Ok(cart);

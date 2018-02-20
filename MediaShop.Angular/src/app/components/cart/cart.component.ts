@@ -4,12 +4,17 @@ import { Cartservice } from '../../services/cartservice';
 import { Paymentservice } from '../../services/paymentservice';
 import { ContentCartDto } from '../../Models/Cart/content-cart-dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PaymentComponent } from '../payment/payment.component';
+import { Router } from '@angular/router';
+import { CartDataProvider } from './cartDataProvider';
+
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent implements OnInit {
   cart: Cart = new Cart();
   isLoaded = false;
@@ -19,18 +24,30 @@ export class CartComponent implements OnInit {
   indexCurrentElement: number;
   isPayment = false;
 
-  constructor(private cartService: Cartservice, private paymentService: Paymentservice) {
+  constructor(private cartService: Cartservice, private paymentService: Paymentservice, private router: Router
+    , private dataProvider: CartDataProvider) {
   }
 
   ngOnInit() {
     this.cartService.get().subscribe(resp => {
       this.cart = resp;
+      this.dataProvider.storageCart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Упс)) Ошибка....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
@@ -40,10 +57,20 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Упс)) Ошибка....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
@@ -65,10 +92,20 @@ export class CartComponent implements OnInit {
         this.errorMessage = 'element index not found';
       }
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Упс)) Ошибка....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
   );
   }
@@ -79,10 +116,20 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Упс)) Ошибка....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
   );
   }
@@ -90,15 +137,42 @@ export class CartComponent implements OnInit {
   paypalPayment() {
     this.paymentService.payPalPayment(this.cart).subscribe(resp => {
       this.urlForPayment = resp;
-      this.isPayment = true;
+      // this.isPayment = true;
+      // this.router.navigateByUrl(resp);
+      this.paypalExecutePayment();
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Упс)) Ошибка....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
+
+  paypalExecutePayment() {
+    this.dataProvider.storageCart = this.cart;
+    this.dataProvider.storageUrl = this.urlForPayment;
+     /* this.router.navigate(
+        ['/payment'],
+          {
+            queryParams: {
+              'url': this.urlForPayment
+            }
+          }
+        );*/
+        this.router.navigate(['payment']);
+  }
+
 /*  paypalPayment() {
     if (!this.isPayment) {
       this.isPayment = true;

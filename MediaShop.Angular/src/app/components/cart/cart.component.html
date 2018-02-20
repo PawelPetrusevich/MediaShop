@@ -1,5 +1,4 @@
-<!--<div class="container" *ngIf="!isPayment">-->
-<div class="starter-template">
+<div class="starter-template" *ngIf="cart.CountItemsInCollection > 0 && cart.PriceAllItemsCollection>0 && cart.ContentCartDtoCollection!=null">
   <div class="row">
     <table class="table table-bordered">
       <thead>
@@ -12,7 +11,7 @@
         <tr *ngFor="let item of cart.ContentCartDtoCollection">
           <td class="col-md-3">{{item.ContentName}}</td>
           <td class="col-md-3">{{item.DescriptionItem}}</td>
-          <td class="col-md-3">{{item.PriceItem}} $</td>
+          <td class="col-md-3">{{item.PriceItem}} | currency</td>
           <td class="col-md-3">
             <input type="button" class="btn btn-primary btn-sm" value="Удалить" (click)="delete(item)" />
           </td>
@@ -23,7 +22,7 @@
           </td>
           <td class="col-md-3"></td>
           <td class="col-md-3">
-            <label>Сумма: {{cart.PriceAllItemsCollection}} $</label>
+            <label>Сумма: {{cart.PriceAllItemsCollection | currency}}</label>
           </td>
           <td class="col-md-3"></td>
         </tr>
@@ -34,11 +33,18 @@
     {{errorMessage}}
   </div>
   <div class="row">
-    <button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
-    <button type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
+    <div class="col-md-5">
+        <button [disabled]="cart.CountItemsInCollection<=0 || cart.PriceAllItemsCollection <=0 || cart.ContentCartDtoCollection!=null" type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
+    </div>
+    <div class="col-md-5 col-md-offset-2">
+        <button [disabled]="cart.CountItemsInCollection<=0 || cart.ContentCartDtoCollection!=null"  type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
+    </div>
   </div>
-
 </div>
-<div class="container" *ngIf="isPayment">
+<div class="starter-template" *ngIf="cart.CountItemsInCollection <= 0">
+  <h1 class="jumbotron-heading">Извините, но Ваша корзина пуста</h1>
+  <a class="nav-link" routerLink="">На главную страницу</a>
+</div>
+<!--<div class="container" *ngIf="isPayment">
   <app-payment [cart]=cart [url]=urlForPayment></app-payment>
-</div>
+</div>-->

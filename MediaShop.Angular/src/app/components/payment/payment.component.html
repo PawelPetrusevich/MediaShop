@@ -1,18 +1,12 @@
-<!--<button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
-<div class="alert alert-danger" role="alert" *ngIf="showError">
-    {{errorMessage}}
-</div>-->
-<div class="container">
+<div class="container" *ngIf="cart.CountItemsInCollection > 0 && cart.PriceAllItemsCollection>0 && cart.ContentCartDtoCollection!=null">
     <div class="py-5 text-center">
       <h2>Оплата</h2>
-      <p class="lead">Оплата контента. Выберите способ оплаты</p>
     </div>
 
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Корзина</span>
-          <span class="badge badge-secondary badge-pill">3</span>
         </h4>
         <ul class="list-group mb-3" *ngFor="let item of cart.ContentCartDtoCollection">
           <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -23,53 +17,22 @@
             <span class="text-muted">${{item.PriceItem}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between bg-light">
-           <!-- <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
-            </div>
-            <span class="text-success">-$5</span> -->
           </li>
-
-          <!--<li class="list-group-item d-flex justify-content-between">
-            <span>Всего (USD)</span>
-            <strong>{{cart.PriceAllItemsCollection}}</strong>
-          </li>-->
         </ul>
-        <span>Всего (USD)</span>
-        <strong>{{cart.PriceAllItemsCollection}}</strong>
-
-
-
-
-       <!-- <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-secondary">Redeem</button>
-            </div>
-          </div>
-        </form>-->
+        <span>Всего</span>
+        <strong>{{cart.PriceAllItemsCollection | currency}}</strong>
       </div>
-      <div class="col-md-8 order-md-1">
         <form class="needs-validation" novalidate="">
-          <hr class="mb-4">
-          <hr class="mb-4">
           <h4 class="mb-3">Способ оплаты</h4>
-
           <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-              <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
               <label class="custom-control-label" for="paypal">Paypal</label>
-            </div>
           </div>
           <hr class="mb-4">
           <!--<button class="btn btn-primary btn-lg btn-block" type="submit" (click)="paypalPayment()">Continue to checkout</button>-->
-          <a class="nav-link" href={{url}}>Подтвердить оплату</a>
+          <a href={{url}} class="btn btn-primary btn-lg" role="button">Подтвердить оплату</a>
           </form>
-      </div>
     </div>
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+      {{errorMessage}}
   </div>
