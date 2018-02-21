@@ -40,6 +40,7 @@ import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { CartDataProvider } from './components/cart/cartDataProvider';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     UserService,
     ProductService,
     AuthGuard,
+    CartDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
