@@ -17,15 +17,24 @@ export class UserInfoService {
   constructor(private http: Http) { }
 
   getUserInfo(): Observable<Account> {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+
+  //    options.headers.append(
+  //    'Authorization',
+  //    'Bearer ' + localStorage.getItem('token')
+  //  );
+
     return this.http
-      .get(AppSettings.API_ENDPOINT + 'api/user/getUserInfoAsync')
+      .get(AppSettings.API_ENDPOINT + 'api/user/getUserInfo', options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
 
   deleteUserAsync(): Observable<Account> {
+    const options = new RequestOptions();
     return this.http
-       .post(AppSettings.API_ENDPOINT + 'api/user/deleteAsync', null)
+       .post(AppSettings.API_ENDPOINT + 'api/user/deleteAsync', options)
        .map(resp => resp.json())
        .catch(err => Observable.throw(err));
    }

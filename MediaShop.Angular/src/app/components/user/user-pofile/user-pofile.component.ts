@@ -20,6 +20,7 @@ export class UserPofileComponent implements OnInit {
   getUser () {
     this.userInfoService.getUserInfo().subscribe(result => {
       this.user = result;
+      console.log(result);
     });
   }
 
