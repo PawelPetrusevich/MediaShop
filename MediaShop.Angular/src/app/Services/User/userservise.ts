@@ -5,6 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { PermissionDto } from '../../Models/User/permissionDto';
 import { Permissions } from '../../Models/User/permissions';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import {SetPermissionComponent} from '../../components/user/set-permission/set-permission.component';
 
 @Injectable()
 export class UserService {
@@ -23,7 +26,7 @@ export class UserService {
     permissionDto.Email = email;
     permissionDto.Permissions = permission;
     return this.http
-      .post(UserService.url + '/user/permission/add', permissionDto)
+      .post(UserService.url + '/user/permission/addMask', permissionDto)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
@@ -71,5 +74,13 @@ export class UserService {
       .post(UserService.url + '/user/banned/remove', id, options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
+  }
+  GetUser(id: number | string) {
+
+    return (
+      this.GetAllUsers()
+        // (+) before `id` turns the string into a number
+        .map(users => users.find(user => user.Id === +id))
+    );
   }
 }
