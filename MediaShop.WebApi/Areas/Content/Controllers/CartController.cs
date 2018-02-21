@@ -19,6 +19,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
     [CartExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/cart")]
+    [Authorize]
     public class CartController : ApiController
     {
         private readonly ICartService<ContentCartDto> _cartService;
@@ -38,11 +39,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public IHttpActionResult Get()
         {
-            var id = 1; //userId from claim
-            var user = HttpContext.Current.User as ClaimsIdentity;
+            long id = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
             if (user != null)
             {
-                if (!int.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+                if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
                 {
                     throw new InvalidIdException(Resources.IncorrectId);
                 }
@@ -62,11 +63,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public async Task<IHttpActionResult> GetAsync()
         {
-            var id = 1; //userId from claim
-            var user = HttpContext.Current.User as ClaimsIdentity;
+            long id = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
             if (user != null)
             {
-                if (!int.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+                if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
                 {
                     throw new InvalidIdException(Resources.IncorrectId);
                 }
