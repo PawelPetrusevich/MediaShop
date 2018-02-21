@@ -39,6 +39,9 @@ import { ProductInfoComponent } from './components/Content/product-info/product-
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserPofileComponent } from './components/user/user-pofile/user-pofile.component';
+import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { UserInfoService } from './Services/User/userInfoService';
 
 
 @NgModule({
@@ -49,6 +52,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
+    UserPofileComponent,
+    UserSettingsComponent,
     NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
@@ -80,6 +85,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
   ],
   providers: [
     AccountService,
+    UserService,
+    UserInfoService,
     Cartservice,
     Paymentservice,
     UserService,
