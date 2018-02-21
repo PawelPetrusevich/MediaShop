@@ -14,8 +14,7 @@ import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 
 @Injectable()
 export class ProductService {
-
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
 
   compressedProductList: CompressedProductDto[];
   private webApiUrl = 'http://localhost:51289/api/product/';
@@ -26,7 +25,9 @@ export class ProductService {
 
   uploadProduct(uploadProduct: UploadProductModel) {
     const header = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post(this.webApiUrl + 'add', uploadProduct, {headers: header});
+    return this.http.post(this.webApiUrl + 'add', uploadProduct, {
+      headers: header
+    });
   }
 
   getProductById(ID: number) {
@@ -34,7 +35,10 @@ export class ProductService {
   }
 
   searchProduct(productSearchModel: ProductSearchModel) {
-    return this.http.post<ProductDto>(this.webApiUrl + 'Find', productSearchModel);
+    return this.http.post<ProductDto>(
+      this.webApiUrl + 'Find',
+      productSearchModel
+    );
   }
 
   getListPurshasedProducts(UserID: number) {
@@ -42,6 +46,8 @@ export class ProductService {
   }
 
   downloadProduct(ID: number, UserID: Number) {
-    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct');
+    return this.http.get<OriginalProductDTO>(
+      this.webApiUrl + 'GetOriginalPurshasedProduct'
+    );
   }
 }

@@ -1,0 +1,8 @@
+<div class="confirm" *ngIf="result">
+  <div class="alert alert-success" role="alert" *ngIf="!showError">
+    <h4 class="alert-heading">{{result}}</h4>
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    <h4 class="alert-heading">{{result}}</h4>
+  </div>
+</div>
