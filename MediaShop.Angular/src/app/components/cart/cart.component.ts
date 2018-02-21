@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
       this.dataProvider.storageCart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
-      this.errorMessage = ' Упс)) Ошибка....';
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
         this.errorMessage = err.statusText;
         this.showError = true;
@@ -57,7 +57,7 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
-      this.errorMessage = ' Упс)) Ошибка....';
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
         this.errorMessage = err.statusText;
         this.showError = true;
@@ -92,7 +92,7 @@ export class CartComponent implements OnInit {
         this.errorMessage = 'element index not found';
       }
     }, (err: HttpErrorResponse) => {
-      this.errorMessage = ' Упс)) Ошибка....';
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
         this.errorMessage = err.statusText;
         this.showError = true;
@@ -116,7 +116,7 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
-      this.errorMessage = ' Упс)) Ошибка....';
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
         this.errorMessage = err.statusText;
         this.showError = true;
@@ -141,7 +141,7 @@ export class CartComponent implements OnInit {
       // this.router.navigateByUrl(resp);
       this.paypalExecutePayment();
     }, (err: HttpErrorResponse) => {
-      this.errorMessage = ' Упс)) Ошибка....';
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
         this.errorMessage = err.statusText;
         this.showError = true;

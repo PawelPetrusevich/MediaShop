@@ -2,9 +2,9 @@
   <div class="row">
     <table class="table table-bordered">
       <thead>
-        <th class="col-md-3">Наименование</th>
-        <th class="col-md-3">Описание</th>
-        <th class="col-md-3">Цена</th>
+        <th class="col-md-3">Content Name</th>
+        <th class="col-md-3">Description</th>
+        <th class="col-md-3">Price</th>
         <th class="col-md-3"></th>
       </thead>
       <tbody>
@@ -18,11 +18,11 @@
         </tr>
         <tr>
           <td class="col-md-3">
-            <label>Количество элементов: {{cart.CountItemsInCollection}}</label>
+            <label>Count: {{cart.CountItemsInCollection}}</label>
           </td>
           <td class="col-md-3"></td>
           <td class="col-md-3">
-            <label>Сумма: {{cart.PriceAllItemsCollection | currency}}</label>
+            <label>Total: {{cart.PriceAllItemsCollection | currency}}</label>
           </td>
           <td class="col-md-3"></td>
         </tr>
@@ -42,8 +42,8 @@
   {{errorMessage}}
 </div>
 <div class="starter-template" *ngIf="cart.CountItemsInCollection <= 0">
-  <h1 class="jumbotron-heading">Извините, но Ваша корзина пуста</h1>
-  <a class="nav-link" routerLink="">На главную страницу</a>
+  <h1 class="jumbotron-heading">Your Shopping Cart is empty.</h1>
+  <a class="nav-link" routerLink="">Home...</a>
 </div>
 <!--<div class="container" *ngIf="isPayment">
   <app-payment [cart]=cart [url]=urlForPayment></app-payment>
