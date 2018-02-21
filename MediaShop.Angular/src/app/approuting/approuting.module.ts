@@ -8,7 +8,6 @@ import { NotfoundComponent } from '../components/notfound/notfound.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { LogoutComponent } from '../components/user/logout/logout.component';
 import { ProductUploadComponent } from '../components/Content/product-upload/product-upload.component';
-import { ProductFilterComponent } from '../components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from '../components/Content/product-info/product-info.component';
 import { CartComponent } from '../components/cart/cart.component';
 import { PasswordRecoveryComponent } from '../components/user/password-recovery/password-recovery.component';
@@ -42,10 +41,6 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       {
         path: 'product-upload',
         component: ProductUploadComponent
-      },
-      {
-        path: 'product-filter',
-        component: ProductFilterComponent
       },
       {
         path: 'product-info/:id',

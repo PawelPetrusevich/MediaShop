@@ -34,7 +34,6 @@ import { PasswordRecoveryComponent } from './components/user/password-recovery/p
 import { ForgotPasswordComponent } from './Components/user/forgot-password/forgot-password.component';
 import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
-import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { ProductDownloadComponent } from './Components/Content/product-download/product-download.component';
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
@@ -69,7 +68,6 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     PasswordRecoveryComponent,
     ForgotPasswordComponent,
     ProductUploadComponent,
-    ProductFilterComponent,
     ProductInfoComponent,
     ProductDownloadComponent,
     UserListComponent,
