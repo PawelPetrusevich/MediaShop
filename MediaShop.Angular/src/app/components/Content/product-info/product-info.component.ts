@@ -26,8 +26,10 @@ export class ProductInfoComponent implements OnInit {
 
   }
 
-  get Base64Content(): string {
+  get Base64Image(): string {
     return 'data:image/jpg;base64,' + this.productInfo.Content;
   }
+
+
 
 }
