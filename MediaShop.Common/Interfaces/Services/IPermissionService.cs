@@ -24,6 +24,13 @@ namespace MediaShop.Common.Interfaces.Services
         Account RemovePermission(UserDto permission);
 
         /// <summary>
+        /// Set permission mask
+        /// </summary>
+        /// <param name="permissionDto">Permission data</param>
+        /// <returns>account</returns>
+        Account SetPermissionMask(UserDto permission);
+
+        /// <summary>
         /// Set permission
         /// </summary>
         /// <param name="permissionDto">Permission data</param>

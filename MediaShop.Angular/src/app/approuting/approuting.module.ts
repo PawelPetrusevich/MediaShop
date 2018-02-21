@@ -18,17 +18,18 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 import { UserSettingsComponent } from '../components/user/user-settings/user-settings.component';
 import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.component';
+import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'logOut',
+     { path: 'logOut',
        component: LogoutComponent,
        canActivate: [AuthGuard],
        canLoad: [AuthGuard]
-      },
+       },
       { path: 'userSettings',
       component: UserSettingsComponent,
       canActivate: [AuthGuard],
@@ -39,7 +40,7 @@ import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.
       canActivate: [AuthGuard],
       canLoad: [AuthGuard]
       },
-      { path: 'register', component: RegisterUserComponent },
+     { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -68,6 +69,7 @@ import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.
         path: 'confirm',
         component: ConfirmComponent
       },
+      { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
