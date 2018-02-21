@@ -71,7 +71,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent,
-    ProductDownloadComponent
+    ProductDownloadComponent,
     UserListComponent,
     ConfirmComponent
   ],
