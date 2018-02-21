@@ -32,10 +32,20 @@ errorMessage: string;
         this.payment = data;
         this.isLoaded = true; },
         (err: HttpErrorResponse) => {
-        if (err.status === 404) {
+          this.errorMessage = ' Oops!)) Error....';
+          if (err.status === 404) {
+            this.errorMessage = err.statusText;
+            this.showError = true;
+          }
+          if (err.status === 400) {
+            this.errorMessage = err.statusText;
+            this.showError = true;
+          }
+          if (err.status === 500) {
+            this.errorMessage = err.statusText;
+            this.showError = true;
+          }
           this.showError = true;
-        }
-        this.errorMessage = err.statusText;
       });
     }
   }
