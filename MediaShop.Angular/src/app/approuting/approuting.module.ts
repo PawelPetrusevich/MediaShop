@@ -18,6 +18,7 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
 import { PaymentComponent } from '../components/payment/payment.component';
+import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,6 +57,7 @@ import { PaymentComponent } from '../components/payment/payment.component';
         path: 'confirm',
         component: ConfirmComponent
       },
+      { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
       {
         path: 'payment-info', component: PaymentInfoComponent
@@ -66,4 +68,4 @@ import { PaymentComponent } from '../components/payment/payment.component';
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule { }
+export class ApproutingModule {}
