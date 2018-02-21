@@ -15,17 +15,19 @@ import { PasswordRecoveryComponent } from '../components/user/password-recovery/
 import { ForgotPasswordComponent } from '../Components/user/forgot-password/forgot-password.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
+import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-     { path: 'logOut',
-       component: LogoutComponent,
-       canActivate: [AuthGuard],
-       canLoad: [AuthGuard]
-       },
-     { path: 'register', component: RegisterUserComponent },
+      {
+        path: 'logOut',
+        component: LogoutComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+      },
+      { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -50,15 +52,12 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
         path: 'product-info/:id',
         component: ProductInfoComponent
       },
-
+      { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
-
-
-
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule { }
+export class ApproutingModule {}

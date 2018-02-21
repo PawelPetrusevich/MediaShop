@@ -32,7 +32,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/permission/delete")]
+        [Route("permission/delete")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -41,7 +41,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmptyRegisterDate);
+                return BadRequest(Resources.EmtyData);
             }
 
             try
@@ -86,7 +86,34 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/permissionAsync/delete")]
+        [Route("permission/addMask")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public IHttpActionResult SetPermissionMask([FromBody] UserDto data)
+        {
+            if (data == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                return Ok(_permissionService.SetPermissionMask(data));
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("permissionAsync/delete")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
@@ -95,7 +122,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmptyRegisterDate);
+                return BadRequest(Resources.EmtyData);
             }
 
             try
@@ -113,7 +140,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/permissionAsync/add")]
+        [Route("permissionAsync/add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
