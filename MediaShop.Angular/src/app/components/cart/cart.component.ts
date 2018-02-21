@@ -137,8 +137,6 @@ export class CartComponent implements OnInit {
   paypalPayment() {
     this.paymentService.payPalPayment(this.cart).subscribe(resp => {
       this.urlForPayment = resp;
-      // this.isPayment = true;
-      // this.router.navigateByUrl(resp);
       this.paypalExecutePayment();
     }, (err: HttpErrorResponse) => {
       this.errorMessage = ' Oops!)) Error....';
@@ -162,22 +160,6 @@ export class CartComponent implements OnInit {
   paypalExecutePayment() {
     this.dataProvider.storageCart = this.cart;
     this.dataProvider.storageUrl = this.urlForPayment;
-     /* this.router.navigate(
-        ['/payment'],
-          {
-            queryParams: {
-              'url': this.urlForPayment
-            }
-          }
-        );*/
-        this.router.navigate(['payment']);
+    this.router.navigate(['payment']);
   }
-
-/*  paypalPayment() {
-    if (!this.isPayment) {
-      this.isPayment = true;
-    } else {
-      this.isPayment = false;
-    }
-  }*/
 }

@@ -11,7 +11,6 @@ import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
 export class Cartservice {
-  // static url = 'http://demo.belpyro.net/api/cart';
   constructor(private http: Http) {}
 
   get(): Observable<Cart> {

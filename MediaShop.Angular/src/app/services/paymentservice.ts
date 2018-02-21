@@ -11,15 +11,7 @@ import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
 export class Paymentservice {
-  // static url = 'http://demo.belpyro.net/api/payment';
   constructor(private http: Http) {}
-
-  /*payPalPayment(cart: Cart): Observable<string> {
-    return this.http
-      .post(Paymentservice.url + '/paypalpayment', cart)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
-  }*/
 
   payPalPayment(cart: Cart): Observable<string> {
     return this.http
