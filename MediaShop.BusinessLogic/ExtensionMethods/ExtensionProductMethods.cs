@@ -237,9 +237,9 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             };
             string[] audioType =
             {
-                "52-49-46-46",
-                "30-26-B2-75",
-                "49-44-33-04"
+                "52-49-46",
+                "30-26-B2",
+                "49-44-33"
             };
             byte[] temp = new byte[16];
             Array.Copy(data, temp, 16);
@@ -255,7 +255,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 return ProductType.Video;
             }
 
-            if (audioType.Contains(dataHex.Substring(0, 11)))
+            if (audioType.Contains(dataHex.Substring(0, 8)))
             {
                 return ProductType.Music;
             }
