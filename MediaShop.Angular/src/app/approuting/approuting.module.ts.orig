@@ -16,7 +16,6 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
 import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
-import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +32,9 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
         path: 'product-list',
-        component: ProductListComponent
+        component: ProductListComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
       },
       {
         path: 'cart',
@@ -52,19 +53,21 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
         component: ProductInfoComponent
       },
       {
+<<<<<<< HEAD
         path: 'product-download',
         component: ProductInfoComponent
       },
-      {
+
+=======
         path: 'confirm',
         component: ConfirmComponent
       },
-      { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
+>>>>>>> 6fc03593188e2fbf9fcf3e3ce1eebd05c36cfed7
       { path: '**', component: NotfoundComponent }
     ])
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
