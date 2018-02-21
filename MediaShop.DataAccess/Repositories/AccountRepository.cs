@@ -44,7 +44,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
 
-            return this.DbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return this.DbSet.SingleOrDefault(x => x.Id == id);
         }
 
         public async Task<AccountDbModel> GetAsync(long id)

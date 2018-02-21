@@ -107,58 +107,55 @@ namespace MediaShop.BusinessLogic.Services
         {
             //Validator
             var user = _userRepository.Accounts.Get(settings.AccountId) ?? throw new NotFoundUserException();
-            var settingsUser = _userRepository.Settings.Get(user.Settings.Id);
-            settingsUser.InterfaceLanguage = settings.InterfaceLanguage;
-            settingsUser.NotificationStatus = settings.NotificationStatus;
-            settingsUser.TimeZoneId = settings.TimeZoneId;
+            user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
+            user.Settings.NotificationStatus = settings.NotificationStatus;
+            user.Settings.TimeZoneId = settings.TimeZoneId;
 
-            var updatedSettings = _userRepository.Settings.Update(settingsUser) ?? throw new UpdateSettingsException();
+            var updatedUser = _userRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
-            return Mapper.Map<Settings>(updatedSettings);
+            return Mapper.Map<Settings>(updatedUser.Settings);
         }
 
         public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
             //Validator
-            var user = await _userRepository.Accounts.GetAsync(settings.AccountId) ?? throw new NotFoundUserException();
-            var settingsUser = _userRepository.Settings.Get(user.Settings.Id);
-            settingsUser.InterfaceLanguage = settings.InterfaceLanguage;
-            settingsUser.NotificationStatus = settings.NotificationStatus;
-            settingsUser.TimeZoneId = settings.TimeZoneId;
+            var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
+            user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
+            user.Settings.NotificationStatus = settings.NotificationStatus;
+            user.Settings.TimeZoneId = settings.TimeZoneId;
 
-            var updatedSettings = await _userRepository.Settings.UpdateAsync(settingsUser) ?? throw new UpdateSettingsException();
-       
-            return Mapper.Map<Settings>(updatedSettings);
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Settings>(updatedUser.Settings);
         }
 
         public Profile ModifyProfile(ProfileDto profile)
         {
             //Validator
+
             var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();
-            var profileUser = _userRepository.Profiles.Get(user.Profile.Id);
-            profileUser.DateOfBirth = profile.DateOfBirth;
-            profileUser.FirstName = profile.FirstName;
-            profileUser.LastName = profile.LastName;
-            profileUser.Phone = profile.Phone;
+            user.Profile.DateOfBirth = profile.DateOfBirth;
+            user.Profile.FirstName = profile.FirstName;
+            user.Profile.LastName = profile.LastName;
+            user.Profile.Phone = profile.Phone;
 
-            var updatedProfile = _userRepository.Profiles.Update(profileUser) ?? throw new UpdateProfileException();
+            var updatedUser = _userRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
-            return Mapper.Map<Profile>(updatedProfile);
+            return Mapper.Map<Profile>(updatedUser.Profile);
         }
 
         public async Task<Profile> ModifyProfileAsync(ProfileDto profile)
         {
             //Validator
-            var user = await _userRepository.Accounts.GetAsync(profile.AccountId) ?? throw new NotFoundUserException();
-            var profileUser = _userRepository.Profiles.Get(user.Profile.Id);
-            profileUser.DateOfBirth = profile.DateOfBirth;
-            profileUser.FirstName = profile.FirstName;
-            profileUser.LastName = profile.LastName;
-            profileUser.Phone = profile.Phone;
+            var user = await _userRepository.Accounts.GetAsync(profile.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
+            user.Profile.DateOfBirth = profile.DateOfBirth;
+            user.Profile.FirstName = profile.FirstName;
+            user.Profile.LastName = profile.LastName;
+            user.Profile.Phone = profile.Phone;
 
-            var updatedUser = await _userRepository.Profiles.UpdateAsync(profileUser) ?? throw new UpdateProfileException();
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
 
-            return Mapper.Map<Profile>(updatedUser);
+            return Mapper.Map<Profile>(updatedUser.Profile);
         }
     }
 }
