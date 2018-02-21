@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -69,7 +70,7 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case ProductType.Music:
                         data.OriginalProduct.Content = uploadProductInByte;
-                        data.CompressedProduct.Content = null;
+                        data.CompressedProduct.Content = Convert.FromBase64String(Resources.CompressedAudio);
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
                         break;
                     case ProductType.Video:
