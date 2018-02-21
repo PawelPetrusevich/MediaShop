@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
 import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
+import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,6 +57,7 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
         path: 'confirm',
         component: ConfirmComponent
       },
+      { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
       { path: '**', component: NotfoundComponent }
     ])
@@ -63,4 +65,4 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule { }
+export class ApproutingModule {}
