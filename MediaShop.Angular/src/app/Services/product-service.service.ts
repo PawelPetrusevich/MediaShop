@@ -37,11 +37,11 @@ export class ProductService {
     return this.http.post<ProductDto>(this.webApiUrl + 'Find', productSearchModel);
   }
 
-  getListPurshasedProducts(UserID: number) {
-    return this.http.get<ProductDto>(this.webApiUrl + 'GetPurshasedProducts');
+  getListPurshasedProducts() {
+    return this.http.get(this.webApiUrl + 'GetPurshasedProducts');
   }
 
-  downloadProduct(ID: number, UserID: Number) {
-    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct');
+  downloadProduct(ID: number) {
+    return this.http.get(this.webApiUrl + 'GetOriginalPurshasedProduct' + ID);
   }
 }

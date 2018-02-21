@@ -1,3 +1,11 @@
-<p>
-  product-download works!
-</p>
+<table class="table">
+  <tr *ngFor="let product of purshasedProductList">
+    <td>
+      <app-product></app-product>
+    </td>
+    <td>
+      <a class="btn btn-primary" (click)="onDownloading(product.Id)"></a>
+    </td>
+  </tr>
+</table>
+

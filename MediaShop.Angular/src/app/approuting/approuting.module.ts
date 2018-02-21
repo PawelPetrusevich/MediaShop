@@ -49,6 +49,10 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
         path: 'product-info/:id',
         component: ProductInfoComponent
       },
+      {
+        path: 'product-download',
+        component: ProductInfoComponent
+      },
 
       { path: '**', component: NotfoundComponent }
     ])
