@@ -11,8 +11,10 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
   compressedProductList: CompressedProductDto[];
+  length: number;
 
   ngOnInit() {
     this.productService.getListProduct().subscribe((resp: CompressedProductDto[]) => this.compressedProductList = resp);
+
   }
 }

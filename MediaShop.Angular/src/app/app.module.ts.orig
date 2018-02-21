@@ -36,13 +36,16 @@ import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductFilterComponent } from './components/Content/product-filter/product-filter.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
+<<<<<<< HEAD
 import { ProductDownloadComponent } from './Components/Content/product-download/product-download.component';
+=======
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
 
+>>>>>>> 6fc03593188e2fbf9fcf3e3ce1eebd05c36cfed7
 
 @NgModule({
   declarations: [
@@ -71,9 +74,12 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     ProductUploadComponent,
     ProductFilterComponent,
     ProductInfoComponent,
+<<<<<<< HEAD
     ProductDownloadComponent
+=======
     UserListComponent,
     ConfirmComponent
+>>>>>>> 6fc03593188e2fbf9fcf3e3ce1eebd05c36cfed7
   ],
   imports: [
     BrowserModule,

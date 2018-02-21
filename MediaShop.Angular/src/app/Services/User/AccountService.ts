@@ -7,22 +7,23 @@ import 'rxjs/add/operator/catch';
 import { RegisterUserDto } from '../../Models/User/register-userDto';
 import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
-import {AppSettings} from '../../Settings/AppSettings'
+import { AppSettings } from '../../Settings/AppSettings'
 import { PasswordRecovery } from '../../Models/User/password-recovery';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
-  register(registerUser : RegisterUserDto) : Observable<Account>{
-    return this.http.post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
-    .map(resp => resp.json())
-    .catch(err => Observable.throw(err));
+  register(registerUser: RegisterUserDto): Observable<Account> {
+    return this.http
+      .post(AppSettings.API_ENDPOINT + 'api/account/register', registerUser)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
   }
 
-  login(login: string, password: string) : Observable<TokenResponse> {
+  login(login: string, password: string): Observable<TokenResponse> {
     const body =
-    'grant_type=password&username=' + login + '&password=' + password;
+      'grant_type=password&username=' + login + '&password=' + password;
 
     const options = new RequestOptions();
     options.headers = new Headers();
@@ -30,28 +31,49 @@ export class AccountService {
     options.headers.append('Access-Control-Allow-Origin', '*');
 
     return this.http
-    .post(AppSettings.API_ENDPOINT + 'token', body, options)
-    .map(resp => resp.json())
-    .catch(err => Observable.throw(err));
+      .post(AppSettings.API_ENDPOINT + 'token', body, options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
   }
 
   logout(id: number) {
     return this.http
-    .post(AppSettings.API_ENDPOINT + 'api/account/logout',id)
-    .map(resp => resp.json())
-    .catch(err => Observable.throw(err));
+      .post(AppSettings.API_ENDPOINT + 'api/account/logout', id)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
+  isAuthorized(): boolean {
+    if (localStorage.getItem(AppSettings.tokenKey) === null ) {
+    return false;
+    }
+
+    return true;
   }
 
   forgotPassword(email: string) {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword', email)
+      .post(
+        AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
+        email
+      )
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
+  confirm(email: string, token: string) {
+    return this.http
+      .get(AppSettings.API_ENDPOINT + 'api/account/confirm/' + email + '/' + token)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/recoveryPassword', resetMasswor)
+      .post(
+        AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
+        resetMasswor
+      )
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }

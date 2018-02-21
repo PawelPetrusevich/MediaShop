@@ -37,7 +37,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemovePermission([FromBody] PermissionDto data)
+        public IHttpActionResult RemovePermission([FromBody] UserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -59,12 +59,12 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/permission/add")]
+        [Route("permission/add")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult SetPermission([FromBody] PermissionDto data)
+        public IHttpActionResult SetPermission([FromBody] UserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemovePermissionAsync([FromBody] PermissionDto data)
+        public IHttpActionResult RemovePermissionAsync([FromBody] UserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult SetPermissionAsync([FromBody] PermissionDto data)
+        public IHttpActionResult SetPermissionAsync([FromBody] UserDto data)
         {
             if (data == null || !ModelState.IsValid)
             {

@@ -46,11 +46,13 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, ProductDto>().ReverseMap();
+                config.CreateMap<Product, ProductInfoDto>().ReverseMap();
                 config.CreateMap<Product, UploadProductModel>().ReverseMap();
                 config.CreateMap<Product, CompressedProductDTO>().ReverseMap();
                 config.CreateMap<Product, OriginalProductDTO>().ReverseMap();
                 config.CreateMap<ContentCart, CompressedProductDTO>().ReverseMap();
                 config.CreateMap<ContentCart, OriginalProductDTO>().ReverseMap();
+                config.CreateMap<Product, ProductInfoDto>().ReverseMap();
             });
         }
 
@@ -261,6 +263,14 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
             
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Product_GetSearchPropeprtiesProduct()
+        {
+            Product product =new Product();
+
+            Assert.GreaterOrEqual(ExtensionProductMethods.GetProductSearchPropeprties(null).Count(),0);
         }
     }
 }

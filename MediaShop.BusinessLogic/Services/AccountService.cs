@@ -14,6 +14,7 @@ using MediaShop.Common.Helpers;
 
 namespace MediaShop.BusinessLogic.Services
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -353,6 +354,15 @@ namespace MediaShop.BusinessLogic.Services
             var restoredUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
 
             return Mapper.Map<Account>(restoredUser);
+        }
+
+        /// <summary>
+        /// GetAllUsers
+        /// </summary>
+        /// <returns>IEnumerable<PermissionDto></returns>
+        public IEnumerable<UserDto> GetAllUsers()
+        {
+            return Mapper.Map<IEnumerable<UserDto>>(_factoryRepository.Accounts.GetAllUsers());
         }
     }
 }

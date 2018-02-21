@@ -53,14 +53,17 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
         component: ProductInfoComponent
       },
       {
+<<<<<<< HEAD
         path: 'product-download',
         component: ProductInfoComponent
       },
-      {
+
+=======
         path: 'confirm',
         component: ConfirmComponent
       },
       { path: 'user-list', component: UserListComponent },
+>>>>>>> 6fc03593188e2fbf9fcf3e3ce1eebd05c36cfed7
       { path: '**', component: NotfoundComponent }
     ])
   ],
