@@ -52,7 +52,6 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
                 config.CreateMap<Product, OriginalProductDTO>().ReverseMap();
                 config.CreateMap<ContentCart, CompressedProductDTO>().ReverseMap();
                 config.CreateMap<ContentCart, OriginalProductDTO>().ReverseMap();
-                config.CreateMap<Product, ProductInfoDto>().ReverseMap();
             });
         }
 
