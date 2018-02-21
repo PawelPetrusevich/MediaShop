@@ -13,7 +13,7 @@
           <td class="col-md-3">{{item.DescriptionItem}}</td>
           <td class="col-md-3">{{item.PriceItem | currency}}</td>
           <td class="col-md-3">
-            <input type="button" class="btn btn-primary btn-sm" value="Удалить" (click)="delete(item)" />
+            <input type="button" class="btn btn-primary btn-sm" value="Remove item" (click)="delete(item)" />
           </td>
         </tr>
         <tr>
@@ -31,10 +31,10 @@
   </div>
   <div class="row">
     <div class="col-md-5">
-        <button [disabled]="cart.CountItemsInCollection <= 0 || cart.PriceAllItemsCollection <= 0 || cart.ContentCartDtoCollection == null" type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
+        <button [disabled]="cart.CountItemsInCollection <= 0 || cart.PriceAllItemsCollection <= 0 || cart.ContentCartDtoCollection == null" type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Payment</button>
     </div>
     <div class="col-md-5 col-md-offset-2">
-        <button [disabled]="cart.CountItemsInCollection <=0 || cart.ContentCartDtoCollection == null"  type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
+        <button [disabled]="cart.CountItemsInCollection <=0 || cart.ContentCartDtoCollection == null"  type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Clear Cart</button>
     </div>
   </div>
 </div>
