@@ -3,6 +3,8 @@ import { ProductService } from '../../../Services/product-service.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import { ProductInfoDto } from '../../../Models/Content/ProductInfoDto';
+import { Cartservice } from '../../../services/cartservice';
+import { ProductDto } from '../../../Models/Content/ProductDto';
 
 @Component({
   selector: 'app-product-info',
@@ -14,7 +16,7 @@ export class ProductInfoComponent implements OnInit {
   productInfo: ProductInfoDto = new ProductInfoDto;
   id: number;
   private subscrition: Subscription;
-  constructor(private productService: ProductService, private activatedRouter: ActivatedRoute) {
+  constructor(private productService: ProductService, private activatedRouter: ActivatedRoute, private cartService: Cartservice) {
     this.subscrition = activatedRouter.params.subscribe(data => this.id = data['id']);
    }
 
@@ -30,6 +32,8 @@ export class ProductInfoComponent implements OnInit {
     return 'data:image/jpg;base64,' + this.productInfo.Content;
   }
 
-
+  ToCart() {
+    this.cartService.addContent(this.productInfo.Id);
+  }
 
 }

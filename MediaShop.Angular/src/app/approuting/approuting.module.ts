@@ -32,9 +32,7 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
         path: 'product-list',
-        component: ProductListComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        component: ProductListComponent
       },
       {
         path: 'cart',

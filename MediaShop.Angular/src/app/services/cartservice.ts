@@ -7,6 +7,7 @@ import { Cart } from '../Models/Cart/cart';
 import { ContentCartDto } from '../Models/Cart/content-cart-dto';
 import { HttpParams } from '@angular/common/http';
 import { ProductDto } from '../Models/Content/ProductDto';
+import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 
 @Injectable()
 export class Cartservice {
@@ -47,8 +48,8 @@ export class Cartservice {
       .catch(err => Observable.throw(err));
   }
 
-  addContent(product: ProductDto): Observable<ContentCartDto> {
-    const params = new HttpParams().set('contentId', product.Id.toString());
+  addContent(id: number): Observable<ContentCartDto> {
+    const params = new HttpParams().set('contentId', id.toString());
     return this.http
       .post(Cartservice.url + '/addasync', {params})
       .map(resp => resp.json())
