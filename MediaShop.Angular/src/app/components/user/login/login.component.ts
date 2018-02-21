@@ -3,6 +3,7 @@ import {TokenResponse} from '../../../Models/User/token-response';
 import {AccountService} from '../../../Services/User/AccountService';
 import { HttpErrorResponse } from '@angular/common/http';
 import {AppSettings} from '../../../Settings/AppSettings';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   data: TokenResponse;
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService,  private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,8 +26,9 @@ export class LoginComponent implements OnInit {
     .subscribe(resp => {
       this.data = resp;
       localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
-      localStorage.setItem(AppSettings.authorizationFlag, 'true');
       console.log(resp);
     }, err => console.log(err));
+
+    this.router.navigate(['product-list']);
   }
 }
