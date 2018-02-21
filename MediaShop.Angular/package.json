@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "angular-base64-upload": "^0.1.23",
+    "angular-phone-input": "^1.0.1",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",

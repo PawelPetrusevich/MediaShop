@@ -14,6 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterUserComponent implements OnInit {
 
   userInfo : Account =new Account();
+  showError = false;
+  errorMessage: string;
 
   constructor(private accountService : AccountService) { }
 
@@ -26,7 +28,13 @@ export class RegisterUserComponent implements OnInit {
 
     this.accountService
       .register(user)
-      .subscribe(resp =>  (this.userInfo = resp, console.log(resp) ), err => console.log(err));
+      .subscribe(resp =>  (this.userInfo = resp, console.log(resp) ),
+      (err: HttpErrorResponse) => {
+        this.showError = true ;
+        this.errorMessage = err.statusText;
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit() {

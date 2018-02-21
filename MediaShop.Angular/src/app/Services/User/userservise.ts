@@ -42,12 +42,6 @@ export class UserService {
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
-  Logout(id: number) {
-    return this.http
-      .post(UserService.url + '/account/logout', id)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
-  }
   GetAllUsers() {
     return this.http
       .get(UserService.url + '/account/GetAllUsers')

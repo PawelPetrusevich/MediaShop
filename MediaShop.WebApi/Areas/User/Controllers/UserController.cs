@@ -109,7 +109,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult GetUserInfo()
         {
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+           var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
                              throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 

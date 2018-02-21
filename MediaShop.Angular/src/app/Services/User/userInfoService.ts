@@ -15,23 +15,23 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserInfoService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: Http) { }
 
   getUserInfo(): Observable<Account> {
-   // const options = new RequestOptions();
-
-
-  //    options.headers.append(
-  //    'Authorization',
-  //    'Bearer ' + localStorage.getItem('token')
-  //  );
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
 
     return this.http
-      .get<Account>(AppSettings.API_ENDPOINT + 'api/user/getUserInfo')
+      .get(AppSettings.API_ENDPOINT + 'api/user/getUserInfo', options)
+      .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
 
- /* deleteUserAsync(): Observable<Account> {
+  deleteUserAsync(): Observable<Account> {
     const options = new RequestOptions();
     return this.http
        .post(AppSettings.API_ENDPOINT + 'api/user/deleteAsync', options)
@@ -47,9 +47,16 @@ export class UserInfoService {
    }
 
    updateProfile(profile: ProfileDto): Observable<Profile> {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+
     return this.http
-       .post(AppSettings.API_ENDPOINT + 'api/user/modifyProfileAsync', profile)
+       .post(AppSettings.API_ENDPOINT + 'api/user/modifyProfile', profile, options)
        .map(resp => resp.json())
        .catch(err => Observable.throw(err));
-   }*/
+   }
 }

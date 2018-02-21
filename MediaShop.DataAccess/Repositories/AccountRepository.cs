@@ -51,7 +51,7 @@ namespace MediaShop.DataAccess.Repositories
         {
             if (id <= 0)
             {
-                throw new ArgumentException("message!");
+                throw new ArgumentException(Resources.InvalidIdValue);
             }
 
             return await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);

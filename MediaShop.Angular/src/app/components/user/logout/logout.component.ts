@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../../Services/User/AccountService';
 import {AppSettings} from '../../../Settings/AppSettings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -9,15 +10,17 @@ import {AppSettings} from '../../../Settings/AppSettings';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private router: Router) { }
 
-  logut(id: number): void {
-    this.accountService.logout(id).subscribe(resp => {
+  logOut(): void {
+    this.accountService.logout().subscribe(resp => {
       localStorage.removeItem(AppSettings.tokenKey);
+      this.router.navigate(['login']);
     });
   }
 
   ngOnInit() {
+    this.logOut();
   }
 
 }

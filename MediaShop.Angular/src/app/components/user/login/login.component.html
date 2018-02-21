@@ -6,5 +6,8 @@
   <input  name = "password" [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
   <a class="forgot-password" routerLink="forgot-password">Forgot password</a>
   <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="login(username, password)">Sign in</button>
-  <a class="forgot-password" routerLink="register">Registration</a>
+  <a class="forgot-password" routerLink="register">Registration</a>  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    {{errorMessage}}
+  </div>
+
 </form>

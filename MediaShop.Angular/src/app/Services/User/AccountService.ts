@@ -36,11 +36,18 @@ export class AccountService {
       .catch(err => Observable.throw(err));
   }
 
-  logout(id: number) {
+  logout() {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/logout', id)
+      .post(AppSettings.API_ENDPOINT + 'api/account/logout', '', options)
       .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .catch  (err => Observable.throw(err));
   }
 
   isAuthorized(): boolean {

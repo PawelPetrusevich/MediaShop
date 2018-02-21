@@ -133,7 +133,7 @@ namespace MediaShop.BusinessLogic.Services
         {
             //Validator
 
-            var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();
+            var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();          
             user.Profile.DateOfBirth = profile.DateOfBirth;
             user.Profile.FirstName = profile.FirstName;
             user.Profile.LastName = profile.LastName;
