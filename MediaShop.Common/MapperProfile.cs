@@ -73,15 +73,17 @@ namespace MediaShop.Common
                 .ForMember(item => item.CreatedDate, m => m.Ignore())
                 .ForMember(item => item.CreatorId, m => m.Ignore())
                 .ReverseMap();
-            this.CreateMap<ProfileDto, ProfileDbModel>()
-                .ForMember(item => item.Id, m => m.Ignore())
+            this.CreateMap<ProfileDto, ProfileDbModel>()                
                 .ForMember(item => item.CreatedDate, m => m.Ignore())
                 .ForMember(item => item.CreatorId, m => m.Ignore())
                 .ReverseMap().ForMember(item => item.AccountId, m => m.Ignore());
             this.CreateMap<SettingsDbModel, Settings>().ReverseMap();
             this.CreateMap<SettingsDbModel, SettingsDto>()
                 .ForMember(item => item.AccountId, m => m.Ignore())
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(item => item.Id, m => m.Ignore())
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, UserDto>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();

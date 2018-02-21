@@ -171,8 +171,13 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult ModifySettings()
+        public IHttpActionResult ModifySettings([FromBody]SettingsDto settings)
         {
+            if (settings == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
             var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
                              throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
@@ -181,10 +186,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             {
                 return BadRequest(Resources.EmtyData);
             }
-
+            
             try
             {
-                var user = _userService.GetUserInfo(idUser);
+                settings.AccountId = idUser;
+                var user = _userService.ModifySettings(settings);
                 return Ok(user);
             }
             catch (ArgumentException ex)
@@ -192,6 +198,10 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(ex.Message);
             }
             catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -203,9 +213,40 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> ModifySettingsAsync()
+        public async Task<IHttpActionResult> ModifySettingsAsync([FromBody]SettingsDto settings)
         {
-            return Ok();
+            if (settings == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (idUser < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                settings.AccountId = idUser;
+                var user = await _userService.ModifySettingsAsync(settings);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -214,9 +255,40 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult ModifyProfile()
+        public IHttpActionResult ModifyProfile([FromBody]ProfileDto profile)
         {
-            return Ok();
+            if (profile == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (idUser < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                profile.AccountId = idUser;
+                var user = _userService.ModifyProfile(profile);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -225,9 +297,40 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> ModifyProfilesAsync()
+        public async Task<IHttpActionResult> ModifyProfilesAsync([FromBody]ProfileDto profile)
         {
-            return Ok();
+            if (profile == null || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (idUser < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                profile.AccountId = idUser;
+                var user = await _userService.ModifyProfileAsync(profile);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (AddAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

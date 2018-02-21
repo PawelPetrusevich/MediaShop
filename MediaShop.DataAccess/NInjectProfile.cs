@@ -38,6 +38,7 @@ namespace MediaShop.DataAccess
             this.Bind<INotificationRepository>().To<NotificationRepository>();
             this.Bind<INotificationSubscribedUserRepository>().To<NotificationSubscribedUserRepository>();
             this.Bind<IAccountFactoryRepository>().To<AccountFactoryRepository>();
+            this.Bind<IUserFactoryRepository>().To<UserFactoryRepository>();
             this.Bind<IPayPalPaymentRepository>().To<PayPalPaymentRepository>();
             this.Bind<IDefrayalRepository>().To<DefrayalRepository>();
         }

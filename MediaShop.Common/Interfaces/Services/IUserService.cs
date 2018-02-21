@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 
 namespace MediaShop.Common.Interfaces.Services
 {
@@ -34,27 +35,27 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="settings">settings</param>
         /// <returns>account</returns>
-        Account ModifySettings(SettingsDto settings);
+        Settings ModifySettings(SettingsDto settings);
 
         /// <summary>
         /// Modiffy user settings
         /// </summary>
         /// <param name="settings">settings</param>
         /// <returns>account</returns>
-        Task<Account> ModifySettingsAsync(SettingsDto settings);
+        Task<Settings> ModifySettingsAsync(SettingsDto settings);
 
         /// <summary>
         /// Modiffy user profile
         /// </summary>
         /// <param name="profile">profile</param>
         /// <returns>account</returns>
-        Account ModifyProfile(ProfileDto profile);
+        Profile ModifyProfile(ProfileDto profile);
 
         /// <summary>
         /// Modiffy user profile
         /// </summary>
         /// <param name="profile">profile</param>
         /// <returns>account</returns>
-        Task<Account> ModifyProfileAsync(ProfileDto profile);
+        Task<Profile> ModifyProfileAsync(ProfileDto profile);
     }
 }

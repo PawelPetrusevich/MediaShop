@@ -3,20 +3,20 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto.User;
+using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Exceptions;
-using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.User;
-using MediaShop.Common.Interfaces.Repositories;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
+using Profile = MediaShop.Common.Dto.User.Profile;
 
 namespace MediaShop.BusinessLogic.Services
 {
     public class UserService : IUserService
     {
-        private IAccountRepository _userRepository;
+        private IUserFactoryRepository _userRepository;
 
-        public UserService(IAccountRepository userRepository)
+        public UserService(IUserFactoryRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -35,9 +35,9 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = _userRepository.Get(idUser) ?? throw new NotFoundUserException();
+            var user = _userRepository.Accounts.Get(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = _userRepository.SoftDelete(user.Id) ??
+            var deletedUser = _userRepository.Accounts.SoftDelete(user.Id) ??
                               throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
@@ -57,9 +57,9 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = await _userRepository.SoftDeleteAsync(user.Id) ??
+            var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id) ??
                               throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
@@ -79,7 +79,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = _userRepository.Get(idUser) ?? throw new NotFoundUserException();
+            var user = _userRepository.Accounts.Get(idUser) ?? throw new NotFoundUserException();
 
             return Mapper.Map<Account>(user);
         }
@@ -98,61 +98,67 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
 
             return Mapper.Map<Account>(user);
         }
 
-        public Account ModifySettings(SettingsDto settings)
+        public Settings ModifySettings(SettingsDto settings)
         {
             //Validator
-            var user = _userRepository.Get(settings.AccountId) ?? throw new NotFoundUserException();
+            var user = _userRepository.Accounts.Get(settings.AccountId) ?? throw new NotFoundUserException();
+            var settingsUser = _userRepository.Settings.Get(user.Settings.Id);
+            settingsUser.InterfaceLanguage = settings.InterfaceLanguage;
+            settingsUser.NotificationStatus = settings.NotificationStatus;
+            settingsUser.TimeZoneId = settings.TimeZoneId;
 
-            var settingsUpdated = Mapper.Map<SettingsDbModel>(settings);
-            user.Settings = settingsUpdated;
-            
-            var updatedUser = _userRepository.Update(user) ?? throw new UpdateAccountException();
+            var updatedSettings = _userRepository.Settings.Update(settingsUser) ?? throw new UpdateSettingsException();
 
-            return Mapper.Map<Account>(updatedUser);
+            return Mapper.Map<Settings>(updatedSettings);
         }
 
-        public async Task<Account> ModifySettingsAsync(SettingsDto settings)
+        public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
             //Validator
-            var user = await _userRepository.GetAsync(settings.AccountId) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(settings.AccountId) ?? throw new NotFoundUserException();
+            var settingsUser = _userRepository.Settings.Get(user.Settings.Id);
+            settingsUser.InterfaceLanguage = settings.InterfaceLanguage;
+            settingsUser.NotificationStatus = settings.NotificationStatus;
+            settingsUser.TimeZoneId = settings.TimeZoneId;
 
-            var settingsUpdated = Mapper.Map<SettingsDbModel>(settings);
-            user.Settings = settingsUpdated;
-
-            var updatedUser = await _userRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
+            var updatedSettings = await _userRepository.Settings.UpdateAsync(settingsUser) ?? throw new UpdateSettingsException();
        
-            return Mapper.Map<Account>(updatedUser);
+            return Mapper.Map<Settings>(updatedSettings);
         }
 
-        public Account ModifyProfile(ProfileDto profile)
+        public Profile ModifyProfile(ProfileDto profile)
         {
             //Validator
-            var user = _userRepository.Get(profile.AccountId) ?? throw new NotFoundUserException();
+            var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();
+            var profileUser = _userRepository.Profiles.Get(user.Profile.Id);
+            profileUser.DateOfBirth = profile.DateOfBirth;
+            profileUser.FirstName = profile.FirstName;
+            profileUser.LastName = profile.LastName;
+            profileUser.Phone = profile.Phone;
 
-            var profileUpdated = Mapper.Map<ProfileDbModel>(profile);
-            user.Profile = profileUpdated;
+            var updatedProfile = _userRepository.Profiles.Update(profileUser) ?? throw new UpdateProfileException();
 
-            var updatedUser = _userRepository.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(updatedUser);
+            return Mapper.Map<Profile>(updatedProfile);
         }
 
-        public async Task<Account> ModifyProfileAsync(ProfileDto profile)
+        public async Task<Profile> ModifyProfileAsync(ProfileDto profile)
         {
             //Validator
-            var user = await _userRepository.GetAsync(profile.AccountId) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(profile.AccountId) ?? throw new NotFoundUserException();
+            var profileUser = _userRepository.Profiles.Get(user.Profile.Id);
+            profileUser.DateOfBirth = profile.DateOfBirth;
+            profileUser.FirstName = profile.FirstName;
+            profileUser.LastName = profile.LastName;
+            profileUser.Phone = profile.Phone;
 
-            var profileUpdated = Mapper.Map<ProfileDbModel>(profile);
-            user.Profile = profileUpdated;
+            var updatedUser = await _userRepository.Profiles.UpdateAsync(profileUser) ?? throw new UpdateProfileException();
 
-            var updatedUser = await _userRepository.UpdateAsync(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(updatedUser);
+            return Mapper.Map<Profile>(updatedUser);
         }
     }
 }
