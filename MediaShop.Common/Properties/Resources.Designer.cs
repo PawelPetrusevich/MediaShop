@@ -115,11 +115,38 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date can not be null.
+        /// </summary>
+        internal static string IncorrectDateValue {
+            get {
+                return ResourceManager.GetString("IncorrectDateValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect Email.
         /// </summary>
         internal static string IncorrectEmail {
             get {
                 return ResourceManager.GetString("IncorrectEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FirstName can not be empty or  less than 2 symbols.
+        /// </summary>
+        internal static string IncorrectFirstName {
+            get {
+                return ResourceManager.GetString("IncorrectFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LastName can not be empty or  less than 2 symbols.
+        /// </summary>
+        internal static string IncorrectLastName {
+            get {
+                return ResourceManager.GetString("IncorrectLastName", resourceCulture);
             }
         }
         
@@ -142,6 +169,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone shold be in format : +3xxxxxxxxxxx.
+        /// </summary>
+        internal static string IncorrectPhoneformat {
+            get {
+                return ResourceManager.GetString("IncorrectPhoneformat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid confirmation token.
         /// </summary>
         internal static string IncorrectToken {
@@ -149,7 +185,7 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("IncorrectToken", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Value can not be less than or equal zerro.
         /// </summary>
@@ -176,7 +212,16 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("NullOrEmptyValueString", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$.
+        /// </summary>
+        internal static string RegExpressionPhone {
+            get {
+                return ResourceManager.GetString("RegExpressionPhone", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to User not found.
         /// </summary>

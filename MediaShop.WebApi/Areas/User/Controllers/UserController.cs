@@ -48,7 +48,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var user = _userService.SoftDelete(idUser);
+                var user = _userService.SoftDeleteByUser(idUser);
                 return Ok(user);
             }
             catch (ArgumentException ex)
@@ -84,7 +84,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             try
             {
-                var user = await _userService.SoftDeleteAsync(idUser);
+                var user = await _userService.SoftDeleteByUserAsync(idUser);
                 return Ok(user);
             }
             catch (ArgumentException ex)

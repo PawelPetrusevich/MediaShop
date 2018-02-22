@@ -13,13 +13,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class RegisterUserComponent implements OnInit {
 
-  userInfo : Account =new Account();
+  userInfo: Account = new Account();
   showError = false;
   errorMessage: string;
 
-  constructor(private accountService : AccountService) { }
+  constructor(private accountService: AccountService) { }
 
-  register(login : string, password : string, confirmPassword : string, email : string): void {
+  register(login: string, password: string, confirmPassword: string, email: string): void {
     const user = new RegisterUserDto();
     user.Login = login;
     user.Password = password;

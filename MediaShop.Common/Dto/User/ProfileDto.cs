@@ -2,6 +2,8 @@
 // Copyright (c) MediaShop. All rights reserved.
 // </copyright>
 
+using FluentValidation.Attributes;
+using MediaShop.Common.Dto.User.Validators;
 using MediaShop.Common.Models;
 using MediaShop.Common.Models.User;
 
@@ -13,6 +15,7 @@ namespace MediaShop.Common.Dto.User
     /// Class ProfileDto.
     /// </summary>
     /// <seealso cref="MediaShop.Common.Models.Entity" />
+    [Validator(typeof(ProfileValidator))]
     public class ProfileDto
     {
         /// <summary>

@@ -1,5 +1,10 @@
 <form class="form-signin">
   <div class="row">
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+        {{errorMessage}}
+      </div>
+    </div>
+  <div class="row">
     <div class="col-md-6 mb-3">
       <label for="firstName">First name</label>
       <input  name = "firstName" [(ngModel)]="firstName" type="text" class="form-control" id="firstName" placeholder="" value="" required="">
@@ -28,4 +33,5 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="saveProfile()">Save</button>
     </div>
   </div>
+  </form>
 
