@@ -116,6 +116,7 @@
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\Messaging\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Dto\User\Validators\ProfileValidator.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />

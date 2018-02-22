@@ -57,7 +57,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(idUser).ConfigureAwait(false) ?? throw new NotFoundUserException();
 
             var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id) ??
                               throw new DeleteUserException($"{idUser}");
@@ -98,14 +98,13 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
             }
 
-            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(idUser).ConfigureAwait(false) ?? throw new NotFoundUserException();
 
             return Mapper.Map<Account>(user);
         }
 
         public Settings ModifySettings(SettingsDto settings)
-        {
-            //Validator
+        {            
             var user = _userRepository.Accounts.Get(settings.AccountId) ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
@@ -118,7 +117,6 @@ namespace MediaShop.BusinessLogic.Services
 
         public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
-            //Validator
             var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
@@ -131,8 +129,6 @@ namespace MediaShop.BusinessLogic.Services
 
         public Profile ModifyProfile(ProfileDto profile)
         {
-            //Validator
-
             var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();          
             user.Profile.DateOfBirth = profile.DateOfBirth;
             user.Profile.FirstName = profile.FirstName;
@@ -146,7 +142,6 @@ namespace MediaShop.BusinessLogic.Services
 
         public async Task<Profile> ModifyProfileAsync(ProfileDto profile)
         {
-            //Validator
             var user = await _userRepository.Accounts.GetAsync(profile.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
             user.Profile.DateOfBirth = profile.DateOfBirth;
             user.Profile.FirstName = profile.FirstName;
