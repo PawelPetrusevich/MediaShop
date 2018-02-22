@@ -384,6 +384,15 @@ namespace MediaShop.BusinessLogic.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на You have no rights for delete this product.
+        /// </summary>
+        internal static string NoRootForDelete {
+            get {
+                return ResourceManager.GetString("NoRootForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Operation payment was Created but not Approved.
         /// </summary>
         internal static string NotApprovedOperationPayment {
@@ -533,6 +542,15 @@ namespace MediaShop.BusinessLogic.Properties {
         internal static string UploadProductError {
             get {
                 return ResourceManager.GetString("UploadProductError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на User not found with this ID.
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         
