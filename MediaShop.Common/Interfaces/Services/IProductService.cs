@@ -52,14 +52,14 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
-        IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
+        IEnumerable<CompressedProductDTO> Find(List<ProductSearchModel> conditionsList);
 
         /// <summary>
         /// Find method Async
         /// </summary>
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
-        Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList);
+        Task<IEnumerable<CompressedProductDTO>> FindAsync(List<ProductSearchModel> conditionsList);
 
         /// <summary>
         /// Get list purshased products

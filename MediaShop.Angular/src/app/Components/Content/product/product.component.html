@@ -1,9 +1,9 @@
 <div class="flex-container">
   <div>
-    <img src="{{Base64Content}}" height="120px" />
+    <img src="{{Base64Content}}" height="150px" />
   </div>
   <div>{{compressedProduct.ProductName}}</div>
-  <div>{{compressedProduct.ProductPrice}}</div>
+  <div>{{compressedProduct.ProductPrice | currency}}</div>
   <div class="details">
       <button class="btn btn-primary" (click) = "GoInfo()" >Info</button>
       <button class="btn btn-primary">To Favorite</button>

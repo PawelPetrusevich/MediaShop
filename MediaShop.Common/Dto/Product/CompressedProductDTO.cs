@@ -1,4 +1,6 @@
-﻿namespace MediaShop.Common.Dto.Product
+﻿using MediaShop.Common.Enums;
+
+namespace MediaShop.Common.Dto.Product
 {
     /// <summary>
     /// Модель для получения картинки в оригинальном разме
@@ -25,5 +27,10 @@
         /// картинка, видео, музыка в формате Base64
         /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Product Type
+        /// </summary>
+        public ProductType ProductType { get; set; }
     }
 }
