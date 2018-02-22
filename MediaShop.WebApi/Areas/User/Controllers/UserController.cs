@@ -215,7 +215,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public async Task<IHttpActionResult> ModifySettingsAsync([FromBody] SettingsDto settings)
         {
-            if (settings == null || !ModelState.IsValid)
+            if (settings == null)
             {
                 return BadRequest(Resources.EmtyData);
             }
@@ -224,7 +224,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                              ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
-            if (idUser < 1 || !ModelState.IsValid)
+            if (idUser < 1)
             {
                 return BadRequest(Resources.EmtyData);
             }

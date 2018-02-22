@@ -1,3 +1,33 @@
-<p>
-  user-settings works!
-</p>
+<div>
+  <div class="row">
+    <div class="col-md-3">Choose your language:</div>
+    <div class="col-md-6">
+      <div>
+        <input type="radio" id="Languages.Eng" value="Eng" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <label for="Languages.Eng">English</label>
+      </div>
+      <div>
+        <input type="radio" id="Languages.Rus" value="Rus" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <label for="Languages.Rus">Russian</label>
+      </div>
+      <div>
+        <input type="radio" id="Languages.Bel" value="Bel" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <label for="Languages.Bel">bebebe</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      Notification Status:
+    </div>
+    <div class="col-md-6">
+      <input type="checkbox" [checked]="NotificationStatus" [(ngModel)]="NotificationStatus" class="checkbox" />
+    </div>
+  </div>
+</div>
+<hr />
+<div>
+  <button (click)="saveSettings()" class="btn btn-success">Save</button>
+  <button (click)="saveSettings()" class="btn btn-info">Back</button>
+</div>

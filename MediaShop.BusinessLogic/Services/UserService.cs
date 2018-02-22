@@ -123,7 +123,8 @@ namespace MediaShop.BusinessLogic.Services
                        ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
-            user.Settings.TimeZoneId = settings.TimeZoneId;
+
+            //user.Settings.TimeZoneId = settings.TimeZoneId;
 
             var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
                               ?? throw new UpdateAccountException();

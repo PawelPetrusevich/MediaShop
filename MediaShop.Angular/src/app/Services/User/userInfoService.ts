@@ -47,8 +47,15 @@ export class UserInfoService {
   }
 
   updateSettings(settings: SettingsDto): Observable<Settings> {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+    options.headers.append('Content-Type', 'application/json');
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/user/modifySettingsAsync', settings)
+      .post(AppSettings.API_ENDPOINT + 'api/user/modifySettingsAsync', settings, options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
