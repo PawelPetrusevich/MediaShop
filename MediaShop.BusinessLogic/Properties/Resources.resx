@@ -212,7 +212,7 @@
     <value>300</value>
   </data>
   <data name="WatermarkOpacity" xml:space="preserve">
-    <value>0.5</value>
+    <value>0,5</value>
   </data>
   <data name="MAX_CONTENT" xml:space="preserve">
     <value>256</value>
@@ -305,5 +305,8 @@
   </data>
   <data name="NotFoundProduct" xml:space="preserve">
     <value>Product not found with this ID.</value>
+  </data>
+  <data name="CompressedAudio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nota07.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>

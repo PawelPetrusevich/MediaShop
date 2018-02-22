@@ -6,10 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Enums;
+using MediaShop.Common.Models.Content;
 using NReco.VideoConverter;
 
 namespace MediaShop.BusinessLogic.ExtensionMethods
@@ -235,9 +237,9 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             };
             string[] audioType =
             {
-                "52-49-46-46",
-                "30-26-B2-75",
-                "49-44-33-04"
+                "52-49-46",
+                "30-26-B2",
+                "49-44-33"
             };
             byte[] temp = new byte[16];
             Array.Copy(data, temp, 16);
@@ -253,7 +255,7 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 return ProductType.Video;
             }
 
-            if (audioType.Contains(dataHex.Substring(0, 11)))
+            if (audioType.Contains(dataHex.Substring(0, 8)))
             {
                 return ProductType.Music;
             }
@@ -286,24 +288,24 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         /// <returns>return byte array</returns>
         public static byte[] GetProtectedVideoAsync(this byte[] originalVideoInBytes, HttpContext context)
         {
-                string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
-                string protectedVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
-                File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
-                var setting = new ConvertSettings()
-                {
-                    Seek = 0,
-                    MaxDuration = 5,
-                    VideoCodec = "libx264",
-                    AudioCodec = "mp3",
-                    VideoFrameRate = 25,
-                    VideoFrameSize = "640x360"
-                };
-                var ffmpegconvert = new FFMpegConverter();
-                ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, setting);
-                var result = File.ReadAllBytes(protectedVideoPath);
-                File.Delete(originalVideoPath);
-                File.Delete(protectedVideoPath);
-                return result;
+            string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            string protectedVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
+            File.WriteAllBytes(originalVideoPath, originalVideoInBytes);
+            var setting = new ConvertSettings()
+            {
+                Seek = 0,
+                MaxDuration = 5,
+                VideoCodec = "libx264",
+                AudioCodec = "mp3",
+                VideoFrameRate = 25,
+                VideoFrameSize = "640x360"
+            };
+            var ffmpegconvert = new FFMpegConverter();
+            ffmpegconvert.ConvertMedia(originalVideoPath, null, protectedVideoPath, null, setting);
+            var result = File.ReadAllBytes(protectedVideoPath);
+            File.Delete(originalVideoPath);
+            File.Delete(protectedVideoPath);
+            return result;
         }
 
         public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
@@ -322,14 +324,35 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         public static byte[] GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
         {
             string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
-                string compresedVideoFramePath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
-                File.WriteAllBytes(originalVideoPath, originalVideoBytes);
-                var ffmpegconverter = new FFMpegConverter();
-                ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
-                var result = File.ReadAllBytes(compresedVideoFramePath);
-                File.Delete(originalVideoPath);
-                File.Delete(compresedVideoFramePath);
-                return result;
+            string compresedVideoFramePath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.jpg";
+            File.WriteAllBytes(originalVideoPath, originalVideoBytes);
+            var ffmpegconverter = new FFMpegConverter();
+            ffmpegconverter.GetVideoThumbnail(originalVideoPath, compresedVideoFramePath, 3);
+            var result = File.ReadAllBytes(compresedVideoFramePath);
+            File.Delete(originalVideoPath);
+            File.Delete(compresedVideoFramePath);
+            return result;
+        }
+
+        public static Dictionary<string, string> GetProductSearchPropeprties(this Product product)
+        {
+            var propList = new Dictionary<string, string>();
+
+            foreach (var prop in typeof(Product).GetProperties())
+            {
+                if (prop.PropertyType == typeof(decimal) || prop.PropertyType == typeof(string))
+                {
+                    string represent = Regex.Replace(prop.Name, "([a-z])_?([A-Z])", "$1 $2");
+                    propList.Add(prop.Name, represent);
+                }
+            }
+
+            return propList;
+        }
+
+        public static List<string> GetProductSearchOperands(this Product product)
+        {
+            return new List<string> { ">", "<", "=", "Contains" };
         }
 
         [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
