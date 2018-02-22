@@ -37,8 +37,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult Delete()
         {
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -73,8 +73,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public async Task<IHttpActionResult> DeleteAsync()
         {
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -109,8 +109,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult GetUserInfo()
         {
-           var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -141,8 +141,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public async Task<IHttpActionResult> GetUserInfoAsync()
         {
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -171,22 +171,22 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult ModifySettings([FromBody]SettingsDto settings)
+        public IHttpActionResult ModifySettings([FromBody] SettingsDto settings)
         {
             if (settings == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
-            
+
             try
             {
                 settings.AccountId = idUser;
@@ -213,15 +213,15 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> ModifySettingsAsync([FromBody]SettingsDto settings)
+        public async Task<IHttpActionResult> ModifySettingsAsync([FromBody] SettingsDto settings)
         {
             if (settings == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -255,15 +255,15 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult ModifyProfile([FromBody]ProfileDto profile)
+        public IHttpActionResult ModifyProfile([FromBody] ProfileDto profile)
         {
             if (profile == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -297,15 +297,15 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> ModifyProfilesAsync([FromBody]ProfileDto profile)
+        public async Task<IHttpActionResult> ModifyProfilesAsync([FromBody] ProfileDto profile)
         {
             if (profile == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
-            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
-                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity
+                             ?? throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
             var idUser = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (idUser < 1 || !ModelState.IsValid)
@@ -330,6 +330,33 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             catch (AddAccountException ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("deleteByIdAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> SetFlagIsDeletedAsync([FromBody] long id)
+        {
+            if (id < 1)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                return Ok(await _userService.SoftDeleteAsync(id));
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
     }

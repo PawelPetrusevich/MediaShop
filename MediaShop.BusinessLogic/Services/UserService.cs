@@ -37,8 +37,8 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = _userRepository.Accounts.Get(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = _userRepository.Accounts.SoftDelete(user.Id) ??
-                              throw new DeleteUserException($"{idUser}");
+            var deletedUser = _userRepository.Accounts.SoftDelete(user.Id)
+                              ?? throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
         }
@@ -50,7 +50,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <returns>account</returns>
-        public async Task<Account> SoftDeleteAsync(long idUser)
+        public async Task<UserDto> SoftDeleteAsync(long idUser)
         {
             if (idUser < 1)
             {
@@ -59,10 +59,10 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
 
-            var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id) ??
-                              throw new DeleteUserException($"{idUser}");
+            var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id)
+                              ?? throw new DeleteUserException($"{idUser}");
 
-            return Mapper.Map<Account>(deletedUser);
+            return Mapper.Map<UserDto>(deletedUser);
         }
 
         /// <summary>
@@ -119,12 +119,14 @@ namespace MediaShop.BusinessLogic.Services
         public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
             //Validator
-            var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false)
+                       ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
             user.Settings.TimeZoneId = settings.TimeZoneId;
 
-            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
+                              ?? throw new UpdateAccountException();
 
             return Mapper.Map<Settings>(updatedUser.Settings);
         }
@@ -133,7 +135,7 @@ namespace MediaShop.BusinessLogic.Services
         {
             //Validator
 
-            var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();          
+            var user = _userRepository.Accounts.Get(profile.AccountId) ?? throw new NotFoundUserException();
             user.Profile.DateOfBirth = profile.DateOfBirth;
             user.Profile.FirstName = profile.FirstName;
             user.Profile.LastName = profile.LastName;
@@ -147,13 +149,15 @@ namespace MediaShop.BusinessLogic.Services
         public async Task<Profile> ModifyProfileAsync(ProfileDto profile)
         {
             //Validator
-            var user = await _userRepository.Accounts.GetAsync(profile.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
+            var user = await _userRepository.Accounts.GetAsync(profile.AccountId).ConfigureAwait(false)
+                       ?? throw new NotFoundUserException();
             user.Profile.DateOfBirth = profile.DateOfBirth;
             user.Profile.FirstName = profile.FirstName;
             user.Profile.LastName = profile.LastName;
             user.Profile.Phone = profile.Phone;
 
-            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
+                              ?? throw new UpdateAccountException();
 
             return Mapper.Map<Profile>(updatedUser.Profile);
         }

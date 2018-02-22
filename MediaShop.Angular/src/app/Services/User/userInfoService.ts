@@ -7,15 +7,16 @@ import 'rxjs/add/operator/catch';
 
 import { AppSettings } from '../../Settings/AppSettings';
 import { Account } from '../../Models/User/account';
-import {SettingsDto} from '../../Models/User/settingsDto';
-import {ProfileDto} from '../../Models/User/profileDto';
+import { SettingsDto } from '../../Models/User/settingsDto';
+import { ProfileDto } from '../../Models/User/profileDto';
 import { Profile } from '../../Models/User/profile';
 import { Settings } from '../../Models/User/settings';
 import { HttpClient } from '@angular/common/http';
+import { PermissionDto } from '../../Models/User/permissionDto';
 
 @Injectable()
 export class UserInfoService {
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   getUserInfo(): Observable<Account> {
     const options = new RequestOptions();
@@ -31,22 +32,28 @@ export class UserInfoService {
       .catch(err => Observable.throw(err));
   }
 
-  deleteUserAsync(): Observable<Account> {
+  deleteUserByIdAsync(id: number) {
     const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
+    options.headers.append('Content-Type', 'application/json');
     return this.http
-       .post(AppSettings.API_ENDPOINT + 'api/user/deleteAsync', options)
-       .map(resp => resp.json())
-       .catch(err => Observable.throw(err));
-   }
+      .post(AppSettings.API_ENDPOINT + 'api/user/deleteByIdAsync', id, options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
 
   updateSettings(settings: SettingsDto): Observable<Settings> {
     return this.http
-       .post(AppSettings.API_ENDPOINT + 'api/user/modifySettingsAsync', settings)
-       .map(resp => resp.json())
-       .catch(err => Observable.throw(err));
-   }
+      .post(AppSettings.API_ENDPOINT + 'api/user/modifySettingsAsync', settings)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
 
-   updateProfile(profile: ProfileDto): Observable<Profile> {
+  updateProfile(profile: ProfileDto): Observable<Profile> {
     const options = new RequestOptions();
     options.headers = new Headers();
     options.headers.append(
@@ -55,8 +62,12 @@ export class UserInfoService {
     );
 
     return this.http
-       .post(AppSettings.API_ENDPOINT + 'api/user/modifyProfile', profile, options)
-       .map(resp => resp.json())
-       .catch(err => Observable.throw(err));
-   }
+      .post(
+        AppSettings.API_ENDPOINT + 'api/user/modifyProfile',
+        profile,
+        options
+      )
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
 }

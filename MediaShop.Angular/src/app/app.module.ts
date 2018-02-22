@@ -19,7 +19,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
 
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
-import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
+
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -63,7 +63,6 @@ import { UserInfoService } from './Services/User/userInfoService';
     PaymentComponent,
     ProductListComponent,
     SetPermissionComponent,
-    RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Permissions } from '../../../Models/User/permissions';
 import { UserService } from '../../../Services/User/userservise';
+import { UserInfoService } from '../../../Services/User/userInfoService';
 import { PermissionDto } from '../../../Models/User/permissionDto';
 import { NgIf } from '@angular/common';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -26,6 +27,7 @@ export class UserListComponent implements OnInit {
   status: any;
   constructor(
     private userService: UserService,
+    private userInfoService: UserInfoService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -63,5 +65,18 @@ export class UserListComponent implements OnInit {
         ),
         err => console.log(err)
       );
+  }
+  SetFlagIsDeleted(permissionDto: PermissionDto) {
+    this.userInfoService.deleteUserByIdAsync(permissionDto.Id)
+    .subscribe(
+      resp => (
+        console.log(resp),
+        (this.status = resp.status),
+        (permissionDto.IsDeleted = resp.IsDeleted)
+      ),
+      err => console.log(err)
+    );
+  }
+  Nothing() {
   }
 }

@@ -18,7 +18,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <summary>
         /// Delete user by setting flag deleted in model account 
         /// </summary>
-        Task<Account> SoftDeleteAsync(long idUser);
+        Task<UserDto> SoftDeleteAsync(long idUser);
 
         /// <summary>
         /// Get user information
