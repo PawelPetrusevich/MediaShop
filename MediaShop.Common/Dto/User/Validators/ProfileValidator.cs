@@ -7,7 +7,7 @@ using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Dto.User.Validators
 {
-    class ProfileValidator : AbstractValidator<ProfileDto>
+    public class ProfileValidator : AbstractValidator<ProfileDto>
     {
         public ProfileValidator()
         {

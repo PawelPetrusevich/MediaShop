@@ -28,7 +28,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <returns>account</returns>
-        public Account SoftDelete(long idUser)
+        public Account SoftDeleteByUser(long idUser)
         {
             if (idUser < 1)
             {
@@ -50,7 +50,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <returns>account</returns>
-        public async Task<Account> SoftDeleteAsync(long idUser)
+        public async Task<Account> SoftDeleteByUserAsync(long idUser)
         {
             if (idUser < 1)
             {
@@ -63,6 +63,28 @@ namespace MediaShop.BusinessLogic.Services
                               throw new DeleteUserException($"{idUser}");
 
             return Mapper.Map<Account>(deletedUser);
+        }
+
+  /// <summary>
+        /// Delete user by setting flag deleted in model account 
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="NotFoundUserException"></exception>
+        /// <returns>account</returns>
+        public async Task<UserDto> SoftDeleteAsync(long idUser)
+        {
+            if (idUser < 1)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
+            }
+
+            var user = await _userRepository.Accounts.GetAsync(idUser) ?? throw new NotFoundUserException();
+
+            var deletedUser = await _userRepository.Accounts.SoftDeleteAsync(user.Id)
+                              ?? throw new DeleteUserException($"{idUser}");
+
+            return Mapper.Map<UserDto>(deletedUser);
         }
 
         /// <summary>
@@ -104,7 +126,7 @@ namespace MediaShop.BusinessLogic.Services
         }
 
         public Settings ModifySettings(SettingsDto settings)
-        {            
+        {
             var user = _userRepository.Accounts.Get(settings.AccountId) ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
@@ -117,12 +139,14 @@ namespace MediaShop.BusinessLogic.Services
 
         public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
+            //Validator
             var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
             user.Settings.TimeZoneId = settings.TimeZoneId;
 
-            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
+                              ?? throw new UpdateAccountException();
 
             return Mapper.Map<Settings>(updatedUser.Settings);
         }
@@ -148,7 +172,8 @@ namespace MediaShop.BusinessLogic.Services
             user.Profile.LastName = profile.LastName;
             user.Profile.Phone = profile.Phone;
 
-            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
+            var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
+                              ?? throw new UpdateAccountException();
 
             return Mapper.Map<Profile>(updatedUser.Profile);
         }

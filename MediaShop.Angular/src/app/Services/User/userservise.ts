@@ -43,8 +43,14 @@ export class UserService {
       .catch(err => Observable.throw(err));
   }
   GetAllUsers() {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
     return this.http
-      .get(UserService.url + '/account/GetAllUsers')
+      .get(UserService.url + '/account/GetAllUsers', options )
       .map(resp => {
         console.log(resp.json());
         return resp.json();
