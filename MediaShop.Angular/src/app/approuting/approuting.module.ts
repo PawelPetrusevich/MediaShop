@@ -16,6 +16,7 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
+import { ProductDownloadComponent } from '../Components/Content/product-download/product-download.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -48,7 +49,7 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       {
         path: 'product-download',
-        component: ProductInfoComponent
+        component: ProductDownloadComponent
       },
       {
         path: 'confirm',
