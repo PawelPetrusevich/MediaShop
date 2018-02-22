@@ -155,7 +155,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Throws(new InvalidOperationException());
             var collectionId = new Collection<long>() { 1, 2 };
             var service = new CartService(mock.Object, mockProduct.Object);
-            var result = service.DeleteOfCart(cart);
+            var result = service.DeleteOfCart(cart, 1);
 
             Assert.AreEqual((uint)0,  result.CountItemsInCollection);
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
@@ -166,7 +166,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             Cart cart = null;
             var service = new CartService(mock.Object, mockProduct.Object);
-            Assert.Throws<ArgumentNullException>(() => service.DeleteOfCart(cart));
+            Assert.Throws<ArgumentNullException>(() => service.DeleteOfCart(cart, 1));
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             Cart cart = new Cart();
             var service = new CartService(mock.Object, mockProduct.Object);
-            var result = service.DeleteOfCart(cart);
+            var result = service.DeleteOfCart(cart, 1);
             Assert.AreEqual((uint)0, result.CountItemsInCollection);
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
         }
