@@ -5,8 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Cart } from '../Models/Cart/cart';
 import { ContentCartDto } from '../Models/Cart/content-cart-dto';
-import { ProductDto } from '../Models/Content/ProductDto';
 import { HttpParams } from '@angular/common/http';
+import { ProductDto } from '../Models/Content/ProductDto';
+import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
@@ -47,8 +48,8 @@ export class Cartservice {
       .catch(err => Observable.throw(err));
   }
 
-  addContent(product: ProductDto): Observable<ContentCartDto> {
-    const params = new HttpParams().set('contentId', product.Id.toString());
+  addContent(id: number): Observable<ContentCartDto> {
+    const params = new HttpParams().set('contentId', id.toString());
     return this.http
       .post(AppSettings.API_PUBLIC + 'api/cart/addasync', {params})
       .map(resp => resp.json())

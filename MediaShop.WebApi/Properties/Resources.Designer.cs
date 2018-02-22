@@ -169,20 +169,29 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Notification is not valid.
+        ///   Looks up a localized string similar to Not found product with this ID.
+        /// </summary>
+        internal static string NotFoundProduct {
+            get {
+                return ResourceManager.GetString("NotFoundProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification is not valid.
         /// </summary>
         internal static string NotValidNotification {
             get {
                 return ResourceManager.GetString("NotValidNotification", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Not found product with this ID.
+        ///   Looks up a localized string similar to You are not authorized.
         /// </summary>
-        internal static string NotFoundProduct {
+        internal static string NullTokenData {
             get {
-                return ResourceManager.GetString("NotFoundProduct", resourceCulture);
+                return ResourceManager.GetString("NullTokenData", resourceCulture);
             }
         }
         
