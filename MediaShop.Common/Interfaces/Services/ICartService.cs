@@ -24,7 +24,7 @@
         /// Find items in a cart by user Id and return a item collection
         /// without state InPaid and InBought
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">user Id</param>
         /// <returns> shopping cart for a user </returns>
         Task<IEnumerable<TModel>> GetContentAsync(long userId);
 
@@ -132,15 +132,17 @@
         /// Method for deleting Content from cart
         /// </summary>
         /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Cart DeleteOfCart(Cart cart);
+        Cart DeleteOfCart(Cart cart, long userId);
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
         /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Task<Cart> DeleteOfCartAsync(Cart cart);
+        Task<Cart> DeleteOfCartAsync(Cart cart, long userId);
 
         /// <summary>
         /// Method for check object as Bought

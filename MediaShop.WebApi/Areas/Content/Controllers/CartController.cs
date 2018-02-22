@@ -189,6 +189,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         public IHttpActionResult Delete([FromBody] Cart data)
         {
+            long id = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
+            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+            {
+                throw new InvalidIdException(Resources.IncorrectId);
+            }
+
             if (data == null)
             {
                 return BadRequest(Resources.EmtyData);
@@ -211,6 +218,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         public async Task<IHttpActionResult> DeleteAsync([FromBody] Cart data)
         {
+            long id = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
+            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+            {
+                throw new InvalidIdException(Resources.IncorrectId);
+            }
+
             if (data == null)
             {
                 return BadRequest(Resources.EmtyData);

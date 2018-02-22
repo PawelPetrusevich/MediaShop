@@ -265,51 +265,48 @@
         /// Method for deleting Content from cart
         /// </summary>
         /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public Cart DeleteOfCart(Cart cart)
+        public Cart DeleteOfCart(Cart cart, long userId)
         {
             if (cart == null)
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
             }
 
-            long id = 0;
             if (cart.ContentCartDtoCollection != null)
             {
                 foreach (var content in cart.ContentCartDtoCollection)
                 {
                     var deleteContentCart = this.DeleteContent(content);
-
-                    // id = content.CreatorId; // Get user Id from Token
                 }
             }
 
-            return this.GetCart(id);
+            return this.GetCart(userId);
         }
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
         /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public async Task<Cart> DeleteOfCartAsync(Cart cart)
+        public async Task<Cart> DeleteOfCartAsync(Cart cart, long userId)
         {
             if (cart == null)
             {
                 throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
             }
 
-            long id = 0;
             if (cart.ContentCartDtoCollection != null)
             {
                 foreach (var content in cart.ContentCartDtoCollection)
                 {
                     var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
-                    id = content.CreatorId; // Get user Id from Token
                 }
             }
 
-            return await this.GetCartAsync(id).ConfigureAwait(false);
+            return await this.GetCartAsync(userId).ConfigureAwait(false);
         }
 
         /// <summary>
