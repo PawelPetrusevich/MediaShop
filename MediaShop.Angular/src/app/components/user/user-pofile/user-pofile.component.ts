@@ -5,7 +5,9 @@ import { Account } from '../../../Models/User/account';
 import { Profile } from '../../../Models/User/profile';
 import { Settings } from '../../../Models/User/settings';
 import { ProfileDto } from '../../../Models/User/profileDto';
-import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule, Http } from '@angular/http';
 
 @Component({
   selector: 'app-user-pofile',
@@ -13,13 +15,16 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./user-pofile.component.css']
 })
 export class UserPofileComponent implements OnInit {
+  showError = false;
+  errorMessage: string;
+  status: any;
   user: Account;
   profile: Profile;
   settings: Settings;
-  firstName : string;
-  lastName : string;
-  dateBirth : Date;
-  phone : string;
+  firstName: string;
+  lastName: string;
+  dateBirth: Date;
+  phone: string;
 
   constructor(private userInfoService: UserInfoService) { }
 
@@ -36,7 +41,12 @@ export class UserPofileComponent implements OnInit {
       this.lastName = this.profile.LastName;
       this.dateBirth = this.profile.DateOfBirth;
       this.phone = this.profile.Phone;
+
       console.log(result);
+    }, (err: HttpErrorResponse) => {
+      this.showError = true ;
+      this.errorMessage = err.statusText;
+      console.log(err);
     });
   }
 
@@ -49,7 +59,12 @@ export class UserPofileComponent implements OnInit {
 
     this.userInfoService
       .updateProfile(profileChanged)
-      .subscribe(resp =>  ( console.log(resp) ), err => console.log(err));
+      .subscribe(resp =>  ( console.log(resp) ),
+      (err: HttpErrorResponse) => {
+        this.showError = true ;
+        this.errorMessage = err.statusText;
+        console.log(err);
+      });
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../../Services/User/AccountService';
 import {AppSettings} from '../../../Settings/AppSettings';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
+  showError = false;
+  errorMessage: string;
 
   constructor(private accountService: AccountService, private router: Router) { }
 
@@ -16,6 +19,10 @@ export class LogoutComponent implements OnInit {
     this.accountService.logout().subscribe(resp => {
       localStorage.removeItem(AppSettings.tokenKey);
       this.router.navigate(['login']);
+    }, (err: HttpErrorResponse) => {
+      this.showError = true ;
+      this.errorMessage = err.statusText;
+      console.log(err);
     });
   }
 
