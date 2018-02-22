@@ -15,7 +15,8 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
 
   compressedProductList: CompressedProductDto[];
@@ -26,7 +27,7 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.post(this.webApiUrl + 'add', uploadProduct, {
       headers: header
     });
@@ -46,5 +47,10 @@ export class ProductService {
 
   downloadProduct(ID: number) {
     return this.http.get(this.webApiUrl + 'GetOriginalPurshasedProduct' + ID);
+  }
+
+  deleteProduct(id: number) {
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.delete(this.webApiUrl + 'delete/' + id, { headers: header });
   }
 }

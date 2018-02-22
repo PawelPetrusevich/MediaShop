@@ -48,7 +48,13 @@ export class ProductInfoComponent implements OnInit {
   }
 
   ToCart() {
-    this.cartService.addContent(this.productInfo.Id);
+    console.log('run methods');
+    this.cartService.addContent(this.productInfo.Id).subscribe();
+  }
+
+  DeleteProduct() {
+    console.log('run methods');
+    this.productService.deleteProduct(this.productInfo.Id).subscribe();
   }
 
 }

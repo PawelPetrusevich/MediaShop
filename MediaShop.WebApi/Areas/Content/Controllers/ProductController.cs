@@ -76,7 +76,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(_productService.UploadProducts(data));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var claimId = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var creatorId = long.Parse(claimId.Value);
+                return Ok(_productService.UploadProducts(data, creatorId));
             }
             catch (InvalidOperationException)
             {
@@ -107,7 +110,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
             try
             {
-                return Ok(await _productService.UploadProductsAsync(data));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var claimID = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var userId = long.Parse(claimID.Value);
+                return Ok(await _productService.UploadProductsAsync(data, userId));
             }
             catch (InvalidOperationException)
             {
@@ -232,9 +238,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.GetWithNullId);
             }
 
+            var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+            var claimId = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+            var createrId = long.Parse(claimId.Value);
+
             try
             {
-                return Ok(_productService.SoftDeleteById(id));
+                return Ok(_productService.SoftDeleteById(id, createrId));
             }
             catch (InvalidOperationException)
             {
@@ -259,9 +269,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.GetWithNullId);
             }
 
+            var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+            var claimId = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+            var createrId = long.Parse(claimId.Value);
+
             try
             {
-                return Ok(await _productService.SoftDeleteByIdAsync(id));
+                return Ok(await _productService.SoftDeleteByIdAsync(id, createrId));
             }
             catch (InvalidOperationException)
             {
