@@ -67,7 +67,7 @@ export class UserListComponent implements OnInit {
       );
   }
   SetFlagIsDeleted(permissionDto: PermissionDto) {
-    this.userInfoService.deleteUserByIdAsync(permissionDto.Id)
+    this.userService.deleteUserByIdAsync(permissionDto.Id)
     .subscribe(
       resp => (
         console.log(resp),

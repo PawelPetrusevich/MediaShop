@@ -75,6 +75,21 @@ export class UserService {
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
+  deleteUserByIdAsync(id: number) {
+     const options = new RequestOptions();
+     options.headers = new Headers();
+     options.headers.append(
+       'Authorization',
+       'Bearer ' + localStorage.getItem('token')
+     );
+
+     options.headers.append('Content-Type', 'application/json');
+     return this.http
+       .post(UserService.url + '/user/deleteByIdAsync', id, options)
+       .map(resp => resp.json())
+       .catch(err => Observable.throw(err));
+   }
+
   GetUser(id: number | string) {
 
     return (

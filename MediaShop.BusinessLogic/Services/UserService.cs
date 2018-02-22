@@ -139,12 +139,9 @@ namespace MediaShop.BusinessLogic.Services
 
         public async Task<Settings> ModifySettingsAsync(SettingsDto settings)
         {
-            //Validator
             var user = await _userRepository.Accounts.GetAsync(settings.AccountId).ConfigureAwait(false) ?? throw new NotFoundUserException();
             user.Settings.InterfaceLanguage = settings.InterfaceLanguage;
             user.Settings.NotificationStatus = settings.NotificationStatus;
-
-            //user.Settings.TimeZoneId = settings.TimeZoneId;
 
             var updatedUser = await _userRepository.Accounts.UpdateAsync(user).ConfigureAwait(false)
                               ?? throw new UpdateAccountException();
