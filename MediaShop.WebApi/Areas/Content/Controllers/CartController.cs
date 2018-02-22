@@ -201,7 +201,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            var result = _cartService.DeleteOfCart(data);
+            var result = _cartService.DeleteOfCart(data, id);
             return this.Ok(result);
         }
 
@@ -230,7 +230,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            var result = await _cartService.DeleteOfCartAsync(data);
+            var result = await _cartService.DeleteOfCartAsync(data, id);
             return this.Ok(result);
         }
     }
