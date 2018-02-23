@@ -43,6 +43,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

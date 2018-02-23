@@ -392,12 +392,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("GetOriginalPurshasedProduct")]
+        [System.Web.Http.Route("GetOriginalPurshasedProduct/{productId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public IHttpActionResult GetOriginalPurshasedProduct(long productId)
+        public IHttpActionResult GetOriginalPurshasedProduct([FromUri]long productId)
         {
             if (productId <= 0)
             {
@@ -427,12 +427,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("GetOriginalPurshasedProductAsync")]
+        [System.Web.Http.Route("GetOriginalPurshasedProductAsync/{productId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public async Task<IHttpActionResult> GetOriginalPurshasedProductAsync(long productId)
+        public async Task<IHttpActionResult> GetOriginalPurshasedProductAsync([FromUri]long productId)
         {
             if (productId <= 0)
             {

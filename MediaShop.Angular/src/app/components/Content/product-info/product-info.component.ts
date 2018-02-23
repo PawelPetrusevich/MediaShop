@@ -6,6 +6,8 @@ import { ProductInfoDto } from '../../../Models/Content/ProductInfoDto';
 import { Cartservice } from '../../../services/cartservice';
 import { ProductDto } from '../../../Models/Content/ProductDto';
 import { ContentType } from '../../../Models/Content/ContentType';
+import { OriginalProductDTO } from '../../../Models/Content/OriginalProductDto';
+import { FileSaver } from 'file-saver';
 
 @Component({
   selector: 'app-product-info',
@@ -20,8 +22,10 @@ export class ProductInfoComponent implements OnInit {
   type: ContentType;
 
 
+
   constructor(private productService: ProductService, private activatedRouter: ActivatedRoute, private cartService: Cartservice) {
     this.subscrition = activatedRouter.params.subscribe(data => this.id = data['id']);
+
    }
 
   ngOnInit() {
@@ -56,5 +60,77 @@ export class ProductInfoComponent implements OnInit {
     console.log('run methods');
     this.productService.deleteProduct(this.productInfo.Id).subscribe();
   }
+
+  Download() {
+    console.log('to servise');
+    this.productService.downloadProduct(this.productInfo.Id).subscribe((response) => {
+      console.log(response);
+      switch (this.productInfo.ProductType) {
+        case ContentType.Image:
+        this.SaveImage(response);
+        break;
+
+        case ContentType.Music:
+        this.SaveAudio(response);
+        break;
+
+        case ContentType.Video:
+        this.SaveVideo(response);
+        break;
+      }
+    });
+  }
+
+  SaveImage(downloadingFile: OriginalProductDTO) {
+    console.log(' save file methods');
+    const FileSaver = require('file-saver');
+      const contentType = 'image/jpg';
+      const base64str = downloadingFile.Content;
+      const binary = atob(base64str);
+      const len = binary.length;
+      const buffer = new ArrayBuffer(len);
+      const view = new Uint8Array(buffer);
+      for (let i = 0; i < len; i++) {
+        view[i] = binary.charCodeAt(i);
+      }
+      const blob = new Blob([view], { type: contentType });
+      const fileName = downloadingFile.ProductName + '.jpg';
+      FileSaver.saveAs(blob, fileName);
+  }
+
+  SaveAudio(downloadingFile: OriginalProductDTO) {
+    console.log(' save file methods');
+    const FileSaver = require('file-saver');
+      const contentType = 'audio/mp3';
+      const base64str = downloadingFile.Content;
+      const binary = atob(base64str);
+      const len = binary.length;
+      const buffer = new ArrayBuffer(len);
+      const view = new Uint8Array(buffer);
+      for (let i = 0; i < len; i++) {
+        view[i] = binary.charCodeAt(i);
+      }
+      const blob = new Blob([view], { type: contentType });
+      const fileName = downloadingFile.ProductName + '.mp3';
+      FileSaver.saveAs(blob, fileName);
+    }
+
+    SaveVideo(downloadingFile: OriginalProductDTO) {
+      console.log(' save file methods');
+        const FileSaver = require('file-saver');
+        const contentType = 'video/*';
+        const base64str = downloadingFile.Content;
+        const binary = atob(base64str);
+        const len = binary.length;
+        const buffer = new ArrayBuffer(len);
+        const view = new Uint8Array(buffer);
+        for (let i = 0; i < len; i++) {
+          view[i] = binary.charCodeAt(i);
+        }
+        const blob = new Blob([view], { type: contentType });
+        const fileName = downloadingFile.ProductName + '.avi';
+        FileSaver.saveAs(blob, fileName);
+      }
+
 
 }

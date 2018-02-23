@@ -46,7 +46,8 @@ export class ProductService {
   }
 
   downloadProduct(ID: number) {
-    return this.http.get(this.webApiUrl + 'GetOriginalPurshasedProduct' + ID);
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct/' + ID, { headers: header});
   }
 
   deleteProduct(id: number) {
