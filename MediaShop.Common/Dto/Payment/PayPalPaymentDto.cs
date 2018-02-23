@@ -12,7 +12,7 @@
         /// <summary>
         /// Gets or sets payPal does not support all currencies.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Currency")]
         public string Currency { get; set; }
 
         /// <summary>
@@ -20,13 +20,13 @@
         ///     the refunded amount to the original payer from the payee. 10 characters max with
         ///     support for 2 decimal places.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Total")]
         public float Total { get; set; }
 
         /// <summary>
         /// Gets or sets list of items.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "item_list")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Items")]
         public List<ItemDto> Items { get; set; }
     }
 }

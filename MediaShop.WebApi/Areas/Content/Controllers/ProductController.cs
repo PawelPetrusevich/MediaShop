@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using AutoMapper;
@@ -277,16 +281,19 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful get purshased products", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public IHttpActionResult GetListPurshasedProducts([FromUri] long userId)
+        public IHttpActionResult GetListPurshasedProducts()
         {
-            if (userId <= 0)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-
             try
             {
-                return Ok(_productService.GetListPurshasedProducts(userId));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(_productService.GetListPurshasedProducts(idUser));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
             }
             catch (InvalidOperationException)
             {
@@ -304,16 +311,19 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful get purshased products", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public async Task<IHttpActionResult> GetListPurshasedProductsAsync([FromUri] long userId)
+        public async Task<IHttpActionResult> GetListPurshasedProductsAsync()
         {
-            if (userId <= 0)
-            {
-                return BadRequest(Resources.GetWithNullId);
-            }
-
             try
             {
-                return Ok(await _productService.GetListPurshasedProductsAsync(userId));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(await _productService.GetListPurshasedProductsAsync(idUser));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
             }
             catch (InvalidOperationException)
             {
@@ -324,7 +334,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
-        
+
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSale")]
         [SwaggerResponseRemoveDefaults]
@@ -375,16 +385,24 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public IHttpActionResult GetOriginalPurshasedProduct([FromUri] long userId, long productId)
+        public IHttpActionResult GetOriginalPurshasedProduct(long productId)
         {
-            if (userId <= 0 || productId <= 0)
+            if (productId <= 0)
             {
                 return BadRequest(Resources.GetWithNullId);
             }
 
             try
             {
-                return Ok(_productService.GetOriginalPurshasedProduct(userId, productId));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(_productService.GetOriginalPurshasedProduct(idUser, productId));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
             }
             catch (InvalidOperationException)
             {
@@ -402,16 +420,24 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
-        public async Task<IHttpActionResult> GetOriginalPurshasedProductAsync([FromUri] long userId, long productId)
+        public async Task<IHttpActionResult> GetOriginalPurshasedProductAsync(long productId)
         {
-            if (userId <= 0 || productId <= 0)
+            if (productId <= 0)
             {
                 return BadRequest(Resources.GetWithNullId);
             }
 
             try
             {
-                return Ok(await _productService.GetOriginalPurshasedProductAsync(userId, productId));
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(await _productService.GetOriginalPurshasedProductAsync(idUser, productId));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
             }
             catch (InvalidOperationException)
             {

@@ -139,6 +139,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\WM.png" />
+    <None Include="Resources\nota07.txt" />
     <Content Include="Settings.StyleCop">
       <SubType>Designer</SubType>
     </Content>

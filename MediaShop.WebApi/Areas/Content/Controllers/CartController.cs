@@ -10,6 +10,9 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
 using System.Web.Http.Cors;
+using System.Web;
+using System.Security.Claims;
+using System.Linq;
 using MediaShop.Common.Models.User;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
@@ -38,6 +41,15 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         public IHttpActionResult Get()
         {
             var id = 1; //userId from claim
+            var user = HttpContext.Current.User as ClaimsIdentity;
+            if (user != null)
+            {
+                if (!int.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+                {
+                    throw new InvalidIdException(Resources.IncorrectId);
+                }
+            }
+
             var cart = _cartService.GetCart(id);
             return this.Ok(cart);
         }
@@ -53,6 +65,15 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         public async Task<IHttpActionResult> GetAsync()
         {
             var id = 1; //userId from claim
+            var user = HttpContext.Current.User as ClaimsIdentity;
+            if (user != null)
+            {
+                if (!int.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
+                {
+                    throw new InvalidIdException(Resources.IncorrectId);
+                }
+            }
+
             var cart = await _cartService.GetCartAsync(id);
             return this.Ok(cart);
         }
