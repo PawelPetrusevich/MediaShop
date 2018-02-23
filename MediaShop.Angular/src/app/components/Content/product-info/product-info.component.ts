@@ -7,7 +7,7 @@ import { Cartservice } from '../../../services/cartservice';
 import { ProductDto } from '../../../Models/Content/ProductDto';
 import { ContentType } from '../../../Models/Content/ContentType';
 import { OriginalProductDTO } from '../../../Models/Content/OriginalProductDto';
-import { FileSaver } from 'file-saver';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-product-info',
@@ -83,8 +83,6 @@ export class ProductInfoComponent implements OnInit {
 
   SaveImage(downloadingFile: OriginalProductDTO) {
     console.log(' save file methods');
-    // tslint:disable-next-line:no-shadowed-variable
-    const FileSaver = require('file-saver');
       const contentType = 'image/jpg';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -101,8 +99,6 @@ export class ProductInfoComponent implements OnInit {
 
   SaveAudio(downloadingFile: OriginalProductDTO) {
     console.log(' save file methods');
-    // tslint:disable-next-line:no-shadowed-variable
-    const FileSaver = require('file-saver');
       const contentType = 'audio/mp3';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -119,8 +115,6 @@ export class ProductInfoComponent implements OnInit {
 
     SaveVideo(downloadingFile: OriginalProductDTO) {
       console.log(' save file methods');
-        // tslint:disable-next-line:no-shadowed-variable
-        const FileSaver = require('file-saver');
         const contentType = 'video/*';
         const base64str = downloadingFile.Content;
         const binary = atob(base64str);

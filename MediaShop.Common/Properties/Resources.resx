@@ -135,14 +135,26 @@
   <data name="FailedEnteringProducName" xml:space="preserve">
     <value>Not less than 5 and not more than 50 symbols</value>
   </data>
+  <data name="IncorrectDateValue" xml:space="preserve">
+    <value>Date can not be null</value>
+  </data>
   <data name="IncorrectEmail" xml:space="preserve">
     <value>Incorrect Email</value>
+  </data>
+  <data name="IncorrectFirstName" xml:space="preserve">
+    <value>FirstName can not be empty or  less than 2 symbols</value>
+  </data>
+  <data name="IncorrectLastName" xml:space="preserve">
+    <value>LastName can not be empty or  less than 2 symbols</value>
   </data>
   <data name="IncorrectLogin" xml:space="preserve">
     <value>Incorrect login </value>
   </data>
   <data name="IncorrectPassword" xml:space="preserve">
     <value>Incorrect password</value>
+  </data>
+  <data name="IncorrectPhoneformat" xml:space="preserve">
+    <value>Phone shold be in format : +3xxxxxxxxxxx</value>
   </data>
   <data name="IncorrectToken" xml:space="preserve">
     <value>Invalid confirmation token</value>
@@ -158,6 +170,9 @@
   </data>
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
+  </data>
+  <data name="RegExpressionPhone" xml:space="preserve">
+    <value>^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>

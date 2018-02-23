@@ -47,5 +47,19 @@ namespace MediaShop.Common.Interfaces.Repositories
         Task<AccountDbModel> GetByEmailAsync(string email);
 
         IEnumerable<AccountDbModel> GetAllUsers();
+
+        /// <summary>
+        /// Delete user by setting flag deleted in model account 
+        /// </summary>
+        /// <param name="id">user</param>
+        /// <returns>Entity</returns>
+        AccountDbModel SoftDelete(long id);
+
+        /// <summary>
+        /// Delete user by setting flag deleted in model account 
+        /// </summary>
+        /// <param name="id">user</param>
+        /// <returns>Entity</returns>
+        Task<AccountDbModel> SoftDeleteAsync(long id);
     }
 }

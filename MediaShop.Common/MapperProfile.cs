@@ -49,12 +49,6 @@ namespace MediaShop.Common
                 .ForMember(item => item.PriceItem, x => x.MapFrom(y => y.Product.ProductPrice))
                 .ForMember(item => item.DescriptionItem, x => x.MapFrom(y => y.Product.Description));
 
-            this.CreateMap<Dto.User.Profile, ProfileDbModel>()
-                .ForMember(item => item.Id, m => m.Ignore())
-                .ForMember(item => item.CreatedDate, m => m.Ignore())
-                .ForMember(item => item.CreatorId, m => m.Ignore())
-                .ReverseMap().ForMember(item => item.Login, m => m.Ignore());
-
             this.CreateMap<Notification, NotificationDto>().ReverseMap()
                 .ForMember(n => n.CreatedDate, obj => obj.UseValue(DateTime.Now))
                 .ForMember(n => n.CreatorId, obj => obj.MapFrom(nF => nF.SenderId));
@@ -74,7 +68,22 @@ namespace MediaShop.Common
             this.CreateMap<AccountDbModel, AccountPwdRestoreDto>()
                 .ForMember(item => item.Token, opt => opt.MapFrom(s => s.AccountConfirmationToken));
             this.CreateMap<AccountDbModel, UserDto>();
-            this.CreateMap<SettingsDbModel, Settings>().ForMember(item => item.AccountID, opt => opt.Ignore()).ReverseMap();
+            this.CreateMap<Dto.User.Profile, ProfileDbModel>()
+                .ForMember(item => item.Id, m => m.Ignore())
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore())
+                .ReverseMap();
+            this.CreateMap<ProfileDto, ProfileDbModel>()                
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore())
+                .ReverseMap().ForMember(item => item.AccountId, m => m.Ignore());
+            this.CreateMap<SettingsDbModel, Settings>().ReverseMap();
+            this.CreateMap<SettingsDbModel, SettingsDto>()
+                .ForMember(item => item.AccountId, m => m.Ignore())
+                .ReverseMap()
+                .ForMember(item => item.Id, m => m.Ignore())
+                .ForMember(item => item.CreatedDate, m => m.Ignore())
+                .ForMember(item => item.CreatorId, m => m.Ignore());
             this.CreateMap<RegisterUserDto, AccountDbModel>().ReverseMap();
             this.CreateMap<RoleUserDto, UserDto>();
             this.CreateMap<Account, RegisterUserDto>().ReverseMap();
