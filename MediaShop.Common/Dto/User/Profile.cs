@@ -33,11 +33,5 @@
         /// </summary>
         /// <value>The phone.</value>
         public string Phone { get; set; }
-
-        /// <summary>
-        /// Gets or sets the login.
-        /// </summary>
-        /// <value>The login.</value>
-        public string Login { get; set; }
     }
 }

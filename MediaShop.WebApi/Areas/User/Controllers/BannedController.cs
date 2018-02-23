@@ -16,6 +16,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using MediaShop.WebApi.Properties;
 
     using Swashbuckle.Swagger.Annotations;
+
     [RoutePrefix("api/user")]
 
     public class BannedController : ApiController
@@ -33,7 +34,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult SetFlagIsBanned([FromBody]long id)
+        public IHttpActionResult SetFlagIsBanned([FromBody] long id)
         {
             if (id < 1)
             {
@@ -62,7 +63,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemoveFlagIsBanned([FromBody]long id)
+        public IHttpActionResult RemoveFlagIsBanned([FromBody] long id)
         {
             if (id < 1)
             {
@@ -89,11 +90,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult SetFlagIsBannedAsync([FromBody]long id)
+        public IHttpActionResult SetFlagIsBannedAsync([FromBody] long id)
         {
             if (id < 1)
             {
-                return BadRequest(Resources.EmptyRegisterDate);
+                return BadRequest(Resources.EmtyData);
             }
 
             try
@@ -116,11 +117,11 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(AccountDbModel))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public IHttpActionResult RemoveFlagIsBannedAsync([FromBody]long id)
+        public IHttpActionResult RemoveFlagIsBannedAsync([FromBody] long id)
         {
             if (id < 1)
             {
-                return BadRequest(Resources.EmptyRegisterDate);
+                return BadRequest(Resources.EmtyData);
             }
 
             try

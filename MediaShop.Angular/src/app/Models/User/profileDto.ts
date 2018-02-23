@@ -1,8 +1,8 @@
 export class ProfileDto
 {
-    DateOfBirth:string;       
+    DateOfBirth:Date;
     FirstName:string;
     LastName:string;
     Phone:string;
-    Login:string;   
+    Login:string;
 }

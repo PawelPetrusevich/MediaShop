@@ -112,9 +112,11 @@
     <Compile Include="Dto\User\RoleUserDto.cs" />
     <Compile Include="Dto\User\SettingsDto.cs" />
     <Compile Include="Dto\User\ProfileDto.cs" />
+    <Compile Include="Dto\User\UserFactoryRepository.cs" />
     <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
     <Compile Include="Dto\Messaging\NotificationDto.cs" />
     <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Dto\User\Validators\ProfileValidator.cs" />
     <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
     <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
     <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
@@ -135,6 +137,9 @@
     <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
     <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
     <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Exceptions\User\DeleteUserException.cs" />
+    <Compile Include="Exceptions\User\UpdateProfileException.cs" />
+    <Compile Include="Exceptions\User\UpdateSettingsException.cs" />
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Exceptions\User\AddAccountException.cs" />
     <Compile Include="Exceptions\User\AddProfileException.cs" />
@@ -186,6 +191,8 @@
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
+    <Compile Include="Interfaces\Services\IUserFatoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="MapperProfile.cs" />
     <Compile Include="Models\CartModels\Cart.cs" />
     <Compile Include="Dto\ContentCartDto.cs" />

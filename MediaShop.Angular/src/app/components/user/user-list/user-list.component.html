@@ -15,6 +15,12 @@
       <i class="fa fa-trash-o"></i> Remove ban</button>
   </div>
   <div class="col-md-2 col-sm-2 col-xs-2">
+      <button *ngIf="!user.IsDeleted" class="btn btn-success btn-xs" (click)="SetFlagIsDeleted(user)">
+        <i class="fa fa-check"></i> Set deleted </button>
+      <button *ngIf="user.IsDeleted" class="btn btn-danger btn-xs" (click)="Nothing()">
+        <i class="fa fa-trash-o"></i> deleted</button>
+    </div>
+  <div class="col-md-2 col-sm-2 col-xs-2">
     <a [routerLink]="['/user-list', user.Id]" class="btn btn-success btn-xs">
       Set permission
     </a>
