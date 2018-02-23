@@ -15,6 +15,8 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   data: TokenResponse;
+  showError = false;
+  errorMessage: string;
 
   constructor(private accountService: AccountService,  private router: Router) { }
 
@@ -27,8 +29,13 @@ export class LoginComponent implements OnInit {
       this.data = resp;
       localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
       console.log(resp);
-    }, err => console.log(err));
-
-    this.router.navigate(['product-list']);
+      this.router.navigate(['product-list']);
+    },
+    (err: HttpErrorResponse) => {
+      this.showError = true ;
+      this.errorMessage = err.statusText;
+      console.log(err);
+    }
+  );
   }
 }

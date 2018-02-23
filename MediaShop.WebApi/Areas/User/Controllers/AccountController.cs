@@ -289,7 +289,6 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("getAllUsers")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]

@@ -7,6 +7,7 @@ export class PermissionDto {
     Login: string;
     Email: string;
     IsBanned: boolean;
+    IsDeleted: boolean;
 
 }
 

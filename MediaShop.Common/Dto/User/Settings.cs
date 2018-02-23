@@ -19,7 +19,5 @@ namespace MediaShop.Common.Dto.User.Validators
         /// Turn on/off notification
         /// </summary>
         public bool NotificationStatus { get; set; }
-
-        public long AccountID { get; set; }
     }
 }
