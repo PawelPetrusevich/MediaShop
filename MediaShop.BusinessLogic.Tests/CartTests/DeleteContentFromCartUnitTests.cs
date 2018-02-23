@@ -178,7 +178,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Delete_of_Cart_is_empty()
         {
             Cart cart = new Cart();
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             var result = service.DeleteOfCart(cart, 1);
             Assert.AreEqual((uint)0, result.CountItemsInCollection);
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
