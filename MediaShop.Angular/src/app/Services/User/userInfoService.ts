@@ -20,7 +20,7 @@ export class UserInfoService {
 
   getUserInfo(): Observable<Account> {
     return this.http
-      .get<Account>(AppSettings.API_ENDPOINT + 'api/user/getUserInfo');
+      .get<Account>(AppSettings.API_PUBLIC + 'api/user/getUserInfo');
   }
 
   updateSettings(settings: SettingsDto): Observable<Settings> {
@@ -32,11 +32,11 @@ export class UserInfoService {
     );
     options.headers.append('Content-Type', 'application/json');
     return this.http
-      .post<SettingsDto>(AppSettings.API_ENDPOINT + 'api/user/modifySettingsAsync', settings);
+      .post<SettingsDto>(AppSettings.API_PUBLIC + 'api/user/modifySettingsAsync', settings);
   }
 
   updateProfile(profile: ProfileDto): Observable<Profile> {
     return this.http
-      .post<ProfileDto>(AppSettings.API_ENDPOINT + 'api/user/modifyProfile', profile);
+      .post<ProfileDto>(AppSettings.API_PUBLIC + 'api/user/modifyProfile', profile);
   }
 }

@@ -19,7 +19,7 @@ export class AccountService {
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
-      .post<Account>(AppSettings.API_ENDPOINT + 'api/account/registerAsync', registerUser);
+      .post<Account>(AppSettings.API_PUBLIC + 'api/account/registerAsync', registerUser);
   }
 
   login(login: string, password: string): Observable<TokenResponse> {
@@ -41,7 +41,7 @@ export class AccountService {
     };
 
     return this.http
-      .post<TokenResponse>(AppSettings.API_ENDPOINT + 'token', body, options);
+      .post<TokenResponse>(AppSettings.API_PUBLIC + 'token', body, options);
   }
 
   logout() {
@@ -74,7 +74,7 @@ export class AccountService {
 
   confirm(email: string, token: string) {
     return this.http
-      .get(AppSettings.API_ENDPOINT + 'api/account/confirm/' + email + '/' + token);
+      .get(AppSettings.API_PUBLIC + 'api/account/confirm/' + email + '/' + token);
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
