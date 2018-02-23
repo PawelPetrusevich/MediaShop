@@ -29,15 +29,17 @@ namespace MediaShop.BusinessLogic.Services
     {
         private readonly IProductRepository _repository;
         private readonly ICartRepository _cartRepository;
+        private readonly IAccountRepository _accountRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="repository">repository</param>
-        public ProductService(IProductRepository repository, ICartRepository cartRepository)
+        public ProductService(IProductRepository repository, ICartRepository cartRepository, IAccountRepository accountRepository)
         {
             this._repository = repository;
             this._cartRepository = cartRepository;
+            this._accountRepository = accountRepository;
         }
 
         /// <summary>
@@ -45,11 +47,17 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="uploadModels">Модель формы загрузки</param>
         /// <returns>Возвращаем модель для отображения</returns>
-        public ProductDto UploadProducts(UploadProductModel uploadModels)
+        public ProductDto UploadProducts(UploadProductModel uploadModels, long creatorId)
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
             data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
+            data.CreatorId = creatorId;
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -93,11 +101,18 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="uploadModels">UploadProductModel</param>
         /// <returns>Task ProductDTO</returns>
-        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels, long creatorId)
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
             data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
+            data.CreatorId = creatorId;
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -144,17 +159,28 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto SoftDeleteById(long id)
+        public ProductDto SoftDeleteById(long id, long creatorId)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
             var currentProduct = _repository.Get(id);
+
             if (currentProduct is null)
             {
                 throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            if (creatorId != currentProduct.CreatorId)
+            {
+                throw new InvalidOperationException(Resources.NoRootForDelete);
             }
 
             var result = _repository.SoftDelete(id);
@@ -167,17 +193,27 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public async Task<ProductDto> SoftDeleteByIdAsync(long id)
+        public async Task<ProductDto> SoftDeleteByIdAsync(long id, long creatorId)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
             var currentProduct = _repository.Get(id);
             if (currentProduct is null)
             {
                 throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            if (creatorId != currentProduct.CreatorId)
+            {
+                throw new InvalidOperationException(Resources.NoRootForDelete);
             }
 
             var result = await _repository.SoftDeleteAsync(id);

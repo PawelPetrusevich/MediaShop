@@ -45,6 +45,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { CartDataProvider } from './components/cart/cartDataProvider';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

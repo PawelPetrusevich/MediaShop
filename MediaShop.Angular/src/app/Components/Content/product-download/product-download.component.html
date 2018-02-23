@@ -1,11 +1,8 @@
-<table class="table">
-  <tr *ngFor="let product of purshasedProductList">
-    <td>
-      <app-product></app-product>
-    </td>
-    <td>
-      <a class="btn btn-primary" (click)="onDownloading(product.Id)">Download</a>
-    </td>
-  </tr>
-</table>
-
+<div class="row">
+  <div class="flex-column">
+    <app-product class="card" *ngFor="let product of purshasedProductList | paginate: { itemsPerPage: 6, currentPage: p }" [compressedProduct]="product"></app-product>
+  </div>
+</div>
+<div class="row">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
