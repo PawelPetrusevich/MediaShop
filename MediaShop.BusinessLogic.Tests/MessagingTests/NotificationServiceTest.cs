@@ -15,6 +15,8 @@ using BLResources = MediaShop.BusinessLogic.Properties.Resources;
 using MediaShop.Common.Dto.Messaging;
 using FluentValidation;
 using MediaShop.Common.Dto.Messaging.Validators;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace MediaShop.BusinessLogic.Tests.MessagingTests
 {
@@ -23,6 +25,8 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
     {
         private Mock<INotificationRepository> _notificationRepoMock;
         private Mock<INotificationSubscribedUserRepository> _notificationSubscrubedUserMock;
+        private Mock<IHubContext> _hubMock;
+
 
         private NotificationSubscribedUserDto _subscribeDataDto;
         private NotificationSubscribedUser _subscribeData;
@@ -48,7 +52,7 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             _notificationRepoMock = new Mock<INotificationRepository>();
             _validator = new NotificationDtoValidator();
 
-            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator);
+            _service = new NotificationService(_notificationSubscrubedUserMock.Object, _notificationRepoMock.Object, _validator, _hubMock.Object);
             _notification = new Notification()
             {
                 CreatorId = 1,
@@ -150,11 +154,11 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             Assert.Throws<ArgumentNullException>(() => _service.Notify(null));
             Assert.Throws<ArgumentException>(() => _service.Notify(new NotificationDto()));
             Assert.Throws<ArgumentException>(() =>
-                _service.Notify(new NotificationDto() {ReceiverId = 0, Message = "test", SenderId = 1}));
+                _service.Notify(new NotificationDto() { ReceiverId = 0, Message = "test", SenderId = 1 }));
             Assert.Throws<ArgumentException>(() =>
-                _service.Notify(new NotificationDto() {Message = string.Empty, ReceiverId = 1, SenderId = 1}));
+                _service.Notify(new NotificationDto() { Message = string.Empty, ReceiverId = 1, SenderId = 1 }));
             Assert.Throws<ArgumentException>(() =>
-                _service.Notify(new NotificationDto() {SenderId = 0, Message = "test", ReceiverId = 1}));
+                _service.Notify(new NotificationDto() { SenderId = 0, Message = "test", ReceiverId = 1 }));
         }
     }
 }

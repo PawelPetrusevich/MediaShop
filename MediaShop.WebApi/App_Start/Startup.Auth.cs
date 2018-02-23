@@ -47,6 +47,7 @@ namespace MediaShop.WebApi
             var config = new HttpConfiguration();
 
             app.UseWebApi(config);
+            app.MapSignalR();
         }
     }
 }

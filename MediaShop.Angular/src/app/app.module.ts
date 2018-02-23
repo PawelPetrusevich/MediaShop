@@ -40,6 +40,10 @@ import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
 
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+import { SignalRConfig } from './signalR/SignalRConfig';
+import { SignalRconnectionResolver } from './signalR/signal-rconnection-resolver';
 
 @NgModule({
   declarations: [
@@ -76,6 +80,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     HttpClientModule,
     FormsModule,
     HttpModule,
+    SignalRModule.forRoot(SignalRConfig.createConfig),
     ApproutingModule
   ],
   providers: [
@@ -85,8 +90,9 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     UserService,
     ProductService,
     AuthGuard,
+    SignalRconnectionResolver,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -4,6 +4,7 @@ import { Cartservice } from '../../services/cartservice';
 import { Paymentservice } from '../../services/paymentservice';
 import { ContentCartDto } from '../../Models/Cart/content-cart-dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SignalR } from 'ng2-signalr';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,7 @@ export class CartComponent implements OnInit {
   indexCurrentElement: number;
   isPayment = false;
 
-  constructor(private cartService: Cartservice, private paymentService: Paymentservice) {
+  constructor(private cartService: Cartservice, private paymentService: Paymentservice, private _signalR: SignalR) {
   }
 
   ngOnInit() {

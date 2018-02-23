@@ -12,6 +12,8 @@ using MediaShop.Common.Dto.Messaging;
 using FluentValidation;
 using MediaShop.Common.Dto.Messaging.Validators;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace MediaShop.BusinessLogic.Services
 {
@@ -23,17 +25,19 @@ namespace MediaShop.BusinessLogic.Services
         private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private readonly INotificationRepository _notifcationStore;
         private readonly IValidator _validator;
+        private readonly IHubContext _signulRHub;
 
         /// <summary>
         /// Initializes a new instance of the  <see cref="NotificationService"/> class.
         /// </summary>
         /// <param name="subscribedUserStore">Repository subscribed users</param>
         /// <param name="notifcationStore">Repository of notifications</param>
-        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore, IValidator<NotificationDto> validator)
+        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore, IValidator<NotificationDto> validator, IHubContext signulRHub)
         {
             this._subscribedUserStore = subscribedUserStore;
             this._notifcationStore = notifcationStore;
             this._validator = validator;
+            _signulRHub = signulRHub;
         }
 
         public NotificationDto Notify(NotificationDto notification)
@@ -62,7 +66,7 @@ namespace MediaShop.BusinessLogic.Services
                 .FirstOrDefault();
 
             notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
-
+            
             return Mapper.Map<NotificationDto>(notify);
         }
 

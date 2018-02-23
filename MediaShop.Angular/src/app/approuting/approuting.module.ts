@@ -17,18 +17,22 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
+import { SignalRconnectionResolver } from '../signalR/signal-rconnection-resolver';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-      { path: 'login', component: LoginComponent },
-     { path: 'logOut',
-       component: LogoutComponent,
-       canActivate: [AuthGuard],
-       canLoad: [AuthGuard]
-       },
-     { path: 'register', component: RegisterUserComponent },
+      {
+        path: 'login', component: LoginComponent
+      },
+      {
+        path: 'logOut',
+        component: LogoutComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+      },
+      { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
       {
@@ -39,7 +43,8 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       {
         path: 'cart',
-        component: CartComponent
+        component: CartComponent,
+        resolve: { connection: SignalRconnectionResolver }
       },
       {
         path: 'product-upload',
@@ -65,4 +70,4 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
