@@ -33,18 +33,30 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             this._paymentService = paymentService;
         }
 
+        // [HttpPost]
+        // [Route("paypalpayment")]
+        // [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
+        // [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
+        // [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        // public IHttpActionResult PayPalPayment([FromBody] Cart cart)
+        // {
+        //    string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
+        //    this.StatusCode(HttpStatusCode.Redirect);
+
+        //    // Request.Headers.Add("Access-Control-Allow-Origin", "*");
+        //    return Redirect(paymentUrl);
+        // }
+
         [HttpPost]
         [Route("paypalpayment")]
-        [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
+        [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
-            string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
-            this.StatusCode(HttpStatusCode.Redirect);
-
-            // Request.Headers.Add("Access-Control-Allow-Origin", "*");
-            return Redirect(paymentUrl);
+            var url = this.Request.Headers.Referrer.Scheme + $"://" + this.Request.Headers.Referrer.Host + ":" + this.Request.Headers.Referrer.Port;
+            string paymentUrl = _paymentService.GetPayment(cart, url); // получать url из Header Origin
+            return Ok(paymentUrl);
         }
 
         [HttpGet]

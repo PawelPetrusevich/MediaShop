@@ -39,8 +39,10 @@ import { ProductDownloadComponent } from './Components/Content/product-download/
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { CartDataProvider } from './components/cart/cartDataProvider';
 
 
 
@@ -72,7 +74,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     ProductInfoComponent,
     ProductDownloadComponent,
     UserListComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    PaymentInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,7 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
     ProductService,
     AuthGuard,
     NgbPaginationConfig,
+    CartDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
