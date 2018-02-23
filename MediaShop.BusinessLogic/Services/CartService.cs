@@ -333,7 +333,8 @@
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
         public bool ExistInCart(long contentId) => this.repositoryContentCart
-            .Find(item => item.ProductId == contentId).Count() != 0;
+            .Find(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+            .Count() != 0;
 
         /// <summary>
         /// Async checking the existence of content in cart
@@ -343,7 +344,9 @@
         /// false - content doesn`t exist in cart</returns>
         public async Task<bool> ExistInCartAsync(long contentId)
         {
-            var resultFindAsync = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
+            var resultFindAsync = await this.repositoryContentCart
+                .FindAsync(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ConfigureAwait(false);
             return resultFindAsync.Count() != 0;
         }
 
