@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using MediaShop.Common.Models;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.BusinessLogic.Tests.ProductTest
 {
@@ -32,13 +33,19 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
 
         private Mock<ICartRepository> _cartRep;
 
+        private Mock<IAccountRepository> _accountRepository;
+
         private IProductRepository _mockRep;
 
         private ICartRepository _mockCartRep;
 
+        private IAccountRepository _mockAccountRepository;
+
         private ProductService _productService;
 
         private List<UploadProductModel> _newProducts;
+
+        private const long creatorId = 1;
 
         public ProductServiceTest()
         {
@@ -65,13 +72,13 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _rep.Setup(s => s.Get(It.IsAny<long>())).Returns(new Product());
             _rep.Setup(s => s.GetListOnSale()).Returns(new List<Product>() { new Product() });
             _rep.Setup(s => s.Update(It.IsAny<Product>())).Returns(new Product());
-            _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>(){ new Product() });
+            _rep.Setup(x => x.Find(It.IsAny<Expression<Func<Product, bool>>>())).Returns(new List<Product>() { new Product() });
             _rep.Setup(s => s.AddAsync(It.IsAny<Product>())).Returns(Task.FromResult(new Product()));
             _rep.Setup(s => s.DeleteAsync(It.IsAny<long>())).Returns(Task.FromResult(new Product()));
             _rep.Setup(s => s.FindAsync(It.IsAny<Expression<Func<Product, bool>>>()))
                 .Returns(Task.FromResult<IEnumerable<Product>>(new List<Product>()));
             _rep.Setup(s => s.GetAsync(It.IsAny<long>())).Returns(Task.FromResult(new Product()));
-            _rep.Setup(s => s.GetListOnSaleAsync()).Returns(Task.FromResult<IEnumerable<Product>>(new List<Product>{new Product()}));
+            _rep.Setup(s => s.GetListOnSaleAsync()).Returns(Task.FromResult<IEnumerable<Product>>(new List<Product> { new Product() }));
             _rep.Setup(s => s.SoftDeleteAsync(It.IsAny<long>())).Returns(Task.FromResult(new Product()));
             _rep.Setup(s => s.UpdateAsync(It.IsAny<Product>())).Returns(Task.FromResult(new Product()));
 
@@ -81,7 +88,11 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             _cartRep.Setup(x => x.Find(It.IsAny<Expression<Func<ContentCart, bool>>>())).Returns(new List<ContentCart>() { new ContentCart() });
             _mockCartRep = _cartRep.Object;
 
-            _productService = new ProductService(_mockRep, _mockCartRep);
+            _accountRepository = new Mock<IAccountRepository>();
+            _accountRepository.Setup(x => x.Get(It.IsAny<long>())).Returns(new AccountDbModel());
+            _mockAccountRepository = _accountRepository.Object;
+
+            _productService = new ProductService(_mockRep, _mockCartRep, _mockAccountRepository);
 
             var productGenerator = Generator
                 .For<UploadProductModel>()
@@ -109,7 +120,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         [Test]
         public void Product_UploadProductTest()
         {
-            var returnProduct = _productService.UploadProducts(_newProducts[0]);
+            var returnProduct = _productService.UploadProducts(_newProducts[0], creatorId);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -117,15 +128,15 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         [Test]
         public void Product_UploadProductAsyncTest()
         {
-            var product = _productService.UploadProductsAsync(_newProducts[1]);
+            var product = _productService.UploadProductsAsync(_newProducts[1], creatorId);
 
             Assert.IsNotNull(product);
         }
 
-       [Test]
+        [Test]
         public void Product_GetProductTest()
         {
-            _productService.UploadProducts(_newProducts[0]);
+            _productService.UploadProducts(_newProducts[0], creatorId);
             var returnProduct = _productService.GetById(1);
 
             Assert.IsNotNull(returnProduct);
@@ -135,11 +146,11 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         {
             for (int i = 0; i < _newProducts.Count; i++)
             {
-                _productService.UploadProductsAsync(_newProducts[i]);
+                _productService.UploadProductsAsync(_newProducts[i], creatorId);
             }
             for (int i = 0; i < _newProducts.Count; i++)
             {
-                var returnProduct = _productService.GetById(i+1);
+                var returnProduct = _productService.GetById(i + 1);
                 Assert.IsNotNull(returnProduct);
             }
         }
@@ -147,10 +158,11 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         [Test]
         public void Product_DeleteProductByIdTest()
         {
-            _productService.UploadProducts(_newProducts[0]);
-            var returnProduct = _productService.SoftDeleteById(1);
+            _productService.UploadProducts(_newProducts[0], creatorId);
 
-            Assert.IsNotNull(returnProduct);
+            long productId = 1;
+            Assert.Throws(typeof(InvalidOperationException),()=>{ _productService.SoftDeleteById(1, creatorId); });
+
         }
 
         [Test]
@@ -158,15 +170,15 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         {
             for (int i = 0; i < _newProducts.Count; i++)
             {
-                _productService.UploadProductsAsync(_newProducts[i]);
+                _productService.UploadProductsAsync(_newProducts[i], creatorId);
             }
             for (int i = 0; i < _newProducts.Count; i++)
             {
-                var returnProduct = _productService.SoftDeleteByIdAsync(i + 1);
+                var returnProduct = _productService.SoftDeleteByIdAsync(i + 1,creatorId);
                 Assert.IsNotNull(returnProduct);
             }
         }
-       
+
 
         [Test]
         public void Product_FindProductTest()
@@ -229,7 +241,7 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         [Test]
         public void Product_GetOriginalPurshasedProducts()
         {
-            var returnProduct = _productService.GetOriginalPurshasedProduct(1,1);
+            var returnProduct = _productService.GetOriginalPurshasedProduct(1, 1);
 
             Assert.IsNotNull(returnProduct);
         }
@@ -260,16 +272,16 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
             var sourceImageByte = (byte[])converter.ConvertTo(Resources.SourceImage, typeof(byte[]));
 
             var result = ExtensionProductMethods.GetCompressedImage(sourceImageByte);
-            
+
             Assert.IsNotNull(result);
         }
 
         [Test]
         public void Product_GetSearchPropeprtiesProduct()
         {
-            Product product =new Product();
+            Product product = new Product();
 
-            Assert.GreaterOrEqual(ExtensionProductMethods.GetProductSearchPropeprties(null).Count(),0);
+            Assert.GreaterOrEqual(ExtensionProductMethods.GetProductSearchPropeprties(null).Count(), 0);
         }
     }
 }

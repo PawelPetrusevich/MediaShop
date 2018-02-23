@@ -19,7 +19,6 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
 
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
-
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -39,11 +38,14 @@ import { ProductDownloadComponent } from './Components/Content/product-download/
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserPofileComponent } from './components/user/user-pofile/user-pofile.component';
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
 import { UserInfoService } from './Services/User/userInfoService';
+import { CartDataProvider } from './components/cart/cartDataProvider';
+
 
 
 @NgModule({
@@ -75,7 +77,8 @@ import { UserInfoService } from './Services/User/userInfoService';
     ProductInfoComponent,
     ProductDownloadComponent,
     UserListComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    PaymentInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ import { UserInfoService } from './Services/User/userInfoService';
     ProductService,
     AuthGuard,
     NgbPaginationConfig,
+    CartDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

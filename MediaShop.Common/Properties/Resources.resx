@@ -162,6 +162,9 @@
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
   </data>
+  <data name="NoRootForDelete" xml:space="preserve">
+    <value>You have no rights for delete this product</value>
+  </data>
   <data name="NullOrEmptyValue" xml:space="preserve">
     <value>Value can not be null</value>
   </data>

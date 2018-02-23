@@ -29,9 +29,10 @@
         </div>
       </div>
       <div class="btn-group">
-        <div class="btn btn-primary" type="button" (click)="ToCart">Incart</div>
+        <div class="btn btn-primary" type="button" (click)="ToCart()">Incart</div>
         <div class="btn btn-primary" type="button">To Favorit</div>
-        <div class="btn btn-primary" type="button">Download</div>
+        <div class="btn btn-primary" type="button" (click) = "Download()">Download</div>
+        <div class="btn btn-danger" type ="button" (click)="DeleteProduct()">DELETE</div>
       </div>
     </div>
   </div>

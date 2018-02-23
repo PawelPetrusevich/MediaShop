@@ -196,6 +196,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have no rights for delete this product.
+        /// </summary>
+        internal static string NoRootForDelete {
+            get {
+                return ResourceManager.GetString("NoRootForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value can not be null.
         /// </summary>
         internal static string NullOrEmptyValue {

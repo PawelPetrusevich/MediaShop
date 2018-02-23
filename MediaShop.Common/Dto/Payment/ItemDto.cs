@@ -12,25 +12,19 @@
         /// <summary>
         /// Gets or sets stock keeping unit corresponding (SKU) to item.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Sku")]
         public string Sku { get; set; }
 
         /// <summary>
         /// Gets or sets item name. 127 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Name")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets description of the item. Only supported when the `payment_method` is set to `paypal`.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
-        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets item cost. 10 characters max.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Price")]
         public string Price { get; set; }
     }
 }

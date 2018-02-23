@@ -15,9 +15,12 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
 import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
+import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
+import { PaymentComponent } from '../components/payment/payment.component';
 import { UserSettingsComponent } from '../components/user/user-settings/user-settings.component';
 import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
+import { ProductDownloadComponent } from '../Components/Content/product-download/product-download.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,10 +49,8 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
         path: 'product-list',
         component: ProductListComponent
       },
-      {
-        path: 'cart',
-        component: CartComponent
-      },
+      { path: 'cart', component: CartComponent },
+      { path: 'payment', component: PaymentComponent },
       {
         path: 'product-upload',
         component: ProductUploadComponent
@@ -60,7 +61,7 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       {
         path: 'product-download',
-        component: ProductInfoComponent
+        component: ProductDownloadComponent
       },
       {
         path: 'confirm',
@@ -68,10 +69,13 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
+      {
+        path: 'payment-info', component: PaymentInfoComponent
+      },
       { path: '**', component: NotfoundComponent }
     ])
   ],
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule { }
+export class ApproutingModule {}
