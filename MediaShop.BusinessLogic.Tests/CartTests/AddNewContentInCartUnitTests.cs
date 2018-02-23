@@ -12,6 +12,8 @@ using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.BusinessLogic.Services;
 using NUnit.Framework;
 using MediaShop.Common.Models.Content;
+using MediaShop.Common.Dto;
+using MediaShop.Common.Dto.Messaging;
 
 namespace MediaShop.BusinessLogic.Tests.CartTests
 {
@@ -23,6 +25,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
 
         // Field for MockProduct
         private Mock<IProductRepository> mockProduct;
+
+        // Field for MockNotify
+        private Mock<INotificationService> mockNotify;
 
         public AddNewContentInCartUnitTests()
         {
@@ -42,11 +47,19 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
+            var _mockNotify = new Mock<INotificationService>();
+            mockNotify = _mockNotify; 
         }
 
         [Test]
         public void Add_New_Content_In_Cart()
         {
+            var notifyDto = new NotificationDto();
+            
+            // Setup Mock Product
+            mockNotify.Setup(item => item.AddToCartNotify(It.IsAny<AddToCartNotifyDto>()))
+                .Returns(() => notifyDto);
+
             // Create object Product
             var product = new Product() { Id = 1 };
 
@@ -68,7 +81,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => objContentCart).Callback(() => objContentCart.Id++);
 
             // Create CartService object with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
             var actual3 = service.AddInCart(objContentCart.Id);
@@ -82,6 +95,12 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [Test]
         public void Add_New_Content_In_Cart_If_Not_Save_In_Repository()
         {
+            var notifyDto = new NotificationDto();
+
+            // Setup Mock Product
+            mockNotify.Setup(item => item.AddToCartNotify(It.IsAny<AddToCartNotifyDto>()))
+                .Returns(() => notifyDto);
+
             // Create object Product
             var product = new Product() { Id = 1 };
 
@@ -103,7 +122,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => null);
 
             // Create CartService object with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
             Assert.Throws<AddContentInCartExceptions>(() => service.AddInCart(objContentCart.Id));
@@ -123,7 +142,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Call method for find content by id in repository
             var actual1 = service.ExistInCart(1);
@@ -142,7 +161,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList);
 
             // Create CartService with mock.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Call method for find content by id in repository
             var actual1 = service.ExistInCart(6);

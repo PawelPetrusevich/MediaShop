@@ -15,6 +15,8 @@ import { ForgotPasswordComponent } from '../Components/user/forgot-password/forg
 import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 
 import { UserListComponent } from '../components/user/user-list/user-list.component';
+import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
+import { PaymentComponent } from '../components/payment/payment.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 @NgModule({
   imports: [
@@ -34,10 +36,8 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
         path: 'product-list',
         component: ProductListComponent
       },
-      {
-        path: 'cart',
-        component: CartComponent
-      },
+      { path: 'cart', component: CartComponent },
+      { path: 'payment', component: PaymentComponent },
       {
         path: 'product-upload',
         component: ProductUploadComponent
@@ -56,6 +56,9 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
+      {
+        path: 'payment-info', component: PaymentInfoComponent
+      },
       { path: '**', component: NotfoundComponent }
     ])
   ],
