@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,10 +11,13 @@ import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductSearchModel } from '../Models/Content/ProductSearchModel';
 import { OriginalProductDTO } from '../Models/Content/OriginalProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
+
 
   compressedProductList: CompressedProductDto[];
   private webApiUrl = 'http://localhost:51289/api/product/';
@@ -24,7 +27,7 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.post(this.webApiUrl + 'add', uploadProduct, {
       headers: header
     });
@@ -34,20 +37,21 @@ export class ProductService {
     return this.http.get<ProductInfoDto>(this.webApiUrl + 'getById/' + ID);
   }
 
-  searchProduct(productSearchModel: ProductSearchModel) {
-    return this.http.post<ProductDto>(
-      this.webApiUrl + 'Find',
-      productSearchModel
-    );
+  searchProduct(conditionList: ProductSearchModel[]) {
+    return this.http.post<CompressedProductDto[]>(this.webApiUrl + 'Find', conditionList);
   }
 
-  getListPurshasedProducts(UserID: number) {
-    return this.http.get<ProductDto>(this.webApiUrl + 'GetPurshasedProducts');
+  getListPurshasedProducts() {
+    return this.http.get(this.webApiUrl + 'GetPurshasedProducts');
   }
 
-  downloadProduct(ID: number, UserID: Number) {
-    return this.http.get<OriginalProductDTO>(
-      this.webApiUrl + 'GetOriginalPurshasedProduct'
-    );
+  downloadProduct(ID: number) {
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct/' + ID, { headers: header});
+  }
+
+  deleteProduct(id: number) {
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.delete(this.webApiUrl + 'delete/' + id, { headers: header });
   }
 }

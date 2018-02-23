@@ -1,13 +1,23 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <img src="{{Base64Content}}" />
+      <div [ngSwitch]="productInfo.ProductType">
+        <div *ngSwitchCase="1">
+          <img src="{{Base64Image}}" width="100%" />
+        </div>
+        <div *ngSwitchCase="2">
+          <video src="{{Base64Video}}" controls width="100%"></video>
+        </div>
+        <div *ngSwitchCase="3">
+          <audio src="{{Base64Audio}}" controls></audio>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="list-group">
         <div class="list-group-item-text">
           <h4>Price</h4>
-          <p>{{productInfo.ProductPrice}}</p>
+          <p>{{productInfo.ProductPrice | currency}}</p>
         </div>
         <div class="list-group-item-text">
           <h4>Name</h4>
@@ -17,6 +27,12 @@
           <h4>Description</h4>
           <p>{{productInfo.Description}}</p>
         </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn btn-primary" type="button" (click)="ToCart()">Incart</div>
+        <div class="btn btn-primary" type="button">To Favorit</div>
+        <div class="btn btn-primary" type="button" (click) = "Download()">Download</div>
+        <div class="btn btn-danger" type ="button" (click)="DeleteProduct()">DELETE</div>
       </div>
     </div>
   </div>

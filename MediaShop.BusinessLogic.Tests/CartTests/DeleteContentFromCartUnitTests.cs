@@ -25,6 +25,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for MockProduct
         private Mock<IProductRepository> mockProduct;
 
+        // Field for MockNotify
+        private Mock<INotificationService> mockNotify;
+
         public DeleteContentFromCartUnitTests()
         {
             Mapper.Reset();
@@ -43,6 +46,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
+            var _mockNotify = new Mock<INotificationService>();
+            mockNotify = _mockNotify;
         }
 
         [Test]
@@ -64,7 +69,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList[0]);
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InBought);
 
@@ -90,7 +95,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => contentCartList[0]);
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             var actual2 = service.SetState(5, CartEnums.StateCartContent.InPaid);
 
@@ -122,7 +127,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var collectionId = new Collection<long>() { 5, 6 };
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Delete content
             var actual5 = service.DeleteOfCart(collectionId);
@@ -154,7 +159,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(new ContentCart { Id = 2, CreatorId = 1 })
                 .Throws(new InvalidOperationException());
             var collectionId = new Collection<long>() { 1, 2 };
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             var result = service.DeleteOfCart(cart, 1);
 
             Assert.AreEqual((uint)0,  result.CountItemsInCollection);
@@ -165,7 +170,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         public void Delete_of_Cart_is_null()
         {
             Cart cart = null;
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             Assert.Throws<ArgumentNullException>(() => service.DeleteOfCart(cart, 1));
         }
 
@@ -200,7 +205,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Throws(new InvalidOperationException());
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Collection object`s id for delete
             var collectionId = new Collection<long>() { 5, 6, 7 };
@@ -229,7 +234,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Throws(new InvalidOperationException());
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Collection object`s id for delete
             Collection<long> collectionId = null;

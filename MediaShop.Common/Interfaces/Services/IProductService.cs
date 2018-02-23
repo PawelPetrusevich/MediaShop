@@ -31,35 +31,35 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="model">product model</param>
         /// <returns>result</returns>
-        ProductDto UploadProducts(UploadProductModel model);
+        ProductDto UploadProducts(UploadProductModel model, long creatorId);
 
         /// <summary>
         /// DElete method.
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        ProductDto SoftDeleteById(long id);
+        ProductDto SoftDeleteById(long id, long creatorId);
 
         /// <summary>
         /// DElete method Async
         /// </summary>
         /// <param name="id">product id</param>
         /// <returns>result</returns>
-        Task<ProductDto> SoftDeleteByIdAsync(long id);
+        Task<ProductDto> SoftDeleteByIdAsync(long id, long creatorId);
 
         /// <summary>
         /// Find method.
         /// </summary>
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
-        IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList);
+        IEnumerable<CompressedProductDTO> Find(List<ProductSearchModel> conditionsList);
 
         /// <summary>
         /// Find method Async
         /// </summary>
         /// <param name="conditionsList">filter</param>
         /// <returns>product</returns>
-        Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList);
+        Task<IEnumerable<CompressedProductDTO>> FindAsync(List<ProductSearchModel> conditionsList);
 
         /// <summary>
         /// Get list purshased products
@@ -108,6 +108,6 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <param name="data">upload model</param>
         /// <returns>Task ProductDto</returns>
-        Task<ProductDto> UploadProductsAsync(UploadProductModel data);
+        Task<ProductDto> UploadProductsAsync(UploadProductModel data, long creatorId);
     }
 }

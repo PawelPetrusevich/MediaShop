@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,15 +29,17 @@ namespace MediaShop.BusinessLogic.Services
     {
         private readonly IProductRepository _repository;
         private readonly ICartRepository _cartRepository;
+        private readonly IAccountRepository _accountRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="repository">repository</param>
-        public ProductService(IProductRepository repository, ICartRepository cartRepository)
+        public ProductService(IProductRepository repository, ICartRepository cartRepository, IAccountRepository accountRepository)
         {
             this._repository = repository;
             this._cartRepository = cartRepository;
+            this._accountRepository = accountRepository;
         }
 
         /// <summary>
@@ -44,11 +47,17 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="uploadModels">Модель формы загрузки</param>
         /// <returns>Возвращаем модель для отображения</returns>
-        public ProductDto UploadProducts(UploadProductModel uploadModels)
+        public ProductDto UploadProducts(UploadProductModel uploadModels, long creatorId)
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
             data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
+            data.CreatorId = creatorId;
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -69,7 +78,7 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case ProductType.Music:
                         data.OriginalProduct.Content = uploadProductInByte;
-                        data.CompressedProduct.Content = null;
+                        data.CompressedProduct.Content = Convert.FromBase64String(Resources.CompressedAudio);
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
                         break;
                     case ProductType.Video:
@@ -92,11 +101,18 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="uploadModels">UploadProductModel</param>
         /// <returns>Task ProductDTO</returns>
-        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels)
+        public async Task<ProductDto> UploadProductsAsync(UploadProductModel uploadModels, long creatorId)
         {
             var data = Mapper.Map<Product>(uploadModels);
             var uploadProductInByte = Convert.FromBase64String(uploadModels.UploadProduct);
             data.ProductType = uploadProductInByte.GetMimeFromByteArray();
+
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
+            data.CreatorId = creatorId;
 
             if (string.IsNullOrEmpty(uploadModels.UploadProduct))
             {
@@ -143,17 +159,28 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public ProductDto SoftDeleteById(long id)
+        public ProductDto SoftDeleteById(long id, long creatorId)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
             var currentProduct = _repository.Get(id);
+
             if (currentProduct is null)
             {
                 throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            if (creatorId != currentProduct.CreatorId)
+            {
+                throw new InvalidOperationException(Resources.NoRootForDelete);
             }
 
             var result = _repository.SoftDelete(id);
@@ -166,17 +193,27 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="id">id of product</param>
         /// <returns>ProductDto</returns>
-        public async Task<ProductDto> SoftDeleteByIdAsync(long id)
+        public async Task<ProductDto> SoftDeleteByIdAsync(long id, long creatorId)
         {
             if (id <= 0)
             {
                 throw new InvalidOperationException(Resources.DeleteWithNullId);
             }
 
+            if (this._accountRepository.Get(creatorId) == null)
+            {
+                throw new ArgumentException(Resources.UserNotFound);
+            }
+
             var currentProduct = _repository.Get(id);
             if (currentProduct is null)
             {
                 throw new InvalidOperationException(Resources.GetProductError);
+            }
+
+            if (creatorId != currentProduct.CreatorId)
+            {
+                throw new InvalidOperationException(Resources.NoRootForDelete);
             }
 
             var result = await _repository.SoftDeleteAsync(id);
@@ -189,7 +226,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="conditionsList">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        public IEnumerable<ProductDto> Find(List<ProductSearchModel> conditionsList)
+        public IEnumerable<CompressedProductDTO> Find(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(Product));
@@ -225,7 +262,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
-            return Mapper.Map<List<ProductDto>>(this._repository.Find(lambda));
+            return Mapper.Map<List<CompressedProductDTO>>(this._repository.Find(lambda));
         }
 
         /// <summary>
@@ -233,7 +270,7 @@ namespace MediaShop.BusinessLogic.Services
         /// </summary>
         /// <param name="conditionsList">принимаем условие</param>
         /// <returns>возрощаем список product</returns>
-        public async Task<IEnumerable<ProductDto>> FindAsync(List<ProductSearchModel> conditionsList)
+        public async Task<IEnumerable<CompressedProductDTO>> FindAsync(List<ProductSearchModel> conditionsList)
         {
             var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(Product));
@@ -269,7 +306,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
-            return Mapper.Map<List<ProductDto>>(await this._repository.FindAsync(lambda));
+            return Mapper.Map<List<CompressedProductDTO>>(await this._repository.FindAsync(lambda));
         }
 
         /// <summary>

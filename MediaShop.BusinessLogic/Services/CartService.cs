@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using MediaShop.BusinessLogic.Properties;
+    using MediaShop.Common.Dto;
     using MediaShop.Common.Enums;
     using MediaShop.Common.Exceptions.CartExceptions;
     using MediaShop.Common.Interfaces.Repositories;
@@ -22,15 +23,18 @@
 
         private readonly IProductRepository repositoryProduct;
 
+        private readonly INotificationService serviceNotification;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CartService"/> class.
         /// </summary>
         /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
-        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository)
+        public CartService(ICartRepository contentCartRepository, IProductRepository productRepository, INotificationService notificationService)
         {
             this.repositoryContentCart = contentCartRepository;
             this.repositoryProduct = productRepository;
+            this.serviceNotification = notificationService;
         }
 
         /// <summary>
@@ -72,6 +76,11 @@
 
             // Get information about Product by Id
             var product = this.repositoryProduct.Get(contentId);
+
+            // Create object AddToCartNotifyDto
+            // var objectNotify = new AddToCartNotifyDto() { ReceiverId = product.Id, ProductName = product.ProductName };
+
+            // var notification = this.serviceNotification.AddToCartNotify(objectNotify);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
@@ -121,6 +130,11 @@
 
             // Get information about Product by Id
             var product = await this.repositoryProduct.GetAsync(contentId).ConfigureAwait(false);
+
+            // Create object AddToCartNotifyDto
+            // var objectNotify = new AddToCartNotifyDto() { ReceiverId = product.Id, ProductName = product.ProductName };
+
+            // var notification = await this.serviceNotification.AddToCartNotifyAsync(objectNotify);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
@@ -316,7 +330,8 @@
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
         public bool ExistInCart(long contentId) => this.repositoryContentCart
-            .Find(item => item.ProductId == contentId).Count() != 0;
+            .Find(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+            .Count() != 0;
 
         /// <summary>
         /// Async checking the existence of content in cart
@@ -326,7 +341,9 @@
         /// false - content doesn`t exist in cart</returns>
         public async Task<bool> ExistInCartAsync(long contentId)
         {
-            var resultFindAsync = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
+            var resultFindAsync = await this.repositoryContentCart
+                .FindAsync(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ConfigureAwait(false);
             return resultFindAsync.Count() != 0;
         }
 

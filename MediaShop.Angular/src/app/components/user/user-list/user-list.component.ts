@@ -1,37 +1,45 @@
-import { Component, OnInit } from "@angular/core";
-import { Permissions } from "../../../Models/User/permissions";
-import { UserService } from "../../../Services/User/userservise";
-import { PermissionDto } from "../../../Models/User/permissionDto";
-import { NgIf } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { Permissions } from '../../../Models/User/permissions';
+import { UserService } from '../../../Services/User/userservise';
+import { PermissionDto } from '../../../Models/User/permissionDto';
+import { NgIf } from '@angular/common';
+import { forEach } from '@angular/router/src/utils/collection';
+import { Route } from '@angular/compiler/src/core';
+import { Routes, Router } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule, Http } from '@angular/http';
 
 @Component({
-  selector: "app-user-list",
-  templateUrl: "./user-list.component.html",
-  styleUrls: ["./user-list.component.css"]
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
   users: PermissionDto[];
+  private selectedId: number;
   currentUser: PermissionDto;
   showError = false;
 
-  see: boolean;
-  seeNum: number;
-  create: boolean;
-  createNum: number;
-  del: boolean;
-  delNum: number;
-  newPermission: Permissions;
-
   status: any;
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
   ngOnInit() {
-    this.getAll();
+    return this.userService.GetAllUsers().subscribe(result => {
+      this.users = result;
+    });
   }
   getAll() {
     this.userService.GetAllUsers().subscribe(result => {
       this.users = result;
     });
   }
+
   SetFlagIsBanned(permissionDto: PermissionDto) {
     this.userService
       .SetFlagIsBanned(permissionDto.Id)
@@ -55,37 +63,5 @@ export class UserListComponent implements OnInit {
         ),
         err => console.log(err)
       );
-  }
-  SetPermission(user: PermissionDto): void {
-    if (this.see) {
-      this.seeNum = 1;
-    } else {
-      this.seeNum = 0;
-    }
-    if (this.create) {
-      this.createNum = 2;
-    } else {
-      this.createNum = 0;
-    }
-    if (this.del) {
-      this.delNum = 4;
-    } else {
-      this.delNum = 0;
-    }
-    this.newPermission = this.seeNum | this.createNum | this.delNum;
-
-    this.userService
-      .SetPermission(user.Id, user.Login, user.Email, this.newPermission)
-      .subscribe(resp => (console.log(this.seeNum), this.status = resp.status), err => console.log(err));
-  }
-  GetPermission(user: PermissionDto) {
-    console.log(user.Permissions);
-    /*console.log(Permissions.See);
-    console.log(user.Permission & Permissions.See);
-    console.log((user.Permission & Permissions.See) === 0);*/
-
-    this.see = (user.Permissions & Permissions.See) === 0;
-    this.create = (user.Permissions & Permissions.Create) === 0;
-    this.del = (user.Permissions & Permissions.Delete) === 0;
   }
 }

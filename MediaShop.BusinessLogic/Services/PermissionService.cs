@@ -61,6 +61,21 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<Account>(result);
         }
 
+        public Account SetPermissionMask(UserDto permission)
+        {
+            if (permission == null)
+            {
+                throw new ArgumentNullException(Resources.NullOrEmptyValue);
+            }
+
+            var user = _accountRepository.Get(permission.Id) ?? throw new NotFoundUserException();
+            user.Permissions = permission.Permissions;
+
+            var result = _accountRepository.Update(user) ?? throw new UpdateAccountException();
+
+            return Mapper.Map<Account>(result);
+        }
+
         public async Task<Account> SetPermissionAsync(UserDto permission)
         {
             if (permission == null)
