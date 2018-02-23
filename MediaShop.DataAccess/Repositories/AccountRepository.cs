@@ -44,14 +44,14 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
 
-            return this.DbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return this.DbSet.SingleOrDefault(x => x.Id == id);
         }
 
         public async Task<AccountDbModel> GetAsync(long id)
         {
             if (id <= 0)
             {
-                throw new ArgumentException("message!");
+                throw new ArgumentException(Resources.InvalidIdValue);
             }
 
             return await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
@@ -243,6 +243,45 @@ namespace MediaShop.DataAccess.Repositories
         public IEnumerable<AccountDbModel> GetAllUsers()
         {
             return this.DbSet.ToList();
+        }
+
+        /// <summary>
+        /// Delete user by setting flag deleted in model account 
+        /// </summary>
+        /// <param name="id">account  Id</param>
+        /// <returns>Account</returns>
+        public AccountDbModel SoftDelete(long id)
+        {
+            if (id < 1)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var model = this.DbSet.SingleOrDefault(entity => entity.Id == id);
+            model.IsDeleted = true;
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChanges();
+            return model;
+        }
+
+        /// <summary>
+        /// Delete user by setting flag deleted in model account 
+        /// </summary>
+        /// <param name="id">account  Id</param>
+        /// <returns>Account</returns>
+        public async Task<AccountDbModel> SoftDeleteAsync(long id)
+        {
+            if (id < 1)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue);
+            }
+
+            var model = await this.DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
+            model.IsDeleted = true;
+            this.Context.Entry(model).State = EntityState.Modified;
+            this.Context.SaveChangesAsync().ConfigureAwait(false);
+
+            return model;
         }
     }
 }

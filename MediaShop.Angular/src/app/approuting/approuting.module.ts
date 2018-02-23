@@ -17,7 +17,10 @@ import { ConfirmComponent } from '../Components/user/confirm/confirm.component';
 import { UserListComponent } from '../components/user/user-list/user-list.component';
 import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
 import { PaymentComponent } from '../components/payment/payment.component';
+import { UserSettingsComponent } from '../components/user/user-settings/user-settings.component';
+import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
+import { ProductDownloadComponent } from '../Components/Content/product-download/product-download.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +32,16 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
        canActivate: [AuthGuard],
        canLoad: [AuthGuard]
        },
+      { path: 'userSettings',
+      component: UserSettingsComponent,
+      canActivate: [AuthGuard],
+      canLoad: [AuthGuard]
+      },
+      { path: 'userProfile',
+      component: UserPofileComponent,
+      canActivate: [AuthGuard],
+      canLoad: [AuthGuard]
+      },
      { path: 'register', component: RegisterUserComponent },
       { path: 'recovery-password', component: PasswordRecoveryComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -48,7 +61,7 @@ import { SetPermissionComponent } from '../components/user/set-permission/set-pe
       },
       {
         path: 'product-download',
-        component: ProductInfoComponent
+        component: ProductDownloadComponent
       },
       {
         path: 'confirm',
