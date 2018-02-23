@@ -159,9 +159,10 @@ namespace MediaShop.BusinessLogic.Tests.ProductTest
         public void Product_DeleteProductByIdTest()
         {
             _productService.UploadProducts(_newProducts[0], creatorId);
-            var returnProduct = _productService.SoftDeleteById(1,0);
 
-            Assert.IsNotNull(returnProduct);
+            long productId = 1;
+            Assert.Throws(typeof(InvalidOperationException),()=>{ _productService.SoftDeleteById(1, creatorId); });
+
         }
 
         [Test]

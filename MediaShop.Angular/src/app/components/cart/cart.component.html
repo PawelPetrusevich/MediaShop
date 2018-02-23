@@ -1,44 +1,47 @@
-<!--<div class="container" *ngIf="!isPayment">-->
-<div class="container">
+<div class="starter-template" *ngIf="cart.CountItemsInCollection > 0 && cart.PriceAllItemsCollection>0 && cart.ContentCartDtoCollection!=null">
   <div class="row">
     <table class="table table-bordered">
       <thead>
-        <th class="col-md-3">Наименование</th>
-        <th class="col-md-3">Описание</th>
-        <th class="col-md-3">Цена</th>
+        <th class="col-md-3">Content Name</th>
+        <th class="col-md-3">Description</th>
+        <th class="col-md-3">Price</th>
         <th class="col-md-3"></th>
       </thead>
       <tbody>
         <tr *ngFor="let item of cart.ContentCartDtoCollection">
           <td class="col-md-3">{{item.ContentName}}</td>
           <td class="col-md-3">{{item.DescriptionItem}}</td>
-          <td class="col-md-3">{{item.PriceItem}} $</td>
+          <td class="col-md-3">{{item.PriceItem | currency}}</td>
           <td class="col-md-3">
-            <input type="button" class="btn btn-primary btn-sm" value="Удалить" (click)="delete(item)" />
+            <input type="button" class="btn btn-primary btn-sm" value="Remove item" (click)="delete(item)" />
           </td>
         </tr>
         <tr>
           <td class="col-md-3">
-            <label>Количество элементов: {{cart.CountItemsInCollection}}</label>
+            <label>Count: {{cart.CountItemsInCollection}}</label>
           </td>
           <td class="col-md-3"></td>
           <td class="col-md-3">
-            <label>Сумма: {{cart.PriceAllItemsCollection}} $</label>
+            <label>Total: {{cart.PriceAllItemsCollection | currency}}</label>
           </td>
           <td class="col-md-3"></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="alert alert-danger" role="alert" *ngIf="showError">
-    {{errorMessage}}
-  </div>
   <div class="row">
-    <button type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Оплатить</button>
-    <button type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Очистить корзину</button>
+    <div class="col-md-5">
+        <button [disabled]="cart.CountItemsInCollection <= 0 || cart.PriceAllItemsCollection <= 0 || cart.ContentCartDtoCollection == null" type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Payment</button>
+    </div>
+    <div class="col-md-5 col-md-offset-2">
+        <button [disabled]="cart.CountItemsInCollection <=0 || cart.ContentCartDtoCollection == null"  type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Clear Cart</button>
+    </div>
   </div>
-
 </div>
-<!--<div class="container" *ngIf="isPayment">
-  <app-payment [cart]=cart></app-payment>
-</div>-->
+<div class="alert alert-danger" role="alert" *ngIf="showError">
+  {{errorMessage}}
+</div>
+<div class="starter-template" *ngIf="cart.CountItemsInCollection <= 0">
+  <h1 class="jumbotron-heading">Your Shopping Cart is empty.</h1>
+  <a class="nav-link" routerLink="">Home...</a>
+</div>
