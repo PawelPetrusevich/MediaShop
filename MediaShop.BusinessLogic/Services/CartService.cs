@@ -389,7 +389,9 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = this.repositoryContentCart.Find(item => item.ProductId == contentId).ToList();
+            var contentCartForUpdateList = this.repositoryContentCart
+                .Find(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ToList();
 
             if (contentCartForUpdateList.Count() == 0)
             {
@@ -426,7 +428,9 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
+            var contentCartForUpdateList = await this.repositoryContentCart
+                .FindAsync(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ConfigureAwait(false);
 
             if (contentCartForUpdateList.Count() == 0)
             {
