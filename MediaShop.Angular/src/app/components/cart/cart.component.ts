@@ -4,34 +4,51 @@ import { Cartservice } from '../../services/cartservice';
 import { Paymentservice } from '../../services/paymentservice';
 import { ContentCartDto } from '../../Models/Cart/content-cart-dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PaymentComponent } from '../payment/payment.component';
+import { Router } from '@angular/router';
+import { CartDataProvider } from './cartDataProvider';
 import { SignalR } from 'ng2-signalr';
+
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent implements OnInit {
   cart: Cart = new Cart();
   isLoaded = false;
   showError = false;
   errorMessage: string;
-  url: string;
+  urlForPayment: string;
   indexCurrentElement: number;
   isPayment = false;
 
-  constructor(private cartService: Cartservice, private paymentService: Paymentservice, private _signalR: SignalR) {
+  constructor(private cartService: Cartservice, private paymentService: Paymentservice, private router: Router
+    , private dataProvider: CartDataProvider, private _signalR: SignalR) {
   }
 
   ngOnInit() {
     this.cartService.get().subscribe(resp => {
       this.cart = resp;
+      this.dataProvider.storageCart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
@@ -41,10 +58,20 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
@@ -66,10 +93,20 @@ export class CartComponent implements OnInit {
         this.errorMessage = 'element index not found';
       }
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
   );
   }
@@ -80,30 +117,50 @@ export class CartComponent implements OnInit {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
   );
   }
 
   paypalPayment() {
     this.paymentService.payPalPayment(this.cart).subscribe(resp => {
-      this.url = resp;
+      this.urlForPayment = resp;
+      this.paypalExecutePayment();
     }, (err: HttpErrorResponse) => {
+      this.errorMessage = ' Oops!)) Error....';
       if (err.status === 404) {
+        this.errorMessage = err.statusText;
         this.showError = true;
       }
-      this.errorMessage = err.statusText;
+      if (err.status === 400) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      if (err.status === 500) {
+        this.errorMessage = err.statusText;
+        this.showError = true;
+      }
+      this.showError = true;
     }
     );
   }
-/*  paypalPayment() {
-    if (!this.isPayment) {
-      this.isPayment = true;
-    } else {
-      this.isPayment = false;
-    }
-  }*/
+
+  paypalExecutePayment() {
+    this.dataProvider.storageCart = this.cart;
+    this.dataProvider.storageUrl = this.urlForPayment;
+    this.router.navigate(['payment']);
+  }
 }

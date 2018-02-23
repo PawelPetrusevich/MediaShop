@@ -23,6 +23,9 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         // Field for MockProduct
         private Mock<IProductRepository> mockProduct;
 
+        // Field for MockNotify
+        private Mock<INotificationService> mockNotify;
+
         private Collection<ContentCart> _collectionContentCart;
 
         public GetCatrUnitTests()
@@ -43,6 +46,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock = _mock;
             var _mockProduct = new Mock<IProductRepository>();
             mockProduct = _mockProduct;
+            var _mockNotify = new Mock<INotificationService>();
+            mockNotify = _mockNotify;
 
             _collectionContentCart = new Collection<ContentCart>()
             {
@@ -61,7 +66,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(item => item.GetById(It.IsAny<long>()))
                 .Returns(_collectionContentCart);
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             var cart = service.GetCart(1);
             Assert.AreEqual((uint)3, cart.CountItemsInCollection);
@@ -77,7 +82,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
                 .Returns(() => collectionItem);
 
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             var cart = service.GetCart(1);
             Assert.AreEqual((uint)0, cart.CountItemsInCollection);
@@ -93,7 +98,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(item => item.GetById(It.IsAny<long>()))
                 .Returns(_collectionContentCart);
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             var price = service.GetPrice(1);
             Assert.AreEqual(new decimal(11.50),price);           
@@ -106,7 +111,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(item => item.GetById(1))
                 .Returns(() => collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             var price = service.GetPrice(5);
             Assert.AreEqual(0, price);
         }
@@ -119,7 +124,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(item => item.GetById(It.IsAny<long>()))
                 .Returns(_collectionContentCart);
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             var count = service.GetCountItems(1);
             Assert.AreEqual((uint)3, count);
         }
@@ -131,7 +136,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             mock.Setup(item => item.GetById(1))
                 .Returns(() => collectionItems);
             // Create CartService with mock.Object and mockProduct.Object
-            var service = new CartService(mock.Object, mockProduct.Object);
+            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
             var count = service.GetCountItems(1);
             Assert.AreEqual((uint)0, count);
         }

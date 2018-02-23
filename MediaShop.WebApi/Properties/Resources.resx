@@ -166,4 +166,7 @@
   <data name="NotFoundProduct" xml:space="preserve">
     <value>Not found product with this ID</value>
   </data>
+  <data name="NullTokenData" xml:space="preserve">
+    <value>You are not authorized</value>
+  </data>
 </root>

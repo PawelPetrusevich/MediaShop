@@ -6,15 +6,24 @@ import 'rxjs/add/operator/catch';
 import { ItemDto } from '../Models/Payment/item-dto';
 import { PayPalPaymentDto } from '../Models/Payment/pay-pal-payment-dto';
 import { Cart } from '../Models/Cart/cart';
+import { HttpParams } from '@angular/common/http';
+import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
 export class Paymentservice {
-  static url = 'http://demo.belpyro.net/api/payment';
   constructor(private http: Http) {}
 
   payPalPayment(cart: Cart): Observable<string> {
     return this.http
-      .post(Paymentservice.url + '/paypalpayment', cart)
+      .post(AppSettings.API_PUBLIC + 'api/payment/paypalpayment', cart)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
+  }
+
+  executePayment(paymentId: string, token: string): Observable<PayPalPaymentDto> {
+    return this.http
+      .get(AppSettings
+        .API_PUBLIC + 'api/payment/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
