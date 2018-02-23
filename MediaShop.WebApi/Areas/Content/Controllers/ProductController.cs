@@ -10,6 +10,7 @@ using MediaShop.Common.Dto;
 using MediaShop.Common.Dto.Product;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
+using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Areas.Content.Controllers;
 using MediaShop.WebApi.Areas.Content.Controllers.Filters;
 using MediaShop.WebApi.Filters;
@@ -21,6 +22,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
     [LoggingFilter]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;

@@ -28,6 +28,12 @@ namespace MediaShop.Common.Models.User
         /// Delete
         /// has mask 0100
         /// </summary>
-        Delete = 4
+        Delete = 4,
+
+        /// <summary>
+        /// ManageUsers
+        /// has mask 1000
+        /// </summary>
+        ManageUsers = 8
     }
 }

@@ -18,12 +18,14 @@ using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Dto.Payment;
 using System.Web.Http.Cors;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
     [PayPalPaymentExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/payment")]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class PaymentController : ApiController
     {
         private readonly IPayPalPaymentService _paymentService;

@@ -232,11 +232,11 @@
             var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<ItemDto>() };
 
             payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
+            var parseCulture = new CultureInfo("en-US");
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
-                CultureInfo.CurrentCulture = new CultureInfo("en-US");
-                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total);
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total, parseCulture);
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
                     payPalPaymentDto.Items.Add(Mapper.Map<PayPal.Api.Item, ItemDto>(item));
@@ -283,8 +283,8 @@
                 // Rollback change set state content
                 foreach (long contentId in this.listIdForRollBack)
                 {
-                        // 3.1 Change state product in cart
-                        var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
+                    // 3.1 Change state product in cart
+                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
                 }
 
                 throw new UpdateContentInCartExseptions(error.Message);
@@ -300,7 +300,7 @@
                     // 3.2 Transferring product in Defrayal from ContentCart
                     var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
-                        // 3.3 Save object Defrayal in repository
+                    // 3.3 Save object Defrayal in repository
                     var resultSaveDefrayal = this.DeleteDefrayal(objectDefrayal);
                 }
 

@@ -10,12 +10,14 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models;
 using MediaShop.WebApi.Properties;
 using System.Web.Http.Cors;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [CartExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/cart")]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class CartController : ApiController
     {
         private readonly ICartService<ContentCartDto> _cartService;

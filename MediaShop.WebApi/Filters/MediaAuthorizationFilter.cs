@@ -13,7 +13,7 @@ using System.Web.Http.Filters;
 
 namespace MediaShop.WebApi.Filters
 {
-    public class AuthorizationFilter : Attribute, IAuthorizationFilter
+    public class MediaAuthorizationFilter : Attribute, IAuthorizationFilter
     {
         public bool AllowMultiple { get; private set; }
 
