@@ -35,6 +35,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// <returns>Cart</returns>
         [HttpGet]
         [Route("getcart")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public IHttpActionResult Get()
@@ -59,6 +60,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// <returns>Cart</returns>
         [HttpGet]
         [Route("getcartasync")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public async Task<IHttpActionResult> GetAsync()
@@ -187,7 +189,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        public IHttpActionResult Delete([FromBody] Cart data)
+        public IHttpActionResult Delete([FromUri] long userId)
         {
             long id = 0; //userId from claim
             var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
@@ -196,12 +198,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 throw new InvalidIdException(Resources.IncorrectId);
             }
 
-            if (data == null)
+            if (userId == id || userId <= 0)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectId);
             }
 
-            var result = _cartService.DeleteOfCart(data, id);
+            var result = _cartService.DeleteOfCart(userId);
             return this.Ok(result);
         }
 
@@ -216,7 +218,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
-        public async Task<IHttpActionResult> DeleteAsync([FromBody] Cart data)
+        public async Task<IHttpActionResult> DeleteAsync([FromUri] long userId)
         {
             long id = 0; //userId from claim
             var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
@@ -225,12 +227,12 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 throw new InvalidIdException(Resources.IncorrectId);
             }
 
-            if (data == null)
+            if (userId == id || userId <= 0)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectId);
             }
 
-            var result = await _cartService.DeleteOfCartAsync(data, id);
+            var result = await _cartService.DeleteOfCartAsync(userId);
             return this.Ok(result);
         }
     }
