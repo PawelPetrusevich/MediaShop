@@ -3,15 +3,15 @@
     <div class="col-md-3">Choose your language:</div>
     <div class="col-md-6">
       <div>
-        <input type="radio" id="Languages.Eng" value="Eng" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <input type="radio" id="Languages.Eng" value="Eng" name="Languages" [checked]="InterfaceLanguage === 1" (click)="setLanguage(1)">
         <label for="Languages.Eng">English</label>
       </div>
       <div>
-        <input type="radio" id="Languages.Rus" value="Rus" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <input type="radio" id="Languages.Rus" value="Rus" name="Languages" [checked]="InterfaceLanguage === 2" (click)="setLanguage(2)">
         <label for="Languages.Rus">Russian</label>
       </div>
       <div>
-        <input type="radio" id="Languages.Bel" value="Bel" name="Languages" [(ngModel)]="InterfaceLanguage">
+        <input type="radio" id="Languages.Bel" value="Bel" name="Languages" [checked]="InterfaceLanguage === 3" (click)="setLanguage(3)">
         <label for="Languages.Bel">bebebe</label>
       </div>
     </div>
