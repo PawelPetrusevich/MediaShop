@@ -21,6 +21,7 @@ export class ProductService {
 
   compressedProductList: CompressedProductDto[];
   private webApiUrl = 'http://localhost:51289/api/product/';
+  /*private webApiUrl = 'http://demo.belpyro.net/api/product/';*/
 
   getListProduct() {
     return this.http.get(this.webApiUrl + 'GetListOnSale');

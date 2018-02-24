@@ -139,10 +139,8 @@ namespace MediaShop.BusinessLogic.Services
                     case ProductType.Video:
                         data.OriginalProduct.Content = uploadProductInByte;
                         var context = HttpContext.Current;
-                        var protectedTask = Task.Run(() => uploadProductInByte.GetProtectedVideoAsync(context));
-                        var compressedTask = Task.Run(() => uploadProductInByte.GetCompresedVideoFrameAsync(context));
-                        data.ProtectedProduct.Content = protectedTask.Result;
-                        data.CompressedProduct.Content = compressedTask.Result;
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideoAsync(context);
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrameAsync(context);
                         break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);
