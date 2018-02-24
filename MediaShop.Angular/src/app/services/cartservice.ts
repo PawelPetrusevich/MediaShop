@@ -49,10 +49,9 @@ export class Cartservice {
   }
 
   addContent(id: number): Observable<ContentCartDto> {
-    const params = new HttpParams().set('contentId', id.toString());
     return this.http
-      .post(AppSettings.API_PUBLIC + 'api/cart/addasync', {params})
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+    .get(AppSettings.API_PUBLIC + 'api/cart/addasync' + id)
+    .map(resp => resp.json())
+    .catch(err => Observable.throw(err));
   }
 }
