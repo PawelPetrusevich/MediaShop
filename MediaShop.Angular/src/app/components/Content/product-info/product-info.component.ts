@@ -90,7 +90,9 @@ export class ProductInfoComponent implements OnInit {
         this.SaveVideo(response);
         break;
       }
-    });
+    },
+    error => this.ShowError(error as HttpErrorResponse)
+  );
   }
 
   SaveImage(downloadingFile: OriginalProductDTO) {

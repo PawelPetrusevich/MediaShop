@@ -50,7 +50,7 @@ export class Cartservice {
 
   addContent(id: number): Observable<ContentCartDto> {
     return this.http
-    .get(AppSettings.API_PUBLIC + 'api/cart/addasync' + id)
+    .get(AppSettings.API_PUBLIC + 'api/cart/addasync/' + id)
     .map(resp => resp.json())
     .catch(err => Observable.throw(err));
   }
