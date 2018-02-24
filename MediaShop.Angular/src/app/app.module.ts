@@ -37,7 +37,7 @@ import { ProductUploadComponent } from './components/Content/product-upload/prod
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { ProductDownloadComponent } from './Components/Content/product-download/product-download.component';
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
-import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
@@ -46,8 +46,7 @@ import { CartDataProvider } from './components/cart/cartDataProvider';
 
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
-import { SignalRConfig } from './signalR/SignalRConfig';
-import { SignalRconnectionResolver } from './signalR/signal-rconnection-resolver';
+import { SignalRConfig } from './signalR/signalr-config';
 
 @NgModule({
   declarations: [
@@ -97,7 +96,6 @@ import { SignalRconnectionResolver } from './signalR/signal-rconnection-resolver
     ProductService,
     AuthGuard,
     NgbPaginationConfig,
-    SignalRconnectionResolver,
     CartDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

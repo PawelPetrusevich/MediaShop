@@ -18,7 +18,7 @@ import { UserListComponent } from '../components/user/user-list/user-list.compon
 import { PaymentInfoComponent } from '../components/payment-info/payment-info.component';
 import { PaymentComponent } from '../components/payment/payment.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
-import { SignalRconnectionResolver } from '../signalR/signal-rconnection-resolver';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,12 +40,10 @@ import { SignalRconnectionResolver } from '../signalR/signal-rconnection-resolve
         path: 'product-list',
         component: ProductListComponent
       },
-      { path: 'cart', component: CartComponent },
       { path: 'payment', component: PaymentComponent },
       {
         path: 'cart',
-        component: CartComponent,
-        resolve: { connection: SignalRconnectionResolver }
+        component: CartComponent
       },
       {
         path: 'product-upload',

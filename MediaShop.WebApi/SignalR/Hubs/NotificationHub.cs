@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace MediaShop.WebApi
 {
+    [HubName("NotificationHub")]
+    [Authorize]
     public class NotificationHub : Hub
     {
         public override Task OnConnected()
         {
-            var user = GetAuthenticatedUser();
-            Clients.All.OnUserConnected(user);
             return base.OnConnected();
         }
 
@@ -24,17 +25,6 @@ namespace MediaShop.WebApi
         public override Task OnReconnected()
         {
             return base.OnReconnected();
-        }
-
-        private string GetAuthenticatedUser()
-        {
-            var username = Context.QueryString["user"];
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                throw new System.Exception("Failed to authenticate user.");
-            }
-
-            return username;
         }
     }
 }
