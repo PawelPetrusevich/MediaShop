@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AccountService} from '../../../Services/User/AccountService';
 import {AppSettings} from '../../../Settings/AppSettings';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,5 +29,4 @@ export class LogoutComponent implements OnInit {
   ngOnInit() {
     this.logOut();
   }
-
 }

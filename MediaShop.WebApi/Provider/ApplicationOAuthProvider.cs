@@ -28,11 +28,12 @@ namespace MediaShop.WebApi.Provider
             _accountService = accountService;
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, string userId)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", userName },
+                { "userId", userId }
             };
             return new AuthenticationProperties(data);
         }
@@ -63,7 +64,7 @@ namespace MediaShop.WebApi.Provider
 
             var oauthIdentity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.Login);
+            AuthenticationProperties properties = CreateProperties(user.Login, user.Id.ToString());
             AuthenticationTicket ticket = new AuthenticationTicket(oauthIdentity, properties);
             context.Validated(ticket);
         }

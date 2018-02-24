@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     .subscribe(resp => {
       this.data = resp;
       localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
-      console.log(resp);
+      localStorage.setItem(AppSettings.userId, this.data.userId);
       this.router.navigate(['product-list']);
     },
     (err: HttpErrorResponse) => {
