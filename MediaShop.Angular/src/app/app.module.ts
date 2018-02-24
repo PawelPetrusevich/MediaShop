@@ -19,7 +19,6 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
 
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
-import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -42,11 +41,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserPofileComponent } from './components/user/user-pofile/user-pofile.component';
+import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { UserInfoService } from './Services/User/userInfoService';
 import { CartDataProvider } from './components/cart/cartDataProvider';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SignalRConfig } from './signalR/signalr-config';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +60,8 @@ import { SignalRConfig } from './signalR/signalr-config';
     NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
+    UserPofileComponent,
+    UserSettingsComponent,
     NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
@@ -63,7 +69,6 @@ import { SignalRConfig } from './signalR/signalr-config';
     PaymentComponent,
     ProductListComponent,
     SetPermissionComponent,
-    RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
 
@@ -85,11 +90,14 @@ import { SignalRConfig } from './signalR/signalr-config';
     FormsModule,
     HttpModule,
     ApproutingModule,
-    SignalRModule.forRoot(SignalRConfig.createConfig),
-    NgxPaginationModule
+    NgxPaginationModule,
+    SimpleNotificationsModule.forRoot(),
+    SignalRModule.forRoot(SignalRConfig.createConfig)
   ],
   providers: [
     AccountService,
+    UserService,
+    UserInfoService,
     Cartservice,
     Paymentservice,
     UserService,

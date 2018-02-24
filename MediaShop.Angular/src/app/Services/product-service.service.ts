@@ -15,18 +15,20 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
 
   compressedProductList: CompressedProductDto[];
-  private webApiUrl = 'http://localhost:51289/api/product/';
+  /*private webApiUrl = 'http://localhost:51289/api/product/';*/
+  private webApiUrl = 'http://demo.belpyro.net/api/product/';
 
   getListProduct() {
     return this.http.get(this.webApiUrl + 'GetListOnSale');
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.post(this.webApiUrl + 'add', uploadProduct, {
       headers: header
     });
@@ -45,6 +47,12 @@ export class ProductService {
   }
 
   downloadProduct(ID: number) {
-    return this.http.get(this.webApiUrl + 'GetOriginalPurshasedProduct' + ID);
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct/' + ID, { headers: header});
+  }
+
+  deleteProduct(id: number) {
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.http.delete<ProductDto>(this.webApiUrl + 'delete/' + id, { headers: header });
   }
 }

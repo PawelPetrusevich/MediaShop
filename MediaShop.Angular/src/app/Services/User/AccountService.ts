@@ -9,38 +9,51 @@ import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
 import { AppSettings } from '../../Settings/AppSettings';
 import { PasswordRecovery } from '../../Models/User/password-recovery';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/registerAsync', registerUser)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<Account>(AppSettings.API_PUBLIC + 'api/account/registerAsync', registerUser);
   }
 
   login(login: string, password: string): Observable<TokenResponse> {
     const body =
       'grant_type=password&username=' + login + '&password=' + password;
 
-    const options = new RequestOptions();
+    /*const options = new RequestOptions();
     options.headers = new Headers();
     options.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers.append('Access-Control-Allow-Origin', '*');
+*/
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Origin': '*'
+    });
+    const options = {
+      headers,
+      withCredentials: true
+    };
 
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'token', body, options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<TokenResponse>(AppSettings.API_PUBLIC + 'token', body, options);
   }
 
-  logout(id: number) {
+  logout() {
+    /*const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );*/
+
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/logout', id)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post(AppSettings.API_ENDPOINT + 'api/account/logout', null);
   }
 
   isAuthorized(): boolean {
@@ -56,16 +69,12 @@ export class AccountService {
       .post(
         AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
         email
-      )
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      );
   }
 
   confirm(email: string, token: string) {
     return this.http
-      .get(AppSettings.API_ENDPOINT + 'api/account/confirm/' + email + '/' + token)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .get(AppSettings.API_PUBLIC + 'api/account/confirm/' + email + '/' + token);
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
@@ -73,8 +82,6 @@ export class AccountService {
       .post(
         AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
         resetMasswor
-      )
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      );
   }
 }

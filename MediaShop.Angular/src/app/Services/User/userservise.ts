@@ -42,15 +42,15 @@ export class UserService {
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
-  Logout(id: number) {
-    return this.http
-      .post(UserService.url + '/account/logout', id)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
-  }
   GetAllUsers() {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
     return this.http
-      .get(UserService.url + '/account/GetAllUsers')
+      .get(UserService.url + '/account/GetAllUsers', options )
       .map(resp => {
         console.log(resp.json());
         return resp.json();
@@ -75,6 +75,21 @@ export class UserService {
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
+  deleteUserByIdAsync(id: number) {
+     const options = new RequestOptions();
+     options.headers = new Headers();
+     options.headers.append(
+       'Authorization',
+       'Bearer ' + localStorage.getItem('token')
+     );
+
+     options.headers.append('Content-Type', 'application/json');
+     return this.http
+       .post(UserService.url + '/user/deleteByIdAsync', id, options)
+       .map(resp => resp.json())
+       .catch(err => Observable.throw(err));
+   }
+
   GetUser(id: number | string) {
 
     return (

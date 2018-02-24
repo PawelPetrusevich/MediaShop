@@ -39,9 +39,8 @@ namespace MediaShop.BusinessLogic
         public override void Load()
         {
             Bind<IAccountService>().To<AccountService>();
+            Bind<IUserService>().To<UserService>();
             Bind<IPermissionService>().To<PermissionService>();
-            Bind<ISettingsService>().To<SettingsService>();
-            Bind<IProfileService>().To<ProfileService>();
             Bind<INotificationService>().To<NotificationService>();
             Bind<IEmailService>().To<EmailService>();
             Bind<IValidator<AccountConfirmationDto>>().To<ExtAccountConfirmationValidator>();
