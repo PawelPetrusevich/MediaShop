@@ -84,7 +84,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            var payment = await _paymentService.ExecutePaymentAsync(paymentId, 1);
+            var payment = await _paymentService.ExecutePaymentAsync(paymentId, id);
             return Ok(payment);
         }
 

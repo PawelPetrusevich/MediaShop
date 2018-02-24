@@ -123,7 +123,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return BadRequest(Resources.EmtyData);
             }
 
-            var result = await _cartService.AddInCartAsync(contentId, 2);
+            var result = await _cartService.AddInCartAsync(contentId, id);
             return this.Ok(result);
         }
 
