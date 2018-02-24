@@ -52,7 +52,8 @@ export class ProductUploadComponent implements OnInit {
         'File Not Upload',
          errorcode.message,
           {
-        timeOut: 5000
+        timeOut: 5000,
+        clickToClose: true
           });
 
   }
@@ -61,7 +62,8 @@ export class ProductUploadComponent implements OnInit {
       'File Upload',
        data.ProductName + data.ProductPrice.toString(),
       {
-      timeOut: 5000
+      timeOut: 5000,
+      clickToClose: true
       });
 
   }
