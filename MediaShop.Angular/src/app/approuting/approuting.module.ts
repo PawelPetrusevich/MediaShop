@@ -53,7 +53,9 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
       { path: 'payment', component: PaymentComponent },
       {
         path: 'product-upload',
-        component: ProductUploadComponent
+        component: ProductUploadComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
       },
       {
         path: 'product-info/:id',
@@ -61,7 +63,9 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
       },
       {
         path: 'product-download',
-        component: ProductDownloadComponent
+        component: ProductDownloadComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
       },
       {
         path: 'confirm',

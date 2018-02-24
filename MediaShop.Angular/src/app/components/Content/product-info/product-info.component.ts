@@ -8,6 +8,8 @@ import { ProductDto } from '../../../Models/Content/ProductDto';
 import { ContentType } from '../../../Models/Content/ContentType';
 import { OriginalProductDTO } from '../../../Models/Content/OriginalProductDto';
 import * as FileSaver from 'file-saver';
+import { Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-info',
@@ -20,6 +22,7 @@ export class ProductInfoComponent implements OnInit {
   id: number;
   private subscrition: Subscription;
   type: ContentType;
+  ErrorMessage: String = '';
 
 
 
@@ -58,7 +61,10 @@ export class ProductInfoComponent implements OnInit {
 
   DeleteProduct() {
     console.log('run methods');
-    this.productService.deleteProduct(this.productInfo.Id).subscribe();
+    this.productService.deleteProduct(this.productInfo.Id).subscribe((response) => (console.log(response)),
+      (err: HttpErrorResponse) => {
+        this.ErrorMessage = err.error.Message;
+      });
   }
 
   Download() {
@@ -78,6 +84,9 @@ export class ProductInfoComponent implements OnInit {
         this.SaveVideo(response);
         break;
       }
+    },
+    (err: HttpErrorResponse) => {
+      this.ErrorMessage = err.error.Message;
     });
   }
 
