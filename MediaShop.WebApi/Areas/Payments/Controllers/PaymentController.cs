@@ -18,6 +18,9 @@ using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Dto.Payment;
 using System.Web.Http.Cors;
+using MediaShop.WebApi.Properties;
+using System.Web;
+using System.Security.Claims;
 
 namespace MediaShop.WebApi.Areas.Payments.Controllers
 {
@@ -32,20 +35,6 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         {
             this._paymentService = paymentService;
         }
-
-        // [HttpPost]
-        // [Route("paypalpayment")]
-        // [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
-        // [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
-        // [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        // public IHttpActionResult PayPalPayment([FromBody] Cart cart)
-        // {
-        //    string paymentUrl = _paymentService.GetPayment(cart, Url.Request.RequestUri.ToString());
-        //    this.StatusCode(HttpStatusCode.Redirect);
-
-        //    // Request.Headers.Add("Access-Control-Allow-Origin", "*");
-        //    return Redirect(paymentUrl);
-        // }
 
         [HttpPost]
         [Route("paypalpayment")]
@@ -66,7 +55,16 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult ExecutePayment(string paymentId, string token)
         {
-            var payment = _paymentService.ExecutePayment(paymentId);
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var payment = _paymentService.ExecutePayment(paymentId, id);
             return Ok(payment);
         }
 
@@ -77,7 +75,16 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public async Task<IHttpActionResult> ExecutePaymentAsync(string paymentId, string token)
         {
-            var payment = await _paymentService.ExecutePaymentAsync(paymentId);
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var payment = await _paymentService.ExecutePaymentAsync(paymentId, 1);
             return Ok(payment);
         }
 

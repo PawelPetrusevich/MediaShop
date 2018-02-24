@@ -89,7 +89,16 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public IHttpActionResult AddInCart([FromUri] long contentId)
         {
-                return this.Ok(_cartService.AddInCart(contentId));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            return this.Ok(_cartService.AddInCart(contentId, id));
         }
 
         /// <summary>
@@ -105,8 +114,17 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
         public async Task<IHttpActionResult> AddInCartAsync([FromUri] long contentId)
         {
-                var result = await _cartService.AddInCartAsync(contentId);
-                return this.Ok(result);
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var result = await _cartService.AddInCartAsync(contentId, 2);
+            return this.Ok(result);
         }
 
         /// <summary>
