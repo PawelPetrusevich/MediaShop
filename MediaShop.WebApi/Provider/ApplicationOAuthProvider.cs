@@ -45,7 +45,8 @@ namespace MediaShop.WebApi.Provider
         /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var user = await _accountService.FindUserAsync(context.UserName, context.Password);
+            var hashedPassword = _accountService.GetHashString(context.Password);
+            var user = await _accountService.FindUserAsync(context.UserName, hashedPassword);
 
             if (user == null)
             {

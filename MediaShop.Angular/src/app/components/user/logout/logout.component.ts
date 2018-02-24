@@ -18,6 +18,7 @@ export class LogoutComponent implements OnInit {
   logOut(): void {
     this.accountService.logout().subscribe(resp => {
       localStorage.removeItem(AppSettings.tokenKey);
+      localStorage.removeItem(AppSettings.userId);
       this.router.navigate(['login']);
     }, (err: HttpErrorResponse) => {
       this.showError = true ;
