@@ -62,14 +62,13 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         public async Task<IHttpActionResult> GetAsync()
         {
-            var id = 1; //userId from claim
-            var user = HttpContext.Current.User as ClaimsIdentity;
-            if (user != null)
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
             {
-                if (!int.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
-                {
-                    throw new InvalidIdException(Resources.IncorrectId);
-                }
+                return BadRequest(Resources.EmtyData);
             }
 
             var cart = await _cartService.GetCartAsync(id);
