@@ -95,6 +95,7 @@ export class ProductInfoComponent implements OnInit {
 
   SaveImage(downloadingFile: OriginalProductDTO) {
     console.log(' save file methods');
+
       const contentType = 'image/jpg';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -111,6 +112,7 @@ export class ProductInfoComponent implements OnInit {
 
   SaveAudio(downloadingFile: OriginalProductDTO) {
     console.log(' save file methods');
+
       const contentType = 'audio/mp3';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -127,6 +129,7 @@ export class ProductInfoComponent implements OnInit {
 
     SaveVideo(downloadingFile: OriginalProductDTO) {
       console.log(' save file methods');
+
         const contentType = 'video/*';
         const base64str = downloadingFile.Content;
         const binary = atob(base64str);
