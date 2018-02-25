@@ -73,8 +73,13 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
         public void InitRecoveryPasswordWrongEmailTest()
         {
             _factoryRepositoryMock.Setup(x => x.Accounts.GetByEmail(It.IsAny<string>())).Returns((AccountDbModel)null);
+            var model = new ForgotPasswordDto()
+            {
+                Email = "test",
+                Origin = "test"
+            };
 
-            Assert.Throws<NotFoundUserException>(() => _accountService.InitRecoveryPassword("test"));
+            Assert.Throws<NotFoundUserException>(() => _accountService.InitRecoveryPassword(model));
         }
 
         [Test]

@@ -112,7 +112,7 @@ export class CartComponent implements OnInit {
 
   clearCart() {
     this.showError = false;
-    this.cartService.clearCart(this.cart).subscribe(resp => {
+    this.cartService.clearCart().subscribe(resp => {
       this.cart = resp;
       this.isLoaded = true;
     }, (err: HttpErrorResponse) => {

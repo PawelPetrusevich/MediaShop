@@ -10,16 +10,15 @@ namespace MediaShop.Common.Helpers
 {
     public class EmailSettingsConfig : IEmailSettingsConfig
     {
-        public EmailSettingsConfig(string smtpHost, int smtpPort, UriBuilder webApiUri, ICredentials credintails, IDictionary<string, string> tempaltesLocations)
+        public EmailSettingsConfig(string smtpHost, int smtpPort, ICredentials credintails, IDictionary<string, string> tempaltesLocations)
         {
             SmtpHost = smtpHost;
             SmtpPort = smtpPort;
             Credentials = credintails;
             TempaltesLocations = tempaltesLocations;
-            WebApiUri = webApiUri;
         }
 
-        public EmailSettingsConfig(string smtpHost, int smtpPort, UriBuilder webApiUri, string login, string pwd, IDictionary<string, string> tempaltesLocations) : this(smtpHost, smtpPort, webApiUri, new NetworkCredential(login, pwd), tempaltesLocations)
+        public EmailSettingsConfig(string smtpHost, int smtpPort, string login, string pwd, IDictionary<string, string> tempaltesLocations) : this(smtpHost, smtpPort, new NetworkCredential(login, pwd), tempaltesLocations)
         {
         }
 
@@ -32,8 +31,6 @@ namespace MediaShop.Common.Helpers
         public int SmtpPort { get; private set; }
 
         public IDictionary<string, string> TempaltesLocations { get; private set; }
-
-        public UriBuilder WebApiUri { get; private set; }
 
         public ICredentials Credentials { get; private set; }
     }

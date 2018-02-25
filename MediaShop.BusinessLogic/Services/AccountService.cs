@@ -111,7 +111,7 @@ namespace MediaShop.BusinessLogic.Services
                 var account = this._factoryRepository.Accounts.Add(modelDbModel);
                 account = account ?? throw new AddAccountException();
                 var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
-
+                confirmationModel.Origin = userModel.Origin;
                 _emailService.SendConfirmation(confirmationModel);
 
                 return Mapper.Map<Account>(account);
@@ -148,7 +148,7 @@ namespace MediaShop.BusinessLogic.Services
                 var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
                 account = account ?? throw new AddAccountException();
                 var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
-
+                confirmationModel.Origin = userModel.Origin;
                 await _emailService.SendConfirmationAsync(confirmationModel).ConfigureAwait(false);
 
                 return Mapper.Map<Account>(account);
@@ -325,14 +325,19 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
-        public void InitRecoveryPassword(string email)
+        public void InitRecoveryPassword(ForgotPasswordDto model)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(model.Email))
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ArgumentNullException(nameof(model.Email), Resources.NullOrEmptyValueString);
             }
 
-            var user = this._factoryRepository.Accounts.GetByEmail(email);
+            if (string.IsNullOrWhiteSpace(model.Email))
+            {
+                throw new ArgumentNullException(nameof(model.Origin), Resources.NullOrEmptyValueString);
+            }
+
+            var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
             if (user == null)
             {
@@ -340,6 +345,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var resoreDtoModel = Mapper.Map<AccountPwdRestoreDto>(user);
+            resoreDtoModel.Origin = model.Origin;
 
             _emailService.SendRestorePwdLink(resoreDtoModel);
         }
@@ -350,14 +356,19 @@ namespace MediaShop.BusinessLogic.Services
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
-        public async Task InitRecoveryPasswordAsync(string email)
+        public async Task InitRecoveryPasswordAsync(ForgotPasswordDto model)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(model.Email))
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValueString);
+                throw new ArgumentNullException(nameof(model.Email), Resources.NullOrEmptyValueString);
             }
 
-            var user = await this._factoryRepository.Accounts.GetByEmailAsync(email).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(model.Email))
+            {
+                throw new ArgumentNullException(nameof(model.Origin), Resources.NullOrEmptyValueString);
+            }
+
+            var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
 
             if (user == null)
             {
@@ -365,7 +376,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var resoreDtoModel = Mapper.Map<AccountPwdRestoreDto>(user);
-
+            resoreDtoModel.Origin = model.Origin;
             _emailService.SendRestorePwdLinkAsync(resoreDtoModel).ConfigureAwait(false);
         }
 
