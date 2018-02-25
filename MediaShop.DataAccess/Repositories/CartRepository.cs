@@ -71,11 +71,17 @@
         /// <returns>rezalt operation</returns>
         public override ContentCart Update(ContentCart model)
         {
-            model.ModifiedDate = DateTime.Now;
-            model.ModifierId = model.CreatorId; // get ModifaerId from token
-            this.Context.Entry(model).State = EntityState.Modified;
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var entity = this.Get(model.Id);
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifierId = model.CreatorId;
+            this.Context.Entry(entity).State = EntityState.Modified;
             this.Context.SaveChanges();
-            return model;
+            return entity;
         }
 
         /// <summary>
@@ -91,10 +97,10 @@
             }
 
             var entity = await this.GetAsync(model.Id);
-
             entity = Mapper.Map(model, entity);
+            entity.ModifiedDate = DateTime.Now;
+            entity.ModifierId = model.CreatorId;
             this.Context.Entry(entity).State = EntityState.Modified;
-
             await this.Context.SaveChangesAsync().ConfigureAwait(false);
             return entity;
         }
