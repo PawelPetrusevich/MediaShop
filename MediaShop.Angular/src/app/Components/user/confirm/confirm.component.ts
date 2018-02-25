@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../../Services/User/AccountService';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ export class ConfirmComponent implements OnInit {
   private token: string;
   result: string;
   showError: boolean = false;
-  constructor(private accountService: AccountService, private route: ActivatedRoute) { }
+  constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route
@@ -27,6 +27,7 @@ export class ConfirmComponent implements OnInit {
     if (this.email && this.token) {
       this.accountService.confirm(this.email, this.token).subscribe(resp => {
         this.result = 'Welcome to Media shop!';
+        this.router.navigate(['login']);
       }, (err: HttpErrorResponse) => {
         this.showError = true;
         this.result = "Oops! There seems to be a problem.";
