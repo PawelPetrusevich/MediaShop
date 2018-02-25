@@ -6,31 +6,37 @@
   <a class="navbar-brand" href="#">MediaShop</a>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="product-list">Products</a>
-      </li>
-      <li class="nav-item" *ngIf = "accountService.isAuthorized()">
-        <a class="nav-link" routerLink="product-upload">Upload product</a>
-      </li>
-      <li class="nav-item" *ngIf = "accountService.isAuthorized()">
-        <a class="nav-link" routerLink = "product-purshased">Purshased Product</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="cart">Cart</a>
-      </li>
-      <li class="nav-item">
+    <div class="col-md-11">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="product-list">Products</a>
+        </li>
+        <li class="nav-item" *ngIf="accountService.isAuthorized()">
+          <a class="nav-link" routerLink="product-upload">Upload product</a>
+        </li>
+        <li class="nav-item" *ngIf="accountService.isAuthorized()">
+          <a class="nav-link" routerLink="product-purshased">Purshased Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="cart">Cart</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="userProfile">UserProfile</a>
         </li>
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" routerLink="userSettings">UserSettings</a>
         </li>
-    </ul>
-<li class="nav-item">
-      <a class="nav-link" routerLink="logOut">LogOut</a>
-    </li>
+      </ul>
+    </div>
+    <div class="col-md-1">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="logOut">LogOut</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
