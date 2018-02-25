@@ -12,6 +12,8 @@ import { PasswordRecovery } from '../../Models/User/password-recovery';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
+import { ForgotPasswordDto } from '../../Models/User/forgot-password-dto';
+import { environment } from '../../../environments/environment';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
 
 @Injectable()
@@ -53,7 +55,7 @@ export class AccountService {
     return true;
   }
 
-  forgotPassword(email: string) {
+  forgotPassword(model: ForgotPasswordDto) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -62,20 +64,20 @@ export class AccountService {
     };
     return this.http
       .post(
-        AppSettings.API_PUBLIC + 'api/account/initRecoveryPassword',
-        '"' + email + '"', options
+        environment.API_ENDPOINT  + 'api/account/initRecoveryPassword',
+        model, options
       );
   }
 
   confirm(email: string, token: string) {
     return this.http
-      .get(AppSettings.API_PUBLIC + 'api/account/confirm/' + email + '/' + token);
+      .get(environment.API_ENDPOINT  + 'api/account/confirm/' + email + '/' + token);
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
       .post(
-        AppSettings.API_PUBLIC + 'api/account/recoveryPassword',
+        environment.API_ENDPOINT + 'api/account/recoveryPassword',
         resetMasswor
       );
   }

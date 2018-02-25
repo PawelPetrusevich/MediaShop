@@ -12,42 +12,28 @@ import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
 export class Cartservice {
-  constructor(private http: Http, private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   get(): Observable<Cart> {
-    return this.httpClient
-      .get<Cart>(AppSettings.API_PUBLIC  + 'api/cart/getcartasync');
-  }
-
-  delete(contentCart: ContentCartDto): Observable<ContentCartDto> {
-    const options = new RequestOptions();
-    options.body = contentCart;
     return this.http
-      .delete(AppSettings.API_PUBLIC + 'api/cart/deletecontentasync', options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .get <Cart> (AppSettings.API_PUBLIC  + 'api/cart/getcartasync');
   }
 
   deleteById(id: number): Observable<number> {
-    const options = new RequestOptions();
-    options.body = id;
+    const params = new HttpParams().set('id', id.toString());
     return this.http
-      .delete(AppSettings.API_PUBLIC + 'api/cart/deletecontentbyidasync', options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .delete<number>(AppSettings.API_PUBLIC + 'api/cart/deletecontentbyidasync', {params});
   }
 
-  clearCart(cart: Cart): Observable<Cart> {
-    const options = new RequestOptions();
-    options.body = cart;
+  clearCart(): Observable<Cart> {
+    const params = new HttpParams().set('userId', localStorage.getItem('userId'));
     return this.http
-      .delete(AppSettings.API_PUBLIC + 'api/cart/clearcartasync', options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .delete <Cart> (AppSettings.API_PUBLIC + 'api/cart/clearcartasync', {params});
   }
 
   addContent(id: number): Observable<ContentCartDto> {
-    return this.httpClient
-    .get<ContentCartDto>(AppSettings.API_PUBLIC + 'api/cart/addasync/' + id);
+    const params = new HttpParams().set('contentId', id.toString());
+    return this.http
+      .post <ContentCartDto> (AppSettings.API_PUBLIC + 'api/cart/addasync', {params});
   }
 }
