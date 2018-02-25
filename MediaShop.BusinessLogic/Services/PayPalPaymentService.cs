@@ -239,6 +239,7 @@
             var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<ItemDto>() };
 
             payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
+            var parseCulture = new CultureInfo("en-US");
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
