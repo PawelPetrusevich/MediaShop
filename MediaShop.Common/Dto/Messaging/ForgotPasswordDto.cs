@@ -8,11 +8,9 @@ using MediaShop.Common.Dto.Messaging.Validators;
 
 namespace MediaShop.Common.Dto.Messaging
 {
-    [Validator(typeof(AccountConfirmationValidator))]
-    public class AccountConfirmationDto
+    [Validator(typeof(ForgotPasswordDtoValidator))]
+    public class ForgotPasswordDto
     {
-        public string Token { get; set; }
-
         public string Email { get; set; }
 
         public string Origin { get; set; }

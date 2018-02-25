@@ -34,7 +34,7 @@
     <div class="col-md-1">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="logOut">LogOut</a>
+          <a class="nav-link" *ngIf = "accountService.isAuthorized()" routerLink="logOut">LogOut</a>
         </li>
       </ul>
     </div>

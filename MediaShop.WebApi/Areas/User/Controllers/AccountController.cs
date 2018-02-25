@@ -62,6 +62,12 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(sb.ToString());
             }
 
+            if (string.IsNullOrWhiteSpace(data.Origin))
+            {
+                var uri = HttpContext.Current.Request.UrlReferrer;
+                data.Origin = $"{uri.Scheme}://{uri.Authority}/";
+            }
+
             try
             {
                 var result = _accountService.Register(data);
@@ -93,11 +99,17 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 {
                     foreach (var error in value.Errors)
                     {
-                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
+                        sb.AppendFormat($"{error.ErrorMessage} ! ");
                     }
                 }
 
                 return BadRequest(sb.ToString());
+            }
+
+            if (string.IsNullOrWhiteSpace(data.Origin))
+            {
+                var uri = HttpContext.Current.Request.UrlReferrer;
+                data.Origin = $"{uri.Scheme}://{uri.Authority}/";
             }
 
             try
@@ -225,17 +237,23 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
-        public async Task<IHttpActionResult> InitRecoveryPasswordAync([FromBody] string email)
+        public async Task<IHttpActionResult> InitRecoveryPasswordAync([FromBody] ForgotPasswordDto model)
         {
-            if (string.IsNullOrWhiteSpace(email) || !ModelState.IsValid)
+            if (model == null || !ModelState.IsValid)
             {
                 return BadRequest(Resources.EmtyData);
             }
 
+            if (string.IsNullOrWhiteSpace(model.Origin))
+            {
+                var uri = HttpContext.Current.Request.UrlReferrer;
+                model.Origin = $"{uri.Scheme}://{uri.Authority}/";
+            }
+
             try
             {
-                await _accountService.InitRecoveryPasswordAsync(email);
-                return Ok(email);
+                await _accountService.InitRecoveryPasswordAsync(model);
+                return Ok(model.Email);
             }
             catch (ArgumentNullException ex)
             {

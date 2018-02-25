@@ -61,7 +61,9 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
        },
       {
         path: 'product-upload',
-        component: ProductUploadComponent
+        component: ProductUploadComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
       },
       {
         path: 'product-info/:id',
@@ -69,7 +71,9 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
       },
       {
         path: 'product-purshased',
-        component: ProductPurshasedComponent
+        component: ProductPurshasedComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
       },
       {
         path: 'confirm',
