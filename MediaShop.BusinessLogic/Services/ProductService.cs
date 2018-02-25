@@ -133,7 +133,7 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case ProductType.Music:
                         data.OriginalProduct.Content = uploadProductInByte;
-                        data.CompressedProduct.Content = null;
+                        data.CompressedProduct.Content = Convert.FromBase64String(Resources.CompressedAudio);
                         data.ProtectedProduct.Content = uploadProductInByte.GetProtectedMusic();
                         break;
                     case ProductType.Video:
@@ -395,7 +395,7 @@ namespace MediaShop.BusinessLogic.Services
             var operations = new List<Expression>();
             var parameterExpr = Expression.Parameter(typeof(ContentCart));
 
-            // CreatorID = UserID
+            // CreatorID in content cart = UserID
             var parameter = Expression.Property(parameterExpr, "CreatorID");
             ConstantExpression constant = Expression.Constant(userId);
             operations.Add(Expression.Equal(parameter, constant));
@@ -412,8 +412,14 @@ namespace MediaShop.BusinessLogic.Services
 
             var resultFilter = operations.Aggregate(Expression.And);
             var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+            var result = this._cartRepository.Find(lambda).FirstOrDefault();
 
-            return Mapper.Map<OriginalProductDTO>(this._cartRepository.Find(lambda).FirstOrDefault());
+            if (result == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return Mapper.Map<OriginalProductDTO>(result);
         }
 
         /// <summary>
