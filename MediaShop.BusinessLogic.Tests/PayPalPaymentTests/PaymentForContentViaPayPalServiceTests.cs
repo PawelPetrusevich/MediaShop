@@ -124,8 +124,6 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
                 .Returns(() => contentCartDtoInPaid);
             mockCart.Setup(item => item.GetCart(It.IsAny<long>()))
                 .Returns(() => cart);
-            mockCart.Setup(item => item.DeleteOfCart(It.IsAny<Cart>()))
-                .Returns(() => emptyCart);
 
             // Object as return in method Add
             var defrayalAddObject = new DefrayalDbModel() { Id = 0, ContentId = 5 };

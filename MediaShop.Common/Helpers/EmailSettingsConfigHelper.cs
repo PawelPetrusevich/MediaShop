@@ -14,10 +14,6 @@ namespace MediaShop.Common.Helpers
             var emailPvd = ConfigurationManager.AppSettings["AppEmailPassword"];
             var emailSmtpHost = ConfigurationManager.AppSettings["AppEmailSmtpHost"];
             var emailSmtpPort = int.Parse(ConfigurationManager.AppSettings["AppEmailSmtpPort"]);
-            var serverSchema = ConfigurationManager.AppSettings["ServerSchema"];
-            var serverHost = ConfigurationManager.AppSettings["ServerHost"];
-            var serverPort = int.Parse(ConfigurationManager.AppSettings["ServerPort"]);
-            var servirUri = new UriBuilder(serverSchema, serverHost, serverPort);
 
             var temapltesPath = new Dictionary<string, string>();
             var pathFolders = AppContext.BaseDirectory.Split('\\').ToList();
@@ -32,7 +28,7 @@ namespace MediaShop.Common.Helpers
             var templatesFoldePath = Path.Combine(pathFolders.ToArray());
             temapltesPath.Add("AccountConfirmationEmailTemplate", Path.Combine(templatesFoldePath, "AccountConfirmationEmailTemplate.html"));
             temapltesPath.Add("AccountPwdRestoreEmailTemplate", Path.Combine(templatesFoldePath, "AccountPwdRestoreEmailTemplate.html"));
-            return new EmailSettingsConfig(emailSmtpHost, emailSmtpPort, servirUri, email, emailPvd, temapltesPath);
+            return new EmailSettingsConfig(emailSmtpHost, emailSmtpPort, email, emailPvd, temapltesPath);
         }
     }
 }
