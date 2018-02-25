@@ -72,7 +72,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await _factoryRepository.Accounts.GetByLoginAsync(userName);
 
-            if (user == null || !user.Password.Equals(password))
+            if (user == null || !user.Password.Equals(password) || user.IsDeleted)
             {
                 return null;
             }
