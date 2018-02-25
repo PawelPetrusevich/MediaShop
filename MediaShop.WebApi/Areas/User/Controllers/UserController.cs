@@ -166,7 +166,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         }
 
         [HttpGet]
-        [Route("getUserInfoByIdAsync")]
+        [Route("getUserInfoByIdAsync/{id}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]

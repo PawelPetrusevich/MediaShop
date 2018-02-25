@@ -7,15 +7,17 @@ import { UserInfoService } from '../../Services/User/userInfoService';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  IsAdmin: boolean;
+
   constructor(private userInfoService: UserInfoService) {}
 
   ngOnInit() {
-    this.IsAdmin();
+    console.log(this.Admin());
   }
-  IsAdmin() {
+
+  Admin() {
     this.userInfoService.getUserInfo().subscribe(result => {
-      console.log(result);
-      return result.Permissions & Permissions.Delete;
+      this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
     });
   }
 }

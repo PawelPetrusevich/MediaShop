@@ -89,13 +89,16 @@ export class UserService {
        .map(resp => resp.json())
        .catch(err => Observable.throw(err));
    }
-
-  GetUserById(id: number | string) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+   GetUserById(id: number | string) {
+    const options = new RequestOptions();
+    options.headers = new Headers();
+    options.headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem('token')
+    );
 
     return this.http
-      .post(UserService.url + '/user/getUserInfoByIdAsync', id, options)
+      .get(UserService.url + '/user/getUserInfoByIdAsync/' + id, options)
       .map(resp => resp.json())
       .catch(err => Observable.throw(err));
   }
