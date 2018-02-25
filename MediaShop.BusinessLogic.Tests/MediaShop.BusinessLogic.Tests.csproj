@@ -123,6 +123,7 @@
     <Compile Include="AdminTests\AccountPermissionTest.cs" />
     <Compile Include="AdminTests\LoginTest.cs" />
     <Compile Include="AdminTests\RegistrationServiceTest.cs" />
+    <Compile Include="AdminTests\UserModifyTest.cs" />
     <Compile Include="PayPalPaymentTests\PaymentForContentViaPayPalServiceTests.cs" />
     <Compile Include="AdminTests\RestorePasswordTest.cs" />
     <Compile Include="MessagingTests\EmailServiceTest.cs" />
