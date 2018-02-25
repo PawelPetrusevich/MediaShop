@@ -480,6 +480,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.ContentDownloadError);
             }
+            catch (ArgumentNullException)
+            {
+                return BadRequest(Resources.ErrorDownload);
+            }
             catch (Exception)
             {
                 return InternalServerError();
