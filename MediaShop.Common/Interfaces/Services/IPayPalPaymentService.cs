@@ -24,28 +24,32 @@
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
+        /// <param name="userId">users id</param>
         /// <returns>PayPalPaymentDto with info of Payment</returns>
-        PayPalPaymentDto ExecutePayment(string paymentId);
+        PayPalPaymentDto ExecutePayment(string paymentId, long userId);
 
         /// <summary>
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
+        /// <param name="userId">users id</param>
         /// <returns>Executed Payment</returns>
-        Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId);
+        Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId, long userId);
 
         /// <summary>
         /// Add new model
         /// </summary>
         /// <param name="payment">object Payment for save in repository</param>
+        /// <param name="userId">userId</param>
         /// <returns>object Payment that save in repository</returns>
-        PayPalPaymentDto AddPayment(Payment payment);
+        PayPalPaymentDto AddPayment(Payment payment, long userId);
 
         /// <summary>
         /// Async add new model
         /// </summary>
         /// <param name="payment">object Payment for save in repository</param>
+        /// <param name="userId">userId</param>
         /// <returns>object Payment that save in repository</returns>
-        Task<PayPalPaymentDto> AddPaymentAsync(Payment payment);
+        Task<PayPalPaymentDto> AddPaymentAsync(Payment payment, long userId);
     }
 }
