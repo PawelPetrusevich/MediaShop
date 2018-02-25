@@ -48,6 +48,6 @@ export class Cartservice {
 
   addContent(id: number): Observable<ContentCartDto> {
     return this.httpClient
-    .get<ContentCartDto>(AppSettings.API_PUBLIC + 'api/cart/addasync' + id);
+    .get<ContentCartDto>(AppSettings.API_PUBLIC + 'api/cart/addasync/' + id);
   }
 }
