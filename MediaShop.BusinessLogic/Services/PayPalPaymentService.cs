@@ -49,8 +49,9 @@
         /// Add object payment in repository
         /// </summary>
         /// <param name="payment">object Payment after decerializer</param>
+        /// <param name="userId">userId</param>
         /// <returns>object payment</returns>
-        public PayPalPaymentDto AddPayment(PayPal.Api.Payment payment)
+        public PayPalPaymentDto AddPayment(PayPal.Api.Payment payment, long userId)
         {
             // Check payment for null
             if (payment == null)
@@ -59,7 +60,7 @@
             }
 
             // Check exist Payment in repository
-            if (this.ExistInPayment(payment.id))
+            if (this.ExistInPayment(payment.id, userId))
             {
                 throw new ExistPaymentException(Resources.ExistPayment);
             }
@@ -88,7 +89,7 @@
                 }
 
                 // Change State content in Cart
-                this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InPaid);
+                this.SetStateItems(payment, Common.Enums.CartEnums.StateCartContent.InPaid, userId);
 
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
@@ -127,8 +128,9 @@
         /// Add object payment in repository
         /// </summary>
         /// <param name="payment">object Payment after decerializer</param>
+        /// <param name="userId">userId</param>
         /// <returns>object payment</returns>
-        public async Task<PayPalPaymentDto> AddPaymentAsync(PayPal.Api.Payment payment)
+        public async Task<PayPalPaymentDto> AddPaymentAsync(PayPal.Api.Payment payment, long userId)
         {
             // Check payment for null
             if (payment == null)
@@ -137,7 +139,7 @@
             }
 
             // Check exist Payment in repository
-            if (await this.ExistInPaymentAsync(payment.id).ConfigureAwait(false))
+            if (await this.ExistInPaymentAsync(payment.id, userId).ConfigureAwait(false))
             {
                 throw new ExistPaymentException(Resources.ExistPayment);
             }
@@ -166,7 +168,8 @@
                 }
 
                 // Change State content in Cart
-                await this.SetStateItemsAsync(payment, Common.Enums.CartEnums.StateCartContent.InPaid).ConfigureAwait(false);
+                await this.SetStateItemsAsync(payment, Common.Enums.CartEnums.StateCartContent.InPaid, userId)
+                    .ConfigureAwait(false);
 
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
@@ -205,20 +208,24 @@
         /// Checking the existence of payment in repository
         /// </summary>
         /// <param name="paymentId">payment id</param>
+        /// <param name="userId">userId</param>
         /// <returns>true - payment exist in repository
         /// false - payment doesn`t exist in repository</returns>
-        public bool ExistInPayment(string paymentId) => this.repositoryPayment
-            .Find(item => item.PaymentId.Equals(paymentId)).Count() != 0;
+        public bool ExistInPayment(string paymentId, long userId) => this.repositoryPayment
+            .Find(item => item.PaymentId.Equals(paymentId) & item.CreatorId == userId).Count() != 0;
 
         /// <summary>
         /// Async checking the existence of payment in repository
         /// </summary>
         /// <param name="paymentId">payment id</param>
+        /// <param name="userId">userId</param>
         /// <returns>true - payment exist in repository
         /// false - payment doesn`t exist in repository</returns>
-        public async Task<bool> ExistInPaymentAsync(string paymentId)
+        public async Task<bool> ExistInPaymentAsync(string paymentId, long userId)
         {
-            var result = await this.repositoryPayment.FindAsync(item => item.PaymentId.Equals(paymentId)).ConfigureAwait(false);
+            var result = await this.repositoryPayment
+                .FindAsync(item => item.PaymentId.Equals(paymentId) & item.CreatorId == userId)
+                .ConfigureAwait(false);
             return result.Count() != 0;
         }
 
@@ -251,7 +258,8 @@
         /// </summary>
         /// <param name="payment">payment</param>
         /// <param name="state">state </param>
-        public void SetStateItems(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state)
+        /// <param name="userId">userId</param>
+        public void SetStateItems(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state, long userId)
         {
             try
             {
@@ -263,7 +271,7 @@
                     foreach (Item item in tran.item_list.items)
                     {
                         // 3.1 Change state product
-                        var resultChangeState = this.serviceCart.SetState(Convert.ToInt64(item.sku), state);
+                        var resultChangeState = this.serviceCart.SetState(Convert.ToInt64(item.sku), userId, state);
 
                         // Write id for rollback
                         this.listIdForRollBack.Add(resultChangeState.ContentId);
@@ -271,7 +279,7 @@
                         // 3.2 Transferring product in Defrayal from ContentCart
                         var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
-                        objectDefrayal.CreatorId = 1; // Need initialize CreatorId
+                        objectDefrayal.CreatorId = userId;
 
                         // 3.3 Save object Defrayal in repository
                         var resultSaveDefrayal = this.repositoryDefrayal.Add(objectDefrayal);
@@ -283,8 +291,8 @@
                 // Rollback change set state content
                 foreach (long contentId in this.listIdForRollBack)
                 {
-                    // 3.1 Change state product in cart
-                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
+                        // 3.1 Change state product in cart
+                        var resultChangeState = this.serviceCart.SetState(contentId, userId, Common.Enums.CartEnums.StateCartContent.InBought);
                 }
 
                 throw new UpdateContentInCartExseptions(error.Message);
@@ -295,12 +303,12 @@
                 foreach (long contentId in this.listIdForRollBack)
                 {
                     // 3.1 Change state product in cart
-                    var resultChangeState = this.serviceCart.SetState(contentId, Common.Enums.CartEnums.StateCartContent.InBought);
+                    var resultChangeState = this.serviceCart.SetState(contentId, userId, Common.Enums.CartEnums.StateCartContent.InBought);
 
                     // 3.2 Transferring product in Defrayal from ContentCart
                     var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
-                    // 3.3 Save object Defrayal in repository
+                        // 3.3 Save object Defrayal in repository
                     var resultSaveDefrayal = this.DeleteDefrayal(objectDefrayal);
                 }
 
@@ -313,7 +321,9 @@
         /// </summary>
         /// <param name="payment">payment</param>
         /// <param name="state">state </param>
-        public async Task SetStateItemsAsync(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state)
+        /// <param name="userId">userId</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.></returns>
+        public async Task SetStateItemsAsync(PayPal.Api.Payment payment, MediaShop.Common.Enums.CartEnums.StateCartContent state, long userId)
         {
             try
             {
@@ -325,7 +335,8 @@
                     foreach (Item item in tran.item_list.items)
                     {
                         // 3.1 Change state product
-                        var resultChangeState = await this.serviceCart.SetStateAsync(Convert.ToInt64(item.sku), state).ConfigureAwait(false);
+                        var resultChangeState = await this.serviceCart.SetStateAsync(Convert.ToInt64(item.sku), userId, state)
+                            .ConfigureAwait(false);
 
                         // Write id for rollback
                         this.listIdForRollBack.Add(resultChangeState.ContentId);
@@ -333,7 +344,7 @@
                         // 3.2 Transferring product in Defrayal from ContentCart
                         var objectDefrayal = Mapper.Map<ContentCartDto, DefrayalDbModel>(resultChangeState);
 
-                        objectDefrayal.CreatorId = 1; // Need initialize CreatorId
+                        objectDefrayal.CreatorId = userId;
 
                         // 3.3 Save object Defrayal in repository
                         var resultSaveDefrayal = await this.repositoryDefrayal.AddAsync(objectDefrayal).ConfigureAwait(false);
@@ -347,7 +358,7 @@
                 {
                     // 3.1 Change state product in cart
                     var resultChangeState = await this.serviceCart
-                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .SetStateAsync(contentId, userId, Common.Enums.CartEnums.StateCartContent.InBought)
                         .ConfigureAwait(false);
                 }
 
@@ -360,7 +371,7 @@
                 {
                     // 3.1 Change state product in cart
                     var resultChangeState = await this.serviceCart
-                        .SetStateAsync(contentId, Common.Enums.CartEnums.StateCartContent.InBought)
+                        .SetStateAsync(contentId, userId, Common.Enums.CartEnums.StateCartContent.InBought)
                         .ConfigureAwait(false);
 
                     // 3.2 Transferring product in Defrayal from ContentCart
@@ -574,8 +585,9 @@
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
+        /// <param name="userId">users id</param>
         /// <returns>Executed Payment</returns>
-        public PayPalPaymentDto ExecutePayment(string paymentId)
+        public PayPalPaymentDto ExecutePayment(string paymentId, long userId)
         {
             var config = Configuration.GetConfig();
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -589,7 +601,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = this.AddPayment(executedPayment);
+            var result = this.AddPayment(executedPayment, userId);
             return result;
         }
 
@@ -597,8 +609,9 @@
         /// Executes, or completes, a PayPal payment that the payer has approved
         /// </summary>
         /// <param name="paymentId">paymentId</param>
+        /// <param name="userId">users id</param>
         /// <returns>Executed Payment</returns>
-        public async Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId)
+        public async Task<PayPalPaymentDto> ExecutePaymentAsync(string paymentId, long userId)
         {
             var config = Configuration.GetConfig();
             var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -612,7 +625,7 @@
 
             var executedPayment = new Payment();
             executedPayment = payment.Execute(apiContext, paymentExecution);
-            var result = await this.AddPaymentAsync(executedPayment).ConfigureAwait(false);
+            var result = await this.AddPaymentAsync(executedPayment, userId).ConfigureAwait(false);
             return result;
         }
 

@@ -117,15 +117,13 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             { ContentId = 5, StateContent = Common.Enums.CartEnums.StateCartContent.InPaid };
 
             // Setup mockCart
-            mockCart.Setup(item => item.SetState(It.IsAny<long>(), 
+            mockCart.Setup(item => item.SetState(It.IsAny<long>(), It.IsAny<long>(),
                 It.Is<MediaShop.Common.Enums.CartEnums.StateCartContent>
                 (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InPaid ||
                 s == MediaShop.Common.Enums.CartEnums.StateCartContent.InCart)))
                 .Returns(() => contentCartDtoInPaid);
             mockCart.Setup(item => item.GetCart(It.IsAny<long>()))
                 .Returns(() => cart);
-            mockCart.Setup(item => item.DeleteOfCart(It.IsAny<Cart>()))
-                .Returns(() => emptyCart);
 
             // Object as return in method Add
             var defrayalAddObject = new DefrayalDbModel() { Id = 0, ContentId = 5 };
@@ -144,7 +142,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Write result method AddPayment in actual1
-            var actual1 = payPalService.AddPayment(payment);
+            var actual1 = payPalService.AddPayment(payment,1);
 
             Assert.AreEqual("USD", actual1.Currency);
             Assert.AreEqual(60, actual1.Total);
@@ -160,7 +158,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             PayPal.Api.Payment paymentTest = null;
 
             // Write result method AddPayment in actual1
-            Assert.Throws<InvalideDecerializableExceptions>(() => payPalService.AddPayment(paymentTest));
+            Assert.Throws<InvalideDecerializableExceptions>(() => payPalService.AddPayment(paymentTest,1));
         }
 
         [Test]
@@ -176,7 +174,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Check result method AddPayment in actual1
-            Assert.Throws<ExistPaymentException>(() => payPalService.AddPayment(payment));
+            Assert.Throws<ExistPaymentException>(() => payPalService.AddPayment(payment,1));
         }
 
         [Test]
@@ -192,7 +190,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Check result method AddPayment in actual1
-            Assert.Throws<InvalideDecerializableExceptions>(() => payPalService.AddPayment(payment));
+            Assert.Throws<InvalideDecerializableExceptions>(() => payPalService.AddPayment(payment,1));
         }
 
         [Test]
@@ -208,7 +206,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Check result method AddPayment in actual1
-            Assert.Throws<OperationPaymentException>(() => payPalService.AddPayment(payment));
+            Assert.Throws<OperationPaymentException>(() => payPalService.AddPayment(payment,1));
         }
 
         [Test]
@@ -224,14 +222,14 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Check result method AddPayment in actual1
-            Assert.Throws<OperationPaymentException>(() => payPalService.AddPayment(payment));
+            Assert.Throws<OperationPaymentException>(() => payPalService.AddPayment(payment,1));
         }
 
         [Test]
         public void Add_New_Payment_If_Operation_SetState_Is_Invalid()
         {
             // Setup mockCart
-            mockCart.Setup(item => item.SetState(It.IsAny<long>(),
+            mockCart.Setup(item => item.SetState(It.IsAny<long>(), It.IsAny<long>(),
                 It.Is<MediaShop.Common.Enums.CartEnums.StateCartContent>
                 (s => s == MediaShop.Common.Enums.CartEnums.StateCartContent.InPaid ||
                 s == MediaShop.Common.Enums.CartEnums.StateCartContent.InCart)))
@@ -247,7 +245,7 @@ namespace MediaShop.BusinessLogic.Tests.PayPalPaymentTests
             var payPalService = new PayPalPaymentService(mockPayment.Object, mockDefrayal.Object, mockCart.Object);
 
             // Check result method AddPayment in actual1
-            Assert.Throws<UpdateContentInCartExseptions>(() => payPalService.AddPayment(payment));
+            Assert.Throws<UpdateContentInCartExseptions>(() => payPalService.AddPayment(payment,1));
         }
     }
 }

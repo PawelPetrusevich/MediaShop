@@ -213,6 +213,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
     <Compile Include="Areas\Content\Controllers\Filters\LoggingFilterAttribute.cs" />
+    <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Filters\NotificationExceptionFilterAttribute.cs" />
     <Compile Include="Areas\Messaging\MessagingAreaRegistration.cs" />
     <Compile Include="Areas\Payments\Controllers\PaymentController.cs" />

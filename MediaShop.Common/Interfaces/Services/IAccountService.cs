@@ -100,7 +100,7 @@ namespace MediaShop.Common.Interfaces.Services
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
-        void InitRecoveryPassword(string email);
+        void InitRecoveryPassword(ForgotPasswordDto model);
 
         /// <summary>
         /// Init procedure password recovery
@@ -108,12 +108,19 @@ namespace MediaShop.Common.Interfaces.Services
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="NotFoundUserException"></exception>
         /// <param name="email">Account Email</param>
-        Task InitRecoveryPasswordAsync(string email);
+        Task InitRecoveryPasswordAsync(ForgotPasswordDto model);
 
         /// <summary>
         /// Get All Users
         /// </summary>
         /// <returns>IEnumerable<PermissionDto></returns>
         IEnumerable<UserDto> GetAllUsers();
+
+        /// <summary>
+        /// Get hash string
+        /// </summary>
+        /// <param name="s">string</param>
+        /// <returns>hash string</returns>
+        string GetHashString(string s);
     }
 }

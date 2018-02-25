@@ -24,6 +24,7 @@ using Swashbuckle.Swagger.Annotations;
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [LoggingFilter]
+    [EnableCors("*", "*", "*")]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
     [MediaAuthorizationFilter(Permission = Permissions.See)]
@@ -299,11 +300,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         {
             try
             {
-                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                /*var user = HttpContext.Current.User.Identity as ClaimsIdentity;
                 var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
-                var idUser = long.Parse(idClaim.Value);
+                var idUser = long.Parse(idClaim.Value);*/
 
-                return Ok(_productService.GetListPurshasedProducts(idUser));
+                return Ok(_productService.GetListPurshasedProducts(1));
             }
             catch (NullReferenceException)
             {

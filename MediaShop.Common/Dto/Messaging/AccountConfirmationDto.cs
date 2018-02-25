@@ -14,5 +14,7 @@ namespace MediaShop.Common.Dto.Messaging
         public string Token { get; set; }
 
         public string Email { get; set; }
+
+        public string Origin { get; set; }
     }
 }
