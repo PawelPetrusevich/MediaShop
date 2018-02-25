@@ -20,7 +20,7 @@ import { PaymentComponent } from '../components/payment/payment.component';
 import { UserSettingsComponent } from '../components/user/user-settings/user-settings.component';
 import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
-import { ProductDownloadComponent } from '../Components/Content/product-download/product-download.component';
+import { ProductPurshasedComponent } from '../Components/Content/product-purshased/product-purshased.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -53,19 +53,15 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
       { path: 'payment', component: PaymentComponent },
       {
         path: 'product-upload',
-        component: ProductUploadComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        component: ProductUploadComponent
       },
       {
         path: 'product-info/:id',
         component: ProductInfoComponent
       },
       {
-        path: 'product-download',
-        component: ProductDownloadComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        path: 'product-purshased',
+        component: ProductPurshasedComponent
       },
       {
         path: 'confirm',
