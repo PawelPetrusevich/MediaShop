@@ -75,8 +75,15 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
         path: 'confirm',
         component: ConfirmComponent
       },
-      { path: 'user-list/:id', component: SetPermissionComponent },
-      { path: 'user-list', component: UserListComponent },
+      { path: 'user-list/:id',
+        component: SetPermissionComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+     },
+      { path: 'user-list',
+        component: UserListComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard] },
       {
         path: 'payment-info',
         component: PaymentInfoComponent,

@@ -8,98 +8,52 @@ import { Permissions } from '../../Models/User/permissions';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {SetPermissionComponent} from '../../components/user/set-permission/set-permission.component';
-
+import { HttpClient } from '@angular/common/http';
+import { AppSettings } from '../../Settings/AppSettings';
+import { Account } from '../../Models/User/account';
 @Injectable()
 export class UserService {
-  static url = 'http://localhost:51289/api';
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   SetPermission(
     id: number,
     login: string,
     email: string,
     permission: Permissions
-  ) {
+  ): Observable<PermissionDto> {
     const permissionDto = new PermissionDto();
     permissionDto.Id = id;
     permissionDto.Login = login;
     permissionDto.Email = email;
     permissionDto.Permissions = permission;
     return this.http
-      .post(UserService.url + '/user/permission/addMask', permissionDto)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/permission/addMask', permissionDto);
   }
-  RemovePermission(id: number, permission: Permissions) {
+  RemovePermission (id: number, permission: Permissions): Observable<Account> {
     const permissionDto = new PermissionDto();
     permissionDto.Id = id;
     permissionDto.Permissions = permission;
     return this.http
-      .post(
-        UserService.url + permissionDto.Id + '/user/permission/delete',
-        permissionDto
-      )
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<Account>(AppSettings.API_PUBLIC + permissionDto.Id + 'api/user/permission/delete', permissionDto);
   }
-  GetAllUsers() {
-    const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('token')
-    );
+  GetAllUsers(): Observable<PermissionDto[]> {
     return this.http
-      .get(UserService.url + '/account/GetAllUsers', options )
-      .map(resp => {
-        console.log(resp.json());
-        return resp.json();
-      })
-      .catch(err => Observable.throw(err));
+      .get<PermissionDto[]>(AppSettings.API_PUBLIC + 'api/account/GetAllUsers');
   }
-  SetFlagIsBanned(id: number) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-
+  SetFlagIsBanned(id: number): Observable<PermissionDto> {
     return this.http
-      .post(UserService.url + '/user/banned/set', id, options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<PermissionDto>(AppSettings.API_PUBLIC + '/api/user/banned/set', id);
   }
-  RemoveFlagIsBanned(id: number) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-
+  RemoveFlagIsBanned(id: number): Observable<Account> {
     return this.http
-      .post(UserService.url + '/user/banned/remove', id, options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .post<Account>(AppSettings.API_PUBLIC + 'api/user/banned/remove', id);
   }
-  deleteUserByIdAsync(id: number) {
-     const options = new RequestOptions();
-     options.headers = new Headers();
-     options.headers.append(
-       'Authorization',
-       'Bearer ' + localStorage.getItem('token')
-     );
-
-     options.headers.append('Content-Type', 'application/json');
+  deleteUserByIdAsync(id: number): Observable<PermissionDto> {
      return this.http
-       .post(UserService.url + '/user/deleteByIdAsync', id, options)
-       .map(resp => resp.json())
-       .catch(err => Observable.throw(err));
+       .post<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/deleteByIdAsync', id);
    }
-   GetUserById(id: number | string) {
-    const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('token')
-    );
-
+   GetUserById(id: number | string): Observable<PermissionDto> {
     return this.http
-      .get(UserService.url + '/user/getUserInfoByIdAsync/' + id, options)
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+      .get<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/getUserDtoAsync/' + id);
   }
 }
