@@ -23,9 +23,6 @@
         <a class="nav-link" routerLink="cart">Cart</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="logOut">LogOut</a>
-      </li>
-      <li class="nav-item">
           <a class="nav-link" routerLink="userProfile">UserProfile</a>
         </li>
       <li class="nav-item">
@@ -38,5 +35,12 @@
           <div *ngIf="IsAdmin" class="nav-link">Hello, {{Login}}!</div>
         </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="logOut">LogOut</a>
+    </li>
   </div>
 </nav>

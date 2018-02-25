@@ -28,13 +28,22 @@ export class LoginComponent implements OnInit {
     .subscribe(resp => {
       this.data = resp;
       localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
-      console.log(resp);
+      localStorage.setItem(AppSettings.userId, this.data.userId);
       this.router.navigate(['product-list']);
     },
     (err: HttpErrorResponse) => {
-      this.showError = true ;
-      this.errorMessage = err.statusText;
       console.log(err);
+      this.showError = true ;
+      if (err.status === 400){
+      this.errorMessage = 'Incorrect login or  password';
+      }
+      this.showError = true ;
+      if (err.status === 401){
+      this.errorMessage = 'User is not aothorized';
+      }
+      if (err.status === 500){
+        this.errorMessage = err.status + ' ' + err.statusText;
+      }
     }
   );
   }
