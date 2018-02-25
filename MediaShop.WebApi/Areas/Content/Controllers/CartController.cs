@@ -13,13 +13,13 @@ using System.Web.Http.Cors;
 using System.Web;
 using System.Security.Claims;
 using System.Linq;
+using MediaShop.Common.Models.User;
 
 namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [CartExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/cart")]
-    [Authorize]
     public class CartController : ApiController
     {
         private readonly ICartService<ContentCartDto> _cartService;
@@ -90,6 +90,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult AddInCart([FromUri] long contentId)
         {
             var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
@@ -97,7 +98,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
 
             if (id < 1 || !ModelState.IsValid)
-            {
+        {
                 return BadRequest(Resources.EmtyData);
             }
 
@@ -115,6 +116,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> AddInCartAsync([FromUri] long contentId)
         {
             var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
@@ -127,7 +129,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             }
 
             var result = await _cartService.AddInCartAsync(contentId, id);
-            return this.Ok(result);
+                return this.Ok(result);
         }
 
         /// <summary>
@@ -141,6 +143,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult DeleteContent([FromBody] ContentCartDto data)
         {
             if (data == null)
@@ -163,6 +166,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(ContentCartDto))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> DeleteContentAsync([FromBody] ContentCartDto data)
         {
             if (data == null)
@@ -185,6 +189,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(long))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> DeleteContentAsync([FromUri] long id)
         {
             if (id <= 0)
@@ -207,6 +212,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Return cart of user", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult Delete([FromUri] long userId)
         {
             if (userId <= 0)
@@ -229,6 +235,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "", typeof(Cart))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> DeleteAsync([FromUri] long userId)
         {
             if (userId <= 0)

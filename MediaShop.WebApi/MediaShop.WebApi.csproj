@@ -239,6 +239,7 @@
     <Compile Include="Filters\AccountExceptionFilterAttribute.cs" />
     <Compile Include="Filters\CartExceptionFilterAttribute.cs" />
     <Compile Include="Filters\PayPalPaymentExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\MediaAuthorizationFilter.cs" />
     <Compile Include="Filters\ProductExeptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

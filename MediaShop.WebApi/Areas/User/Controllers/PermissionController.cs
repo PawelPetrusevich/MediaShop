@@ -22,6 +22,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
     [RoutePrefix("api/user")]
     [AccountExceptionFilter]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class PermissionController : ApiController
     {
         private readonly IPermissionService _permissionService;
