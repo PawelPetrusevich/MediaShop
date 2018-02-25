@@ -54,13 +54,14 @@ namespace MediaShop.WebApi.Provider
                 return;
             }
 
+            var userNumberPermission = (int)user.Permissions;
             var account = _accountService.Login(new LoginDto { Login = user.Login, Password = user.Password });          
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(Resources.ClaimTypeId, user.Id.ToString()),
-                new Claim(Resources.ClaimTypePermission, user.Permissions.ToString())
+                new Claim(Resources.ClaimTypePermission, userNumberPermission.ToString())
             };
 
             var oauthIdentity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);

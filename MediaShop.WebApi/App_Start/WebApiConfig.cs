@@ -7,7 +7,7 @@ using FluentValidation.WebApi;
 using Microsoft.Owin.Security.OAuth;
 
 namespace MediaShop.WebApi
-{
+{      
     /// <summary>
     /// Class WebApiConfig.
     /// </summary>

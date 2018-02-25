@@ -239,10 +239,11 @@
             var payPalPaymentDto = new PayPalPaymentDto() { Items = new List<ItemDto>() };
 
             payPalPaymentDto.Currency = payment.transactions[0].amount.currency;
+            var parseCulture = new CultureInfo("en-US");
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
-                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total.Replace('.', ','));
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total, parseCulture);
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
                     payPalPaymentDto.Items.Add(Mapper.Map<PayPal.Api.Item, ItemDto>(item));
