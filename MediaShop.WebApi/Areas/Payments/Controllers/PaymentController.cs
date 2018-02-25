@@ -28,7 +28,6 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
     [PayPalPaymentExceptionFilter]
     [EnableCors("*", "*", "*")]
     [RoutePrefix("api/payment")]
-    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class PaymentController : ApiController
     {
         private readonly IPayPalPaymentService _paymentService;
@@ -43,6 +42,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
             var url = this.Request.Headers.Referrer.Scheme + $"://" + this.Request.Headers.Referrer.Host + ":" + this.Request.Headers.Referrer.Port;
@@ -55,6 +55,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult ExecutePayment(string paymentId, string token)
         {
             var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
@@ -75,6 +76,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> ExecutePaymentAsync(string paymentId, string token)
         {
             var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
@@ -94,6 +96,7 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         [Route("paypalpayment/paymentcancelled/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult PaymentCancelled(string token)
         {
             this.StatusCode(HttpStatusCode.Redirect);

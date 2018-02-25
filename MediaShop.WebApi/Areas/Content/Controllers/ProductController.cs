@@ -27,7 +27,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
     [EnableCors("*", "*", "*")]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
-    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;
@@ -43,6 +42,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, " ")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult GetProductById([FromUri]long id)
         {
             if (id == null || id <= 0)
@@ -70,6 +70,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful add product ", typeof(UploadProductModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Content upload error or unknown product type", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult AddProduct([FromBody] UploadProductModel data)
         {
             if (data == null || !ModelState.IsValid)
@@ -104,6 +105,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful add product ", typeof(UploadProductModel))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Content upload error or unknown product type", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> AddProductAsync([FromBody] UploadProductModel data)
         {
             if (data == null || !ModelState.IsValid)
@@ -138,6 +140,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Return list of products ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Input error ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult FindProducts([FromBody] List<ProductSearchModel> conditionsList)
         {
             if (conditionsList == null || !ModelState.IsValid)
@@ -186,6 +189,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Return list of products ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Input error ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> FindProductsAsync([FromBody] List<ProductSearchModel> conditionsList)
         {
             if (conditionsList == null || !ModelState.IsValid)
@@ -234,6 +238,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful delete by id ", typeof(ProductDto))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error delete by id", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult DeleteProduct(long id)
         {
             if (id <= 0)
@@ -265,6 +270,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful delete by id ", typeof(ProductDto))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error delete by id", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> DeleteProductAsync(long id)
         {
             if (id <= 0)
@@ -296,6 +302,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful get purshased products", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult GetListPurshasedProducts()
         {
             try
@@ -326,6 +333,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful get purshased products", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> GetListPurshasedProductsAsync()
         {
             try
@@ -356,6 +364,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get compressed products on sale", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult GetListOnSale()
         {
             try
@@ -378,6 +387,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get compressed products on sale", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> GetListOnSaleAsync()
         {
             try
@@ -400,6 +410,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public IHttpActionResult GetOriginalPurshasedProduct([FromUri]long productId)
         {
             if (productId <= 0)
@@ -435,6 +446,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get Original Purshased Product", typeof(OriginalProductDTO))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get original purshased product", typeof(string))]
         [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
         public async Task<IHttpActionResult> GetOriginalPurshasedProductAsync([FromUri]long productId)
         {
             if (productId <= 0)

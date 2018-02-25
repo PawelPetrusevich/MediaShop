@@ -10,6 +10,7 @@ using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
+using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -19,7 +20,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     [RoutePrefix("api/user")]
     [EnableCors("*", "*", "*")]
     [AccountExceptionFilter]
-    [Authorize]
+    [MediaAuthorizationFilter(Permission = Permissions.ManageUsers)]
     public class UserController : ApiController
     {
         private readonly IUserService _userService;
