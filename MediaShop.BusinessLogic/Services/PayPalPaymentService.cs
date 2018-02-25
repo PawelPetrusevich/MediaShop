@@ -94,7 +94,7 @@
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
 
-                paymentDbModel.CreatorId = 1; // Need initialize CreatorId
+                paymentDbModel.CreatorId = userId;
 
                 // Add object PaymentDbModel in database
                 var paymentResult = this.repositoryPayment.Add(paymentDbModel);
@@ -174,7 +174,7 @@
                 // Mapping PaymentTransaction to PaymentDbModel
                 var paymentDbModel = Mapper.Map<PayPalPaymentDbModel>(payment);
 
-                paymentDbModel.CreatorId = 1; // Need initialize CreatorId
+                paymentDbModel.CreatorId = userId;
 
                 // Add object PaymentDbModel in database
                 var paymentResult = await this.repositoryPayment.AddAsync(paymentDbModel).ConfigureAwait(false);
@@ -242,7 +242,7 @@
 
             foreach (PayPal.Api.Transaction s in payment.transactions)
             {
-                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToSingle(s.amount.total.Replace('.', ','));
+                payPalPaymentDto.Total = payPalPaymentDto.Total + Convert.ToDecimal(s.amount.total.Replace('.', ','));
                 foreach (PayPal.Api.Item item in s.item_list.items)
                 {
                     payPalPaymentDto.Items.Add(Mapper.Map<PayPal.Api.Item, ItemDto>(item));
