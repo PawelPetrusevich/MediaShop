@@ -293,22 +293,14 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
         /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public Cart DeleteOfCart(Cart cart, long userId)
+        public Cart DeleteOfCart(long userId)
         {
-            if (cart == null)
+            var contentCollection = this.GetContent(userId);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
-            }
-
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = this.DeleteContent(content);
-                }
+                var deleteContentCart = this.DeleteContent(content);
             }
 
             return this.GetCart(userId);
@@ -317,22 +309,14 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
         /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public async Task<Cart> DeleteOfCartAsync(Cart cart, long userId)
+        public async Task<Cart> DeleteOfCartAsync(long userId)
         {
-            if (cart == null)
+            var contentCollection = await this.GetContentAsync(userId).ConfigureAwait(false);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
-            }
-
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
-                }
+                var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
             }
 
             return await this.GetCartAsync(userId).ConfigureAwait(false);

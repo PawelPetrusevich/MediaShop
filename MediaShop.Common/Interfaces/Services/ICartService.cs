@@ -137,18 +137,16 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
         /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Cart DeleteOfCart(Cart cart, long userId);
+        Cart DeleteOfCart(long userId);
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
         /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Task<Cart> DeleteOfCartAsync(Cart cart, long userId);
+        Task<Cart> DeleteOfCartAsync(long userId);
 
         /// <summary>
         /// Method for check object as Bought

@@ -143,35 +143,31 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [Test]
         public void Delete_of_Cart()
         {
-            var collectionItems = new Collection<ContentCartDto>()
+            var collectionItems = new Collection<ContentCart>()
             {
-                new ContentCartDto { Id = 1, CreatorId = 1 },
-                new ContentCartDto { Id = 2, CreatorId = 1 }
+                new ContentCart { Id = 1, CreatorId = 10 },
+                new ContentCart { Id = 2, CreatorId = 10 }
             };
 
             var cart = new Cart()
             {
-                ContentCartDtoCollection = collectionItems
+                ContentCartDtoCollection = new List<ContentCartDto>(),
+                CountItemsInCollection = 0,
+                PriceAllItemsCollection = 0
             };
 
+            mock.Setup(userId => userId.GetById(10))
+                .Returns(collectionItems);
             mock.SetupSequence(item => item.Delete(It.IsAny<ContentCart>()))
-                .Returns(new ContentCart { Id = 1, CreatorId = 1 })
-                .Returns(new ContentCart { Id = 2, CreatorId = 1 })
+                .Returns(new ContentCart { Id = 1, CreatorId = 10 })
+                .Returns(new ContentCart { Id = 2, CreatorId = 10 })
                 .Throws(new InvalidOperationException());
-            var collectionId = new Collection<long>() { 1, 2 };
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
-            var result = service.DeleteOfCart(cart, 1);
+            // var result = service.DeleteOfCart(cart, 1);
+            var result = service.DeleteOfCart(10);
 
             Assert.AreEqual((uint)0,  result.CountItemsInCollection);
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
-        }
-
-        [Test]
-        public void Delete_of_Cart_is_null()
-        {
-            Cart cart = null;
-            var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
-            Assert.Throws<ArgumentNullException>(() => service.DeleteOfCart(cart, 1));
         }
 
         [Test]
@@ -179,7 +175,8 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         {
             Cart cart = new Cart();
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
-            var result = service.DeleteOfCart(cart, 1);
+            // var result = service.DeleteOfCart(cart, 1);
+            var result = service.DeleteOfCart(1);
             Assert.AreEqual((uint)0, result.CountItemsInCollection);
             Assert.AreEqual((decimal)0, result.PriceAllItemsCollection);
         }
