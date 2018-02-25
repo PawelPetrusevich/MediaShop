@@ -1,6 +1,11 @@
 <form class="form-signin">
   <h2 class="form-signin-heading">Please sign in</h2>
   <label for="inputLogin" class="sr-only">Login</label>
+  <div class="row">
+    <div class="alert alert-success" role="alert">
+     Login should be 2 or more symbols
+      </div>
+    </div>
   <input name = "username" [(ngModel)]="username" type="email" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
   <label for="inputPassword" class="sr-only">Password</label>
   <input  name = "password" [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">

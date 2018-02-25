@@ -40,7 +40,7 @@ export class AccountService {
 
   logout() {
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/logout', null);
+      .post(AppSettings.API_PUBLIC + 'api/account/logout', null);
   }
 
   isAuthorized(): boolean {
@@ -60,7 +60,7 @@ export class AccountService {
     };
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
+        AppSettings.API_PUBLIC + 'api/account/initRecoveryPassword',
        '"'+email+'"',options
       );
   }
@@ -73,7 +73,7 @@ export class AccountService {
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
+        AppSettings.API_PUBLIC + 'api/account/recoveryPassword',
         resetMasswor
       );
   }

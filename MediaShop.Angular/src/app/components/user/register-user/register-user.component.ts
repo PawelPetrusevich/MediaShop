@@ -3,6 +3,7 @@ import {RegisterUserDto} from '../../../Models/User/register-userDto';
 import {AccountService} from '../../../Services/User/AccountService';
 import { Account } from '../../../Models/User/account';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -17,7 +18,7 @@ export class RegisterUserComponent implements OnInit {
   showError = false;
   errorMessage: string;
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private router: Router) { }
 
   register(login: string, password: string, confirmPassword: string, email: string): void {
     const user = new RegisterUserDto();
@@ -28,11 +29,24 @@ export class RegisterUserComponent implements OnInit {
 
     this.accountService
       .register(user)
-      .subscribe(resp =>  (this.userInfo = resp, console.log(resp) ),
+      .subscribe(resp =>  {
+        this.userInfo = resp;
+        this.router.navigate(['login']);
+        console.log(resp);
+      } ,
       (err: HttpErrorResponse) => {
-        this.showError = true ;
-        this.errorMessage = err.statusText;
         console.log(err);
+        this.showError = true ;
+        if (err.status === 400){
+        this.errorMessage = 'User with such email or login is already exists!';
+        }
+        this.showError = true ;
+        if (err.status === 401){
+        this.errorMessage = 'User is not aothorized';
+        }
+        if (err.status === 500){
+          this.errorMessage = err.status + ' ' + err.statusText;
+        }
       }
     );
   }
