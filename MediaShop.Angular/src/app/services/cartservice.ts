@@ -5,20 +5,18 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Cart } from '../Models/Cart/cart';
 import { ContentCartDto } from '../Models/Cart/content-cart-dto';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { AppSettings } from '../Settings/AppSettings';
 
 @Injectable()
 export class Cartservice {
-  constructor(private http: Http) {}
+  constructor(private http: Http, private httpClient: HttpClient) {}
 
   get(): Observable<Cart> {
-    return this.http
-      .get(AppSettings.API_PUBLIC  + 'api/cart/getcartasync')
-      .map(resp => resp.json())
-      .catch(err => Observable.throw(err));
+    return this.httpClient
+      .get<Cart>(AppSettings.API_PUBLIC  + 'api/cart/getcartasync');
   }
 
   delete(contentCart: ContentCartDto): Observable<ContentCartDto> {
@@ -50,8 +48,7 @@ export class Cartservice {
 
   addContent(id: number): Observable<ContentCartDto> {
     return this.http
-    .get(AppSettings.API_PUBLIC + 'api/cart/addasync/' + id)
-    .map(resp => resp.json())
-    .catch(err => Observable.throw(err));
+    .get(AppSettings.API_PUBLIC + 'api/cart/addasync' + id);
+    
   }
 }

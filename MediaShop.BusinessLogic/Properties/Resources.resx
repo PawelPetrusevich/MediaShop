@@ -315,4 +315,7 @@
   <data name="NoRootForDelete" xml:space="preserve">
     <value>You have no rights for delete this product</value>
   </data>
+  <data name="ContentAlreadyBougth" xml:space="preserve">
+    <value>This content already bougth for current user</value>
+  </data>
 </root>
