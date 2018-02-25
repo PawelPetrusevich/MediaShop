@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Cart } from '../Models/Cart/cart';
 import { ContentCartDto } from '../Models/Cart/content-cart-dto';
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { AppSettings } from '../Settings/AppSettings';
@@ -46,9 +46,9 @@ export class Cartservice {
       .catch(err => Observable.throw(err));
   }
 
-  addContent(id: number): Observable<ContentCartDto> {
-    return this.http
-    .get(AppSettings.API_PUBLIC + 'api/cart/addasync' + id);
-    
+  addContent(id: number) {
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return this.httpClient
+    .get<ContentCartDto>(AppSettings.API_PUBLIC + 'api/cart/addasync/' + id, { headers: header });
   }
 }

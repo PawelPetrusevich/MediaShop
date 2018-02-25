@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../Services/product-service.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, ActivatedRouteSnapshot } from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import { ProductInfoDto } from '../../../Models/Content/ProductInfoDto';
 import { Cartservice } from '../../../services/cartservice';
@@ -29,6 +29,7 @@ export class ProductInfoComponent implements OnInit {
 
   constructor(private productService: ProductService,
      private activatedRouter: ActivatedRoute,
+     private router: Router,
       private cartService: Cartservice,
     private notificationService: NotificationsService) {
     this.subscrition = activatedRouter.params.subscribe(data => this.id = data['id']);
@@ -69,7 +70,10 @@ export class ProductInfoComponent implements OnInit {
   DeleteProduct() {
     console.log('run methods');
     this.productService.deleteProduct(this.productInfo.Id).subscribe(
-      data => this.ShowOkDelete(data as ProductDto),
+      data => {
+        this.ShowOkDelete(data as ProductDto);
+        this.router.navigate(['product-list']);
+      },
       error => this.ShowError(error as HttpErrorResponse)
     );
   }
@@ -159,7 +163,7 @@ export class ProductInfoComponent implements OnInit {
       ShowError(error: HttpErrorResponse) {
         this.notificationService.error (
           'OperationError',
-          error.message,
+          error.error.Message,
           {
             timeOut: 5000,
             showProgressBar: true,
@@ -171,7 +175,7 @@ export class ProductInfoComponent implements OnInit {
       ShowOkInCart(data: ContentCartDto) {
         this.notificationService.success(
           'Added to cart',
-          data.ContentName + 'add to cart',
+          data.ContentName + ' add to cart',
           {
             timeOut: 5000,
             showProgressBar: true,
