@@ -83,6 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Messaging\ForgotPasswordDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\ForgotPasswordDtoValidator.cs" />
     <Compile Include="Dto\Payment\ItemDto.cs" />
     <Compile Include="Dto\AddToCartNotifyDto.cs" />
     <Compile Include="Dto\Messaging\Validators\NotificationDtoValidator.cs" />

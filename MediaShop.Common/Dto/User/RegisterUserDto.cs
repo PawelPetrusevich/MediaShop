@@ -13,5 +13,7 @@ namespace MediaShop.Common.Dto.User
         public string ConfirmPassword { get; set; }
 
         public string Email { get; set; }
+
+        public string Origin { get; set; }
     }
 }
