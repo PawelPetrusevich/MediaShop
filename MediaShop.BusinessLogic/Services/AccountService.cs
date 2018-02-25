@@ -100,16 +100,32 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ExistingLoginException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-            modelDbModel.Password = GetHashString(userModel.Password);
-            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
-            var account = this._factoryRepository.Accounts.Add(modelDbModel);
-             account = account ?? throw new AddAccountException();
-            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
+            var findUser = _factoryRepository.Accounts.GetByEmail(userModel.Email);
 
-            _emailService.SendConfirmation(confirmationModel);
+            //User registers for the first time
+            if (findUser == null)
+            {
+                var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+                modelDbModel.Password = GetHashString(userModel.Password);
+                modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
+                var account = this._factoryRepository.Accounts.Add(modelDbModel);
+                account = account ?? throw new AddAccountException();
+                var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            return Mapper.Map<Account>(account);
+                _emailService.SendConfirmation(confirmationModel);
+
+                return Mapper.Map<Account>(account);
+            }
+
+            findUser.IsConfirmed = false;
+            findUser.Password = GetHashString(userModel.Password);
+            findUser.AccountConfirmationToken = TokenHelper.NewToken();
+            var confirmedUser = this._factoryRepository.Accounts.UpdateAsync(findUser) ?? throw new UpdateAccountException();
+            var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
+
+            _emailService.SendConfirmation(confirmationModelUser);
+
+            return Mapper.Map<Account>(confirmedUser);
         }
 
         public async Task<Account> RegisterAsync(RegisterUserDto userModel)
@@ -121,16 +137,34 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ExistingLoginException(result.Errors.Select(m => m.ErrorMessage));
             }
 
-            var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-            modelDbModel.Password = GetHashString(userModel.Password);
-            modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
-            var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
-            account = account ?? throw new AddAccountException();
-            var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
+            var findUser = await _factoryRepository.Accounts.GetByEmailAsync(userModel.Email).ConfigureAwait(false);
 
-            await _emailService.SendConfirmationAsync(confirmationModel).ConfigureAwait(false);
+            //User registers for the first time
+            if (findUser == null)
+            {
+                var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+                modelDbModel.Password = GetHashString(userModel.Password);
+                modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
+                var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
+                account = account ?? throw new AddAccountException();
+                var confirmationModel = Mapper.Map<AccountConfirmationDto>(modelDbModel);
 
-            return Mapper.Map<Account>(account);
+                await _emailService.SendConfirmationAsync(confirmationModel).ConfigureAwait(false);
+
+                return Mapper.Map<Account>(account);
+            }
+
+            //User has been  registered already
+            findUser.IsConfirmed = false;
+            findUser.Login = userModel.Login;
+            findUser.Password = GetHashString(userModel.Password);
+            findUser.AccountConfirmationToken = TokenHelper.NewToken();
+            var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(findUser).ConfigureAwait(false) ?? throw new UpdateAccountException();
+            var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
+
+            await _emailService.SendConfirmationAsync(confirmationModelUser).ConfigureAwait(false);
+
+            return Mapper.Map<Account>(confirmedUser);
         }
 
         /// <summary>
@@ -140,7 +174,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <param name="id">id user</param>
         /// <returns><c>account</c> if succeeded</returns>
         public Account ConfirmRegistration(AccountConfirmationDto model)
-            {
+        {
             var result = _tokenValidator.AccountConfirmation.Validate(model);
 
             if (!result.IsValid)
@@ -155,25 +189,36 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ConfirmedUserException(Resources.ConfirmationError);
             }
 
-            var profile = this._factoryRepository.Profiles.Add(new ProfileDbModel());
-            profile = profile ?? throw new AddProfileException();
+            //User registered fo the first time
+            if (!user.IsDeleted)
+            {
+                var profile = this._factoryRepository.Profiles.Add(new ProfileDbModel());
+                profile = profile ?? throw new AddProfileException();
 
-            var settings = this._factoryRepository.Settings.Add(new SettingsDbModel());
-            settings = settings ?? throw new AddSettingsException();
+                var settings = this._factoryRepository.Settings.Add(new SettingsDbModel());
+                settings = settings ?? throw new AddSettingsException();
 
+                user.IsConfirmed = true;
+                user.ProfileId = profile.Id;
+                user.Profile = profile;
+                user.SettingsId = settings.Id;
+                user.Settings = settings;
+                user.AccountConfirmationToken = TokenHelper.NewToken();
+                var confirmedUser = this._factoryRepository.Accounts.Update(user) ??
+                                    throw new UpdateAccountException();
+
+                return Mapper.Map<Account>(confirmedUser);
+            }
+
+            //User registers after deleting
+            user.IsDeleted = false;
             user.IsConfirmed = true;
-            user.ProfileId = profile.Id;
-            user.Profile = profile;
-            user.SettingsId = settings.Id;
-            user.Settings = settings;
-            user.AccountConfirmationToken = TokenHelper.NewToken();
-            var confirmedUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
-
-            return Mapper.Map<Account>(confirmedUser);
+            var account = this._factoryRepository.Accounts.Update(user);
+            return Mapper.Map<Account>(account);
         }
 
         public async Task<Account> ConfirmRegistrationAsync(AccountConfirmationDto model)
-            {
+        {
             var result = _tokenValidator.AccountConfirmation.Validate(model);
 
             if (!result.IsValid)
@@ -188,23 +233,34 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ConfirmedUserException(Resources.ConfirmationError);
             }
 
-            var profile = await this._factoryRepository.Profiles.AddAsync(new ProfileDbModel()).ConfigureAwait(false);
-            profile = profile ?? throw new AddProfileException();
+            //User registered fo the first time
+            if (!user.IsDeleted)
+            {
+                var profile = await this._factoryRepository.Profiles.AddAsync(new ProfileDbModel())
+                    .ConfigureAwait(false);
+                profile = profile ?? throw new AddProfileException();
 
-            var settings = await this._factoryRepository.Settings.AddAsync(new SettingsDbModel()).ConfigureAwait(false);
-            settings = settings ?? throw new AddSettingsException();
+                var settings = await this._factoryRepository.Settings.AddAsync(new SettingsDbModel())
+                    .ConfigureAwait(false);
+                settings = settings ?? throw new AddSettingsException();
 
-            user.IsConfirmed = true;
-            user.ProfileId = profile.Id;
-            user.Profile = profile;
-            user.SettingsId = settings.Id;
-            user.Settings = settings;
-            user.AccountConfirmationToken = TokenHelper.NewToken();
+                user.IsConfirmed = true;
+                user.ProfileId = profile.Id;
+                user.Profile = profile;
+                user.SettingsId = settings.Id;
+                user.Settings = settings;
+                user.AccountConfirmationToken = TokenHelper.NewToken();
 
-            var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
-            confirmedUser = confirmedUser ?? throw new UpdateAccountException();
+                var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
+                confirmedUser = confirmedUser ?? throw new UpdateAccountException();
 
-            return Mapper.Map<Account>(confirmedUser);
+                return Mapper.Map<Account>(confirmedUser);
+            }
+
+            //User registers after deleting
+            user.IsDeleted = false;
+            var account = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
+            return Mapper.Map<Account>(account);
         }
 
         /// <summary>
@@ -228,7 +284,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var statistic = new StatisticDbModel() { AccountId = user.Id };
             var result = this._factoryRepository.Statistics.Add(statistic);
-            result = result ?? throw new AddStatisticException();          
+            result = result ?? throw new AddStatisticException();
 
             return Mapper.Map<Account>(result.AccountDbModel);
         }
@@ -258,9 +314,9 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             statistic.DateLogOut = DateTime.Now;
-                var result = this._factoryRepository.Statistics.Update(statistic) ?? throw new AddStatisticException();
+            var result = this._factoryRepository.Statistics.Update(statistic) ?? throw new AddStatisticException();
 
-                return Mapper.Map<Account>(result.AccountDbModel);
+            return Mapper.Map<Account>(result.AccountDbModel);
         }
 
         /// <summary>
