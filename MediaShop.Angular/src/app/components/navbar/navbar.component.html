@@ -13,11 +13,11 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="product-list">Products</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf = "accountService.isAuthorized()">
         <a class="nav-link" routerLink="product-upload">Upload product</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "product-download">Purshased Product</a>
+      <li class="nav-item" *ngIf = "accountService.isAuthorized()">
+        <a class="nav-link" routerLink = "product-purshased">Purshased Product</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="cart">Cart</a>
@@ -29,11 +29,7 @@
           <a class="nav-link" routerLink="userSettings">UserSettings</a>
         </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <li class="nav-item">
+<li class="nav-item">
       <a class="nav-link" routerLink="logOut">LogOut</a>
     </li>
   </div>

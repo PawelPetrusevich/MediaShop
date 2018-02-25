@@ -169,4 +169,7 @@
   <data name="NullTokenData" xml:space="preserve">
     <value>You are not authorized</value>
   </data>
+  <data name="ErrorDownload" xml:space="preserve">
+    <value>You cannot download this product</value>
+  </data>
 </root>
