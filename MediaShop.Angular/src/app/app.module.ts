@@ -46,6 +46,7 @@ import { UserSettingsComponent } from './components/user/user-settings/user-sett
 import { UserInfoService } from './Services/User/userInfoService';
 import { CartDataProvider } from './components/cart/cartDataProvider';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -88,7 +89,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     HttpModule,
     ApproutingModule,
     NgxPaginationModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   providers: [
     AccountService,
