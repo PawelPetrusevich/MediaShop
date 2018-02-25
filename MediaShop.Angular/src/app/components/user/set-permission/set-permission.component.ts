@@ -38,7 +38,7 @@ export class SetPermissionComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.paramMap.switchMap((params: ParamMap) =>
-      this.userService.GetUser(params.get('id'))
+      this.userService.GetUserById(params.get('id'))
     );
     this.user.subscribe(res => {
       this.oldPermission = res.Permissions;

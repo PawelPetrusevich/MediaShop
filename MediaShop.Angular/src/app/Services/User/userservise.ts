@@ -90,12 +90,13 @@ export class UserService {
        .catch(err => Observable.throw(err));
    }
 
-  GetUser(id: number | string) {
+  GetUserById(id: number | string) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
 
-    return (
-      this.GetAllUsers()
-        // (+) before `id` turns the string into a number
-        .map(users => users.find(user => user.Id === +id))
-    );
+    return this.http
+      .post(UserService.url + '/user/getUserInfoByIdAsync', id, options)
+      .map(resp => resp.json())
+      .catch(err => Observable.throw(err));
   }
 }
