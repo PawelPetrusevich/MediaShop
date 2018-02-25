@@ -25,6 +25,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [LoggingFilter]
     [EnableCors("*", "*", "*")]
+    [Authorize]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
     public class ProductController : ApiController
@@ -38,6 +39,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
         [HttpGet]
         [Route("getById/{id}")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, " ", typeof(string))]
         [SwaggerResponse(HttpStatusCode.BadRequest, " ", typeof(string))]
@@ -136,6 +138,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("Find")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Return list of products ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Input error ", typeof(string))]
@@ -185,6 +188,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
         [System.Web.Http.HttpPost]
         [System.Web.Http.Route("FindAsync")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Return list of products ", typeof(List<ProductDto>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Input error ", typeof(string))]
@@ -307,11 +311,11 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         {
             try
             {
-                /*var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
                 var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
-                var idUser = long.Parse(idClaim.Value);*/
+                var idUser = long.Parse(idClaim.Value);
 
-                return Ok(_productService.GetListPurshasedProducts(1));
+                return Ok(_productService.GetListPurshasedProducts(idUser));
             }
             catch (NullReferenceException)
             {
@@ -360,6 +364,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSale")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get compressed products on sale", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
@@ -383,6 +388,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetListOnSaleAsync")]
+        [AllowAnonymous]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(HttpStatusCode.OK, "Successful Get compressed products on sale", typeof(List<CompressedProductDTO>))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Error get products on sale", typeof(string))]
@@ -433,6 +439,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             catch (InvalidOperationException)
             {
                 return BadRequest(Resources.ContentDownloadError);
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest(Resources.ErrorDownload);
             }
             catch (Exception)
             {
