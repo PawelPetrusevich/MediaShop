@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Permissions } from '../../Models/User/permissions';
 import { UserInfoService } from '../../Services/User/userInfoService';
 @Component({
@@ -8,15 +8,15 @@ import { UserInfoService } from '../../Services/User/userInfoService';
 })
 export class NavbarComponent implements OnInit {
   IsAdmin: boolean;
+  Login: string;
 
   constructor(private userInfoService: UserInfoService) {}
 
-  ngOnInit() {
-    console.log(this.Admin());
-  }
-
-  Admin() {
+  ngOnInit(): void {
+    console.log('oninit');
     this.userInfoService.getUserInfo().subscribe(result => {
+      console.log(result);
+      this.Login = result.Login;
       this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
     });
   }
