@@ -77,6 +77,11 @@ namespace MediaShop.BusinessLogic.Services
                 return null;
             }
 
+            if (!user.IsConfirmed)
+            {
+                throw new ConfirmedUserException(Resources.ConfirmationError);
+            }
+
             return user;
         }
 
@@ -147,7 +152,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (user.IsConfirmed)
             {
-                throw new ConfirmedUserException();
+                throw new ConfirmedUserException(Resources.ConfirmationError);
             }
 
             var profile = this._factoryRepository.Profiles.Add(new ProfileDbModel());
@@ -180,7 +185,7 @@ namespace MediaShop.BusinessLogic.Services
 
             if (user.IsConfirmed)
             {
-                throw new ConfirmedUserException();
+                throw new ConfirmedUserException(Resources.ConfirmationError);
             }
 
             var profile = await this._factoryRepository.Profiles.AddAsync(new ProfileDbModel()).ConfigureAwait(false);
