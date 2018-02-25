@@ -44,7 +44,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
             if (user != null && user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId) != null)
             {
-                if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value, out id))
+                if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out id))
                 {
                     throw new InvalidIdException(Resources.IncorrectId);
                 }
