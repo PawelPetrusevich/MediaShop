@@ -25,12 +25,6 @@ export class AccountService {
   login(login: string, password: string): Observable<TokenResponse> {
     const body =
       'grant_type=password&username=' + login + '&password=' + password;
-
-    /*const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    options.headers.append('Access-Control-Allow-Origin', '*');
-*/
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*'
@@ -45,30 +39,29 @@ export class AccountService {
   }
 
   logout() {
-    /*const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('token')
-    );*/
-
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/logout', null);
+      .post(AppSettings.API_PUBLIC + 'api/account/logout', null);
   }
 
   isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null ) {
-    return false;
+    if (localStorage.getItem(AppSettings.tokenKey) === null) {
+      return false;
     }
 
     return true;
   }
 
   forgotPassword(email: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {
+      headers
+    };
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
-        email
+        AppSettings.API_PUBLIC + 'api/account/initRecoveryPassword',
+       '"'+email+'"',options
       );
   }
 
@@ -80,7 +73,7 @@ export class AccountService {
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
+        AppSettings.API_PUBLIC + 'api/account/recoveryPassword',
         resetMasswor
       );
   }
