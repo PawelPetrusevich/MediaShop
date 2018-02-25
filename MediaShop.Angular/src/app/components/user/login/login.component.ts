@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {TokenResponse} from '../../../Models/User/token-response';
-import {AccountService} from '../../../Services/User/AccountService';
+import { TokenResponse } from '../../../Models/User/token-response';
+import { AccountService } from '../../../Services/User/AccountService';
 import { HttpErrorResponse } from '@angular/common/http';
-import {AppSettings} from '../../../Settings/AppSettings';
-import {Router} from '@angular/router';
+import { AppSettings } from '../../../Settings/AppSettings';
+import { Router } from '@angular/router';
+import { SignalRServiceConnector } from '../../../signalR/signalr-service';
 
 @Component({
   selector: 'app-login',
@@ -18,33 +19,35 @@ export class LoginComponent implements OnInit {
   showError = false;
   errorMessage: string;
 
-  constructor(private accountService: AccountService,  private router: Router) { }
+  constructor(private accountService: AccountService, private router: Router, private signalRServiceConnector: SignalRServiceConnector) { }
 
   ngOnInit() {
   }
 
   login(name: string, password: string): void {
     this.accountService.login(name, password)
-    .subscribe(resp => {
-      this.data = resp;
-      localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
-      localStorage.setItem(AppSettings.userId, this.data.userId);
-      this.router.navigate(['product-list']);
-    },
-    (err: HttpErrorResponse) => {
-      console.log(err);
-      this.showError = true ;
-      if (err.status === 400){
-      this.errorMessage = 'Incorrect login or  password';
-      }
-      this.showError = true ;
-      if (err.status === 401){
-      this.errorMessage = 'User is not aothorized';
-      }
-      if (err.status === 500){
-        this.errorMessage = err.status + ' ' + err.statusText;
-      }
-    }
-  );
+      .subscribe(resp => {
+        this.data = resp;
+        localStorage.setItem(AppSettings.tokenKey, this.data.access_token);
+        localStorage.setItem(AppSettings.userId, this.data.userId);
+        
+        this.signalRServiceConnector.Connect(true);
+        this.router.navigate(['product-list']);
+      },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          this.showError = true;
+          if (err.status === 400) {
+            this.errorMessage = 'Incorrect login or  password';
+          }
+          this.showError = true;
+          if (err.status === 401) {
+            this.errorMessage = 'User is not aothorized';
+          }
+          if (err.status === 500) {
+            this.errorMessage = err.status + ' ' + err.statusText;
+          }
+        }
+      );
   }
 }

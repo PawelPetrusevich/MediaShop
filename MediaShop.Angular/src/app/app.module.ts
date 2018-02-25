@@ -50,6 +50,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SignalRConfig } from './signalR/signalr-config';
+import { SignalRServiceConnector } from './signalR/signalr-service';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { SignalRConfig } from './signalR/signalr-config';
     HttpModule,
     ApproutingModule,
     NgxPaginationModule,
+    SignalRServiceConnector.forRoot(),
     SimpleNotificationsModule.forRoot(),
     SignalRModule.forRoot(SignalRConfig.createConfig)
   ],

@@ -12,10 +12,11 @@ import { PasswordRecovery } from '../../Models/User/password-recovery';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
+import { SignalRServiceConnector } from '../../signalR/signalr-service';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private signalRServiceConnector: SignalRServiceConnector) { }
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
@@ -39,6 +40,7 @@ export class AccountService {
   }
 
   logout() {
+    this.signalRServiceConnector.Disconnect();
     return this.http
       .post(AppSettings.API_PUBLIC + 'api/account/logout', null);
   }
@@ -61,7 +63,7 @@ export class AccountService {
     return this.http
       .post(
         AppSettings.API_PUBLIC + 'api/account/initRecoveryPassword',
-       '"'+email+'"',options
+        '"' + email + '"', options
       );
   }
 
