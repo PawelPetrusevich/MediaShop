@@ -3,6 +3,7 @@ import { ProductService } from '../../../Services/product-service.service';
 import { CompressedProductDto } from '../../../Models/Content/CompressedProductDto';
 import { ContentType } from '../../../Models/Content/ContentType';
 import { ProductSearchModel } from '../../../Models/Content/ProductSearchModel';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-list',
@@ -20,6 +21,7 @@ export class ProductListComponent implements OnInit, OnChanges {
   TextSearchFilter: String = 'Search filter';
   CurrentFilter: number;
   CurrentSorting: number;
+  ErrorMessage: String;
 
 
   ngOnChanges() {
@@ -71,6 +73,8 @@ export class ProductListComponent implements OnInit, OnChanges {
       this.conditionList = [];
       this.TextSearchFilter = 'Search filter';
       this.GetAllProducts();
+      this.ErrorMessage = '';
+      this.DivNotFoundHidden = true;
     } else {
       this.AddCondition();
       this.TextSearchFilter = 'Cancel search filter';
@@ -109,9 +113,14 @@ export class ProductListComponent implements OnInit, OnChanges {
       this.sort(this.CurrentSorting);
       if (this.compressedProductList === undefined || this.compressedProductList.length === 0) {
         this.DivNotFoundHidden = false;
+        this.ErrorMessage = 'Nothing found';
       } else {
         this.DivNotFoundHidden = true;
       }
+    },
+    (err: HttpErrorResponse) => {
+      this.ErrorMessage = err.error.Message;
+      this.DivNotFoundHidden = false;
     });
   }
 

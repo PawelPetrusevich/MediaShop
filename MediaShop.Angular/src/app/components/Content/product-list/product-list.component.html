@@ -22,7 +22,7 @@
         </select>
       </div>
       <div class="col-md-5">
-        <input type="text" class="form-control-sm w-100" id="Value" required="" [(ngModel)]="item.RightValue" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control-sm w-100" id="RightValue" required="" [(ngModel)]="item.RightValue" [ngModelOptions]="{standalone: true}" placeholder="Value">
       </div>
 
       <div class="col-md-1">
@@ -59,6 +59,6 @@
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
-<div [hidden]="DivNotFoundHidden">
-  <h1>Nothing found!</h1>
+<div class = "alert alert-danger" [hidden]="DivNotFoundHidden">
+  <h1>{{ErrorMessage}}</h1>
 </div>

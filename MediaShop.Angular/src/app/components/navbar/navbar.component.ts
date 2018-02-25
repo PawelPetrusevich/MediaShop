@@ -3,6 +3,7 @@ import { SignalR } from 'ng2-signalr';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
 import { AccountService } from '../../Services/User/AccountService';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
