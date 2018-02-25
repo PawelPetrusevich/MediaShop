@@ -8,6 +8,9 @@ import { ProductDto } from '../../../Models/Content/ProductDto';
 import { ContentType } from '../../../Models/Content/ContentType';
 import { OriginalProductDTO } from '../../../Models/Content/OriginalProductDto';
 import * as FileSaver from 'file-saver';
+import { NotificationsService } from 'angular2-notifications';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ContentCartDto } from '../../../Models/Cart/content-cart-dto';
 
 @Component({
   selector: 'app-product-info',
@@ -23,7 +26,10 @@ export class ProductInfoComponent implements OnInit {
 
 
 
-  constructor(private productService: ProductService, private activatedRouter: ActivatedRoute, private cartService: Cartservice) {
+  constructor(private productService: ProductService,
+     private activatedRouter: ActivatedRoute,
+      private cartService: Cartservice,
+    private notificationService: NotificationsService) {
     this.subscrition = activatedRouter.params.subscribe(data => this.id = data['id']);
 
    }
@@ -53,12 +59,18 @@ export class ProductInfoComponent implements OnInit {
 
   ToCart() {
     console.log('run methods');
-    this.cartService.addContent(this.productInfo.Id).subscribe();
+    this.cartService.addContent(this.productInfo.Id).subscribe(
+      data => this.ShowOkInCart(data as ContentCartDto),
+      error => this.ShowError(error as HttpErrorResponse)
+    );
   }
 
   DeleteProduct() {
     console.log('run methods');
-    this.productService.deleteProduct(this.productInfo.Id).subscribe();
+    this.productService.deleteProduct(this.productInfo.Id).subscribe(
+      data => this.ShowOkDelete(data as ProductDto),
+      error => this.ShowError(error as HttpErrorResponse)
+    );
   }
 
   Download() {
@@ -130,6 +142,42 @@ export class ProductInfoComponent implements OnInit {
         const blob = new Blob([view], { type: contentType });
         const fileName = downloadingFile.ProductName + '.avi';
         FileSaver.saveAs(blob, fileName);
+      }
+
+      ShowOkDelete(data: ProductDto) {
+        this.notificationService.success(
+          'Deleted',
+          data.ProductName + ' deleted',
+          {
+            timeOut: 5000,
+            showProgressBar: true,
+            clickToClose: true
+          }
+        );
+      }
+
+      ShowError(error: HttpErrorResponse) {
+        this.notificationService.error (
+          'OperationError',
+          error.message,
+          {
+            timeOut: 5000,
+            showProgressBar: true,
+            clickToClose: true
+          }
+        );
+      }
+
+      ShowOkInCart(data: ContentCartDto) {
+        this.notificationService.success(
+          'Added to cart',
+          data.ContentName + 'add to cart',
+          {
+            timeOut: 5000,
+            showProgressBar: true,
+            clickToClose: true
+          }
+        );
       }
 
 

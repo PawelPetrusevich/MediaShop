@@ -308,6 +308,11 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             return result;
         }
 
+        /// <summary>
+        /// creat video frame
+        /// </summary>
+        /// <param name="originalVideoBytes">byte aaray whith original file</param>
+        /// <returns>frame</returns>
         public static byte[] GetCompresedVideoFrame(this byte[] originalVideoBytes)
         {
             string originalVideoPath = $"{System.Web.HttpContext.Current.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";
@@ -321,6 +326,11 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             return result;
         }
 
+        /// <summary>
+        /// creat video frame for async methods
+        /// </summary>
+        /// <param name="originalVideoBytes">byte aaray whith original file</param>
+        /// <returns>frame</returns>
         public static byte[] GetCompresedVideoFrameAsync(this byte[] originalVideoBytes, HttpContext context)
         {
             string originalVideoPath = $"{context.Server.MapPath("~/App_Data/")}{Guid.NewGuid()}.mp4";

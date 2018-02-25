@@ -84,15 +84,24 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// </summary>
         /// <param name="contentId">content id</param>
         /// <returns>IHttpActionResult</returns>
-        [HttpPost]
-        [Route("add")]
+        [HttpGet]
+        [Route("add/{contentId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public IHttpActionResult Post(long contentId)
+        public IHttpActionResult AddInCart([FromUri] long contentId)
         {
-                return this.Ok(_cartService.AddInCart(contentId));
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            return this.Ok(_cartService.AddInCart(contentId, id));
         }
 
         /// <summary>
@@ -100,16 +109,25 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// </summary>
         /// <param name="contentId">content id</param>
         /// <returns>Task<IHttpActionResult></IHttpActionResult></returns>
-        [HttpPost]
-        [Route("addasync")]
+        [HttpGet]
+        [Route("addasync/{contentId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
         [SwaggerResponse(statusCode: HttpStatusCode.BadRequest, description: "", type: typeof(string))]
         [SwaggerResponse(statusCode: HttpStatusCode.InternalServerError, description: "", type: typeof(Exception))]
-        public async Task<IHttpActionResult> PostAsync(long contentId)
+        public async Task<IHttpActionResult> AddInCartAsync([FromUri] long contentId)
         {
-                var result = await _cartService.AddInCartAsync(contentId);
-                return this.Ok(result);
+            var userClaims = HttpContext.Current.User.Identity as ClaimsIdentity ??
+                             throw new ArgumentNullException(nameof(HttpContext.Current.User.Identity));
+            var id = Convert.ToInt64(userClaims.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value);
+
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            var result = await _cartService.AddInCartAsync(contentId, id);
+            return this.Ok(result);
         }
 
         /// <summary>
