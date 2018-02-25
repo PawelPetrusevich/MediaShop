@@ -12,6 +12,8 @@ import { PasswordRecovery } from '../../Models/User/password-recovery';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
+import { ForgotPasswordDto } from '../../Models/User/forgot-password-dto';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AccountService {
@@ -25,12 +27,6 @@ export class AccountService {
   login(login: string, password: string): Observable<TokenResponse> {
     const body =
       'grant_type=password&username=' + login + '&password=' + password;
-
-    /*const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    options.headers.append('Access-Control-Allow-Origin', '*');
-*/
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*'
@@ -45,42 +41,41 @@ export class AccountService {
   }
 
   logout() {
-    /*const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('token')
-    );*/
-
     return this.http
-      .post(AppSettings.API_ENDPOINT + 'api/account/logout', null);
+      .post(AppSettings.API_PUBLIC + 'api/account/logout', null);
   }
 
   isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null ) {
-    return false;
+    if (localStorage.getItem(AppSettings.tokenKey) === null) {
+      return false;
     }
 
     return true;
   }
 
-  forgotPassword(email: string) {
+  forgotPassword(model: ForgotPasswordDto) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {
+      headers
+    };
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
-        email
+        environment.API_ENDPOINT  + 'api/account/initRecoveryPassword',
+        model, options
       );
   }
 
   confirm(email: string, token: string) {
     return this.http
-      .get(AppSettings.API_PUBLIC + 'api/account/confirm/' + email + '/' + token);
+      .get(environment.API_ENDPOINT  + 'api/account/confirm/' + email + '/' + token);
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http
       .post(
-        AppSettings.API_ENDPOINT + 'api/account/recoveryPassword',
+        environment.API_ENDPOINT + 'api/account/recoveryPassword',
         resetMasswor
       );
   }

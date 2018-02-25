@@ -15,7 +15,9 @@ import { HttpModule, Http } from '@angular/http';
   styleUrls: ['./user-pofile.component.css']
 })
 export class UserPofileComponent implements OnInit {
+
   showError = false;
+  isModified = false;
   errorMessage: string;
   status: any;
   user: Account;
@@ -44,9 +46,18 @@ export class UserPofileComponent implements OnInit {
 
       console.log(result);
     }, (err: HttpErrorResponse) => {
-      this.showError = true ;
-      this.errorMessage = err.statusText;
       console.log(err);
+      this.showError = true ;
+      if (err.status === 400){
+      this.errorMessage = err.status + ' ' + err.statusText;
+      }
+      this.showError = true ;
+      if (err.status === 401){
+      this.errorMessage = 'User is not aothorized';
+      }
+      if (err.status === 500){
+        this.errorMessage = err.status + ' ' + err.statusText;
+      }
     });
   }
 
@@ -59,11 +70,24 @@ export class UserPofileComponent implements OnInit {
 
     this.userInfoService
       .updateProfile(profileChanged)
-      .subscribe(resp =>  ( console.log(resp) ),
+      .subscribe(resp =>  {
+        console.log(resp);
+        this.isModified = true ;
+        },
       (err: HttpErrorResponse) => {
-        this.showError = true ;
-        this.errorMessage = err.statusText;
+        this.isModified = false ;
         console.log(err);
+        this.showError = true ;
+        if (err.status === 400){
+        this.errorMessage = 'One of the field is empty. Try one more time!';
+        }
+        this.showError = true ;
+        if (err.status === 401){
+        this.errorMessage = 'User is not aothorized';
+        }
+        if (err.status === 500){
+          this.errorMessage = err.status + ' ' + err.statusText;
+        }
       });
   }
 

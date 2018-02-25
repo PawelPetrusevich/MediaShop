@@ -293,52 +293,33 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public Cart DeleteOfCart(Cart cart)
+        public Cart DeleteOfCart(long userId)
         {
-            if (cart == null)
+            var contentCollection = this.GetContent(userId);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+                var deleteContentCart = this.DeleteContent(content);
             }
 
-            long id = 0;
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = this.DeleteContent(content);
-
-                    // id = content.CreatorId; // Get user Id from Token
-                }
-            }
-
-            return this.GetCart(id);
+            return this.GetCart(userId);
         }
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public async Task<Cart> DeleteOfCartAsync(Cart cart)
+        public async Task<Cart> DeleteOfCartAsync(long userId)
         {
-            if (cart == null)
+            var contentCollection = await this.GetContentAsync(userId).ConfigureAwait(false);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+                var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
             }
 
-            long id = 0;
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
-                    id = content.CreatorId; // Get user Id from Token
-                }
-            }
-
-            return await this.GetCartAsync(id).ConfigureAwait(false);
+            return await this.GetCartAsync(userId).ConfigureAwait(false);
         }
 
         /// <summary>
