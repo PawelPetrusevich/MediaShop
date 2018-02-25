@@ -3,6 +3,8 @@
 // </copyright>
 
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using MediaShop.BusinessLogic.Properties;
 using MediaShop.Common.Dto.Messaging;
@@ -94,6 +96,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.Password = GetHashString(userModel.Password);
             modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = this._factoryRepository.Accounts.Add(modelDbModel);
              account = account ?? throw new AddAccountException();
@@ -114,6 +117,7 @@ namespace MediaShop.BusinessLogic.Services
             }
 
             var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
+            modelDbModel.Password = GetHashString(userModel.Password);
             modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
             var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
             account = account ?? throw new AddAccountException();
@@ -323,7 +327,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
-            user.Password = model.Password;
+            user.Password = GetHashString(model.Password);
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
@@ -349,7 +353,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
 
-            user.Password = model.Password;
+            user.Password = GetHashString(model.Password);
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
 
@@ -363,6 +367,34 @@ namespace MediaShop.BusinessLogic.Services
         public IEnumerable<UserDto> GetAllUsers()
         {
             return Mapper.Map<IEnumerable<UserDto>>(_factoryRepository.Accounts.GetAllUsers());
+        }
+
+        /// <summary>
+        /// Get hash string
+        /// </summary>
+        /// <param name="s">string</param>
+        /// <returns>hash string</returns>
+        public string GetHashString(string s)
+        {
+            //переводим строку в байт-массим  
+            byte[] bytes = Encoding.Unicode.GetBytes(s);
+
+            //создаем объект для получения средст шифрования  
+            MD5CryptoServiceProvider csp =
+                new MD5CryptoServiceProvider();
+
+            //вычисляем хеш-представление в байтах  
+            byte[] byteHash = csp.ComputeHash(bytes);
+
+            string hash = string.Empty;
+
+            //формируем одну цельную строку из массива  
+            foreach (byte b in byteHash)
+            {
+                hash += $"{b:x2}";
+            }
+
+            return hash;
         }
     }
 }

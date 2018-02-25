@@ -49,7 +49,16 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
         path: 'product-list',
         component: ProductListComponent
       },
-      { path: 'payment', component: PaymentComponent },
+      { path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+       },
+      { path: 'payment',
+        component: PaymentComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+       },
       {
         path: 'product-upload',
         component: ProductUploadComponent
@@ -69,8 +78,11 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
       { path: 'user-list/:id', component: SetPermissionComponent },
       { path: 'user-list', component: UserListComponent },
       {
-        path: 'payment-info', component: PaymentInfoComponent
-      },
+        path: 'payment-info',
+        component: PaymentInfoComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard]
+       },
       { path: '**', component: NotfoundComponent }
     ])
   ],
