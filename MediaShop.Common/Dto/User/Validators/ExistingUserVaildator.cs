@@ -30,7 +30,9 @@ namespace MediaShop.Common.Dto.User.Validators
 
         private bool CheckExistingLogin(string login)
         {
-            return !this._repository.Find(m => m.Login.Equals(login, StringComparison.OrdinalIgnoreCase)).Any();
+            var user = this._repository.Find(m => m.Email.Equals(login, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+
+            return user == null || user.IsDeleted;
         }
     }
 }

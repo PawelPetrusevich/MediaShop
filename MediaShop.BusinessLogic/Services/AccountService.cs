@@ -122,7 +122,7 @@ namespace MediaShop.BusinessLogic.Services
             findUser.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = this._factoryRepository.Accounts.UpdateAsync(findUser) ?? throw new UpdateAccountException();
             var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
-
+            confirmationModelUser.Origin = userModel.Origin;
             _emailService.SendConfirmation(confirmationModelUser);
 
             return Mapper.Map<Account>(confirmedUser);
@@ -161,7 +161,7 @@ namespace MediaShop.BusinessLogic.Services
             findUser.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(findUser).ConfigureAwait(false) ?? throw new UpdateAccountException();
             var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
-
+            confirmationModelUser.Origin = userModel.Origin;
             await _emailService.SendConfirmationAsync(confirmationModelUser).ConfigureAwait(false);
 
             return Mapper.Map<Account>(confirmedUser);
