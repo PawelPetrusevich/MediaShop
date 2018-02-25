@@ -1,7 +1,7 @@
 <form class="form-signin">
   <div class="row">
-    <div class="alert alert-danger" role="alert" *ngIf="showError">
-        {{errorMessage}}
+    <div class="alert alert-success" role="alert" *ngIf="isModified">
+      You updated your profile successfully!
       </div>
     </div>
   <div class="row">
@@ -33,8 +33,14 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="saveProfile()">Save</button>
     </div>
     <div class="col-md-3 mb-3">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+      <button [routerLink]="['/product-list']"  class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
     </div>
   </div>
   </form>
+
+  <div class="row">
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+        {{errorMessage}}
+      </div>
+    </div>
 

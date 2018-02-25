@@ -44,7 +44,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
 
-            return this.DbSet.SingleOrDefault(x => x.Id == id);
+            return this.DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefault(x => x.Id == id);
         }
 
         public async Task<AccountDbModel> GetAsync(long id)
@@ -54,7 +54,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentException(Resources.InvalidIdValue);
             }
 
-            return await DbSet.SingleOrDefaultAsync(entity => entity.Id == id);
+            return await DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefaultAsync(entity => entity.Id == id);
         }
 
         /// <summary>
