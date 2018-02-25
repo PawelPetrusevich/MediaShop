@@ -259,6 +259,7 @@ namespace MediaShop.BusinessLogic.Services
 
             //User registers after deleting
             user.IsDeleted = false;
+            user.IsConfirmed = true;
             var account = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false);
             return Mapper.Map<Account>(account);
         }
