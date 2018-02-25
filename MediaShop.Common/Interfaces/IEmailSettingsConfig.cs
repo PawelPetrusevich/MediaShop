@@ -13,7 +13,5 @@ namespace MediaShop.Common.Interfaces
         int SmtpPort { get; }
 
         IDictionary<string, string> TempaltesLocations { get; }
-
-        UriBuilder WebApiUri { get; }
     }
 }

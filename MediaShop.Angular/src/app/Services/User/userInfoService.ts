@@ -13,6 +13,7 @@ import { Profile } from '../../Models/User/profile';
 import { Settings } from '../../Models/User/settings';
 import { HttpClient } from '@angular/common/http';
 import { PermissionDto } from '../../Models/User/permissionDto';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserInfoService {
@@ -20,16 +21,16 @@ export class UserInfoService {
 
   getUserInfo(): Observable<Account> {
     return this.http
-      .get<Account>(AppSettings.API_PUBLIC + 'api/user/getUserInfo');
+      .get<Account>(environment.API_ENDPOINT + 'api/user/getUserInfo');
   }
 
   updateSettings(settings: SettingsDto): Observable<Settings> {
     return this.http
-      .post<SettingsDto>(AppSettings.API_PUBLIC + 'api/user/modifySettingsAsync', settings);
+      .post<SettingsDto>(environment.API_ENDPOINT + 'api/user/modifySettingsAsync', settings);
   }
 
   updateProfile(profile: ProfileDto): Observable<Profile> {
     return this.http
-      .post<ProfileDto>(AppSettings.API_PUBLIC + 'api/user/modifyProfile', profile);
+      .post<ProfileDto>(environment.API_ENDPOINT + 'api/user/modifyProfile', profile);
   }
 }
