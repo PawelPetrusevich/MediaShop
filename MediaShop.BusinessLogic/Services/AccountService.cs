@@ -327,7 +327,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
-            user.Password = model.Password;
+            user.Password = GetHashString(model.Password);
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
@@ -353,7 +353,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
 
-            user.Password = model.Password;
+            user.Password = GetHashString(model.Password);
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
 

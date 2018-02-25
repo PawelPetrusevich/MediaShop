@@ -44,18 +44,24 @@ export class AccountService {
   }
 
   isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null ) {
-    return false;
+    if (localStorage.getItem(AppSettings.tokenKey) === null) {
+      return false;
     }
 
     return true;
   }
 
   forgotPassword(email: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {
+      headers
+    };
     return this.http
       .post(
         AppSettings.API_ENDPOINT + 'api/account/initRecoveryPassword',
-        email
+       '"'+email+'"',options
       );
   }
 
