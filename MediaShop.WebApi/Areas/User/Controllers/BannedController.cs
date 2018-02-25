@@ -19,7 +19,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using Swashbuckle.Swagger.Annotations;
 
     [RoutePrefix("api/user")]
-    [MediaAuthorizationFilter(Permission = Permissions.ManageUsers)]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class BannedController : ApiController
     {
         private readonly IBannedService _bannedService;

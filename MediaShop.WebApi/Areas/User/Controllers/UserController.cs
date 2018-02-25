@@ -20,7 +20,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     [RoutePrefix("api/user")]
     [EnableCors("*", "*", "*")]
     [AccountExceptionFilter]
-    [MediaAuthorizationFilter(Permission = Permissions.ManageUsers)]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class UserController : ApiController
     {
         private readonly IUserService _userService;
