@@ -78,7 +78,6 @@ export class CartComponent implements OnInit {
   delete(element: ContentCartDto) {
     this.showError = false;
     this.indexCurrentElement = this.cart.ContentCartDtoCollection.indexOf(element, 0);
-    this.indexCurrentElement = -1;
     if (this.indexCurrentElement < 0) {
       this.showError = true;
       this.errorMessage = 'element index not found';
