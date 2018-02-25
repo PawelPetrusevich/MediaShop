@@ -1,0 +1,18 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let product of productList">
+        <td>{{ContentType[product.ProductType]}}</td>
+        <td>{{product.ProductName}}</td>
+        <td><input type = "button" class="btn btn-primary" value="Info" (click) = "ToInfo(product.Id)"/></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
