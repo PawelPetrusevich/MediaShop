@@ -209,16 +209,16 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         public IHttpActionResult Delete([FromUri] long userId)
         {
-            long userIdFromClaim = 0; //userId from claim
-            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
-            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out userIdFromClaim))
-            {
-                throw new InvalidIdException(Resources.IncorrectId);
-            }
-
-            if (userId == userIdFromClaim || userId <= 0)
+            if (userId <= 0)
             {
                 return BadRequest(Resources.IncorrectId);
+            }
+
+            long userIdFromClaim = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
+            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value, out userIdFromClaim))
+            {
+                throw new InvalidIdException(Resources.IncorrectId);
             }
 
             var result = _cartService.DeleteOfCart(userId);
@@ -238,16 +238,16 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
         public async Task<IHttpActionResult> DeleteAsync([FromUri] long userId)
         {
-            long userIdFromClaim = 0; //userId from claim
-            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
-            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId).Value, out userIdFromClaim))
-            {
-                throw new InvalidIdException(Resources.IncorrectId);
-            }
-
-            if (userId == userIdFromClaim || userId <= 0)
+            if (userId <= 0)
             {
                 return BadRequest(Resources.IncorrectId);
+            }
+
+            long userIdFromClaim = 0; //userId from claim
+            var user = this.RequestContext.Principal.Identity as ClaimsIdentity;
+            if (!long.TryParse(user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId)?.Value, out userIdFromClaim))
+            {
+                throw new InvalidIdException(Resources.IncorrectId);
             }
 
             var result = await _cartService.DeleteOfCartAsync(userId);
