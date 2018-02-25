@@ -21,12 +21,12 @@ export class Cartservice {
   }
 
   deleteById(id: number): Observable<number> {
-    const params = new HttpParams().set('userId', localStorage.getItem('userId'));
+    const params = new HttpParams().set('id', id.toString());
     return this.http
       .delete<number>(AppSettings.API_PUBLIC + 'api/cart/deletecontentbyidasync', {params});
   }
 
-  clearCart(cart: Cart): Observable<Cart> {
+  clearCart(): Observable<Cart> {
     const params = new HttpParams().set('userId', localStorage.getItem('userId'));
     return this.http
       .delete <Cart> (AppSettings.API_PUBLIC + 'api/cart/clearcartasync', {params});
