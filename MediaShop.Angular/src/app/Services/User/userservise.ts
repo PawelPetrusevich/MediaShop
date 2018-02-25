@@ -11,6 +11,8 @@ import {SetPermissionComponent} from '../../components/user/set-permission/set-p
 import { HttpClient } from '@angular/common/http';
 import { AppSettings } from '../../Settings/AppSettings';
 import { Account } from '../../Models/User/account';
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class UserService {
   constructor(private http: HttpClient) {}
@@ -27,33 +29,33 @@ export class UserService {
     permissionDto.Email = email;
     permissionDto.Permissions = permission;
     return this.http
-      .post<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/permission/addMask', permissionDto);
+      .post<PermissionDto>(environment.API_ENDPOINT + 'api/user/permission/addMask', permissionDto);
   }
   RemovePermission (id: number, permission: Permissions): Observable<Account> {
     const permissionDto = new PermissionDto();
     permissionDto.Id = id;
     permissionDto.Permissions = permission;
     return this.http
-      .post<Account>(AppSettings.API_PUBLIC + permissionDto.Id + 'api/user/permission/delete', permissionDto);
+      .post<Account>(environment.API_ENDPOINT + permissionDto.Id + 'api/user/permission/delete', permissionDto);
   }
   GetAllUsers(): Observable<PermissionDto[]> {
     return this.http
-      .get<PermissionDto[]>(AppSettings.API_PUBLIC + 'api/account/GetAllUsers');
+      .get<PermissionDto[]>(environment.API_ENDPOINT+ 'api/account/GetAllUsers');
   }
   SetFlagIsBanned(id: number): Observable<PermissionDto> {
     return this.http
-      .post<PermissionDto>(AppSettings.API_PUBLIC + '/api/user/banned/set', id);
+      .post<PermissionDto>(environment.API_ENDPOINT + '/api/user/banned/set', id);
   }
   RemoveFlagIsBanned(id: number): Observable<Account> {
     return this.http
-      .post<Account>(AppSettings.API_PUBLIC + 'api/user/banned/remove', id);
+      .post<Account>(environment.API_ENDPOINT + 'api/user/banned/remove', id);
   }
   deleteUserByIdAsync(id: number): Observable<PermissionDto> {
      return this.http
-       .post<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/deleteByIdAsync', id);
+       .post<PermissionDto>(environment.API_ENDPOINT + 'api/user/deleteByIdAsync', id);
    }
    GetUserById(id: number | string): Observable<PermissionDto> {
     return this.http
-      .get<PermissionDto>(AppSettings.API_PUBLIC + 'api/user/getUserDtoAsync/' + id);
+      .get<PermissionDto>(environment.API_ENDPOINT + 'api/user/getUserDtoAsync/' + id);
   }
 }
