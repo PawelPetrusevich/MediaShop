@@ -34,7 +34,6 @@ import { ForgotPasswordComponent } from './Components/user/forgot-password/forgo
 import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
-import { ProductDownloadComponent } from './Components/Content/product-download/product-download.component';
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
 import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -46,6 +45,8 @@ import { UserSettingsComponent } from './components/user/user-settings/user-sett
 import { UserInfoService } from './Services/User/userInfoService';
 import { CartDataProvider } from './components/cart/cartDataProvider';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ProductPurshasedComponent } from './Components/Content/product-purshased/product-purshased.component';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -76,10 +77,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     ForgotPasswordComponent,
     ProductUploadComponent,
     ProductInfoComponent,
-    ProductDownloadComponent,
     UserListComponent,
     ConfirmComponent,
-    PaymentInfoComponent
+    PaymentInfoComponent,
+    ProductPurshasedComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +89,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     HttpModule,
     ApproutingModule,
     NgxPaginationModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   providers: [
     AccountService,

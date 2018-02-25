@@ -28,10 +28,7 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.post(this.webApiUrl + 'add', uploadProduct, {
-      headers: header
-    });
+    return this.http.post(this.webApiUrl + 'addAsync', uploadProduct);
   }
 
   getProductById(ID: number) {
@@ -39,20 +36,18 @@ export class ProductService {
   }
 
   searchProduct(conditionList: ProductSearchModel[]) {
-    return this.http.post<CompressedProductDto[]>(this.webApiUrl + 'Find', conditionList);
+    return this.http.post<CompressedProductDto[]>(this.webApiUrl + 'FindAsync', conditionList);
   }
 
   getListPurshasedProducts() {
-    return this.http.get(this.webApiUrl + 'GetPurshasedProducts');
+    return this.http.get(this.webApiUrl + 'GetPurshasedProductsAsync');
   }
 
   downloadProduct(ID: number) {
-    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProduct/' + ID, { headers: header});
+    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProductAsync/' + ID);
   }
 
   deleteProduct(id: number) {
-    const header = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.delete<ProductDto>(this.webApiUrl + 'delete/' + id, { headers: header });
+    return this.http.delete<ProductDto>(this.webApiUrl + 'deleteAsync/' + id);
   }
 }
