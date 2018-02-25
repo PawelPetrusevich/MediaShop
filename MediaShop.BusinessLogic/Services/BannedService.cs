@@ -16,7 +16,7 @@ namespace MediaShop.BusinessLogic.Services
     public class BannedService : IBannedService
     {
         private readonly IAccountRepository accountRepository;
-     
+
         public BannedService(IAccountRepository accountRepository)
         {
             this.accountRepository = accountRepository;
@@ -24,8 +24,7 @@ namespace MediaShop.BusinessLogic.Services
 
         public UserDto SetFlagIsBanned(long id, bool flag)
         {
-            var existingAccount = this.accountRepository.Get(id) ??
-                                  throw new NotFoundUserException();
+            var existingAccount = this.accountRepository.Get(id) ?? throw new NotFoundUserException();
 
             existingAccount.IsBanned = flag;
 
@@ -43,8 +42,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <returns>account</returns>
         public async Task<UserDto> SetFlagIsBannedAsync(long id, bool flag)
         {
-            var existingAccount = this.accountRepository.Get(id) ??
-                                  throw new NotFoundUserException();
+            var existingAccount = this.accountRepository.Get(id) ?? throw new NotFoundUserException();
 
             existingAccount.IsBanned = flag;
 

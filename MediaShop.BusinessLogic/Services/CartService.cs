@@ -30,6 +30,7 @@
         /// </summary>
         /// <param name="contentCartRepository">instance repository CartRepository</param>
         /// <param name="productRepository">instance repository ProductRepository</param>
+        /// <param name="notificationService">instance service NotificationService</param>
         public CartService(ICartRepository contentCartRepository, IProductRepository productRepository, INotificationService notificationService)
         {
             this.repositoryContentCart = contentCartRepository;
@@ -41,8 +42,9 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents identifier</param>
+        /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        public ContentCartDto AddInCart(long contentId)
+        public ContentCartDto AddInCart(long contentId, long userId)
         {
             // Verify long contentId
             if (contentId <= 0)
@@ -56,13 +58,19 @@
                 throw new ExistContentInCartExceptions(Resources.ExistProductInDataBase);
             }
 
-            // Check exist Content in Cart
-            if (this.ExistInCart(contentId))
+            // Check exist Content in Cart with state = InBougth for current user
+            if (this.ExistInCart(contentId, userId, CartEnums.StateCartContent.InPaid))
+            {
+                throw new ExistContentInCartExceptions(Resources.ContentAlreadyBougth);
+            }
+
+            // Check exist Content in Cart with state = InCart for current user
+            if (this.ExistInCart(contentId, userId, CartEnums.StateCartContent.InCart))
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            var contentCart = new ContentCart() { CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
+            var contentCart = new ContentCart() { CreatorId = userId, ProductId = contentId };
 
             // Save object ContentCart in repository
             var addContentCart = this.repositoryContentCart.Add(contentCart);
@@ -78,14 +86,14 @@
             var product = this.repositoryProduct.Get(contentId);
 
             // Create object AddToCartNotifyDto
-            // var objectNotify = new AddToCartNotifyDto() { ReceiverId = product.Id, ProductName = product.ProductName };
+            var objectNotify = new AddToCartNotifyDto() { ReceiverId = userId, ProductName = product.ProductName };
 
-            // var notification = this.serviceNotification.AddToCartNotify(objectNotify);
+            var notification = this.serviceNotification.AddToCartNotify(objectNotify);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
             contentCartDto.Id = addContentCart.Id;
-            contentCartDto.CreatorId = 1; // Need take CreatorId
+            contentCartDto.CreatorId = userId;
 
             // Output mapping object ContentCart to object ContentCartDto
             return contentCartDto;
@@ -95,8 +103,9 @@
         /// Async add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents identifier</param>
+        /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        public async Task<ContentCartDto> AddInCartAsync(long contentId)
+        public async Task<ContentCartDto> AddInCartAsync(long contentId, long userId)
         {
             // Verify long contentId
             if (contentId <= 0)
@@ -110,13 +119,19 @@
                 throw new ExistContentInCartExceptions(Resources.ExistProductInDataBase);
             }
 
-            // Check exist Content in Cart
-            if (await this.ExistInCartAsync(contentId).ConfigureAwait(false))
+            // Check exist Content in Cart with state = InBougth for current user
+            if (await this.ExistInCartAsync(contentId, userId, CartEnums.StateCartContent.InPaid).ConfigureAwait(false))
+            {
+                throw new ExistContentInCartExceptions(Resources.ContentAlreadyBougth);
+            }
+
+            // Check exist Content in Cart with state = InCart for current user
+            if (await this.ExistInCartAsync(contentId, userId, CartEnums.StateCartContent.InCart).ConfigureAwait(false))
             {
                 throw new ExistContentInCartExceptions(Resources.ExistContentInCart);
             }
 
-            var contentCart = new ContentCart() { CreatorId = 1, ProductId = contentId }; // Need initializing CreatorId !!!
+            var contentCart = new ContentCart() { CreatorId = userId, ProductId = contentId };
 
             // Save object ContentCart in repository
             var addContentCart = await this.repositoryContentCart.AddAsync(contentCart).ConfigureAwait(false);
@@ -132,14 +147,14 @@
             var product = await this.repositoryProduct.GetAsync(contentId).ConfigureAwait(false);
 
             // Create object AddToCartNotifyDto
-            // var objectNotify = new AddToCartNotifyDto() { ReceiverId = product.Id, ProductName = product.ProductName };
+            var objectNotify = new AddToCartNotifyDto() { ReceiverId = userId, ProductName = product.ProductName };
 
-            // var notification = await this.serviceNotification.AddToCartNotifyAsync(objectNotify);
+            var notification = await this.serviceNotification.AddToCartNotifyAsync(objectNotify);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
             contentCartDto.Id = addContentCart.Id;
-            contentCartDto.CreatorId = 1; // Need take CreatorId
+            contentCartDto.CreatorId = userId;
 
             // Output mapping object ContentCart to object ContentCartDto
             return contentCartDto;
@@ -278,75 +293,67 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public Cart DeleteOfCart(Cart cart)
+        public Cart DeleteOfCart(long userId)
         {
-            if (cart == null)
+            var contentCollection = this.GetContent(userId);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+                var deleteContentCart = this.DeleteContent(content);
             }
 
-            long id = 0;
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = this.DeleteContent(content);
-
-                    // id = content.CreatorId; // Get user Id from Token
-                }
-            }
-
-            return this.GetCart(id);
+            return this.GetCart(userId);
         }
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        public async Task<Cart> DeleteOfCartAsync(Cart cart)
+        public async Task<Cart> DeleteOfCartAsync(long userId)
         {
-            if (cart == null)
+            var contentCollection = await this.GetContentAsync(userId).ConfigureAwait(false);
+            foreach (var content in contentCollection)
             {
-                throw new ArgumentNullException(Resources.NullOrEmptyValue, nameof(cart));
+                var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
             }
 
-            long id = 0;
-            if (cart.ContentCartDtoCollection != null)
-            {
-                foreach (var content in cart.ContentCartDtoCollection)
-                {
-                    var deleteContentCart = await this.DeleteContentAsync(content).ConfigureAwait(false);
-                    id = content.CreatorId; // Get user Id from Token
-                }
-            }
-
-            return await this.GetCartAsync(id).ConfigureAwait(false);
+            return await this.GetCartAsync(userId).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content id</param>
+        /// <param name="userId">user identifier</param>
+        /// <param name="contentState">content state</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public bool ExistInCart(long contentId) => this.repositoryContentCart
-            .Find(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
-            .Count() != 0;
+        public bool ExistInCart(long contentId, long userId, CartEnums.StateCartContent contentState)
+        {
+            var resultFind = this.repositoryContentCart
+            .Find(item => item.ProductId == contentId &
+                item.CreatorId == userId & item.StateContent == contentState);
+
+            return resultFind.Count() != 0;
+        }
 
         /// <summary>
         /// Async checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content id</param>
+        /// <param name="userId">user identifier</param>
+        /// <param name="contentState">content state</param>
         /// <returns>true - content exist in cart
         /// false - content doesn`t exist in cart</returns>
-        public async Task<bool> ExistInCartAsync(long contentId)
+        public async Task<bool> ExistInCartAsync(long contentId, long userId, CartEnums.StateCartContent contentState)
         {
             var resultFindAsync = await this.repositoryContentCart
-                .FindAsync(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .FindAsync(item => item.ProductId == contentId &
+                    item.CreatorId == userId & item.StateContent == contentState)
                 .ConfigureAwait(false);
+
             return resultFindAsync.Count() != 0;
         }
 
@@ -378,9 +385,10 @@
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
+        /// <param name="userId">users identifier</param>
         /// <param name="contentState">contents state</param>
-        /// <returns>object with update state</returns>
-        public ContentCartDto SetState(long contentId, CartEnums.StateCartContent contentState)
+        /// <returns>update objects state</returns>
+        public ContentCartDto SetState(long contentId, long userId, CartEnums.StateCartContent contentState)
         {
             // Verify long contentId
             if (contentId <= 0)
@@ -389,7 +397,9 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = this.repositoryContentCart.Find(item => item.ProductId == contentId).ToList();
+            var contentCartForUpdateList = this.repositoryContentCart
+                .Find(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ToList();
 
             if (contentCartForUpdateList.Count() == 0)
             {
@@ -415,9 +425,10 @@
         /// Async method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
+        /// <param name="userId">users identifier</param>
         /// <param name="contentState">contents state</param>
         /// <returns>object with update state</returns>
-        public async Task<ContentCartDto> SetStateAsync(long contentId, CartEnums.StateCartContent contentState)
+        public async Task<ContentCartDto> SetStateAsync(long contentId, long userId, CartEnums.StateCartContent contentState)
         {
             // Verify long contentId
             if (contentId <= 0)
@@ -426,7 +437,9 @@
             }
 
             // Get object by contentId
-            var contentCartForUpdateList = await this.repositoryContentCart.FindAsync(item => item.ProductId == contentId).ConfigureAwait(false);
+            var contentCartForUpdateList = await this.repositoryContentCart
+                .FindAsync(item => item.ProductId == contentId & item.StateContent == CartEnums.StateCartContent.InCart)
+                .ConfigureAwait(false);
 
             if (contentCartForUpdateList.Count() == 0)
             {

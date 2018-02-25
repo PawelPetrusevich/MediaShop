@@ -24,7 +24,7 @@
         /// Find items in a cart by user Id and return a item collection
         /// without state InPaid and InBought
         /// </summary>
-        /// <param name="id">user Id</param>
+        /// <param name="userId">user Id</param>
         /// <returns> shopping cart for a user </returns>
         Task<IEnumerable<TModel>> GetContentAsync(long userId);
 
@@ -32,31 +32,37 @@
         /// Add new item in cart with return save item for update view
         /// </summary>
         /// <param name="contentId">contents object</param>
+        /// <param name="userId">users identifier</param>
         /// <returns>this save item</returns>
-        TModel AddInCart(long contentId);
+        TModel AddInCart(long contentId, long userId);
 
         /// <summary>
-        /// Add new item in cart with return save item for update view
+        /// Async add new item in cart with return save item for update view
         /// </summary>
-        /// <param name="contentId">contents object</param>
-        /// <returns>item that add in repository</returns>
-        Task<TModel> AddInCartAsync(long contentId);
+        /// <param name="contentId">contents identifier</param>
+        /// <param name="userId">users identifier</param>
+        /// <returns>this save item</returns>
+        Task<TModel> AddInCartAsync(long contentId, long userId);
 
         /// <summary>
         /// Checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content identificator</param>
+        /// <param name="userId">users identifier</param>
+        /// <param name="contentState">contents state</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        bool ExistInCart(long contentId);
+        bool ExistInCart(long contentId, long userId, CartEnums.StateCartContent contentState);
 
         /// <summary>
         /// Async checking the existence of content in cart
         /// </summary>
         /// <param name="contentId">content identificator</param>
+        /// <param name="userId">users identifier</param>
+        /// <param name="contentState">contents state</param>
         /// <returns>true - content exist in cart
         /// false - content does not exist in cart</returns>
-        Task<bool> ExistInCartAsync(long contentId);
+        Task<bool> ExistInCartAsync(long contentId, long userId, CartEnums.StateCartContent contentState);
 
         /// <summary>
         /// Get created Cart model object
@@ -131,33 +137,35 @@
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Cart DeleteOfCart(Cart cart);
+        Cart DeleteOfCart(long userId);
 
         /// <summary>
         /// Method for deleting Content from cart
         /// </summary>
-        /// <param name="cart">Cart</param>
+        /// <param name="userId">user Id</param>
         /// <returns>Cart after clearing</returns>
-        Task<Cart> DeleteOfCartAsync(Cart cart);
+        Task<Cart> DeleteOfCartAsync(long userId);
 
         /// <summary>
         /// Method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
+        /// <param name="userId">users identifier</param>
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
         ContentCartDto SetState(
-            long contentId, CartEnums.StateCartContent contentState);
+            long contentId, long userId, CartEnums.StateCartContent contentState);
 
         /// <summary>
         /// Async method for check object as Bought
         /// </summary>
         /// <param name="contentId">contents object</param>
+        /// <param name="userId">users identifier</param>
         /// <param name="contentState">contents state</param>
         /// <returns>update objects state</returns>
         Task<ContentCartDto> SetStateAsync(
-            long contentId, CartEnums.StateCartContent contentState);
+            long contentId, long userId, CartEnums.StateCartContent contentState);
     }
 }

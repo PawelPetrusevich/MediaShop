@@ -58,8 +58,8 @@ namespace MediaShop.BusinessLogic.Tests.MessagingTests
             var templatesFoldePath = Path.Combine(pathFolders.ToArray());
             temapltesPath.Add("AccountConfirmationEmailTemplate", Path.Combine(templatesFoldePath, "AccountConfirmationEmailTemplate.html"));
             temapltesPath.Add("AccountPwdRestoreEmailTemplate", Path.Combine(templatesFoldePath, "AccountPwdRestoreEmailTemplate.html"));
-            UriBuilder uri = new UriBuilder("http", "localhost");
-            IEmailSettingsConfig emailConf = new EmailSettingsConfig("smtp.gmail.com", 587, uri, "noreply.mediashop@gmail.com", "ayTYh?2-3xtUB26j", temapltesPath);
+            
+            IEmailSettingsConfig emailConf = new EmailSettingsConfig("smtp.gmail.com", 587, "noreply.mediashop@gmail.com", "ayTYh?2-3xtUB26j", temapltesPath);
             _mailService = new EmailService(_smtpClientMock.Object, emailConf);
             _confirmDto = new AccountConfirmationDto()
             {

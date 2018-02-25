@@ -19,7 +19,6 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AccountService } from './Services/User/AccountService';
 
 import { SetPermissionComponent } from './components/user/set-permission/set-permission.component';
-import { RemovePermissionComponent } from './components/user/remove-permission/remove-permission.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { ProductListComponent } from './components/Content/product-list/product-list.component';
 
@@ -42,7 +41,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
 import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserPofileComponent } from './components/user/user-pofile/user-pofile.component';
+import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
+import { UserInfoService } from './Services/User/userInfoService';
 import { CartDataProvider } from './components/cart/cartDataProvider';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 
 
@@ -54,6 +57,8 @@ import { CartDataProvider } from './components/cart/cartDataProvider';
     NotificationComponent,
     RegisterUserComponent,
     LoginComponent,
+    UserPofileComponent,
+    UserSettingsComponent,
     NotificationComponent,
     CartComponent,
     ExecutePaymentComponent,
@@ -61,7 +66,6 @@ import { CartDataProvider } from './components/cart/cartDataProvider';
     PaymentComponent,
     ProductListComponent,
     SetPermissionComponent,
-    RemovePermissionComponent,
     LogoutComponent,
     NavbarComponent,
 
@@ -83,10 +87,13 @@ import { CartDataProvider } from './components/cart/cartDataProvider';
     FormsModule,
     HttpModule,
     ApproutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     AccountService,
+    UserService,
+    UserInfoService,
     Cartservice,
     Paymentservice,
     UserService,
