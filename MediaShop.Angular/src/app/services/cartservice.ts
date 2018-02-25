@@ -5,11 +5,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Cart } from '../Models/Cart/cart';
 import { ContentCartDto } from '../Models/Cart/content-cart-dto';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { AppSettings } from '../Settings/AppSettings';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class Cartservice {
