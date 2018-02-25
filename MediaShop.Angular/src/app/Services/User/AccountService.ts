@@ -22,7 +22,7 @@ export class AccountService {
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
-      .post<Account>(AppSettings.API_PUBLIC + 'api/account/registerAsync', registerUser);
+      .post<Account>(environment.API_ENDPOINT + 'api/account/registerAsync', registerUser);
   }
 
   login(login: string, password: string): Observable<TokenResponse> {
@@ -38,13 +38,13 @@ export class AccountService {
     };
 
     return this.http
-      .post<TokenResponse>(AppSettings.API_PUBLIC + 'token', body, options);
+      .post<TokenResponse>(environment.API_ENDPOINT + 'token', body, options);
   }
 
   logout() {
     this.signalRServiceConnector.Disconnect();
     return this.http
-      .post(AppSettings.API_PUBLIC + 'api/account/logout', null);
+      .post(environment.API_ENDPOINT + 'api/account/logout', null);
   }
 
   isAuthorized(): boolean {

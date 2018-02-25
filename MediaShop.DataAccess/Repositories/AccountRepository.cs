@@ -107,7 +107,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(Resources.InvalidLoginValue);
             }
 
-            return await this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Login.Equals(login));
+            return await this.DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefaultAsync(account => account.Login.Equals(login));
         }
 
         public async Task<AccountDbModel> UpdateAsync(AccountDbModel model)
@@ -136,7 +136,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(nameof(filter));
             }
 
-            return this.DbSet.AsNoTracking().Where(filter);
+            return this.DbSet.Include(m => m.Profile).Include(m => m.Settings).Where(filter);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(Resources.InvalidLoginValue);
             }
 
-            return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Login.Equals(login));
+            return this.DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefault(account => account.Login.Equals(login));
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(Resources.InvalidLoginValue);
             }
 
-            return this.DbSet.AsNoTracking().SingleOrDefault(account => account.Email.Equals(email));
+            return this.DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefault(account => account.Email.Equals(email));
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace MediaShop.DataAccess.Repositories
                 throw new ArgumentNullException(Resources.InvalidLoginValue);
             }
 
-            return this.DbSet.AsNoTracking().SingleOrDefaultAsync(account => account.Email.Equals(email));
+            return this.DbSet.Include(m => m.Profile).Include(m => m.Settings).SingleOrDefaultAsync(account => account.Email.Equals(email));
         }
 
         /// <summary>

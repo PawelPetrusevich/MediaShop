@@ -30,7 +30,7 @@
         </li>
     </ul>
 <li class="nav-item">
-      <a class="nav-link" routerLink="logOut">LogOut</a>
+      <a class="nav-link" *ngIf = "accountService.isAuthorized()" routerLink="logOut">LogOut</a>
     </li>
   </div>
 </nav>

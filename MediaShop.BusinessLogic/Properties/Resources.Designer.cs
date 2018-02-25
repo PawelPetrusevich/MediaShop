@@ -94,11 +94,20 @@ namespace MediaShop.BusinessLogic.Properties {
         ///Pues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgAB
         ///eNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAt
         ///AGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3
-        ///AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc8 [rest of string was truncated]&quot;;.
+        ///AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEO [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CompressedAudio {
             get {
                 return ResourceManager.GetString("CompressedAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You did not confirm your registration. Look for confirmation letter  on your email!.
+        /// </summary>
+        internal static string ConfirmationError {
+            get {
+                return ResourceManager.GetString("ConfirmationError", resourceCulture);
             }
         }
         
