@@ -51,7 +51,7 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SignalRConfig } from './signalR/signalr-config';
 import { SignalRServiceConnector } from './signalR/signalr-service';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -91,6 +91,7 @@ import { SignalRServiceConnector } from './signalR/signalr-service';
     FormsModule,
     HttpModule,
     ApproutingModule,
+    BrowserAnimationsModule,
     NgxPaginationModule,
     SignalRServiceConnector.forRoot(),
     SimpleNotificationsModule.forRoot(),

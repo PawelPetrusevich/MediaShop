@@ -4,44 +4,42 @@ import { Injectable, SkipSelf, Optional, NgModule } from "@angular/core";
 import { ModuleWithProviders } from "@angular/compiler/src/core";
 import { SignalRConfig } from "./signalr-config";
 import { environment } from "../../environments/environment.prod";
+import { NotificationsService } from "angular2-notifications";
+import { NotificationDto } from "../Models/Messaging/notification";
 
-@NgModule({
-    /* imports:      [ CommonModule ],
-     declarations: [ TitleComponent ],
-     exports:      [ TitleComponent ],
-     providers:    [ UserService ]*/
-})
+@NgModule({})
 export class SignalRServiceConnector {
     conx: SignalRConnection;
-    onMessageSent$ = new BroadcastEventListener<Notification>('UpdateNotices');
+    onUpdateNotices = new BroadcastEventListener<NotificationDto>('UpdateNotices');
 
-    constructor(private signalR: SignalR, @Optional() @SkipSelf() parentModule: SignalRServiceConnector) {
+    constructor(private signalR: SignalR, @Optional() @SkipSelf() parentModule: SignalRServiceConnector, private notificationService: NotificationsService) {
         if (parentModule) {
             throw new Error(
                 'CoreModule is already loaded. Import it in the AppModule only');
         }
         this.conx = this.signalR.createConnection();
+        this.onUpdateNotices.subscribe((notification: NotificationDto) => this.showNotify(notification));
     }
 
     public Connect(reinitConf?: boolean): Promise<ISignalRConnection> {
         if (reinitConf) {
             this.conx = this.signalR.createConnection(SignalRConfig.createConfig());
         }
-        if (environment.enableSignalRLoging) {
-            console.log("Connect");
-        }
-        this.conx.listen(this.onMessageSent$);
-        this.onMessageSent$.subscribe((chatMessage: Notification) => {
-            console.log(chatMessage);
-        });
+        this.conx.listen(this.onUpdateNotices);
         return this.conx.start();
     }
 
     public Disconnect() {
-        if (environment.enableSignalRLoging) {
-            console.log("Disconnect");
-        }
         this.conx.stop();
+    }
+
+    private showNotify(notification: NotificationDto){
+        this.notificationService.success(notification.Title,notification.Message,{
+            position: ["bottom", "left"],
+            timeOut: 1000,
+            showProgressBar: false,
+            lastOnBottom: true
+          });
     }
 
     static forRoot(): ModuleWithProviders {
