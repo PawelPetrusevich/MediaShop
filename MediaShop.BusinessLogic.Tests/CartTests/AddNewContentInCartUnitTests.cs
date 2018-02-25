@@ -84,7 +84,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
-            var actual3 = service.AddInCart(objContentCart.Id);
+            var actual3 = service.AddInCart(objContentCart.Id, 1);
 
             // Verification rezalt with neсуssary number
             Assert.AreEqual((long)5, actual1);
@@ -125,7 +125,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Write rezalt method AddNewContentInCart in actual3
-            Assert.Throws<AddContentInCartExceptions>(() => service.AddInCart(objContentCart.Id));
+            Assert.Throws<AddContentInCartExceptions>(() => service.AddInCart(objContentCart.Id, 1));
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Call method for find content by id in repository
-            var actual1 = service.ExistInCart(1);
+            var actual1 = service.ExistInCart(1,1,Common.Enums.CartEnums.StateCartContent.InCart);
 
             Assert.IsTrue(actual1);
         }
@@ -164,7 +164,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
             // Call method for find content by id in repository
-            var actual1 = service.ExistInCart(6);
+            var actual1 = service.ExistInCart(6,1, Common.Enums.CartEnums.StateCartContent.InCart);
 
             Assert.IsFalse(actual1);
         }

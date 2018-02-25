@@ -71,7 +71,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
-            var actual2 = service.SetState(5, CartEnums.StateCartContent.InBought);
+            var actual2 = service.SetState(5,1, CartEnums.StateCartContent.InBought);
 
             Assert.AreEqual(CartEnums.StateCartContent.InBought, actual2.StateContent);
         }
@@ -97,7 +97,7 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
             // Create CartService with mock.Object and mockProduct.Object
             var service = new CartService(mock.Object, mockProduct.Object, mockNotify.Object);
 
-            var actual2 = service.SetState(5, CartEnums.StateCartContent.InPaid);
+            var actual2 = service.SetState(5,1, CartEnums.StateCartContent.InPaid);
 
             Assert.AreEqual(CartEnums.StateCartContent.InPaid, actual2.StateContent);
         }

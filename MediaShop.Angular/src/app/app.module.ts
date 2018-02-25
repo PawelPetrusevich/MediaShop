@@ -45,6 +45,7 @@ import { UserPofileComponent } from './components/user/user-pofile/user-pofile.c
 import { UserSettingsComponent } from './components/user/user-settings/user-settings.component';
 import { UserInfoService } from './Services/User/userInfoService';
 import { CartDataProvider } from './components/cart/cartDataProvider';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 
 
@@ -86,7 +87,8 @@ import { CartDataProvider } from './components/cart/cartDataProvider';
     FormsModule,
     HttpModule,
     ApproutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     AccountService,
