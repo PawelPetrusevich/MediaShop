@@ -254,6 +254,7 @@
     <Compile Include="Provider\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Provider\QueryStringOAuthBearerProvider.cs" />
+    <Compile Include="Provider\SignalRUserIdProvider.cs" />
     <Compile Include="SignalR\Hubs\NotificationHub.cs" />
   </ItemGroup>
   <ItemGroup>

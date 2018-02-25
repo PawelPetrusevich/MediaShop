@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using MediaShop.Common.Interfaces;
+using MediaShop.WebApi.Properties;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -10,7 +14,7 @@ namespace MediaShop.WebApi
 {
     [HubName("NotificationHub")]
     [Authorize]
-    public class NotificationHub : Hub
+    public class NotificationHub : Hub<INotificationProxy>
     {
         public override Task OnConnected()
         {

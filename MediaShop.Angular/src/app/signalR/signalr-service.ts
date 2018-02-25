@@ -1,4 +1,4 @@
-import { SignalR, ISignalRConnection, SignalRConnection } from "ng2-signalr";
+import { SignalR, ISignalRConnection, SignalRConnection, BroadcastEventListener } from "ng2-signalr";
 import { AccountService } from "../Services/User/AccountService";
 import { Injectable, SkipSelf, Optional, NgModule } from "@angular/core";
 import { ModuleWithProviders } from "@angular/compiler/src/core";
@@ -13,6 +13,8 @@ import { environment } from "../../environments/environment.prod";
 })
 export class SignalRServiceConnector {
     conx: SignalRConnection;
+    onMessageSent$ = new BroadcastEventListener<Notification>('UpdateNotices');
+
     constructor(private signalR: SignalR, @Optional() @SkipSelf() parentModule: SignalRServiceConnector) {
         if (parentModule) {
             throw new Error(
@@ -28,6 +30,10 @@ export class SignalRServiceConnector {
         if (environment.enableSignalRLoging) {
             console.log("Connect");
         }
+        this.conx.listen(this.onMessageSent$);
+        this.onMessageSent$.subscribe((chatMessage: Notification) => {
+            console.log(chatMessage);
+        });
         return this.conx.start();
     }
 

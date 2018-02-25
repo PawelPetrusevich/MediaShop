@@ -12,6 +12,7 @@ using MediaShop.Common.Dto.Messaging;
 using FluentValidation;
 using MediaShop.Common.Dto.Messaging.Validators;
 using System.Threading.Tasks;
+using MediaShop.Common.Interfaces;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -25,14 +26,14 @@ namespace MediaShop.BusinessLogic.Services
         private readonly INotificationSubscribedUserRepository _subscribedUserStore;
         private readonly INotificationRepository _notifcationStore;
         private readonly IValidator _validator;
-        private readonly IHubContext _signulRHub;
+        private readonly IHubContext<INotificationProxy> _signulRHub;
 
         /// <summary>
         /// Initializes a new instance of the  <see cref="NotificationService"/> class.
         /// </summary>
         /// <param name="subscribedUserStore">Repository subscribed users</param>
         /// <param name="notifcationStore">Repository of notifications</param>
-        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore, IValidator<NotificationDto> validator, IHubContext signulRHub)
+        public NotificationService(INotificationSubscribedUserRepository subscribedUserStore, INotificationRepository notifcationStore, IValidator<NotificationDto> validator, IHubContext<INotificationProxy> signulRHub)
         {
             this._subscribedUserStore = subscribedUserStore;
             this._notifcationStore = notifcationStore;
@@ -54,20 +55,9 @@ namespace MediaShop.BusinessLogic.Services
                 notification.Title = Resources.DefaultNotificationTitle;
             }
 
-            var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
-            if (!tokens.Any())
-            {
-                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
-            }
+            _signulRHub.Clients.User(notification.ReceiverId.ToString()).UpdateNotices(notification);
 
-            var notify = _notifcationStore
-                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message &&
-                           n.Title == notification.Title)
-                .FirstOrDefault();
-
-            notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
-            
-            return Mapper.Map<NotificationDto>(notify);
+            return notification;
         }
 
         public async Task<NotificationDto> NotifyAsync(NotificationDto notification)
@@ -84,20 +74,9 @@ namespace MediaShop.BusinessLogic.Services
                 notification.Title = Resources.DefaultNotificationTitle;
             }
 
-            var tokens = _subscribedUserStore.GetUserDeviceTokens(notification.ReceiverId);
-            if (!tokens.Any())
-            {
-                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
-            }
+            _signulRHub.Clients.User(notification.ReceiverId.ToString()).UpdateNotices(notification);
 
-            var notify = _notifcationStore
-                .Find(n => n.ReceiverId == notification.ReceiverId && n.Message == notification.Message &&
-                           n.Title == notification.Title)
-                .FirstOrDefault();
-
-            notify = notify ?? await this._notifcationStore.AddAsync(Mapper.Map<Notification>(notification));
-
-            return Mapper.Map<NotificationDto>(notify);
+            return notification;
         }
 
         public NotificationDto AddToCartNotify(AddToCartNotifyDto data)
@@ -117,23 +96,12 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(data.ReceiverId));
             }
 
-            var tokens = _subscribedUserStore.GetUserDeviceTokens(data.ReceiverId);
-            if (!tokens.Any())
-            {
-                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
-            }
-
             var notification = Mapper.Map<NotificationDto>(data);
             notification.Title = Resources.DefaultNotificationTitle;
 
-            var notify = _notifcationStore
-                .Find(n => n.ReceiverId == data.ReceiverId && n.Message == notification.Message &&
-                           n.Title == notification.Title)
-                .FirstOrDefault();
+            _signulRHub.Clients.User(notification.ReceiverId.ToString()).UpdateNotices(notification);
 
-            notify = notify ?? _notifcationStore.Add(Mapper.Map<Notification>(notification));
-
-            return Mapper.Map<NotificationDto>(notify);
+            return notification;
         }
 
         public async Task<NotificationDto> AddToCartNotifyAsync(AddToCartNotifyDto data)
@@ -153,23 +121,12 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.LessThanOrEqualToZeroValue, nameof(data.ReceiverId));
             }
 
-            var tokens = _subscribedUserStore.GetUserDeviceTokens(data.ReceiverId);
-            if (!tokens.Any())
-            {
-                throw new NotSubscribedUserException(Resources.NotSubscribedUserMessage);
-            }
-
             var notification = Mapper.Map<NotificationDto>(data);
             notification.Title = Resources.DefaultNotificationTitle;
 
-            var notify = _notifcationStore
-                .Find(n => n.ReceiverId == data.ReceiverId && n.Message == notification.Message &&
-                           n.Title == notification.Title)
-                .FirstOrDefault();
+            _signulRHub.Clients.User(notification.ReceiverId.ToString()).UpdateNotices(notification);
 
-            notify = notify ?? await _notifcationStore.AddAsync(Mapper.Map<Notification>(notification));
-
-            return Mapper.Map<NotificationDto>(notify);
+            return notification;
         }
 
         public IEnumerable<NotificationDto> GetByUserId(long userId)

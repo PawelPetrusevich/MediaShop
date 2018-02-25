@@ -15,7 +15,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
     [RoutePrefix("api/messaging")]
     [NotificationExceptionFilter]
-    [AllowAnonymous]
+    [Authorize]
     public class NotificationController : ApiController
     {
         private readonly INotificationService _notificationService;

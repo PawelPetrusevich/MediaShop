@@ -3,6 +3,7 @@
 // </copyright>
 
 using MediaShop.BusinessLogic.Services;
+using MediaShop.Common.Interfaces;
 using MediaShop.Common.Interfaces.Services;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -21,7 +22,7 @@ namespace MediaShop.WebApi
         /// </summary>
         public override void Load()
         {
-            Bind<IHubContext>().ToMethod((c) => GlobalHost.ConnectionManager.GetHubContext<NotificationHub>());
+            Bind<IHubContext<INotificationProxy>>().ToMethod((c) => GlobalHost.ConnectionManager.GetHubContext<NotificationHub, INotificationProxy>());
         }
     }
 }

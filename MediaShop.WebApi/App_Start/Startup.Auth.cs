@@ -57,9 +57,11 @@ namespace MediaShop.WebApi
                     {
                         Provider = new QueryStringOAuthBearerProvider()
                     });
+                    var resolver = GlobalHost.DependencyResolver;
+                    resolver.Register(typeof(IUserIdProvider), () => new SignalRUserIdProvider());
                     var hubConfiguration = new HubConfiguration()
                     {
-                        Resolver = GlobalHost.DependencyResolver
+                        Resolver = resolver
                     };
                     map.RunSignalR(hubConfiguration);
                 });
