@@ -13,12 +13,13 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     using MediaShop.Common.Exceptions;
     using MediaShop.Common.Interfaces.Services;
     using MediaShop.Common.Models.User;
+    using MediaShop.WebApi.Filters;
     using MediaShop.WebApi.Properties;
 
     using Swashbuckle.Swagger.Annotations;
 
     [RoutePrefix("api/user")]
-
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class BannedController : ApiController
     {
         private readonly IBannedService _bannedService;
