@@ -11,6 +11,7 @@ import * as FileSaver from 'file-saver';
 import { NotificationsService } from 'angular2-notifications';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ContentCartDto } from '../../../Models/Cart/content-cart-dto';
+import { AccountService } from '../../../Services/User/AccountService';
 
 @Component({
   selector: 'app-product-info',
@@ -30,6 +31,7 @@ export class ProductInfoComponent implements OnInit {
   constructor(private productService: ProductService,
      private activatedRouter: ActivatedRoute,
      private router: Router,
+     private accauntService: AccountService,
       private cartService: Cartservice,
     private notificationService: NotificationsService) {
     this.subscrition = activatedRouter.params.subscribe(data => this.id = data['id']);
