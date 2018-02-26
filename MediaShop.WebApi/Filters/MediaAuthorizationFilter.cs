@@ -30,7 +30,7 @@ namespace MediaShop.WebApi.Filters
                 parseFlag = int.TryParse(currentUserClaims?.SingleOrDefault(x => x.Type == "Permission")?.Value, out currentUserPermissions);
             }
 
-            if (!parseFlag || !Permission.HasFlag((Permissions)currentUserPermissions))
+            if (!parseFlag || !((Permissions)currentUserPermissions).HasFlag(Permission))
             {
                 return Task.FromResult<HttpResponseMessage>(actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             }
