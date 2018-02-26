@@ -14,10 +14,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { ForgotPasswordDto } from '../../Models/User/forgot-password-dto';
 import { environment } from '../../../environments/environment';
+import { SignalRServiceConnector } from '../../signalR/signalr-service';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private signalRServiceConnector: SignalRServiceConnector) { }
 
   register(registerUser: RegisterUserDto): Observable<Account> {
     return this.http
@@ -41,6 +42,7 @@ export class AccountService {
   }
 
   logout() {
+    this.signalRServiceConnector.Disconnect();
     return this.http
       .post(environment.API_ENDPOINT + 'api/account/logout', null);
   }

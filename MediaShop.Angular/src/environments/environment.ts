@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'http://localhost:51289/'
+  API_ENDPOINT: 'http://localhost:51289/',
+  tokenKey: 'token',
+  enableSignalRLoging: true
 };

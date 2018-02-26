@@ -151,6 +151,7 @@
     <Compile Include="Exceptions\User\CreateProfileException.cs" />
     <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
     <Compile Include="Exceptions\User\UpdateAccountException.cs" />
+    <Compile Include="Interfaces\INotificationProxy.cs" />
     <Compile Include="Interfaces\Repositories\IDefrayalRepository.cs" />
     <Compile Include="Helpers\EmailSettingsConfig.cs" />
     <Compile Include="Helpers\EmailSettingsConfigHelper.cs" />

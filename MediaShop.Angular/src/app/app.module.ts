@@ -35,7 +35,7 @@ import { ProductService } from './Services/product-service.service';
 import { ProductUploadComponent } from './components/Content/product-upload/product-upload.component';
 import { ProductInfoComponent } from './components/Content/product-info/product-info.component';
 import { ConfirmComponent } from './Components/user/confirm/confirm.component';
-import {NgbModule, NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 
@@ -48,7 +48,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ProductPurshasedComponent } from './Components/Content/product-purshased/product-purshased.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+import { SignalRConfig } from './signalR/signalr-config';
+import { SignalRServiceConnector } from './signalR/signalr-service';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,9 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
     NgxPaginationModule,
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    SignalRServiceConnector.forRoot(),
+    SignalRModule.forRoot(SignalRConfig.createConfig)
   ],
   providers: [
     AccountService,
@@ -108,4 +113,4 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
