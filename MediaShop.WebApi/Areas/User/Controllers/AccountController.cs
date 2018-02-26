@@ -15,8 +15,10 @@ using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
 using MediaShop.Common.Exceptions.User;
+using MediaShop.Common.Helpers;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
+using MediaShop.WebApi.Areas.User.Controllers.Helpers;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Microsoft.AspNet.Identity;
@@ -50,16 +52,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                var sb = new StringBuilder();
-                foreach (var value in ModelState.Values)
-                {
-                    foreach (var error in value.Errors)
-                    {
-                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
-                    }
-                }
-               
-                return BadRequest(sb.ToString());
+                return BadRequest(ShowErrorsHelper.ShowErrors(ModelState));
             }
 
             if (string.IsNullOrWhiteSpace(data.Origin))
@@ -94,16 +87,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (data == null || !ModelState.IsValid)
             {
-                var sb = new StringBuilder();
-                foreach (var value in ModelState.Values)
-                {
-                    foreach (var error in value.Errors)
-                    {
-                        sb.AppendFormat($"{error.ErrorMessage} ! ");
-                    }
-                }
-
-                return BadRequest(sb.ToString());
+                return BadRequest(ShowErrorsHelper.ShowErrors(ModelState));
             }
 
             if (string.IsNullOrWhiteSpace(data.Origin))

@@ -126,6 +126,9 @@
   <data name="DefaultTimeZoneId" xml:space="preserve">
     <value>UTC</value>
   </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>User  with such email is already exists</value>
+  </data>
   <data name="EmptyFieldMessage" xml:space="preserve">
     <value>This field cannot be empty..</value>
   </data>
@@ -154,13 +157,16 @@
     <value>Incorrect password</value>
   </data>
   <data name="IncorrectPhoneformat" xml:space="preserve">
-    <value>Phone shold be in format : +3xxxxxxxxxxx</value>
+    <value>Phone should be in format : +3xxxxxxxxxxx</value>
   </data>
   <data name="IncorrectToken" xml:space="preserve">
     <value>Invalid confirmation token</value>
   </data>
   <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
     <value>Value can not be less than or equal zerro</value>
+  </data>
+  <data name="LoginExists" xml:space="preserve">
+    <value>Login  is already exists</value>
   </data>
   <data name="NoRootForDelete" xml:space="preserve">
     <value>You have no rights for delete this product</value>

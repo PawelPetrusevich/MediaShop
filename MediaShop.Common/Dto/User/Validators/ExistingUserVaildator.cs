@@ -15,9 +15,9 @@ namespace MediaShop.Common.Dto.User.Validators
             this._repository = repository;
 
             this.RuleFor(m => m.Login).Must(this.CheckExistingLogin)
-                .WithMessage(model => $"Login {model.Login} is already exists");
+                .WithMessage(model => Resources.LoginExists);
             this.RuleFor(m => m.Email).Must(this.CheckExistingUser)
-                .WithMessage(model => $"User exists with email {model.Email}");
+                .WithMessage(model => Resources.EmailExists);
             this.RuleFor(m => m.Password).Equal(m => m.ConfirmPassword).WithMessage(Resources.PasswordNotMatch);
             this.RuleFor(m => m.Email).EmailAddress();
         }

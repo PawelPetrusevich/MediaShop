@@ -160,6 +160,15 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect inpute data.
+        /// </summary>
+        internal static string IncorrectData {
+            get {
+                return ResourceManager.GetString("IncorrectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id can not be 0.
         /// </summary>
         internal static string IncorrectId {

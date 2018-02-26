@@ -88,6 +88,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User  with such email is already exists.
+        /// </summary>
+        internal static string EmailExists {
+            get {
+                return ResourceManager.GetString("EmailExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field cannot be empty...
         /// </summary>
         internal static string EmptyFieldMessage {
@@ -169,7 +178,7 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phone shold be in format : +3xxxxxxxxxxx.
+        ///   Looks up a localized string similar to Phone should be in format : +3xxxxxxxxxxx.
         /// </summary>
         internal static string IncorrectPhoneformat {
             get {
@@ -192,6 +201,15 @@ namespace MediaShop.Common.Properties {
         internal static string LessThanOrEqualToZeroValue {
             get {
                 return ResourceManager.GetString("LessThanOrEqualToZeroValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login  is already exists.
+        /// </summary>
+        internal static string LoginExists {
+            get {
+                return ResourceManager.GetString("LoginExists", resourceCulture);
             }
         }
         

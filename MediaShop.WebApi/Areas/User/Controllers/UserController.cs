@@ -11,6 +11,7 @@ using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.User;
+using MediaShop.WebApi.Areas.User.Controllers.Helpers;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -116,7 +117,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -148,7 +149,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -176,7 +177,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (id < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -204,7 +205,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (id < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -241,7 +242,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -283,7 +284,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(Resources.IncorrectData);
             }
 
             try
@@ -314,7 +315,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public IHttpActionResult ModifyProfile([FromBody] ProfileDto profile)
         {
-            if (profile == null || !ModelState.IsValid)
+            if (profile == null)
             {
                 return BadRequest(Resources.EmtyData);
             }
@@ -325,7 +326,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(ShowErrorsHelper.ShowErrors(ModelState));
             }
 
             try
@@ -356,7 +357,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
         public async Task<IHttpActionResult> ModifyProfilesAsync([FromBody] ProfileDto profile)
         {
-            if (profile == null || !ModelState.IsValid)
+            if (profile == null)
             {
                 return BadRequest(Resources.EmtyData);
             }
@@ -367,7 +368,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
 
             if (idUser < 1 || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                return BadRequest(ShowErrorsHelper.ShowErrors(ModelState));
             }
 
             try
