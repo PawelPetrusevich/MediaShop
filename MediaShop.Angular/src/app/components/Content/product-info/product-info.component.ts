@@ -69,16 +69,6 @@ export class ProductInfoComponent implements OnInit {
     );
   }
 
-  DeleteProduct() {
-    console.log('run methods');
-    this.productService.deleteProduct(this.productInfo.Id).subscribe(
-      data => {
-        this.ShowOkDelete(data as ProductDto);
-        this.router.navigate(['product-list']);
-      },
-      error => this.ShowError(error as HttpErrorResponse)
-    );
-  }
 
   Download() {
     console.log('to servise');
@@ -151,18 +141,6 @@ export class ProductInfoComponent implements OnInit {
         const blob = new Blob([view], { type: contentType });
         const fileName = downloadingFile.ProductName + '.avi';
         FileSaver.saveAs(blob, fileName);
-      }
-
-      ShowOkDelete(data: ProductDto) {
-        this.notificationService.success(
-          'Deleted',
-          data.ProductName + ' deleted',
-          {
-            timeOut: 5000,
-            showProgressBar: true,
-            clickToClose: true
-          }
-        );
       }
 
       ShowError(error: HttpErrorResponse) {

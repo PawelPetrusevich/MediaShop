@@ -305,7 +305,9 @@ namespace MediaShop.BusinessLogic.Services
 
             var lambda = Expression.Lambda<Func<Product, bool>>(resultFilter, parameterExpr);
 
-            return Mapper.Map<List<CompressedProductDTO>>(await this._repository.FindAsync(lambda));
+            var result = await this._repository.FindAsync(lambda);
+
+            return result is null ? throw new ArgumentException() : Mapper.Map<List<CompressedProductDTO>>(result);
         }
 
         /// <summary>
@@ -492,7 +494,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
             }
 
-            var result = await this._repository.FindAsync(x => x.CreatorId == userId);
+            var result = await this._repository.FindAsync(x => (x.CreatorId == userId) && (x.IsDeleted == false));
 
             return Mapper.Map<List<CompressedProductDTO>>(result);
         }

@@ -225,6 +225,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             {
                 return BadRequest(Resources.GetWithNullId);
             }
+            catch (ArgumentException)
+            {
+                return BadRequest(Resources.ErrorFindService);
+            }
             catch (Exception)
             {
                 return InternalServerError();
