@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using MediaShop.Common.Interfaces.Services;
 using MediaShop.WebApi.Provider;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
@@ -47,6 +48,23 @@ namespace MediaShop.WebApi
             var config = new HttpConfiguration();
 
             app.UseWebApi(config);
+            app.Map(
+                "/signalr",
+                map =>
+                {
+                    map.UseCors(CorsOptions.AllowAll);
+                    map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+                    {
+                        Provider = new QueryStringOAuthBearerProvider()
+                    });
+                    var resolver = GlobalHost.DependencyResolver;
+                    resolver.Register(typeof(IUserIdProvider), () => new SignalRUserIdProvider());
+                    var hubConfiguration = new HubConfiguration()
+                    {
+                        Resolver = resolver
+                    };
+                    map.RunSignalR(hubConfiguration);
+                });
         }
     }
 }
