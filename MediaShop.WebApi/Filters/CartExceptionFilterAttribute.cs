@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using MediaShop.Common.Exceptions.CartExceptions;
+using NLog;
 
 namespace MediaShop.WebApi.Filters
 {
@@ -13,6 +14,8 @@ namespace MediaShop.WebApi.Filters
     /// </summary>
     public class CartExceptionFilterAttribute : Attribute, IExceptionFilter
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public bool AllowMultiple { get; }
 
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
@@ -25,47 +28,55 @@ namespace MediaShop.WebApi.Filters
                     case ArgumentNullException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if controllers argument is not valid
                     case ArgumentException error:
                          actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case InvalidIdException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if product is not exist in database
                     case NotExistProductInDataBaseExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content already exist in database
                     case ExistContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content do not add in database
                     case AddContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content do not delete from database
                     case DeleteContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
                         
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, actionExecutedContext.Exception);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
                 }
             }
