@@ -27,8 +27,8 @@ export class ProductUploadComponent implements OnInit {
     const file = files[0];
     if (files && file) {
       const read = new FileReader();
-      read.onload = this._handleReaderLoaded.bind(this);
       read.readAsBinaryString(file);
+      read.onload = this._handleReaderLoaded.bind(this);
     }
   }
 

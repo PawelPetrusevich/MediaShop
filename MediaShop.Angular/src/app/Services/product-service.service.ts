@@ -12,6 +12,7 @@ import { ProductSearchModel } from '../Models/Content/ProductSearchModel';
 import { OriginalProductDTO } from '../Models/Content/OriginalProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProductService {
@@ -20,34 +21,32 @@ export class ProductService {
 
 
   compressedProductList: CompressedProductDto[];
-  /*private webApiUrl = 'http://localhost:51289/api/product/';*/
-  private webApiUrl = 'http://demo.belpyro.net/api/product/';
 
   getListProduct() {
-    return this.http.get(this.webApiUrl + 'GetListOnSale');
+    return this.http.get(environment.API_ENDPOINT + 'api/product/GetListOnSale');
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    return this.http.post(this.webApiUrl + 'addAsync', uploadProduct);
+    return this.http.post(environment.API_ENDPOINT + 'api/product/addAsync', uploadProduct);
   }
 
   getProductById(ID: number) {
-    return this.http.get<ProductInfoDto>(this.webApiUrl + 'getById/' + ID);
+    return this.http.get<ProductInfoDto>(environment.API_ENDPOINT + 'api/product/getById/' + ID);
   }
 
   searchProduct(conditionList: ProductSearchModel[]) {
-    return this.http.post<CompressedProductDto[]>(this.webApiUrl + 'FindAsync', conditionList);
+    return this.http.post<CompressedProductDto[]>(environment.API_ENDPOINT + 'api/product/FindAsync', conditionList);
   }
 
   getListPurshasedProducts() {
-    return this.http.get(this.webApiUrl + 'GetPurshasedProductsAsync');
+    return this.http.get(environment.API_ENDPOINT + 'api/product/GetPurshasedProductsAsync');
   }
 
   downloadProduct(ID: number) {
-    return this.http.get<OriginalProductDTO>(this.webApiUrl + 'GetOriginalPurshasedProductAsync/' + ID);
+    return this.http.get<OriginalProductDTO>(environment.API_ENDPOINT + 'api/product/GetOriginalPurshasedProductAsync/' + ID);
   }
 
   deleteProduct(id: number) {
-    return this.http.delete<ProductDto>(this.webApiUrl + 'deleteAsync/' + id);
+    return this.http.delete<ProductDto>(environment.API_ENDPOINT + 'api/product/deleteAsync/' + id);
   }
 }
