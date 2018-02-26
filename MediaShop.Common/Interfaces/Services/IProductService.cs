@@ -109,5 +109,12 @@ namespace MediaShop.Common.Interfaces.Services
         /// <param name="data">upload model</param>
         /// <returns>Task ProductDto</returns>
         Task<ProductDto> UploadProductsAsync(UploadProductModel data, long creatorId);
+
+        /// <summary>
+        /// возрат списка загруженого контента
+        /// </summary>
+        /// <param name="userId"> id создателя </param>
+        /// <returns>список загруженого проекта</returns>
+        Task<IEnumerable<CompressedProductDTO>> GetUploadProductListAsync(long userId);
     }
 }

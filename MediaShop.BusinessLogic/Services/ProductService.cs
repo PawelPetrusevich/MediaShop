@@ -480,5 +480,21 @@ namespace MediaShop.BusinessLogic.Services
 
             return result is null ? throw new InvalidOperationException(Resources.GetProductError) : Mapper.Map<ProductInfoDto>(result);
         }
+
+        /// <summary>
+        /// Get list purshased products
+        /// </summary>
+        /// <param name="userId">users id</param>
+        public async Task<IEnumerable<CompressedProductDTO>> GetUploadProductListAsync(long userId)
+        {
+            if (userId <= 0)
+            {
+                throw new InvalidOperationException(Resources.LessThanOrEqualToZeroValue);
+            }
+
+            var result = await this._repository.FindAsync(x => x.CreatorId == userId);
+
+            return Mapper.Map<List<CompressedProductDTO>>(result);
+        }
     }
 }
