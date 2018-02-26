@@ -33,7 +33,8 @@ export class Cartservice {
   }
 
   addContent(id: number): Observable<ContentCartDto> {
+    const params: HttpParams = new HttpParams();
     return this.http
-    .get<ContentCartDto>(environment.API_ENDPOINT + 'api/cart/addasync/' + id);
+    .post<ContentCartDto>(environment.API_ENDPOINT + 'api/cart/addasync/' + id, params);
   }
 }
