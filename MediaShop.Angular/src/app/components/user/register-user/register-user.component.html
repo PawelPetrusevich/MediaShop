@@ -12,5 +12,10 @@
   <div class="alert alert-danger" role="alert" *ngIf="showError">
     {{errorMessage}}
   </div>
+  <div class="row">
+        <div class="alert alert-success" role="alert" *ngIf="isRegistered">
+        Look for confirmation letter on your email!
+      </div>
+    </div>
 </form>
 
