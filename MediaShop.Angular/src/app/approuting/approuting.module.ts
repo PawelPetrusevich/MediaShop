@@ -50,9 +50,7 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
         component: ProductListComponent
       },
       { path: 'cart',
-        component: CartComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        component: CartComponent
        },
       { path: 'payment',
         component: PaymentComponent,
