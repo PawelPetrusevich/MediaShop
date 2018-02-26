@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class RegisterUserComponent implements OnInit {
 
   userInfo: Account = new Account();
+  isRegistered = false;
   showError = false;
   errorMessage: string;
 
@@ -30,24 +31,15 @@ export class RegisterUserComponent implements OnInit {
     this.accountService
       .register(user)
       .subscribe(resp =>  {
+        this.isRegistered = true;
         this.userInfo = resp;
-        this.router.navigate(['login']);
         console.log(resp);
       } ,
       (err: HttpErrorResponse) => {
         console.log(err);
         this.showError = true ;
-        if (err.status === 400){
-        this.errorMessage = 'User with such email or login is already exists!';
+        this.errorMessage = err.error.Message;
         }
-        this.showError = true ;
-        if (err.status === 401){
-        this.errorMessage = 'User is not aothorized';
-        }
-        if (err.status === 500){
-          this.errorMessage = err.status + ' ' + err.statusText;
-        }
-      }
     );
   }
 

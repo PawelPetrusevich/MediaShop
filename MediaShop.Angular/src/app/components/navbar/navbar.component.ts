@@ -4,6 +4,7 @@ import { UserInfoService } from '../../Services/User/userInfoService';
 import { AccountService } from '../../Services/User/AccountService';
 import { SignalR } from 'ng2-signalr';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -32,9 +33,8 @@ export class NavbarComponent {
       this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
       this.IsCreator = (result.Permissions & Permissions.Create) !== 0;
     });
-  }
-  });
-    if (this.accountService.isAuthorized()) {
+    if (this.accountService.isAuthorized())
       this.signalRServ.Connect();
   }
-}}
+}
+
