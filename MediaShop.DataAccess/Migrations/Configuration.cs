@@ -1,3 +1,5 @@
+using MediaShop.Common;
+
 namespace MediaShop.DataAccess.Migrations
 {
     using System;
@@ -23,19 +25,48 @@ namespace MediaShop.DataAccess.Migrations
         protected override void Seed(MediaContext context)
         {
             // initializing database at first time
-            var accountService = DependencyResolver.Current.GetService<IAccountService>();
-            if (context.Accounts.FirstOrDefault(account => (account.Permissions & Permissions.Delete) == Permissions.Delete) == null)
-         {
-             context.Accounts.Add(
-                 new AccountDbModel()
-                 {
-                     Email = "user@tut.by",
-                     Login = "Administrator", Password = accountService.GetHashString("Administrator"),
-                     Permissions = Permissions.Delete | Permissions.Create | Permissions.See,
-                     AccountConfirmationToken = TokenHelper.NewToken(), IsConfirmed = true,
-                     Profile = new ProfileDbModel(), Settings = new SettingsDbModel(), CreatedDate = DateTime.Now
-                 });
-         }
+            if (!context.Accounts.Any())
+            {
+                context.Accounts.Add(
+                    new AccountDbModel()
+                    {
+                        Email = "user@tut.by",
+                        Login = "admin",
+                        Password = "admin".GetHash(),
+                        Permissions = Permissions.Delete | Permissions.Create | Permissions.See,
+                        AccountConfirmationToken = TokenHelper.NewToken(),
+                        IsConfirmed = true,
+                        Profile = new ProfileDbModel(),
+                        Settings = new SettingsDbModel(),
+                        CreatedDate = DateTime.Now
+                    });
+                context.Accounts.Add(
+                    new AccountDbModel()
+                    {
+                        Email = "seller@test.com",
+                        Login = "seller",
+                        Password = "seller".GetHash(),
+                        Permissions = Permissions.Create | Permissions.See,
+                        AccountConfirmationToken = TokenHelper.NewToken(),
+                        IsConfirmed = true,
+                        Profile = new ProfileDbModel(),
+                        Settings = new SettingsDbModel(),
+                        CreatedDate = DateTime.Now
+                    });
+                context.Accounts.Add(
+                    new AccountDbModel()
+                    {
+                        Email = "user@test.com",
+                        Login = "user",
+                        Password = "user".GetHash(),
+                        Permissions = Permissions.See,
+                        AccountConfirmationToken = TokenHelper.NewToken(),
+                        IsConfirmed = true,
+                        Profile = new ProfileDbModel(),
+                        Settings = new SettingsDbModel(),
+                        CreatedDate = DateTime.Now
+                    });
+            }
         }
     }
 }
