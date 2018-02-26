@@ -657,7 +657,7 @@
                 {
                     name = content.ContentName,
                     currency = "USD",
-                    price = content.PriceItem.ToString(),
+                    price = decimal.Round(content.PriceItem, 2).ToString(CultureInfo.CreateSpecificCulture("en-US")),
                     quantity = "1",
                     sku = content.ContentId.ToString()
                 });
