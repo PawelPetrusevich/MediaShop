@@ -30,7 +30,7 @@ export class ConfirmComponent implements OnInit {
         this.router.navigate(['login']);
       }, (err: HttpErrorResponse) => {
         this.showError = true;
-        this.result = "Oops! There seems to be a problem.";
+        this.result = "Oops! There seems to be a problem. " + err.error.Message;
       });
     }
   }

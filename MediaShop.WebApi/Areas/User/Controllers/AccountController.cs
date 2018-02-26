@@ -58,7 +58,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                         sb.AppendFormat("{0} ! ", error.ErrorMessage);
                     }
                 }
-               
+
                 return BadRequest(sb.ToString());
             }
 
@@ -139,8 +139,8 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
             {
                 return BadRequest(Resources.EmtyData);
-            }      
-            
+            }
+
             try
             {
                 var account = _accountService.ConfirmRegistration(new AccountConfirmationDto() { Email = email, Token = token });
@@ -163,6 +163,10 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 return BadRequest(ex.Message);
             }
             catch (UpdateAccountException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ModelValidateException ex)
             {
                 return BadRequest(ex.Message);
             }
