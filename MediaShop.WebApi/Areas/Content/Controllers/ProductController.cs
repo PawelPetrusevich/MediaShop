@@ -16,7 +16,6 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Areas.Content.Controllers;
-using MediaShop.WebApi.Areas.Content.Controllers.Filters;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -25,7 +24,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [LoggingFilter]
     [EnableCors("*", "*", "*")]
-    [Authorize]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
     public class ProductController : ApiController

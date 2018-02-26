@@ -60,7 +60,7 @@ export class ProductUploadComponent implements OnInit {
   ShowUploadNotification(data: ProductDto) {
     this.notivicationsService.success(
       'File Upload',
-       data.ProductName + data.ProductPrice.toString(),
+       data.ProductName + ' ' + data.ProductPrice.toString() + '$',
       {
       timeOut: 5000,
       clickToClose: true

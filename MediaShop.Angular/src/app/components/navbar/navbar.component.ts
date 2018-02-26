@@ -13,7 +13,9 @@ export class NavbarComponent {
   IsAdmin: boolean;
   Login: string;
 
-  constructor(private accountService: AccountService, private userInfoService: UserInfoService, private signalRServ: SignalRServiceConnector) {}
+  constructor(private accountService: AccountService,
+     private userInfoService: UserInfoService,
+      private signalRServ: SignalRServiceConnector) {}
 
   ngOnInit(): void {
     console.log('oninit');
