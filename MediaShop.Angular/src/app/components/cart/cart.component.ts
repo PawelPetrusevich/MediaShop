@@ -63,7 +63,8 @@ export class CartComponent implements OnInit {
     this.cartService.deleteById(element.Id).subscribe(resp => {
       if (this.indexCurrentElement > -1) {
         --this.cart.CountItemsInCollection;
-        this.cart.PriceAllItemsCollection -= this.cart.ContentCartDtoCollection[this.indexCurrentElement].PriceItem;
+        this.cart.PriceAllItemsCollection = Math.round(
+          (this.cart.PriceAllItemsCollection - this.cart.ContentCartDtoCollection[this.indexCurrentElement].PriceItem) * 100) / 100;
         this.cart.ContentCartDtoCollection.splice(this.indexCurrentElement, 1);
       } else {
         this.showError = true;
