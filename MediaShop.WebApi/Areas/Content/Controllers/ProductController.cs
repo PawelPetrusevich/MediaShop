@@ -482,5 +482,36 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
                 return InternalServerError();
             }
         }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetUploadProductAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful Get upload Product", typeof(CompressedProductDTO))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error get upload product", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
+        public async Task<IHttpActionResult> GetUploadProductAsync()
+        {
+            try
+            {
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(await _productService.GetUploadProductListAsync(idUser));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentDownloadError);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
     }
 }
