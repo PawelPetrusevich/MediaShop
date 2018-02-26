@@ -38,7 +38,7 @@ export class SetPermissionComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.route.paramMap.switchMap((params: ParamMap) =>
-      this.userService.GetUser(params.get('id'))
+      this.userService.GetUserById(params.get('id'))
     );
     this.user.subscribe(res => {
       this.oldPermission = res.Permissions;
@@ -56,17 +56,17 @@ export class SetPermissionComponent implements OnInit {
   }
   SetPermission(user: PermissionDto): void {
     if (this.see) {
-      this.seeNum = 1;
+      this.seeNum = Permissions.See;
     } else {
       this.seeNum = 0;
     }
     if (this.create) {
-      this.createNum = 2;
+      this.createNum = Permissions.Create;
     } else {
       this.createNum = 0;
     }
     if (this.del) {
-      this.delNum = 4;
+      this.delNum = Permissions.Delete;
     } else {
       this.delNum = 0;
     }
@@ -74,6 +74,6 @@ export class SetPermissionComponent implements OnInit {
     console.log(this.newPermission);
     this.userService
       .SetPermission(user.Id, user.Login, user.Email, this.newPermission)
-      .subscribe(resp => (this.status = resp.status), err => console.log(err));
+      .subscribe(resp => (console.log(resp)), err => console.log(err));
   }
 }

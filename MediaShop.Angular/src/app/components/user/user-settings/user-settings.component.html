@@ -27,7 +27,14 @@
   </div>
 </div>
 <hr />
-<div>
-  <button (click)="saveSettings()" class="btn btn-success">Save</button>
-  <button (click)="saveSettings()" class="btn btn-info">Back</button>
+
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="saveSettings()">Save</button>
+  </div>
+  <div class="col-md-3 mb-3">
+    <button [routerLink]="['/product-list']"  class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+  </div>
 </div>
+
+

@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PaymentComponent } from '../payment/payment.component';
 import { Router } from '@angular/router';
 import { CartDataProvider } from './cartDataProvider';
+import { SignalR } from 'ng2-signalr';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
   isPayment = false;
 
   constructor(private cartService: Cartservice, private paymentService: Paymentservice, private router: Router
-    , private dataProvider: CartDataProvider) {
+    , private dataProvider: CartDataProvider, private _signalR: SignalR) {
   }
 
   ngOnInit() {
