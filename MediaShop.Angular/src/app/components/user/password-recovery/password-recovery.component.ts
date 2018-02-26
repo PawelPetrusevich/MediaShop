@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../../Services/User/AccountService';
 import { PasswordRecovery } from '../../../Models/User/password-recovery';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-password-recovery',
@@ -10,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PasswordRecoveryComponent implements OnInit {
   model: PasswordRecovery;
-  constructor(private accountService: AccountService, private route: ActivatedRoute) {
+  showMessage: boolean;
+  message: string;
+  constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router) {
     this.model = new PasswordRecovery();
   }
 
@@ -23,9 +27,15 @@ export class PasswordRecoveryComponent implements OnInit {
       });
   }
 
-  recoveryPassword() {
+  recoveryPassword(f: NgForm) {
+    if (this.model.ConfirmPassword != this.model.Password || f.invalid)
+      return;
     this.accountService.recoveryPassword(this.model).subscribe(resp => {
-      console.log(resp);
-    });
+      this.router.navigate(['login']);
+    },
+      (err: HttpErrorResponse) => {
+        this.showMessage = true;
+        this.message = err.error.ExceptionMessage;
+      });
   }
 }
