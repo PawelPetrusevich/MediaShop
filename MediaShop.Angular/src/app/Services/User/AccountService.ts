@@ -9,42 +9,73 @@ import { Account } from '../../Models/User/account';
 import { TokenResponse } from '../../Models/User/token-response';
 import { AppSettings } from '../../Settings/AppSettings';
 import { PasswordRecovery } from '../../Models/User/password-recovery';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { ForgotPasswordDto } from '../../Models/User/forgot-password-dto';
 import { environment } from '../../../environments/environment';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
+import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: HttpClient, private signalRServiceConnector: SignalRServiceConnector) { }
+  private ErrMsg = new Subject<string>();
 
-  register(registerUser: RegisterUserDto): Observable<Account> {
-    return this.http
-      .post<Account>(environment.API_ENDPOINT + 'api/account/registerAsync', registerUser);
+  constructor(
+    private http: HttpClient,
+    private signalRServiceConnector: SignalRServiceConnector,
+    private router: Router
+
+  ) {
   }
 
-  login(login: string, password: string): Observable<TokenResponse> {
+  register(registerUser: RegisterUserDto): Observable<Account> {
+    return this.http.post<Account>(
+      environment.API_ENDPOINT + 'api/account/registerAsync',
+      registerUser
+    );
+  }
+
+  login(login: string, password: string) {
     const body =
       'grant_type=password&username=' + login + '&password=' + password;
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*'
     });
+
     const options = {
-      headers,
+     headers,
       withCredentials: true
     };
 
-    return this.http
-      .post<TokenResponse>(environment.API_ENDPOINT + 'token', body, options);
+    this.http
+      .post<TokenResponse>(environment.API_ENDPOINT + 'token', body, options)
+      .subscribe(
+        resp => {
+          localStorage.setItem(AppSettings.tokenKey, resp.access_token);
+          localStorage.setItem(AppSettings.userId, resp.userId);
+
+          this.signalRServiceConnector.Connect(true);
+          this.router.navigate(['product-list']);
+        },
+        (err: HttpErrorResponse) => {
+          this.ErrMsg.next(err.error.error_description);
+        }
+      );
   }
 
   logout() {
     this.signalRServiceConnector.Disconnect();
-    return this.http
-      .post(environment.API_ENDPOINT + 'api/account/logout', null);
+    localStorage.removeItem(AppSettings.tokenKey);
+    localStorage.removeItem(AppSettings.userId);
+    this.router.navigate(['login']);
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/logout',
+      null
+    );
   }
 
   isAuthorized(): boolean {
@@ -62,23 +93,27 @@ export class AccountService {
     const options = {
       headers
     };
-    return this.http
-      .post(
-        environment.API_ENDPOINT  + 'api/account/initRecoveryPassword',
-        model, options
-      );
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/initRecoveryPassword',
+      model,
+      options
+    );
   }
 
   confirm(email: string, token: string) {
-    return this.http
-      .get(environment.API_ENDPOINT  + 'api/account/confirm/' + email + '/' + token);
+    return this.http.get(
+      environment.API_ENDPOINT + 'api/account/confirm/' + email + '/' + token
+    );
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
-    return this.http
-      .post(
-        environment.API_ENDPOINT + 'api/account/recoveryPassword',
-        resetMasswor
-      );
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/recoveryPassword',
+      resetMasswor
+    );
+  }
+
+  getError() {
+    return this.ErrMsg.asObservable();
   }
 }

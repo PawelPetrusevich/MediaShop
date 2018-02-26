@@ -48,20 +48,13 @@ export class UserPofileComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
       console.log(err);
       this.showError = true ;
-      if (err.status === 400){
-      this.errorMessage = err.status + ' ' + err.statusText;
-      }
-      this.showError = true ;
-      if (err.status === 401){
-      this.errorMessage = 'User is not aothorized';
-      }
-      if (err.status === 500){
-        this.errorMessage = err.status + ' ' + err.statusText;
-      }
+     this.errorMessage = err.error.Message;
     });
   }
 
   saveProfile(): void {
+    this.showError = false;
+
     const profileChanged = new ProfileDto();
     profileChanged.FirstName = this.firstName;
     profileChanged.LastName = this.lastName;
@@ -77,17 +70,8 @@ export class UserPofileComponent implements OnInit {
       (err: HttpErrorResponse) => {
         this.isModified = false ;
         console.log(err);
-        this.showError = true ;
-        if (err.status === 400){
-        this.errorMessage = 'One of the field is empty. Try one more time!';
-        }
-        this.showError = true ;
-        if (err.status === 401){
-        this.errorMessage = 'User is not aothorized';
-        }
-        if (err.status === 500){
-          this.errorMessage = err.status + ' ' + err.statusText;
-        }
+       this.showError = true ;
+       this.errorMessage = err.error.Message;
       });
   }
 
