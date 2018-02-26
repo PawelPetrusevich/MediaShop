@@ -52,6 +52,7 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 import { SignalRConfig } from './signalR/signalr-config';
 import { SignalRServiceConnector } from './signalR/signalr-service';
+import { ProductListUploadedComponent } from './Components/Content/product-list-uploaded/product-list-uploaded.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SignalRServiceConnector } from './signalR/signalr-service';
     UserListComponent,
     ConfirmComponent,
     PaymentInfoComponent,
-    ProductPurshasedComponent
+    ProductPurshasedComponent,
+    ProductListUploadedComponent
   ],
   imports: [
     BrowserModule,
