@@ -100,4 +100,4 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
   declarations: [],
   exports: [RouterModule]
 })
-export class ApproutingModule {}
+export class ApproutingModule { }
