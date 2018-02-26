@@ -48,7 +48,6 @@ export class UserListComponent implements OnInit {
       .subscribe(
         resp => (
           console.log(resp),
-          (this.status = resp.status),
           (permissionDto.IsBanned = resp.IsBanned)
         ),
         err => console.log(err)
@@ -60,7 +59,6 @@ export class UserListComponent implements OnInit {
       .subscribe(
         resp => (
           console.log(resp),
-          (this.status = resp.status),
           (permissionDto.IsBanned = resp.IsBanned)
         ),
         err => console.log(err)
@@ -71,12 +69,12 @@ export class UserListComponent implements OnInit {
     .subscribe(
       resp => (
         console.log(resp),
-        (this.status = resp.status),
         (permissionDto.IsDeleted = resp.IsDeleted)
       ),
       err => console.log(err)
     );
   }
+
   Nothing() {
   }
 }

@@ -125,6 +125,18 @@ namespace MediaShop.BusinessLogic.Services
             return Mapper.Map<Account>(user);
         }
 
+        public async Task<UserDto> GetUserDtoAsync(long idUser)
+        {
+            if (idUser < 1)
+            {
+                throw new ArgumentException(Resources.InvalidIdValue, nameof(idUser));
+            }
+
+            var user = await _userRepository.Accounts.GetAsync(idUser).ConfigureAwait(false) ?? throw new NotFoundUserException();
+
+            return Mapper.Map<UserDto>(user);
+        }
+
         public Settings ModifySettings(SettingsDto settings)
         {
             var user = _userRepository.Accounts.Get(settings.AccountId) ?? throw new NotFoundUserException();
