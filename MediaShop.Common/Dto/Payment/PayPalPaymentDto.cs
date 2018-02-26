@@ -21,7 +21,7 @@
         ///     support for 2 decimal places.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Total")]
-        public float Total { get; set; }
+        public decimal Total { get; set; }
 
         /// <summary>
         /// Gets or sets list of items.

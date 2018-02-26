@@ -96,6 +96,8 @@ namespace MediaShop.Common
             this.CreateMap<ContentCart, CompressedProductDTO>()
                 .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))
                 .ForMember(item => item.ProductName, x => x.MapFrom(y => y.Product.ProductName))
+                .ForMember(item => item.ProductType, x => x.MapFrom(y => y.Product.ProductType))
+                .ForMember(item => item.ProductPrice, x => x.MapFrom(y => y.Product.ProductPrice))
                 .ForMember(item => item.Content, x => x.MapFrom(y => Convert.ToBase64String(y.Product.CompressedProduct.Content)));
             this.CreateMap<ContentCart, OriginalProductDTO>()
                 .ForMember(item => item.Id, x => x.MapFrom(y => y.ProductId))

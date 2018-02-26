@@ -99,7 +99,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
                 {
                     foreach (var error in value.Errors)
                     {
-                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
+                        sb.AppendFormat($"{error.ErrorMessage} ! ");
                     }
                 }
 

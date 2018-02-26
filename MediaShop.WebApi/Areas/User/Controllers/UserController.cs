@@ -10,6 +10,7 @@ using MediaShop.Common.Dto.User;
 using MediaShop.Common.Exceptions;
 using MediaShop.Common.Exceptions.User;
 using MediaShop.Common.Interfaces.Services;
+using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -19,7 +20,7 @@ namespace MediaShop.WebApi.Areas.User.Controllers
     [RoutePrefix("api/user")]
     [EnableCors("*", "*", "*")]
     [AccountExceptionFilter]
-    [Authorize]
+    [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class UserController : ApiController
     {
         private readonly IUserService _userService;
@@ -153,6 +154,62 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             try
             {
                 var user = await _userService.GetUserInfoAsync(idUser);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("getUserInfoByIdAsync/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> GetUserInfoByIdAsync(long id)
+        {
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var user = await _userService.GetUserInfoAsync(id);
+                return Ok(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NotFoundUserException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("getUserDtoAsync/{id}")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.OK, "", typeof(Account))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "", typeof(Exception))]
+        public async Task<IHttpActionResult> GetUserDtoAsync(long id)
+        {
+            if (id < 1 || !ModelState.IsValid)
+            {
+                return BadRequest(Resources.EmtyData);
+            }
+
+            try
+            {
+                var user = await _userService.GetUserDtoAsync(id);
                 return Ok(user);
             }
             catch (ArgumentException ex)

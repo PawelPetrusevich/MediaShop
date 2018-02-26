@@ -318,4 +318,7 @@
   <data name="ContentAlreadyBougth" xml:space="preserve">
     <value>This content already bougth for current user</value>
   </data>
+  <data name="ConfirmationError" xml:space="preserve">
+    <value>You did not confirm your registration. Look for confirmation letter  on your email!</value>
+  </data>
 </root>
