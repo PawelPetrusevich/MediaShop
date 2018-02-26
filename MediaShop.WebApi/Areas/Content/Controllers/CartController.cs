@@ -84,7 +84,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// </summary>
         /// <param name="contentId">content id</param>
         /// <returns>IHttpActionResult</returns>
-        [HttpGet]
+        [HttpPost]
         [Route("add/{contentId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
@@ -110,7 +110,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// </summary>
         /// <param name="contentId">content id</param>
         /// <returns>Task<IHttpActionResult></IHttpActionResult></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("addasync/{contentId}")]
         [SwaggerResponseRemoveDefaults]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(ContentCartDto))]
