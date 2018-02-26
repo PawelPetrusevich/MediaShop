@@ -223,6 +223,15 @@ namespace MediaShop.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwords must match.
+        /// </summary>
+        internal static string PasswordNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$.
         /// </summary>
         internal static string RegExpressionPhone {

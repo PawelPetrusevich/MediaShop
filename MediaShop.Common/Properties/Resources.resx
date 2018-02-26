@@ -171,6 +171,9 @@
   <data name="NullOrEmptyValueString" xml:space="preserve">
     <value>String can not be null or empty</value>
   </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>Passwords must match</value>
+  </data>
   <data name="RegExpressionPhone" xml:space="preserve">
     <value>^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$</value>
   </data>

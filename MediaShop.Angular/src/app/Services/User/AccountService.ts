@@ -79,11 +79,8 @@ export class AccountService {
   }
 
   isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null) {
-      return false;
-    }
+    return localStorage.getItem(AppSettings.tokenKey) != null;
 
-    return true;
   }
 
   forgotPassword(model: ForgotPasswordDto) {

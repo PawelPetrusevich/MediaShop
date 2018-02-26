@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MediaShop.BusinessLogic.Properties;
+using MediaShop.Common;
 using MediaShop.Common.Dto.Messaging;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Dto.User.Validators;
@@ -72,7 +73,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await _factoryRepository.Accounts.GetByLoginAsync(userName);
 
-            if (user == null || !user.Password.Equals(password) || user.IsDeleted)
+            if (user == null || !user.Password.Equals(password) || user.IsDeleted || user.IsBanned)
             {
                 return null;
             }
@@ -106,7 +107,7 @@ namespace MediaShop.BusinessLogic.Services
             if (findUser == null)
             {
                 var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-                modelDbModel.Password = GetHashString(userModel.Password);
+                modelDbModel.Password = userModel.Password.GetHash();
                 modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
                 var account = this._factoryRepository.Accounts.Add(modelDbModel);
                 account = account ?? throw new AddAccountException();
@@ -117,8 +118,9 @@ namespace MediaShop.BusinessLogic.Services
                 return Mapper.Map<Account>(account);
             }
 
+            //User registers after deleting
             findUser.IsConfirmed = false;
-            findUser.Password = GetHashString(userModel.Password);
+            findUser.Password = userModel.Password.GetHash();
             findUser.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = this._factoryRepository.Accounts.UpdateAsync(findUser) ?? throw new UpdateAccountException();
             var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
@@ -143,7 +145,7 @@ namespace MediaShop.BusinessLogic.Services
             if (findUser == null)
             {
                 var modelDbModel = Mapper.Map<AccountDbModel>(userModel);
-                modelDbModel.Password = GetHashString(userModel.Password);
+                modelDbModel.Password = userModel.Password.GetHash();
                 modelDbModel.AccountConfirmationToken = TokenHelper.NewToken();
                 var account = await this._factoryRepository.Accounts.AddAsync(modelDbModel).ConfigureAwait(false);
                 account = account ?? throw new AddAccountException();
@@ -154,10 +156,10 @@ namespace MediaShop.BusinessLogic.Services
                 return Mapper.Map<Account>(account);
             }
 
-            //User has been  registered already
+            //User registers after deleting
             findUser.IsConfirmed = false;
             findUser.Login = userModel.Login;
-            findUser.Password = GetHashString(userModel.Password);
+            findUser.Password = userModel.Password.GetHash();
             findUser.AccountConfirmationToken = TokenHelper.NewToken();
             var confirmedUser = await this._factoryRepository.Accounts.UpdateAsync(findUser).ConfigureAwait(false) ?? throw new UpdateAccountException();
             var confirmationModelUser = Mapper.Map<AccountConfirmationDto>(confirmedUser);
@@ -400,7 +402,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = this._factoryRepository.Accounts.GetByEmail(model.Email);
 
-            user.Password = GetHashString(model.Password);
+            user.Password = model.Password.GetHash();
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = this._factoryRepository.Accounts.Update(user) ?? throw new UpdateAccountException();
 
@@ -426,7 +428,7 @@ namespace MediaShop.BusinessLogic.Services
 
             var user = await this._factoryRepository.Accounts.GetByEmailAsync(model.Email).ConfigureAwait(false);
 
-            user.Password = GetHashString(model.Password);
+            user.Password = model.Password.GetHash();
             user.AccountConfirmationToken = TokenHelper.NewToken();
             var restoredUser = await this._factoryRepository.Accounts.UpdateAsync(user).ConfigureAwait(false) ?? throw new UpdateAccountException();
 
@@ -440,34 +442,6 @@ namespace MediaShop.BusinessLogic.Services
         public IEnumerable<UserDto> GetAllUsers()
         {
             return Mapper.Map<IEnumerable<UserDto>>(_factoryRepository.Accounts.GetAllUsers());
-        }
-
-        /// <summary>
-        /// Get hash string
-        /// </summary>
-        /// <param name="s">string</param>
-        /// <returns>hash string</returns>
-        public string GetHashString(string s)
-        {
-            //переводим строку в байт-массим  
-            byte[] bytes = Encoding.Unicode.GetBytes(s);
-
-            //создаем объект для получения средст шифрования  
-            MD5CryptoServiceProvider csp =
-                new MD5CryptoServiceProvider();
-
-            //вычисляем хеш-представление в байтах  
-            byte[] byteHash = csp.ComputeHash(bytes);
-
-            string hash = string.Empty;
-
-            //формируем одну цельную строку из массива  
-            foreach (byte b in byteHash)
-            {
-                hash += $"{b:x2}";
-            }
-
-            return hash;
-        }
+        }       
     }
 }

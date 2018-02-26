@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentValidation;
 using MediaShop.Common.Interfaces.Repositories;
+using MediaShop.Common.Properties;
 
 namespace MediaShop.Common.Dto.User.Validators
 {
@@ -14,10 +15,10 @@ namespace MediaShop.Common.Dto.User.Validators
             this._repository = repository;
 
             this.RuleFor(m => m.Login).Must(this.CheckExistingLogin)
-                .WithMessage(model => $"User exist with login {model.Login}");
+                .WithMessage(model => $"Login {model.Login} is already exists");
             this.RuleFor(m => m.Email).Must(this.CheckExistingUser)
                 .WithMessage(model => $"User exists with email {model.Email}");
-            this.RuleFor(m => m.Password).Equal(m => m.ConfirmPassword).WithMessage("Passwords must match");
+            this.RuleFor(m => m.Password).Equal(m => m.ConfirmPassword).WithMessage(Resources.PasswordNotMatch);
             this.RuleFor(m => m.Email).EmailAddress();
         }
 
@@ -30,7 +31,7 @@ namespace MediaShop.Common.Dto.User.Validators
 
         private bool CheckExistingLogin(string login)
         {
-            var user = this._repository.Find(m => m.Email.Equals(login, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+            var user = this._repository.Find(m => m.Login.Equals(login, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
 
             return user == null || user.IsDeleted;
         }

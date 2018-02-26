@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MediaShop.Common;
 using MediaShop.Common.Dto.User;
 using MediaShop.Common.Interfaces.Services;
 using Microsoft.Owin.Security;
@@ -45,8 +46,7 @@ namespace MediaShop.WebApi.Provider
         /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var hashedPassword = _accountService.GetHashString(context.Password);
-            var user = await _accountService.FindUserAsync(context.UserName, hashedPassword);
+            var user = await _accountService.FindUserAsync(context.UserName, context.Password.GetHash());
 
             if (user == null)
             {

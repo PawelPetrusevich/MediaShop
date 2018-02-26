@@ -124,13 +124,13 @@
     <value>An attempt to delete with a null identifier</value>
   </data>
   <data name="EmptyRegisterDate" xml:space="preserve">
-    <value>Data cannot be empty.</value>
+    <value>Data can not be empty.</value>
   </data>
   <data name="IncorrectId" xml:space="preserve">
     <value>Id can not be 0</value>
   </data>
   <data name="EmtyData" xml:space="preserve">
-    <value>Data cannot be empty</value>
+    <value>Data can not be empty</value>
   </data>
   <data name="NotFoundNotification" xml:space="preserve">
     <value>Notifications for user with this id not found</value>
@@ -170,6 +170,6 @@
     <value>You are not authorized</value>
   </data>
   <data name="ErrorDownload" xml:space="preserve">
-    <value>You cannot download this product</value>
+    <value>You can not download this product</value>
   </data>
 </root>
