@@ -3,7 +3,7 @@ import { AccountService } from "../Services/User/AccountService";
 import { Injectable, SkipSelf, Optional, NgModule } from "@angular/core";
 import { ModuleWithProviders } from "@angular/compiler/src/core";
 import { SignalRConfig } from "./signalr-config";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 import { NotificationsService } from "angular2-notifications";
 import { NotificationDto } from "../Models/Messaging/notification";
 
