@@ -15,14 +15,21 @@ import { HttpParams } from '@angular/common/http';
 import { ForgotPasswordDto } from '../../Models/User/forgot-password-dto';
 import { environment } from '../../../environments/environment';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AccountService {
-  constructor(private http: HttpClient, private signalRServiceConnector: SignalRServiceConnector) { }
+  userLoggedIn = new Subject<boolean>();
+  constructor(
+    private http: HttpClient,
+    private signalRServiceConnector: SignalRServiceConnector
+  ) {}
 
   register(registerUser: RegisterUserDto): Observable<Account> {
-    return this.http
-      .post<Account>(environment.API_ENDPOINT + 'api/account/registerAsync', registerUser);
+    return this.http.post<Account>(
+      environment.API_ENDPOINT + 'api/account/registerAsync',
+      registerUser
+    );
   }
 
   login(login: string, password: string): Observable<TokenResponse> {
@@ -36,15 +43,25 @@ export class AccountService {
       headers,
       withCredentials: true
     };
+    this.userLoggedIn.next(true);
 
-    return this.http
-      .post<TokenResponse>(environment.API_ENDPOINT + 'token', body, options);
+    return this.http.post<TokenResponse>(
+      environment.API_ENDPOINT + 'token',
+      body,
+      options
+    );
   }
 
   logout() {
     this.signalRServiceConnector.Disconnect();
-    return this.http
-      .post(environment.API_ENDPOINT + 'api/account/logout', null);
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/logout',
+      null
+    );
+  }
+
+  getLoginEvent() {
+    return this.userLoggedIn.asObservable();
   }
 
   isAuthorized(): boolean {
@@ -62,23 +79,23 @@ export class AccountService {
     const options = {
       headers
     };
-    return this.http
-      .post(
-        environment.API_ENDPOINT  + 'api/account/initRecoveryPassword',
-        model, options
-      );
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/initRecoveryPassword',
+      model,
+      options
+    );
   }
 
   confirm(email: string, token: string) {
-    return this.http
-      .get(environment.API_ENDPOINT  + 'api/account/confirm/' + email + '/' + token);
+    return this.http.get(
+      environment.API_ENDPOINT + 'api/account/confirm/' + email + '/' + token
+    );
   }
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
-    return this.http
-      .post(
-        environment.API_ENDPOINT + 'api/account/recoveryPassword',
-        resetMasswor
-      );
+    return this.http.post(
+      environment.API_ENDPOINT + 'api/account/recoveryPassword',
+      resetMasswor
+    );
   }
 }

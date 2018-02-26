@@ -10,19 +10,29 @@ import { SignalRServiceConnector } from '../../signalR/signalr-service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  IsAdmin: boolean;
+  IsAutorize: boolean;
   Login: string;
-
-  constructor(private accountService: AccountService, private userInfoService: UserInfoService, private signalRServ: SignalRServiceConnector) {}
+  IsAdmin: boolean;
+  IsCreator: boolean;
+  constructor(
+    private accountService: AccountService,
+    private userInfoService: UserInfoService,
+    private signalRServ: SignalRServiceConnector
+  ) {}
 
   ngOnInit(): void {
     console.log('oninit');
+    this.accountService.getLoginEvent().subscribe(e => {
+    this.IsAutorize = e;
+    if (e) {
     this.userInfoService.getUserInfo().subscribe(result => {
       console.log(result);
-      this.Login = result.Login;
       this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
+      this.IsCreator = (result.Permissions & Permissions.Create) !== 0;
     });
-    if (this.accountService.isAuthorized())
+  }
+  });
+    if (this.accountService.isAuthorized()) {
       this.signalRServ.Connect();
   }
-}
+}}
