@@ -21,7 +21,7 @@ export class Paymentservice {
 
   executePayment(paymentId: string, token: string): Observable<PayPalPaymentDto> {
     return this.http
-      .get<PayPalPaymentDto>(environment
-        .API_ENDPOINT + 'api/payment/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token);
+      .get<PayPalPaymentDto>(
+        environment.API_ENDPOINT + 'api/payment/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token);
   }
 }
