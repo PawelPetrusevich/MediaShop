@@ -50,9 +50,7 @@ import { ProductDownloadComponent } from '../Components/Content/product-download
         component: ProductListComponent
       },
       { path: 'cart',
-        component: CartComponent,
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        component: CartComponent
        },
       { path: 'payment',
         component: PaymentComponent,
