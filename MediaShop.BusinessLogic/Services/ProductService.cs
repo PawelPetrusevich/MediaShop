@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web;
 using MediaShop.BusinessLogic.ExtensionMethods;
