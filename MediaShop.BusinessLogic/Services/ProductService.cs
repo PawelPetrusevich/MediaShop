@@ -453,8 +453,14 @@ namespace MediaShop.BusinessLogic.Services
 
             var resultFilter = operations.Aggregate(Expression.And);
             var lambda = Expression.Lambda<Func<ContentCart, bool>>(resultFilter, parameterExpr);
+            var result = await Task.Run(() => this._cartRepository.Find(lambda).FirstOrDefault());
 
-            return Mapper.Map<OriginalProductDTO>(await Task.Run(() => this._cartRepository.Find(lambda).FirstOrDefault()));
+            if (result == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return Mapper.Map<OriginalProductDTO>(result);
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ export class AccountService {
     });
 
     const options = {
-     headers,
+      headers,
       withCredentials: true
     };
 
@@ -94,10 +94,10 @@ export class AccountService {
       headers
     };
     return this.http.post(
-      environment.API_ENDPOINT + 'api/account/initRecoveryPassword',
+        environment.API_ENDPOINT  + 'api/account/initRecoveryPassword',
       model,
       options
-    );
+      );
   }
 
   confirm(email: string, token: string) {
@@ -108,9 +108,9 @@ export class AccountService {
 
   recoveryPassword(resetMasswor: PasswordRecovery) {
     return this.http.post(
-      environment.API_ENDPOINT + 'api/account/recoveryPassword',
-      resetMasswor
-    );
+        environment.API_ENDPOINT + 'api/account/recoveryPassword',
+        resetMasswor
+      );
   }
 
   getError() {

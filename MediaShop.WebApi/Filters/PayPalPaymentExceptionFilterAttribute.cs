@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using MediaShop.Common.Exceptions.PaymentExceptions;
 using MediaShop.Common.Exceptions.CartExceptions;
+using NLog;
 
 namespace MediaShop.WebApi.Filters
 {
@@ -14,6 +15,8 @@ namespace MediaShop.WebApi.Filters
     /// </summary>
     public class PayPalPaymentExceptionFilterAttribute : Attribute, IExceptionFilter
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public bool AllowMultiple { get; }
 
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
@@ -26,86 +29,101 @@ namespace MediaShop.WebApi.Filters
                     case ArgumentNullException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if controllers or methods argument is not valid
                     case ArgumentException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content do not update in database
                     case UpdateContentInCartExseptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if decerializable data is not valide
                     case InvalideDecerializableExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if payment already exist in database
                     case ExistPaymentException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if operation payment is only status created or failed
                     case OperationPaymentException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if payment do not add in database
                     case AddPaymentException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if defrayal do not add in database
                     case AddDefrayalException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if defrayal do not delete from database
                     case DeleteDefrayalException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: exception transformations in enum type
                     case OverflowException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case EmptyCartException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case ContentCartPriceException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case PayPalException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case PaymentsException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.InternalServerError, error.Message);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, actionExecutedContext.Exception);
+                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
                 }
             }

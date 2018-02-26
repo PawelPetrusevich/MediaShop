@@ -14,14 +14,21 @@ export class NavbarComponent {
   IsAdmin: boolean;
   Login: string;
 
- constructor(private accountService: AccountService,
-  private userInfoService: UserInfoService, private signalRServ: SignalRServiceConnector) {
-
- }
+  constructor(
+    private accountService: AccountService,
+    private userInfoService: UserInfoService,
+    private signalRServ: SignalRServiceConnector
+  ) {}
 
   ngOnInit(): void {
-    if (this.accountService.isAuthorized()) {
+    console.log('oninit');
+    this.userInfoService.getUserInfo().subscribe(result => {
+      console.log(result);
+      this.Login = result.Login;
+      this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
+    });
+    if (this.accountService.isAuthorized())
       this.signalRServ.Connect();
-    }
   }
 }
+

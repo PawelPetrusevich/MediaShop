@@ -4,6 +4,7 @@ import { ItemDto } from '../../Models/Payment/item-dto';
 import { Paymentservice } from '../../services/paymentservice';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-payment-info',
@@ -18,7 +19,7 @@ isLoaded = false;
 showError = false;
 errorMessage: string;
 
-  constructor(private paymentService: Paymentservice, private route: ActivatedRoute) { }
+  constructor(private paymentService: Paymentservice, private route: ActivatedRoute, private notificationService: NotificationsService) { }
 
   ngOnInit() {
     this.route.queryParams
@@ -32,21 +33,21 @@ errorMessage: string;
         this.payment = data;
         this.isLoaded = true; },
         (err: HttpErrorResponse) => {
-          this.errorMessage = ' Oops!)) Error....';
-          if (err.status === 404) {
-            this.errorMessage = err.statusText;
-            this.showError = true;
-          }
-          if (err.status === 400) {
-            this.errorMessage = err.statusText;
-            this.showError = true;
-          }
-          if (err.status === 500) {
-            this.errorMessage = err.statusText;
-            this.showError = true;
-          }
-          this.showError = true;
-      });
-    }
+          this.ShowError(err);
+      }
+    );
+  }
+}
+
+  ShowError(error: HttpErrorResponse) {
+    this.notificationService.error (
+      'OperationError',
+      error.error.Message,
+      {
+        timeOut: 5000,
+        showProgressBar: true,
+        clickToClose: true
+      }
+    );
   }
 }
