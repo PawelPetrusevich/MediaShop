@@ -20,6 +20,8 @@ export class NavbarComponent {
     private signalRServ: SignalRServiceConnector
   ) {}
 
+  constructor(private accountService: AccountService, private userInfoService: UserInfoService, private signalRServ: SignalRServiceConnector) {}
+
   ngOnInit(): void {
     console.log('oninit');
     this.accountService.getLoginEvent().subscribe(e => {
