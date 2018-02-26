@@ -8,6 +8,7 @@ import { PayPalPaymentDto } from '../Models/Payment/pay-pal-payment-dto';
 import { Cart } from '../Models/Cart/cart';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { AppSettings } from '../Settings/AppSettings';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class Paymentservice {
@@ -15,12 +16,12 @@ export class Paymentservice {
 
   payPalPayment(cart: Cart): Observable<string> {
     return this.http
-      .post<string>(AppSettings.API_PUBLIC + 'api/payment/paypalpayment', cart);
+      .post<string>(environment.API_ENDPOINT + 'api/payment/paypalpayment', cart);
   }
 
   executePayment(paymentId: string, token: string): Observable<PayPalPaymentDto> {
     return this.http
-      .get<PayPalPaymentDto>(AppSettings
-        .API_PUBLIC + 'api/payment/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token);
+      .get<PayPalPaymentDto>(
+        environment.API_ENDPOINT + 'api/payment/paypalpayment/executepaypalpaymentasync?paymentId=' + paymentId + '&token=' + token);
   }
 }

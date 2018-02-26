@@ -9,6 +9,7 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import { ProductDto } from '../Models/Content/ProductDto';
 import { ProductInfoDto } from '../Models/Content/ProductInfoDto';
 import { AppSettings } from '../Settings/AppSettings';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class Cartservice {
@@ -16,24 +17,24 @@ export class Cartservice {
 
   get(): Observable<Cart> {
     return this.http
-      .get <Cart> (AppSettings.API_PUBLIC  + 'api/cart/getcartasync');
+      .get <Cart> (environment.API_ENDPOINT  + 'api/cart/getcartasync');
   }
 
   deleteById(id: number): Observable<number> {
     const params = new HttpParams().set('id', id.toString());
     return this.http
-      .delete<number>(AppSettings.API_PUBLIC + 'api/cart/deletecontentbyidasync', {params});
+      .delete<number>(environment.API_ENDPOINT + 'api/cart/deletecontentbyidasync', {params});
   }
 
   clearCart(): Observable<Cart> {
     const params = new HttpParams().set('userId', localStorage.getItem('userId'));
     return this.http
-      .delete <Cart> (AppSettings.API_PUBLIC + 'api/cart/clearcartasync', {params});
+      .delete <Cart> (environment.API_ENDPOINT + 'api/cart/clearcartasync', {params});
   }
 
   addContent(id: number): Observable<ContentCartDto> {
     const params = new HttpParams().set('contentId', id.toString());
     return this.http
-      .post <ContentCartDto> (AppSettings.API_PUBLIC + 'api/cart/addasync', {params});
+      .post <ContentCartDto> (environment.API_ENDPOINT + 'api/cart/addasync', {params});
   }
 }
