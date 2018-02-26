@@ -58,8 +58,13 @@
     </div>
   </div>
   <hr/>
-  <div>
-    <button (click)="gotoUsers(user,true)" class="btn btn-success">Save</button>
-    <button (click)="gotoUsers(user,false)" class="btn btn-info">Back</button>
+
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="gotoUsers(user,true)">Save</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button  class="btn btn-lg btn-primary btn-block" type="submit"(click)="gotoUsers(user,false)">Back</button>
+    </div>
   </div>
 </div>

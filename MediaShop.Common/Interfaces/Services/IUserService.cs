@@ -36,6 +36,11 @@ namespace MediaShop.Common.Interfaces.Services
         Task<Account> GetUserInfoAsync(long idUser);
 
         /// <summary>
+        /// Get user information
+        /// </summary>
+        Task<UserDto> GetUserDtoAsync(long idUser);
+
+        /// <summary>
         /// Modiffy user settings
         /// </summary>
         /// <param name="settings">settings</param>
