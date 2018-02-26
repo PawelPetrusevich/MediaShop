@@ -147,9 +147,9 @@
             var product = await this.repositoryProduct.GetAsync(contentId).ConfigureAwait(false);
 
             // Create object AddToCartNotifyDto
-            // var objectNotify = new AddToCartNotifyDto() { ReceiverId = userId, ProductName = product.ProductName };
+            var objectNotify = new AddToCartNotifyDto() { ReceiverId = userId, ProductName = product.ProductName };
 
-            // var notification = await this.serviceNotification.AddToCartNotifyAsync(objectNotify);
+            var notification = await this.serviceNotification.AddToCartNotifyAsync(objectNotify);
 
             // Create ContentCartDto
             var contentCartDto = Mapper.Map<ContentCartDto>(product);
