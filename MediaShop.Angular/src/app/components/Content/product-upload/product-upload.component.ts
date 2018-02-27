@@ -38,14 +38,15 @@ export class ProductUploadComponent implements OnInit {
     this.uploadProduct.UploadProduct = btoa(binaryString);
   }
 
-  AddProduct(event: NgForm) {
+  AddProduct(form: NgForm) {
     this.productService.uploadProduct(this.uploadProduct).subscribe(
       data => {
         this.ShowUploadNotification(data as ProductDto);
       },
       error => this.ShowError(error as HttpErrorResponse)
     );
-    event.reset();
+    this.uploadProduct.UploadProduct = null;
+    form.reset();
   }
 
   ShowError(errorcode: HttpErrorResponse) {

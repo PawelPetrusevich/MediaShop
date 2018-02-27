@@ -154,26 +154,26 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         {
             string[] imageType =
             {
-                "FF-D8-FF-DB",
-                "FF-D8-FF-E0",
-                "FF-D8-FF-E2",
-                "FF-D8-FF-E3",
-                "89-50-4E-47",
-                "47-49-46-38",
+                "FF-D8-FF",
+                "FF-D8-FF",
+                "FF-D8-FF",
+                "FF-D8-FF",
+                "89-50-4E",
+                "47-49-46",
             };
             string[] videoType =
             {
-                "52-49-46-46",
-                "00-00-00-14",
-                "00-00-00-20",
-                "00-00-00-18",
-                "52-49-46-46",
-                "00-00-01-B3",
-                "00-00-01-BA",
-                "66-74-79-70",
-                "00-00-00-1C",
-                "00-00-00-20",
-                "46-4C-56-01"
+                "52-49-46",
+                "00-00-00",
+                "00-00-00",
+                "00-00-00",
+                "52-49-46",
+                "00-00-01",
+                "00-00-01",
+                "66-74-79",
+                "00-00-00",
+                "00-00-00",
+                "46-4C-56"
             };
             string[] audioType =
             {
@@ -187,12 +187,12 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             Array.Copy(data, temp, 16);
             string dataHex = BitConverter.ToString(temp);
 
-            if (imageType.Contains(dataHex.Substring(0, 11)))
+            if (imageType.Contains(dataHex.Substring(0, 8)))
             {
                 return ProductType.Image;
             }
 
-            if (videoType.Contains(dataHex.Substring(0, 11)))
+            if (videoType.Contains(dataHex.Substring(0, 8)))
             {
                 return ProductType.Video;
             }

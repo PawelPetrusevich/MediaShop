@@ -136,7 +136,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// Delete content from Cart
         /// </summary>
         /// <param name="data">Content for delete</param>
-        /// <returns></returns>
+        /// <returns>Deleted content</returns>
         [HttpDelete]
         [Route("deletecontent")]
         [SwaggerResponseRemoveDefaults]
@@ -159,7 +159,7 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         /// Delete content from Cart
         /// </summary>
         /// <param name="data">Content for delete</param>
-        /// <returns></returns>
+        /// <returns>Deleted content</returns>
         [HttpDelete]
         [Route("deletecontentasync")]
         [SwaggerResponseRemoveDefaults]
@@ -179,10 +179,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
         }
 
         /// <summary>
-        /// Delete content from Cart
+        /// Delete content from Cart by content Id
         /// </summary>
         /// <param name="id">ContentId for delete</param>
-        /// <returns></returns>
+        /// <returns>Deleted content</returns>
         [HttpDelete]
         [Route("deletecontentbyidasync")]
         [SwaggerResponseRemoveDefaults]
