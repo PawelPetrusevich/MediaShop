@@ -37,6 +37,11 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             this._paymentService = paymentService;
         }
 
+        /// <summary>
+        /// Create paypal payment by Cart
+        /// </summary>
+        /// <param name="cart">user Cart</param>
+        /// <returns>url for payment</returns>
         [HttpPost]
         [Route("paypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(string))]
@@ -46,10 +51,16 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
         public IHttpActionResult PayPalPayment([FromBody] Cart cart)
         {
             var url = this.Request.Headers.Referrer.Scheme + $"://" + this.Request.Headers.Referrer.Host + ":" + this.Request.Headers.Referrer.Port;
-            string paymentUrl = _paymentService.GetPayment(cart, url); // получать url из Header Origin
+            string paymentUrl = _paymentService.GetPayment(cart, url);
             return Ok(paymentUrl);
         }
 
+        /// <summary>
+        /// Execute of payment
+        /// </summary>
+        /// <param name="paymentId">payment id</param>
+        /// <param name="token">token</param>
+        /// <returns>payment Info</returns>
         [HttpGet]
         [Route("paypalpayment/executepaypalpayment")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
@@ -71,6 +82,12 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             return Ok(payment);
         }
 
+        /// <summary>
+        /// Execute of payment
+        /// </summary>
+        /// <param name="paymentId">payment id</param>
+        /// <param name="token">token</param>
+        /// <returns>payment Info</returns>
         [HttpGet]
         [Route("paypalpayment/executepaypalpaymentasync")]
         [SwaggerResponse(statusCode: HttpStatusCode.OK, description: "", type: typeof(PayPalPaymentDto))]
@@ -92,6 +109,11 @@ namespace MediaShop.WebApi.Areas.Payments.Controllers
             return Ok(payment);
         }
 
+        /// <summary>
+        /// Cancelling paypal payment
+        /// </summary>
+        /// <param name="token">token</param>
+        /// <returns>redirect to Cart</returns>
         [HttpGet]
         [Route("paypalpayment/paymentcancelled/{token}")]
         [SwaggerResponse(statusCode: HttpStatusCode.Redirect, description: "", type: typeof(string))]
