@@ -4,6 +4,7 @@ import { ProductService } from '../../../Services/product-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationsService } from 'angular2-notifications';
 import { ProductDto } from '../../../Models/Content/ProductDto';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-product-upload',
@@ -37,14 +38,15 @@ export class ProductUploadComponent implements OnInit {
     this.uploadProduct.UploadProduct = btoa(binaryString);
   }
 
-  AddProduct() {
-    console.log('upload');
+  AddProduct(event: NgForm) {
+    console.log();
     this.productService.uploadProduct(this.uploadProduct).subscribe(
       data => {
         this.ShowUploadNotification(data as ProductDto);
       },
       error => this.ShowError(error as HttpErrorResponse)
     );
+    event.reset();
   }
 
   ShowError(errorcode: HttpErrorResponse) {
@@ -60,7 +62,7 @@ export class ProductUploadComponent implements OnInit {
   ShowUploadNotification(data: ProductDto) {
     this.notivicationsService.success(
       'File Upload',
-       data.ProductName + data.ProductPrice.toString(),
+       data.ProductName + ' ' + data.ProductPrice.toString() + '$',
       {
       timeOut: 5000,
       clickToClose: true

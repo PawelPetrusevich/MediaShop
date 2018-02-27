@@ -21,6 +21,7 @@ import { UserSettingsComponent } from '../components/user/user-settings/user-set
 import { UserPofileComponent } from '../components/user/user-pofile/user-pofile.component';
 import { SetPermissionComponent } from '../components/user/set-permission/set-permission.component';
 import { ProductPurshasedComponent } from '../Components/Content/product-purshased/product-purshased.component';
+import { ProductListUploadedComponent } from '../Components/Content/product-list-uploaded/product-list-uploaded.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -91,6 +92,12 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
         component: PaymentInfoComponent,
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
+       },
+       {
+        path: 'product-list-uploaded',
+        component: ProductListUploadedComponent,
+        /*canActivate: [AuthGuard],
+        canLoad: [AuthGuard]*/
        },
       { path: '**', component: NotfoundComponent }
     ])

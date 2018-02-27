@@ -16,7 +16,6 @@ using MediaShop.Common.Interfaces.Services;
 using MediaShop.Common.Models.Content;
 using MediaShop.Common.Models.User;
 using MediaShop.WebApi.Areas.Content.Controllers;
-using MediaShop.WebApi.Areas.Content.Controllers.Filters;
 using MediaShop.WebApi.Filters;
 using MediaShop.WebApi.Properties;
 using Swashbuckle.Swagger.Annotations;
@@ -25,7 +24,6 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
 {
     [LoggingFilter]
     [EnableCors("*", "*", "*")]
-    [Authorize]
     [System.Web.Http.RoutePrefix("api/product")]
     [ProductExeptionFilter]
     public class ProductController : ApiController
@@ -226,6 +224,10 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             catch (InvalidOperationException)
             {
                 return BadRequest(Resources.GetWithNullId);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest(Resources.ErrorFindService);
             }
             catch (Exception)
             {
@@ -478,6 +480,37 @@ namespace MediaShop.WebApi.Areas.Content.Controllers
             catch (ArgumentNullException)
             {
                 return BadRequest(Resources.ErrorDownload);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetUploadProductAsync")]
+        [SwaggerResponseRemoveDefaults]
+        [SwaggerResponse(HttpStatusCode.OK, "Successful Get upload Product", typeof(CompressedProductDTO))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Error get upload product", typeof(string))]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, "Other errors")]
+        [MediaAuthorizationFilter(Permission = Permissions.See)]
+        public async Task<IHttpActionResult> GetUploadProductAsync()
+        {
+            try
+            {
+                var user = HttpContext.Current.User.Identity as ClaimsIdentity;
+                var idClaim = user.Claims.FirstOrDefault(x => x.Type == Resources.ClaimTypeId);
+                var idUser = long.Parse(idClaim.Value);
+
+                return Ok(await _productService.GetUploadProductListAsync(idUser));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(Resources.NullTokenData);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(Resources.ContentDownloadError);
             }
             catch (Exception)
             {
