@@ -24,16 +24,8 @@ namespace MediaShop.WebApi.Filters
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
             var currentUserIdentity = HttpContext.Current.User?.Identity as ClaimsIdentity;
-            var principal = actionContext.RequestContext.Principal;
-            int? currentUserPermissions = currentUserIdentity?.FindFirstValue("Permission").AsInt();
-            bool parseFlag = false;
-            
-            //if (!ReferenceEquals(currentUserIdentity, null))
-            //{
-            //    parseFlag = int.TryParse(currentUserIdentity?.FindFirstValue("Permission").AsInt(), out currentUserPermissions);
-            //}
-
-            if (!ReferenceEquals(currentUserPermissions, null) || !((Permissions)currentUserPermissions).HasFlag(Permission))
+            int? currentUserPermissions = currentUserIdentity?.FindFirstValue("Permission")?.AsInt();
+            if (ReferenceEquals(currentUserPermissions, null) || !((Permissions)currentUserPermissions).HasFlag(Permission))
             {
                 return Task.FromResult<HttpResponseMessage>(actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             }
