@@ -22,61 +22,54 @@ namespace MediaShop.WebApi.Filters
         {
             if (actionExecutedContext.Exception != null)
             {
+                _logger.Error(actionExecutedContext.Exception.ToString());
                 switch (actionExecutedContext.Exception)
                 {
                     // Exception: if controllers or methods argument is null
                     case ArgumentNullException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                            HttpStatusCode.BadRequest, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if controllers argument is not valid
                     case ArgumentException error:
                          actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     case InvalidIdException error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if product is not exist in database
                     case NotExistProductInDataBaseExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content already exist in database
                     case ExistContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.BadRequest, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content do not add in database
                     case AddContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
 
                     // Exception: if content do not delete from database
                     case DeleteContentInCartExceptions error:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, error.Message);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
                         
                     // Exception: not counted exceptions
                     default:
                         actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError, actionExecutedContext.Exception);
-                        _logger.Error(actionExecutedContext.Exception.ToString());
                         break;
                 }
             }
