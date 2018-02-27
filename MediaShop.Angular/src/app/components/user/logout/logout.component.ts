@@ -16,13 +16,10 @@ export class LogoutComponent implements OnInit {
   constructor(private accountService: AccountService, private router: Router) { }
 
   logOut(): void {
-    this.accountService.logout().subscribe(resp => {
-      localStorage.removeItem(AppSettings.tokenKey);
-      localStorage.removeItem(AppSettings.userId);
-      this.router.navigate(['login']);
-    }, (err: HttpErrorResponse) => {
+    this.accountService.logout().subscribe(resp => {},
+       (err: HttpErrorResponse) => {
       this.showError = true ;
-      this.errorMessage = err.statusText;
+      this.errorMessage = err.error.Message;
       console.log(err);
     });
   }
