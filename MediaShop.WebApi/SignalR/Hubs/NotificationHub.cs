@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Cors;
 using MediaShop.Common.Interfaces;
 using MediaShop.WebApi.Properties;
 using Microsoft.AspNet.Identity;
@@ -14,6 +15,7 @@ namespace MediaShop.WebApi
 {
     [HubName("NotificationHub")]
     [Authorize]
+    [EnableCors("*", "*", "*")]
     public class NotificationHub : Hub<INotificationProxy>
     {
         public override Task OnConnected()
