@@ -155,23 +155,14 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
             string[] imageType =
             {
                 "FF-D8-FF",
-                "FF-D8-FF",
-                "FF-D8-FF",
-                "FF-D8-FF",
                 "89-50-4E",
                 "47-49-46",
             };
             string[] videoType =
             {
                 "52-49-46",
-                "00-00-00",
-                "00-00-00",
-                "00-00-00",
-                "52-49-46",
-                "00-00-01",
                 "00-00-01",
                 "66-74-79",
-                "00-00-00",
                 "00-00-00",
                 "46-4C-56"
             };
