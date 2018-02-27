@@ -156,15 +156,7 @@ export class ProductInfoComponent implements OnInit {
       }
 
       ShowOkInCart(data: ContentCartDto) {
-        this.notificationService.success(
-          'Added to cart',
-          data.ContentName + ' add to cart',
-          {
-            timeOut: 5000,
-            showProgressBar: true,
-            clickToClose: true
-          }
-        );
+        //Ok messame send SignalR
       }
 
 
