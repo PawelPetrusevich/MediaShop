@@ -51,7 +51,6 @@ export class AccountService {
       headers,
       withCredentials: true
     };
-    this.userLoggedIn.next(true);
 
     this.http
       .post<TokenResponse>(environment.API_ENDPOINT + 'token', body, options)
@@ -61,12 +60,14 @@ export class AccountService {
           localStorage.setItem(AppSettings.userId, resp.userId);
 
           this.signalRServiceConnector.Connect(true);
+          this.userLoggedIn.next(true);
           this.router.navigate(['product-list']);
         },
         (err: HttpErrorResponse) => {
           this.ErrMsg.next(err.error.error_description);
         }
       );
+
   }
 
   logout() {

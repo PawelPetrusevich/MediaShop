@@ -21,8 +21,6 @@ export class NavbarComponent {
     private signalRServ: SignalRServiceConnector
   ) {}
 
-  constructor(private accountService: AccountService, private userInfoService: UserInfoService, private signalRServ: SignalRServiceConnector) {}
-
   ngOnInit(): void {
     console.log('oninit');
     this.accountService.getLoginEvent().subscribe(e => {
@@ -32,9 +30,11 @@ export class NavbarComponent {
       console.log(result);
       this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
       this.IsCreator = (result.Permissions & Permissions.Create) !== 0;
+      this.Login = result.Login;
     });
+  }
+  });
     if (this.accountService.isAuthorized())
       this.signalRServ.Connect();
   }
 }
-
