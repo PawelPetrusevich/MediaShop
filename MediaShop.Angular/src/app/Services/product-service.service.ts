@@ -49,4 +49,8 @@ export class ProductService {
   deleteProduct(id: number) {
     return this.http.delete<ProductDto>(environment.API_ENDPOINT + 'api/product/deleteAsync/' + id);
   }
+
+  getUploadProductList() {
+    return this.http.get<CompressedProductDto[]>(environment.API_ENDPOINT + 'api/product/GetUploadProductAsync');
+  }
 }

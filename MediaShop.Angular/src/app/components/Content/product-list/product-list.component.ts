@@ -4,6 +4,7 @@ import { CompressedProductDto } from '../../../Models/Content/CompressedProductD
 import { ContentType } from '../../../Models/Content/ContentType';
 import { ProductSearchModel } from '../../../Models/Content/ProductSearchModel';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-product-list',
@@ -12,7 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ProductListComponent implements OnInit, OnChanges {
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private notivicationsService: NotificationsService) { }
   compressedProductList: CompressedProductDto[];
   filtredProduct: CompressedProductDto[] = [];
   conditionList: ProductSearchModel[] = [];
@@ -21,8 +23,7 @@ export class ProductListComponent implements OnInit, OnChanges {
   TextSearchFilter: String = 'Search filter';
   CurrentFilter: number;
   CurrentSorting: number;
-  ErrorMessage: String;
-
+  LoadingMessage: string;
 
   ngOnChanges() {
   }
@@ -32,10 +33,16 @@ export class ProductListComponent implements OnInit, OnChanges {
   }
 
   GetAllProducts() {
+    this.LoadingMessage = 'Product list is loading ...';
     this.productService.getListProduct().subscribe((resp: CompressedProductDto[]) => {
       this.compressedProductList = resp;
       this.filter(0);
+      this.LoadingMessage = '';
     });
+  }
+
+  ShowProductListIsEmpty() {
+    return this.filtredProduct.length === 0 && this.LoadingMessage === '';
   }
 
   filter(filterType) {
@@ -73,7 +80,6 @@ export class ProductListComponent implements OnInit, OnChanges {
       this.conditionList = [];
       this.TextSearchFilter = 'Search filter';
       this.GetAllProducts();
-      this.ErrorMessage = '';
       this.DivNotFoundHidden = true;
     } else {
       this.AddCondition();
@@ -112,16 +118,22 @@ export class ProductListComponent implements OnInit, OnChanges {
       this.filter(this.CurrentFilter);
       this.sort(this.CurrentSorting);
       if (this.compressedProductList === undefined || this.compressedProductList.length === 0) {
-        this.DivNotFoundHidden = false;
-        this.ErrorMessage = 'Nothing found';
-      } else {
-        this.DivNotFoundHidden = true;
+        this.ShowError('Nothing found!');
       }
     },
     (err: HttpErrorResponse) => {
-      this.ErrorMessage = err.error.Message;
-      this.DivNotFoundHidden = false;
+      this.filtredProduct = [];
+      this.ShowError(err.error.Message);
     });
   }
 
+  ShowError(errorMessage: String) {
+    this.notivicationsService.error(
+      errorMessage,
+      ' ',
+        {
+      timeOut: 5000,
+      clickToClose: true
+        });
+    }
 }
