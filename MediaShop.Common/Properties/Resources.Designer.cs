@@ -248,6 +248,15 @@ namespace MediaShop.Common.Properties {
                 return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Password does not match the confirm password.
+        /// </summary>
+        internal static string PasswordDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordDoNotMatch", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to ^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$.

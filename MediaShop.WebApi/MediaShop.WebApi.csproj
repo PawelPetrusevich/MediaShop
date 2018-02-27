@@ -223,8 +223,8 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
-    <Compile Include="Areas\Content\Controllers\Filters\LoggingFilterAttribute.cs" />
     <Compile Include="Areas\User\Controllers\Helpers\ShowErrorsHelper.cs" />
+    <Compile Include="Filters\LoggingFilterAttribute.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Filters\NotificationExceptionFilterAttribute.cs" />
     <Compile Include="Areas\Messaging\MessagingAreaRegistration.cs" />
@@ -281,6 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Content\Controllers\Filters\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -302,6 +303,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

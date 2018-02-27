@@ -150,6 +150,10 @@ namespace MediaShop.WebApi.Areas.User.Controllers
             {
                 return BadRequest(ex.Message);
             }
+            catch (ModelValidateException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -264,7 +268,16 @@ namespace MediaShop.WebApi.Areas.User.Controllers
         {
             if (model == null || !ModelState.IsValid)
             {
-                return BadRequest(Resources.EmtyData);
+                var sb = new StringBuilder();
+                foreach (var value in ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                        sb.AppendFormat("{0} ! ", error.ErrorMessage);
+                    }
+                }
+
+                return BadRequest(sb.ToString());
             }
 
             try

@@ -180,6 +180,9 @@
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>Passwords must match</value>
   </data>
+  <data name="PasswordDoNotMatch" xml:space="preserve">
+    <value>Password does not match the confirm password</value>
+  </data>
   <data name="RegExpressionPhone" xml:space="preserve">
     <value>^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$</value>
   </data>

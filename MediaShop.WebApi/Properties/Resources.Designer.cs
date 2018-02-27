@@ -124,7 +124,7 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data can not be empty..
+        ///   Looks up a localized string similar to Data cannot be empty..
         /// </summary>
         internal static string EmptyRegisterDate {
             get {
@@ -133,7 +133,7 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data can not be empty.
+        ///   Looks up a localized string similar to Data cannot be empty.
         /// </summary>
         internal static string EmtyData {
             get {
@@ -142,11 +142,20 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can not download this product.
+        ///   Looks up a localized string similar to You cannot download this product.
         /// </summary>
         internal static string ErrorDownload {
             get {
                 return ResourceManager.GetString("ErrorDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error is occurred.
+        /// </summary>
+        internal static string ErrorFindService {
+            get {
+                return ResourceManager.GetString("ErrorFindService", resourceCulture);
             }
         }
         

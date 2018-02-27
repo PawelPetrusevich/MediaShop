@@ -10,6 +10,7 @@ using Swashbuckle.Swagger.Annotations;
 using System.Net;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 using MediaShop.WebApi.Filters;
 using MediaShop.Common.Models.User;
 
@@ -17,6 +18,7 @@ namespace MediaShop.WebApi.Areas.Messaging.Controllers
 {
     [RoutePrefix("api/messaging")]
     [NotificationExceptionFilter]
+    [EnableCors("*", "*", "*")]
     [MediaAuthorizationFilter(Permission = Permissions.See)]
     public class NotificationController : ApiController
     {
