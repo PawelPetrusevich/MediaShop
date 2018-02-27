@@ -13,6 +13,8 @@ import { SignalRServiceConnector } from '../../signalR/signalr-service';
 export class NavbarComponent {
   IsAdmin: boolean;
   Login: string;
+  IsAuthorized: boolean;
+  IsCreator: boolean;
 
   constructor(
     private accountService: AccountService,
@@ -21,14 +23,14 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log('oninit');
-    this.userInfoService.getUserInfo().subscribe(result => {
-      console.log(result);
-      this.Login = result.Login;
-      this.IsAdmin = (result.Permissions & Permissions.Delete) !== 0;
-    });
-    if (this.accountService.isAuthorized())
+    this.accountService.getLogin().subscribe(res => (this.Login = res));
+    this.accountService.getIsAuthorized().subscribe(res => (this.IsAuthorized = res));
+    this.accountService.getIsAdmin().subscribe(res => (this.IsAdmin = res));
+    this.accountService.getIsCreator().subscribe(res => (this.IsCreator = res));
+
+    if (this.IsAuthorized) {
       this.signalRServ.Connect();
+    }
   }
 }
 
