@@ -25,7 +25,7 @@ import { ProductPurshasedComponent } from '../Components/Content/product-purshas
   imports: [
     CommonModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent },
+      { path: '', component: ProductListComponent },
       { path: 'login', component: LoginComponent },
      { path: 'logOut',
        component: LogoutComponent,
