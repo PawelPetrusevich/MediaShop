@@ -27,7 +27,7 @@ export class ProductService {
   }
 
   uploadProduct(uploadProduct: UploadProductModel) {
-    return this.http.post(environment.API_ENDPOINT + 'api/product/addAsync', uploadProduct);
+    return this.http.post(environment.API_ENDPOINT + 'api/product/add', uploadProduct);
   }
 
   getProductById(ID: number) {
