@@ -169,17 +169,23 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
                 "00-00-00-18",
                 "52-49-46-46",
                 "00-00-01-B3",
-                "00-00-01-BA"
+                "00-00-01-BA",
+                "66-74-79-70",
+                "00-00-00-1C",
+                "00-00-00-20",
+                "46-4C-56-01"
             };
             string[] audioType =
             {
                 "52-49-46",
                 "30-26-B2",
-                "49-44-33"
+                "49-44-33",
+                "FF-F1-80",
+                "4F-67-67"
             };
             byte[] temp = new byte[16];
             Array.Copy(data, temp, 16);
-            string dataHex = BitConverter.ToString(data);
+            string dataHex = BitConverter.ToString(temp);
 
             if (imageType.Contains(dataHex.Substring(0, 11)))
             {
