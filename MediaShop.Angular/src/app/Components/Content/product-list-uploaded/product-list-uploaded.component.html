@@ -1,0 +1,25 @@
+<div class="container" *ngIf = "productListUploaded.length > 0">
+  <table class="table">
+    <thead>
+      <h4 align="center">Your uploaded content</h4>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let product of productListUploaded">
+          <td>{{product.ProductName}}</td>
+        <td>{{ContentType[product.ProductType]}}</td>
+        <td><input type = "button" class="btn btn-primary" value="Info" (click) = "ToInfo(product.Id)"/></td>
+        <td><input type = "button" class="btn btn-outline-danger" value="DELETE" (click) = "DeleteProduct(product.Id)"/></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf = "productListUploaded.length === 0">
+  <h3>You haven`t uploaded any product yet</h3>
+</div>
