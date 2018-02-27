@@ -70,15 +70,18 @@ export class AccountService {
   logout() {
     this.signalRServiceConnector.Disconnect();
 
-
      this.http.post(
       environment.API_ENDPOINT + 'api/account/logout',
-      null
-    ).subscribe(resp => {
+      null)
+      .subscribe(resp => {
       localStorage.removeItem(AppSettings.tokenKey);
       localStorage.removeItem(AppSettings.userId);
       this.router.navigate(['login']);
-    });
+      },
+      (err: HttpErrorResponse) => {
+      this.ErrMsg.next(err.error.Message);
+      }
+    );
   }
 
   isAuthorized(): boolean {
