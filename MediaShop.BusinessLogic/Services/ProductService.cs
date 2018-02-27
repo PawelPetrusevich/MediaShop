@@ -84,8 +84,8 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case ProductType.Video:
                         data.OriginalProduct.Content = uploadProductInByte;
-                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideo();
-                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrame();
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideoAsync(HttpContext.Current);
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrameAsync(HttpContext.Current);
                         break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);
@@ -139,9 +139,8 @@ namespace MediaShop.BusinessLogic.Services
                         break;
                     case ProductType.Video:
                         data.OriginalProduct.Content = uploadProductInByte;
-                        var context = HttpContext.Current;
-                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideoAsync(context);
-                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrameAsync(context);
+                        data.ProtectedProduct.Content = uploadProductInByte.GetProtectedVideoAsync(HttpContext.Current);
+                        data.CompressedProduct.Content = uploadProductInByte.GetCompresedVideoFrameAsync(HttpContext.Current);
                         break;
                     case ProductType.unknow:
                         throw new ArgumentException(Resources.UnknowProductType);

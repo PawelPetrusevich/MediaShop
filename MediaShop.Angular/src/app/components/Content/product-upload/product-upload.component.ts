@@ -39,7 +39,6 @@ export class ProductUploadComponent implements OnInit {
   }
 
   AddProduct(event: NgForm) {
-    console.log();
     this.productService.uploadProduct(this.uploadProduct).subscribe(
       data => {
         this.ShowUploadNotification(data as ProductDto);
