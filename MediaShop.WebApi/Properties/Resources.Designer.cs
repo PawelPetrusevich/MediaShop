@@ -151,6 +151,15 @@ namespace MediaShop.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Error is occurred.
+        /// </summary>
+        internal static string ErrorFindService {
+            get {
+                return ResourceManager.GetString("ErrorFindService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An attempt to get with a null identifier.
         /// </summary>
         internal static string GetWithNullId {
