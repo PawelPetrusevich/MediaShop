@@ -146,70 +146,6 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         }
 
         /// <summary>
-        /// Determine the type of file and this MIME(не все форматы)
-        /// </summary>
-        /// <param name="data">upload file in byte[]</param>
-        /// <returns>Product Type</returns>
-        public static ProductType GetMimeFromFile(this byte[] data)
-        {
-            if (data == null)
-            {
-                throw new FileNotFoundException(Resources.ErrorGettingMime);
-            }
-
-            var buffer = new byte[int.Parse(Resources.MAX_CONTENT)];
-            MemoryStream ms = new MemoryStream(data, 0, data.Length);
-            if (ms.Length >= int.Parse(Resources.MAX_CONTENT))
-            {
-                ms.Read(buffer, 0, int.Parse(Resources.MAX_CONTENT));
-            }
-            else
-            {
-                ms.Read(buffer, 0, (int)ms.Length);
-            }
-
-            var mimeTypePtr = IntPtr.Zero;
-            try
-            {
-                var result = FindMimeFromData(IntPtr.Zero, null, buffer, int.Parse(Resources.MAX_CONTENT), null, 0, out mimeTypePtr, 0);
-                if (result != 0)
-                {
-                    Marshal.FreeCoTaskMem(mimeTypePtr);
-                    throw Marshal.GetExceptionForHR(result);
-                }
-
-                var mime = Marshal.PtrToStringUni(mimeTypePtr);
-                Marshal.FreeCoTaskMem(mimeTypePtr);
-
-                if (Resources.imageType.Contains(mime))
-                {
-                    return ProductType.Image;
-                }
-
-                if (Resources.videoType.Contains(mime))
-                {
-                    return ProductType.Video;
-                }
-
-                if (Resources.musicType.Contains(mime))
-                {
-                    return ProductType.Music;
-                }
-
-                return ProductType.unknow;
-            }
-            catch (Exception)
-            {
-                if (mimeTypePtr != IntPtr.Zero)
-                {
-                    Marshal.FreeCoTaskMem(mimeTypePtr);
-                }
-
-                return ProductType.unknow;
-            }
-        }
-
-        /// <summary>
         /// MIMY Type whith magic number
         /// </summary>
         /// <param name="data">file in byte array</param>
@@ -364,16 +300,5 @@ namespace MediaShop.BusinessLogic.ExtensionMethods
         {
             return new List<string> { ">", "<", "=", "Contains" };
         }
-
-        [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
-        private static extern int FindMimeFromData(
-            IntPtr pbcIntPtr,
-            [MarshalAs(UnmanagedType.LPWStr)] string pwzUrl,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.I1, SizeParamIndex = 3)] byte[] pbcBuffer,
-            int pbcSize,
-            [MarshalAs(UnmanagedType.LPWStr)] string pwzMimeProposed,
-            int dwcMimeFlags,
-            out IntPtr ppwzMimeOut,
-            int dwcReserved);
     }
 }

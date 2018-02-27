@@ -190,6 +190,7 @@ namespace MediaShop.BusinessLogic.Services
         /// метод удаления продукта
         /// </summary>
         /// <param name="id">id of product</param>
+        /// <param name="creatorId">id создателя продукта</param>
         /// <returns>ProductDto</returns>
         public async Task<ProductDto> SoftDeleteByIdAsync(long id, long creatorId)
         {
@@ -203,7 +204,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new ArgumentException(Resources.UserNotFound);
             }
 
-            var currentProduct = _repository.Get(id);
+            var currentProduct = this._repository.Get(id);
             if (currentProduct is null)
             {
                 throw new InvalidOperationException(Resources.GetProductError);
@@ -214,7 +215,7 @@ namespace MediaShop.BusinessLogic.Services
                 throw new InvalidOperationException(Resources.NoRootForDelete);
             }
 
-            var result = await _repository.SoftDeleteAsync(id);
+            var result = await this._repository.SoftDeleteAsync(id);
 
             return result is null ? throw new InvalidOperationException(Resources.DeleteProductError) : Mapper.Map<ProductDto>(result);
         }
@@ -313,6 +314,7 @@ namespace MediaShop.BusinessLogic.Services
         /// Get list purshased products
         /// </summary>
         /// <param name="userId">users id</param>
+        /// <returns>Список куленого контента</returns>
         public IEnumerable<CompressedProductDTO> GetListPurshasedProducts(long userId)
         {
             if (userId <= 0)
@@ -368,7 +370,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <summary>
         /// Get list products on sale
         /// </summary>
-        /// <param name="">users id</param>
+        /// <returns>Список продуктов для продажи</returns>
         public IEnumerable<CompressedProductDTO> GetListOnSale()
         {
             return Mapper.Map<List<CompressedProductDTO>>(this._repository.GetListOnSale());
@@ -377,7 +379,7 @@ namespace MediaShop.BusinessLogic.Services
         /// <summary>
         /// Get list products on sale
         /// </summary>
-        /// <param name="">users id</param>
+        /// <returns>A <see cref="Task"/> список продуктов для продажи</returns>
         public async Task<IEnumerable<CompressedProductDTO>> GetListOnSaleAsync()
         {
             return Mapper.Map<List<CompressedProductDTO>>(await this._repository.GetListOnSaleAsync());
