@@ -35,6 +35,9 @@ export class NavbarComponent {
   }
   });
     if (this.accountService.isAuthorized())
+    {
       this.signalRServ.Connect();
+    }
   }
 }
+

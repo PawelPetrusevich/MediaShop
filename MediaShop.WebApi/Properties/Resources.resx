@@ -172,6 +172,9 @@
   <data name="ErrorDownload" xml:space="preserve">
     <value>You cannot download this product</value>
   </data>
+  <data name="IncorrectData" xml:space="preserve">
+    <value>Incorrect inpute data</value>
+  </data>
   <data name="ErrorFindService" xml:space="preserve">
     <value>Error is occurred</value>
   </data>
