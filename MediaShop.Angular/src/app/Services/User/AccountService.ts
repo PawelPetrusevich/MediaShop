@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class AccountService {
   private ErrMsg = new Subject<string>();
 
+  userLoggedIn = new Subject<boolean>();
   constructor(
     private http: HttpClient,
     private signalRServiceConnector: SignalRServiceConnector,
@@ -59,12 +60,14 @@ export class AccountService {
           localStorage.setItem(AppSettings.userId, resp.userId);
 
           this.signalRServiceConnector.Connect(true);
+          this.userLoggedIn.next(true);
           this.router.navigate(['product-list']);
         },
         (err: HttpErrorResponse) => {
           this.ErrMsg.next(err.error.error_description);
         }
       );
+
   }
 
   logout() {
@@ -82,6 +85,10 @@ export class AccountService {
       this.ErrMsg.next(err.error.Message);
       }
     );
+  }
+
+  getLoginEvent() {
+    return this.userLoggedIn.asObservable();
   }
 
   isAuthorized(): boolean {
