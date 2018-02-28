@@ -1,0 +1,47 @@
+<div class="starter-template" *ngIf="cart.CountItemsInCollection > 0 && cart.PriceAllItemsCollection>0 && cart.ContentCartDtoCollection!=null">
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+        <th class="col-md-3">Content Name</th>
+        <th class="col-md-3">Description</th>
+        <th class="col-md-3">Price</th>
+        <th class="col-md-3"></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart.ContentCartDtoCollection">
+          <td class="col-md-3">{{item.ContentName}}</td>
+          <td class="col-md-3">{{item.DescriptionItem}}</td>
+          <td class="col-md-3">{{item.PriceItem | currency}}</td>
+          <td class="col-md-3">
+            <input type="button" class="btn btn-primary btn-sm" value="Remove item" (click)="delete(item)" />
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-3">
+            <label>Count: {{cart.CountItemsInCollection}}</label>
+          </td>
+          <td class="col-md-3"></td>
+          <td class="col-md-3">
+            <label>Total: {{cart.PriceAllItemsCollection | currency}}</label>
+          </td>
+          <td class="col-md-3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+        <button [disabled]="cart.CountItemsInCollection <= 0 || cart.PriceAllItemsCollection <= 0 || cart.ContentCartDtoCollection == null" type="submit" class="btn btn-primary btn-sm" (click)="paypalPayment()">Payment</button>
+    </div>
+    <div class="col-md-5 col-md-offset-2">
+        <button [disabled]="cart.CountItemsInCollection <=0 || cart.ContentCartDtoCollection == null"  type="submit" class="btn btn-primary btn-sm" (click)="clearCart()">Clear Cart</button>
+    </div>
+  </div>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="showError">
+  {{errorMessage}}
+</div>
+<div class="starter-template" *ngIf="cart.CountItemsInCollection <= 0">
+  <h1 class="jumbotron-heading">Your Shopping Cart is empty.</h1>
+  <a class="nav-link" routerLink="../product-list">See all content...</a>
+</div>

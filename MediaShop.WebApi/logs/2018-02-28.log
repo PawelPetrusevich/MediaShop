@@ -1,0 +1,118 @@
+2018-02-28 14:37:33.9248 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:33.9549 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer u8z8ZzjMotb_FHxLiWTQFQV5x4hU8SW5HSYa65MrBgub-h-fQ6N5rrGlpzZRsirgRw50dS3BIk8E5-rBcks_IWJmiR98xtUEQGuau94keDSHgkoBv3nbv_zvDL7Xj3eFW3_G8F7Xq_6j7JlSaWK75psL2VFW5PiO9wOMoeSy8CaowZV-uZnLBv6AoKdLVynqCkn7daQKjiQnJCEryRI-ZsL6pnVFouFW5JEfi7A_Xvx9J8VVqkg5KrCi33IS4fIJB3IguwF0twRyU_NhLXYt0um1EX6gkxz__ZdodfnIvsFV6v5FgZ9MbxFILaDbWo5KQPg12P7fPrez16quJSpciosUKXGv5ZdfRKxsnGeGy0I
+Host: localhost:51289
+Referer: http://localhost:4200/logOut
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:33.9549 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:33.9549 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer u8z8ZzjMotb_FHxLiWTQFQV5x4hU8SW5HSYa65MrBgub-h-fQ6N5rrGlpzZRsirgRw50dS3BIk8E5-rBcks_IWJmiR98xtUEQGuau94keDSHgkoBv3nbv_zvDL7Xj3eFW3_G8F7Xq_6j7JlSaWK75psL2VFW5PiO9wOMoeSy8CaowZV-uZnLBv6AoKdLVynqCkn7daQKjiQnJCEryRI-ZsL6pnVFouFW5JEfi7A_Xvx9J8VVqkg5KrCi33IS4fIJB3IguwF0twRyU_NhLXYt0um1EX6gkxz__ZdodfnIvsFV6v5FgZ9MbxFILaDbWo5KQPg12P7fPrez16quJSpciosUKXGv5ZdfRKxsnGeGy0I
+Host: localhost:51289
+Referer: http://localhost:4200/logOut
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:41.5107 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 7542 ms, response: OK
+2018-02-28 14:37:41.5107 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 7542 ms, response: OK
+2018-02-28 14:37:41.5729 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:41.5779 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer u8z8ZzjMotb_FHxLiWTQFQV5x4hU8SW5HSYa65MrBgub-h-fQ6N5rrGlpzZRsirgRw50dS3BIk8E5-rBcks_IWJmiR98xtUEQGuau94keDSHgkoBv3nbv_zvDL7Xj3eFW3_G8F7Xq_6j7JlSaWK75psL2VFW5PiO9wOMoeSy8CaowZV-uZnLBv6AoKdLVynqCkn7daQKjiQnJCEryRI-ZsL6pnVFouFW5JEfi7A_Xvx9J8VVqkg5KrCi33IS4fIJB3IguwF0twRyU_NhLXYt0um1EX6gkxz__ZdodfnIvsFV6v5FgZ9MbxFILaDbWo5KQPg12P7fPrez16quJSpciosUKXGv5ZdfRKxsnGeGy0I
+Host: localhost:51289
+Referer: http://localhost:4200/
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:41.5779 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:41.5779 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer u8z8ZzjMotb_FHxLiWTQFQV5x4hU8SW5HSYa65MrBgub-h-fQ6N5rrGlpzZRsirgRw50dS3BIk8E5-rBcks_IWJmiR98xtUEQGuau94keDSHgkoBv3nbv_zvDL7Xj3eFW3_G8F7Xq_6j7JlSaWK75psL2VFW5PiO9wOMoeSy8CaowZV-uZnLBv6AoKdLVynqCkn7daQKjiQnJCEryRI-ZsL6pnVFouFW5JEfi7A_Xvx9J8VVqkg5KrCi33IS4fIJB3IguwF0twRyU_NhLXYt0um1EX6gkxz__ZdodfnIvsFV6v5FgZ9MbxFILaDbWo5KQPg12P7fPrez16quJSpciosUKXGv5ZdfRKxsnGeGy0I
+Host: localhost:51289
+Referer: http://localhost:4200/
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:41.6306 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 50 ms, response: OK
+2018-02-28 14:37:41.6306 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 50 ms, response: OK
+2018-02-28 14:37:56.5863 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:56.5863 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-list
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:56.5893 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListOnSale, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:37:56.5893 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetListOnSale, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-list
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:37:57.6650 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 1075 ms, response: OK
+2018-02-28 14:37:57.6650 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 1075 ms, response: OK
+2018-02-28 14:38:11.8764 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListPurshasedProductsAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:38:11.8764 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetPurshasedProductsAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-purshased
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:38:11.8764 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: GetListPurshasedProductsAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:38:11.8764 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/GetPurshasedProductsAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-purshased
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:38:12.0290 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 150 ms, response: OK
+2018-02-28 14:38:12.0290 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 150 ms, response: OK
+2018-02-28 14:38:27.0741 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:38:27.0741 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-upload
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-28 14:38:27.0741 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-28 14:38:27.0741 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer qLYD8od8fUuHOXICUCDCepCM87vViSp3Vhp326XRcEabmTsIZ99FyiTTchfeEsRZ45HJOvE32s2UQSAIekq2JTrI9Wu3gV25vAnKm75iaC5n465rEbTnCN5zFIyjCJK04IRdDbAW3qRMCUMNMpo2r45WqAD2ah5wSUO6ZnCNOt0zb9QQMo8ZYIRTi0MyUclb1_3c7tn8g3OCzeIGou7Auzzw4ktQgKsVBHa80ZktEUbnW6NmZdE1JJI87FdxkQ4EkPxuz7852QJcTowGucoMXq2amqdO596M-Yu1w18UrVCFawQiniw6dBNnjXRVKqaacR8I1Oh_Oxj3WHEfIdOKh3L8S_qVAQiM7uAUtl1ZJqE
+Host: localhost:51289
+Referer: http://localhost:4200/product-upload
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+Origin: http://localhost:4200
+

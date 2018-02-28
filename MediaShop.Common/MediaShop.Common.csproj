@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70D5D62C-5908-4825-9B59-436FC179C1A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MediaShop.Common</RootNamespace>
+    <AssemblyName>MediaShop.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
+    <DocumentationFile>bin\Debug\MediaShop.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\MediaShop.Common.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.7.3.4\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dto\Messaging\ForgotPasswordDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\ForgotPasswordDtoValidator.cs" />
+    <Compile Include="Dto\Payment\ItemDto.cs" />
+    <Compile Include="Dto\AddToCartNotifyDto.cs" />
+    <Compile Include="Dto\Messaging\Validators\NotificationDtoValidator.cs" />
+    <Compile Include="Dto\Payment\PayPalPaymentDto.cs" />
+    <Compile Include="Dto\Messaging\AccountConfirmationDto.cs" />
+    <Compile Include="Dto\Messaging\AccountPwdRestoreDto.cs" />
+    <Compile Include="Dto\Messaging\AccountTokenFactoryValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountConfirmationValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\AccountPwdRestoreValidator.cs" />
+    <Compile Include="Dto\Messaging\Validators\ExtAccountPwdRestoreValidator.cs" />
+    <Compile Include="Dto\Product\CompressedProductDTO.cs" />
+    <Compile Include="Dto\Product\OriginalProductDTO.cs" />
+    <Compile Include="Dto\Product\ProductInfoDto.cs" />
+    <Compile Include="Dto\Product\ProductValidators\ProductSearchModelValidator.cs" />
+    <Compile Include="Dto\Product\UploadProductModel.cs" />
+    <Compile Include="Dto\User\Account.cs" />
+    <Compile Include="Dto\User\AccountFactoryRepository.cs" />
+    <Compile Include="Dto\User\LoginDto.cs" />
+    <Compile Include="Dto\User\Profile.cs" />
+    <Compile Include="Dto\Product\ProductSearchModel.cs" />
+    <Compile Include="Dto\Product\ProductValidators\UploadModelValidator.cs" />
+    <Compile Include="Dto\User\RegisterUserDto.cs" />
+    <Compile Include="Dto\User\ResetPasswordDto.cs" />
+    <Compile Include="Dto\User\UpdateModelDto.cs" />
+    <Compile Include="Dto\User\PermissionDto.cs" />
+    <Compile Include="Dto\User\RoleUserDto.cs" />
+    <Compile Include="Dto\User\SettingsDto.cs" />
+    <Compile Include="Dto\User\ProfileDto.cs" />
+    <Compile Include="Dto\User\UserFactoryRepository.cs" />
+    <Compile Include="Dto\User\Validators\ExistingUserVaildator.cs" />
+    <Compile Include="Dto\Messaging\NotificationDto.cs" />
+    <Compile Include="Dto\NotificationSubscribedUserDto.cs" />
+    <Compile Include="Dto\User\Validators\ProfileValidator.cs" />
+    <Compile Include="Enums\PaymentEnums\PaymentStates.cs" />
+    <Compile Include="Exceptions\CartExceptions\ContentCartPriceException.cs" />
+    <Compile Include="Exceptions\CartExceptions\EmptyCartException.cs" />
+    <Compile Include="Exceptions\CartExceptions\InvalidIdException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddDefrayalException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\AddPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\DeleteDefrayalException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\ExistPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\InvalideDecerializableExceptions.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\OperationPaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PaymentsException.cs" />
+    <Compile Include="Exceptions\PaymentExceptions\PayPalException.cs" />
+    <Compile Include="Exceptions\ModelValidateException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\CountOfTryToEmailSendException.cs" />
+    <Compile Include="Exceptions\NotificationExceptions\EmailTemplatePathException.cs" />
+    <Compile Include="Exceptions\User\ConfirmationTokenException.cs" />
+    <Compile Include="Exceptions\User\AuthorizedDataException.cs" />
+    <Compile Include="Exceptions\User\ConfirmedUserException.cs" />
+    <Compile Include="Exceptions\NotSubscribedUserException.cs" />
+    <Compile Include="Exceptions\User\DeleteUserException.cs" />
+    <Compile Include="Exceptions\User\UpdateProfileException.cs" />
+    <Compile Include="Exceptions\User\UpdateSettingsException.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
+    <Compile Include="Exceptions\User\AddAccountException.cs" />
+    <Compile Include="Exceptions\User\AddProfileException.cs" />
+    <Compile Include="Exceptions\User\AddSettingsException.cs" />
+    <Compile Include="Exceptions\User\AddStatisticException.cs" />
+    <Compile Include="Exceptions\User\IncorrectPasswordException.cs" />
+    <Compile Include="Exceptions\User\CreateProfileException.cs" />
+    <Compile Include="Exceptions\User\ModiffySettingsException.cs" />
+    <Compile Include="Exceptions\User\UpdateAccountException.cs" />
+    <Compile Include="Interfaces\INotificationProxy.cs" />
+    <Compile Include="Interfaces\Repositories\IDefrayalRepository.cs" />
+    <Compile Include="Helpers\EmailSettingsConfig.cs" />
+    <Compile Include="Helpers\EmailSettingsConfigHelper.cs" />
+    <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Interfaces\IEmailSettingsConfig.cs" />
+    <Compile Include="Interfaces\Repositories\INotificationRepository.cs" />
+    <Compile Include="Interfaces\Repositories\INotificationSubscribedUserRepository.cs" />
+    <Compile Include="Dto\User\Validators\RegisterUserVaildator.cs" />
+    <Compile Include="Dto\User\Settings.cs" />
+    <Compile Include="Dto\User\Validators\SettingsValidator.cs" />
+    <Compile Include="Exceptions\CartExceptions\AddContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\DeleteContentInCartExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\NotExistProductInDataBaseExceptions.cs" />
+    <Compile Include="Exceptions\CartExceptions\UpdateContentInCartExseptions.cs" />
+    <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Exceptions\User\CanNotSendEmailException.cs" />
+    <Compile Include="Exceptions\User\NotFoundUserException.cs" />
+    <Compile Include="Helpers\CollectionExtensions.cs" />
+    <Compile Include="Interfaces\Repositories\IPayPalPaymentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRepositoryAsync.cs" />
+    <Compile Include="Interfaces\Repositories\IStatisticRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountFactoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountTokenFactoryValidator.cs" />
+    <Compile Include="Interfaces\Services\IBannedService.cs" />
+    <Compile Include="Interfaces\Services\INotificationService.cs" />
+    <Compile Include="Interfaces\Services\INotificationSubscribedUserService.cs" />
+    <Compile Include="Interfaces\Repositories\IProfileRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IAccountRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISettingsRepository.cs" />
+    <Compile Include="Dto\Product\ProductDto.cs" />
+    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
+    <Compile Include="Interfaces\Services\IAccountService.cs" />
+    <Compile Include="Interfaces\Services\IPayPalPaymentService.cs" />
+    <Compile Include="Enums\CartEnums.cs" />
+    <Compile Include="Interfaces\Repositories\IRepository.cs" />
+    <Compile Include="Interfaces\Services\IEmailService.cs" />
+    <Compile Include="Interfaces\Services\IPermissionService.cs" />
+    <Compile Include="Interfaces\Services\ISettingsService.cs" />
+    <Compile Include="Interfaces\Services\IProfileService.cs" />
+    <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
+    <Compile Include="Interfaces\Services\ICartService.cs" />
+    <Compile Include="Interfaces\Services\IProductService.cs" />
+    <Compile Include="Interfaces\Services\IUserFatoryRepository.cs" />
+    <Compile Include="Interfaces\Services\IUserService.cs" />
+    <Compile Include="MapperProfile.cs" />
+    <Compile Include="Models\CartModels\Cart.cs" />
+    <Compile Include="Dto\ContentCartDto.cs" />
+    <Compile Include="Exceptions\CartExceptions\ExistContentInCartExceptions.cs" />
+    <Compile Include="Models\Content\CompressedProduct.cs" />
+    <Compile Include="Models\Content\OriginalProduct.cs" />
+    <Compile Include="Models\Content\Product.cs" />
+    <Compile Include="Models\Content\ProtectedProduct.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Notification\Notification.cs" />
+    <Compile Include="Models\Notification\NotificationSubscribedUser.cs" />
+    <Compile Include="Models\PaymentModel\DefrayalDbModel.cs" />
+    <Compile Include="Models\PaymentModel\PayPalPaymentDbModel.cs" />
+    <Compile Include="Models\User\AccountDbModel.cs" />
+    <Compile Include="Models\User\SettingsDbModel.cs" />
+    <Compile Include="Exceptions\User\ExistingLoginException.cs" />
+    <Compile Include="Models\User\ProfileDbModel.cs" />
+    <Compile Include="Enums\Languages.cs" />
+    <Compile Include="Enums\Permissions.cs" />
+    <Compile Include="Models\CartModels\ContentCart.cs" />
+    <Compile Include="Models\User\StatisticDbModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="StringExtentions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets'))" />
+  </Target>
+  <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
+</Project>

@@ -1,0 +1,19 @@
+
+.album {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.card {
+  float: left;
+  width: 33.333%;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 1rem;
+}
+
+
+.card-text {
+  font-size: 85%;
+}
+

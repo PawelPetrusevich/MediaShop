@@ -1,0 +1,10 @@
+<div class="flex-container">
+  <div>
+    <img src="{{Base64Content}}" height="150px" />
+  </div>
+  <div>{{compressedProduct.ProductName}}</div>
+  <div>{{compressedProduct.ProductPrice | currency}}</div>
+  <div class="details">
+      <button class="btn btn-primary" (click) = "GoInfo()" >Info</button>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<form class="form-signin">
+  <div class="row">
+    <div class="alert alert-success" role="alert" *ngIf="isModified">
+      You updated your profile successfully!
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="firstName">First name</label>
+      <input  name = "firstName" [(ngModel)]="firstName" type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="lastName">Last name</label>
+      <input name = "lastName" [(ngModel)]="lastName" type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="phone">Phone</label>
+      <input name = "phone" [(ngModel)]="phone" type="text" class="form-control" id="phone" placeholder="" value="" required="">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="saveProfile()">Save</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button [routerLink]="['/product-list']"  class="btn btn-lg btn-primary btn-block" type="submit">Back</button>
+    </div>
+  </div>
+  </form>
+
+  <div class="row">
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+        {{errorMessage}}
+      </div>
+    </div>
+

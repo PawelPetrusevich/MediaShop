@@ -1,0 +1,661 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaShop.DataAccess</name>
+    </assembly>
+    <members>
+        <member name="T:MediaShop.DataAccess.Configurations.AccountConfiguration">
+            <summary>
+                Configuration connect account with other tables
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.AccountConfiguration.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.AccountConfiguration" /> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Configurations.DefrayalConfiguration">
+            <summary>
+            Class DefrayalConfiguration
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.DefrayalConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.DefrayalConfiguration" /> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Configurations.PayPalPaymentConfiguration">
+            <summary>
+            Configuration PaymentDbModel in database
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.PayPalPaymentConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.PayPalPaymentConfiguration" /> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Configurations.SettingsConfiguration">
+            <summary>
+            Class SettingsConfiguration.
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.SettingsConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.SettingsConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Configurations.ProfileConfiguration">
+            <summary>
+            Configuration connect accountProfile with  table account
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.ProfileConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.ProfileConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Configurations.ContentCartConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Configurations.ContentCartConfiguration" /> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Context.ProductConfiguration">
+            <summary>
+            class ProductConfiguration.
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Context.ProductConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Context.ProductConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Context.MediaContext">
+            <summary>
+            Class MediaContext.
+            </summary>
+            <seealso cref="T:System.Data.Entity.DbContext" />
+        </member>
+        <member name="M:MediaShop.DataAccess.Context.MediaContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Context.MediaContext"/> class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.ContentCarts">
+            <summary>
+            Gets or sets the ContentCarts.
+            </summary>
+            <value>The Product.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.Accounts">
+            <summary>
+            Gets or sets the accounts.
+            </summary>
+            <value>The accounts.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.Profiles">
+            <summary>
+            Gets or sets the profiles.
+            </summary>
+            <value>The profiles.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.Settings">
+            <summary>
+            Gets or sets the settings.
+            </summary>
+            <value>The settings.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.Products">
+            <summary>
+            Gets or sets the Products.
+            </summary>
+            <value>The Product.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.OriginalProducts">
+            <summary>
+            Gets or sets the OriginalProduct.
+            </summary>
+            <value>The OriginalProduct.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.CompressedProducts">
+            <summary>
+            Gets or sets the CompressedProduct.
+            </summary>
+            <value>The CompressedProduct.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.ProtectedProducts">
+            <summary>
+            Gets or sets the ProtectedProduct.
+            </summary>
+            <value>The ProtectedProduct.</value>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.PaymentDbModels">
+            <summary>
+            Gets or sets the PaymentDbModel
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Context.MediaContext.DefrayalDbModels">
+            <summary>
+            Gets or sets the DefrayalDbModel
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Context.MediaContext.OnModelCreating(System.Data.Entity.DbModelBuilder)">
+            <summary>
+            Method configuration tables
+            </summary>
+            <param name="modelBuilder">modelBuilder</param>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.DefrayalRepository">
+            <summary>
+            Class DefrayalRepository
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.DefrayalRepository.#ctor(MediaShop.DataAccess.Context.MediaContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.DefrayalRepository"/> class.
+            </summary>
+            <param name="context">context</param>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.DefrayalRepository.Add(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Method for add object type Defrayal
+            </summary>
+            <param name="model">updating object</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.DefrayalRepository.AddAsync(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Override async add model to repository
+            </summary>
+            <param name="model">model user</param>
+            <returns>db entry</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.PayPalPaymentRepository">
+            <summary>
+            Class for work with repository
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.PayPalPaymentRepository.#ctor(MediaShop.DataAccess.Context.MediaContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.PayPalPaymentRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.PayPalPaymentRepository.Add(MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel)">
+            <summary>
+            Method for add object type Payment in repository
+            </summary>
+            <param name="model">updating object</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.PayPalPaymentRepository.AddAsync(MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel)">
+            <summary>
+            Override async add model to repository
+            </summary>
+            <param name="model">model user</param>
+            <returns>db entry</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.StatisticRepository.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.StatisticRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.NotificationSubscribedUserRepository">
+            <summary>
+            Repository subscribed users
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.NotificationSubscribedUserRepository.GetUserDeviceTokens(System.Int64)">
+            <summary>
+            Get subscribed user devices
+            </summary>
+            <param name="userId">User id</param>
+            <returns>List subscriber user devices</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.NotificationSubscribedUserRepository.IsExists(System.Int64,System.String)">
+            <summary>
+            Check user device on subscribtion
+            </summary>
+            <param name="userId">User id</param>
+            <param name="deviceId">Device id</param>
+            <returns>True - user device subscribed</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.NotificationSubscribedUserRepository.Get(System.Int64,System.String)">
+            <summary>
+            Fing subscribtion for user and device
+            </summary>
+            <param name="userId">User id</param>
+            <param name="deviceId">Device id</param>
+            <returns>Notification subscribtion</returns>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.ProductRepository">
+            <summary>
+            Class ProductRepository.
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.ProductRepository.Get(System.Int64)">
+            <summary>
+            Method Get
+            gets user by ID
+            </summary>
+            <param name="id">user id</param>
+            <returns>db entry</returns>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.CartRepository">
+            <summary>
+            Class for work with repository
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.#ctor(MediaShop.DataAccess.Context.MediaContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.CartRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.Add(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Method for add object type ContentCart
+            </summary>
+            <param name="model">updating object</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.AddAsync(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Override async add model to repository
+            </summary>
+            <param name="model">model user</param>
+            <returns>db entry</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.Update(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Method for update object type ContentCart
+            </summary>
+            <param name="model">updating object</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.UpdateAsync(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Override async method update for type ContentCart
+            </summary>
+            <param name="model">Model to update</param>
+            <returns>Updated model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.Delete(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="model">object for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.DeleteAsync(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="model">object for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.Delete(System.Int64)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="id">id for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.DeleteAsync(System.Int64)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="id">id for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.Get(System.Int64)">
+            <summary>
+            Method for getting object type ContentCart
+            by Id
+            </summary>
+            <param name="id">identificator</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.GetAsync(System.Int64)">
+            <summary>
+            Method for getting object type ContentCart
+            by Id
+            </summary>
+            <param name="id">identificator</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.GetById(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCart in state InCart
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.GetByIdAsync(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCart in state InCart
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.CartRepository.GetAll(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCart
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.ProfileRepository">
+            <summary>
+            Class ProfileRepository.
+            </summary>
+            <seealso cref="T:MediaShop.DataAccess.Repositories.Base.Repository`1" />
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IProfileRepository" />
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.ProfileRepository.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.ProfileRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.AccountRepository">
+            <summary>
+            Class AccountRepository.
+            </summary>
+            <seealso cref="T:MediaShop.DataAccess.Repositories.Base.Repository`1" />
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IAccountRepository" />
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.AccountRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Get(System.Int64)">
+            <summary>
+            Method Get
+            gets user by ID
+            </summary>
+            <param name="id">user id</param>
+            <returns>accounty</returns>
+            <exception cref="T:System.ArgumentException">if id = 0</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Add(MediaShop.Common.Models.User.AccountDbModel)">
+            <summary>
+            add model to repository
+            </summary>
+            <param name="model">model account</param>
+            <returns>account</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Update(MediaShop.Common.Models.User.AccountDbModel)">
+            <summary>
+             method update account
+            </summary>
+            <param name="model">Account to update</param>
+            <returns>Updated account</returns>
+            <exception cref="T:System.ArgumentNullException">filter</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.GetByLoginAsync(System.String)">
+            <summary>
+            Get user by login
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Find(System.Linq.Expressions.Expression{System.Func{MediaShop.Common.Models.User.AccountDbModel,System.Boolean}})">
+            <summary>
+            Find
+            </summary>
+            <param name="filter">Filter criteria</param>
+            <returns>Suitable accounts</returns>
+            <exception cref="T:System.ArgumentNullException">filter</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Delete(MediaShop.Common.Models.User.AccountDbModel)">
+            <summary>
+            Method delete Account by model
+            </summary>
+            <param name="model">Account to delete</param>
+            <returns>Deleted account</returns>
+            <exception cref="T:System.ArgumentNullException">filter</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.Delete(System.Int64)">
+            <summary>
+            method delete account by id
+            </summary>
+            <param name="id">account  Id</param>
+            <returns>Deleted account</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.GetByLogin(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="login">The login.</param>
+            <returns>Account</returns>
+            <exception cref="T:System.ArgumentException">if login is null or empty string</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.GetByEmail(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="email">The email.</param>
+            <returns>Account</returns>
+            <exception cref="T:System.ArgumentException">if login is null or empty string</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.GetByEmailAsync(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="email">The email.</param>
+            <returns>Account</returns>
+            <exception cref="T:System.ArgumentException">if login is null or empty string</exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MediaShop.DataAccess.Repositories.AccountRepository.GetAllUsers" -->
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.SoftDelete(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="id">account  Id</param>
+            <returns>Account</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.AccountRepository.SoftDeleteAsync(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="id">account  Id</param>
+            <returns>Account</returns>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.SettingsRepository">
+            <summary>
+            Class SettingsRepository.
+            </summary>
+            <seealso cref="T:MediaShop.DataAccess.Repositories.Base.Repository`1" />
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.ISettingsRepository" />
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.SettingsRepository.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.SettingsRepository"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:MediaShop.DataAccess.Repositories.Base.Repository`1">
+            <summary>
+            Class Repository.
+            </summary>
+            <typeparam name="T">Entity</typeparam>
+            <seealso cref="T:System.IDisposable" />
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IRepository`1" />
+        </member>
+        <member name="F:MediaShop.DataAccess.Repositories.Base.Repository`1.Context">
+            <summary>
+            The context
+            </summary>
+        </member>
+        <member name="F:MediaShop.DataAccess.Repositories.Base.Repository`1.DbSet">
+            <summary>
+            The db set
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.DataAccess.Repositories.Base.Repository`1"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:MediaShop.DataAccess.Repositories.Base.Repository`1"/> class.
+            </summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Get(System.Int64)">
+            <summary>
+            Method Get
+            gets user by ID
+            </summary>
+            <param name="id">user id</param>
+            <returns>db entry</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MediaShop.DataAccess.Repositories.Base.Repository`1.GetAsync(System.Int64)" -->
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Add(`0)">
+            <summary>
+            add model to repository
+            </summary>
+            <param name="model">model user</param>
+            <returns>db entry</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.AddAsync(`0)">
+            <summary>
+            add model to repository
+            </summary>
+            <param name="model">model user</param>
+            <returns>db entry</returns>
+            <exception cref="T:System.ArgumentNullException">if model = null</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Update(`0)">
+            <summary>
+            interface method update for type TModel
+            </summary>
+            <param name="model">Model to update</param>
+            <returns>Updated model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.UpdateAsync(`0)">
+            <summary>
+            interface method update for type TModel
+            </summary>
+            <param name="model">Model to update</param>
+            <returns>Updated model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Delete(`0)">
+            <summary>
+            interface method delete for type TModel by model
+            </summary>
+            <param name="model">Model to delete</param>
+            <returns>Instance of deleted model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.DeleteAsync(`0)">
+            <summary>
+            interface method delete for type TModel by model
+            </summary>
+            <param name="model">Model to delete</param>
+            <returns>Instance of deleted model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Delete(System.Int64)">
+            <summary>
+            interface method delete for type TModel by id
+            </summary>
+            <param name="id">Id of deleting model</param>
+            <returns>Deleted model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.DeleteAsync(System.Int64)">
+            <summary>
+            interface method delete for type TModel by id
+            </summary>
+            <param name="id">Id of deleting model</param>
+            <returns>Deleted model</returns>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Find by id
+            </summary>
+            <param name="filter">Filter criteria</param>
+            <returns>Suitable entities</returns>
+            <exception cref="T:System.ArgumentNullException">filter</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Find by id
+            </summary>
+            <param name="filter">Filter criteria</param>
+            <returns>Suitable entities</returns>
+            <exception cref="T:System.ArgumentNullException">filter</exception>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Dispose">
+            <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:MediaShop.DataAccess.Repositories.Base.Repository`1.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="flag"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:MediaShop.DataAccess.NInjectProfile">
+            <summary>
+            Class NInjectProfile.
+            </summary>
+            <seealso cref="T:Ninject.Modules.NinjectModule" />
+        </member>
+        <member name="M:MediaShop.DataAccess.NInjectProfile.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="T:MediaShop.DataAccess.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.InvalidId">
+            <summary>
+              Looks up a localized string similar to Content cart not found or invalid state.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.InvalidIdValue">
+            <summary>
+              Looks up a localized string similar to Id = 0.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.InvalidLoginValue">
+            <summary>
+              Looks up a localized string similar to Login is null or empty string.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.LessThanOrEqualToZeroValue">
+            <summary>
+              Looks up a localized string similar to Value can not be less than or equal zerro.
+            </summary>
+        </member>
+        <member name="P:MediaShop.DataAccess.Properties.Resources.NullOrEmptyValueString">
+            <summary>
+              Looks up a localized string similar to String can not be null or empty.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,32 @@
+<div class="row" *ngFor="let user of users let i=index">
+  <div class="col-md-1 col-sm-1 col-xs-1">
+    {{user.Id}}
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2">
+    {{user.Login}}
+  </div>
+  <div class="col-md-3 col-sm-3 col-xs-3">
+    {{user.Email}}
+  </div>
+
+  <div class="col-md-2 col-sm-2 col-xs-2">
+    <button *ngIf="!user.IsBanned" class="btn btn-success btn-xs" (click)="SetFlagIsBanned(user)">
+      <i class="fa fa-check"></i>   Set ban </button>
+    <button *ngIf="user.IsBanned" class="btn btn-danger btn-xs" (click)="RemoveFlagIsBanned(user)">
+      <i class="fa fa-trash-o"></i> Remove ban</button>
+  </div>
+
+  <div class="col-md-2 col-sm-2 col-xs-2">
+      <button *ngIf="!user.IsDeleted" class="btn btn-success btn-xs" (click)="SetFlagIsDeleted(user)">
+        <i class="fa fa-check"></i> Set deleted </button>
+      <button *ngIf="user.IsDeleted" class="btn btn-danger btn-xs" (click)="Nothing()">
+        <i class="fa fa-trash-o"></i>  deleted   </button>
+    </div>
+    <div class="bans">
+  <div class="col-md-2 col-sm-2 col-xs-2">
+    <a [routerLink]="['/user-list', user.Id]" class="btn btn-success btn-xs">
+      Set permission
+    </a>
+  </div>
+</div>
+</div>

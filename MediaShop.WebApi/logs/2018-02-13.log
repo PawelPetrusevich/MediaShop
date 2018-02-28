@@ -1,0 +1,140 @@
+2018-02-13 13:09:14.1551 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:14.1952 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: bc4e2036-70a6-46ed-a29f-f3616301f3de
+
+2018-02-13 13:09:14.2012 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:14.2012 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: bc4e2036-70a6-46ed-a29f-f3616301f3de
+
+2018-02-13 13:09:18.6792 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 4477 ms, response: OK
+2018-02-13 13:09:18.6792 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 4477 ms, response: OK
+2018-02-13 13:09:22.9364 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:22.9364 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: e7199f22-1d6e-4f4b-8065-a75034379281
+
+2018-02-13 13:09:22.9364 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:22.9364 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: e7199f22-1d6e-4f4b-8065-a75034379281
+
+2018-02-13 13:09:23.0103 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 71 ms, response: OK
+2018-02-13 13:09:23.0103 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 71 ms, response: OK
+2018-02-13 13:09:24.0557 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:24.0567 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: 8d881e0e-476b-4947-bb17-251c0f70f641
+
+2018-02-13 13:09:24.0567 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:24.0567 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: 8d881e0e-476b-4947-bb17-251c0f70f641
+
+2018-02-13 13:09:24.1358 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 77 ms, response: OK
+2018-02-13 13:09:24.1358 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 77 ms, response: OK
+2018-02-13 13:09:25.8008 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:25.8008 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: e65911c0-fbee-4ac6-9030-cf79c53bf80f
+
+2018-02-13 13:09:25.8008 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:25.8008 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: e65911c0-fbee-4ac6-9030-cf79c53bf80f
+
+2018-02-13 13:09:25.8580 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 55 ms, response: OK
+2018-02-13 13:09:25.8580 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 55 ms, response: OK
+2018-02-13 13:09:26.8053 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:26.8073 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: da26ac19-1585-435a-8292-e7795ae95fb0
+
+2018-02-13 13:09:26.8073 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:26.8073 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: da26ac19-1585-435a-8292-e7795ae95fb0
+
+2018-02-13 13:09:26.8657 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 56 ms, response: OK
+2018-02-13 13:09:26.8657 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 56 ms, response: OK
+2018-02-13 13:09:33.2542 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:33.2542 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: cb26a61a-0380-4acd-9b05-5221a1a7d786
+
+2018-02-13 13:09:33.2542 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:33.2542 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: cb26a61a-0380-4acd-9b05-5221a1a7d786
+
+2018-02-13 13:09:33.3665 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 110 ms, response: OK
+2018-02-13 13:09:33.3665 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 110 ms, response: OK
+2018-02-13 13:09:37.3174 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProduct, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:37.3174 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/add, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: a57d5ff1-623b-4417-89e7-a58473619fb8
+
+2018-02-13 13:09:37.3174 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | method name: AddProduct, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-13 13:09:37.3174 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/add, Cache-Control: no-cache
+Connection: keep-alive
+Accept: */*
+Accept-Encoding: gzip, deflate
+Host: localhost:51289
+User-Agent: PostmanRuntime/7.1.1
+Postman-Token: a57d5ff1-623b-4417-89e7-a58473619fb8
+
+2018-02-13 13:09:57.7543 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 20434 ms, response: OK
+2018-02-13 13:09:57.7543 | TRACE | MediaShop.WebApi.Areas.Content.Controllers.Filters.LoggingFilterAttribute | executed: 20434 ms, response: OK

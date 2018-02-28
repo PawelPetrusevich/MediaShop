@@ -1,0 +1,21 @@
+<form class="form-signin">
+  <h2 class="form-signin-heading">Registration</h2>
+  <label for="inputLogin" class="">Login should be 2 or more symbols</label>
+  <input name = "username" [(ngModel)]="username" type="email" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
+  <label for="inputEmail" class="sr-only">Password</label>
+  <input  name = "email" [(ngModel)]="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required="" >
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input  name = "password" [(ngModel)]="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+  <label for="inputConfirmPassword" class="sr-only">Confirmed password</label>
+  <input name = "confirmPassword" [(ngModel)]="confirmPassword" type="password" id="inputConfirmPassword" class="form-control" placeholder="ConfirmPassword" required="">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="register(username, password, confirmPassword, email)">Register</button>
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    {{errorMessage}}
+  </div>
+  <div class="row">
+        <div class="alert alert-success" role="alert" *ngIf="isRegistered">
+        Look for confirmation letter on your email!
+      </div>
+    </div>
+</form>
+

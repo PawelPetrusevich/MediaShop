@@ -1,0 +1,51 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">MediaShop</a>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div class="col-md-11">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="product-list">Products</a>
+      </li>
+        <li class="nav-item" *ngIf = "IsCreator && accountService.isAuthorized()">
+        <a class="nav-link" routerLink="product-upload">Upload product</a>
+      </li>
+        <li class="nav-item" *ngIf="accountService.isAuthorized()">
+          <a class="nav-link" routerLink="product-purshased">Purshased Product</a>
+      </li>
+      <li class="nav-item" *ngIf = "IsCreator && accountService.isAuthorized()">
+        <a class="nav-link" routerLink="product-list-uploaded">Uploaded products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="cart">Cart</a>
+      </li>
+      <li class="nav-item" *ngIf="accountService.isAuthorized()">
+          <a class="nav-link" routerLink="userProfile">UserProfile</a>
+        </li>
+      <li class="nav-item" *ngIf="accountService.isAuthorized()">
+          <a class="nav-link" routerLink="userSettings">UserSettings</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="IsAdmin && accountService.isAuthorized()" class="nav-link" routerLink="user-list">User List</a>
+        </li>
+    </ul>
+    </div>
+    <div class="col-md-1">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+      <a class="nav-link" *ngIf = "accountService.isAuthorized()" routerLink="logOut">LogOut</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" *ngIf = "!accountService.isAuthorized()" routerLink="login">Login/Register</a>
+    </li>
+      </ul>
+    </div>
+  </div>
+</nav>

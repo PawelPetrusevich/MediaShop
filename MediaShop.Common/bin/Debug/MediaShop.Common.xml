@@ -1,0 +1,1992 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaShop.Common</name>
+    </assembly>
+    <members>
+        <member name="P:MediaShop.Common.Dto.Messaging.NotificationDto.Message">
+            <summary>
+            Gets or sets notification message
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Messaging.NotificationDto.Title">
+            <summary>
+            Gets or sets notification title
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Messaging.NotificationDto.ReceiverId">
+            <summary>
+            Gets or sets identifier of user who receive notification
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Messaging.NotificationDto.SenderId">
+            <summary>
+            Gets or sets identifier of user who sent notification
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Payment.ItemDto">
+            <summary>
+            Class information about product that buy buyer
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.ItemDto.Sku">
+            <summary>
+            Gets or sets stock keeping unit corresponding (SKU) to item.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.ItemDto.Name">
+            <summary>
+            Gets or sets item name. 127 characters max.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.ItemDto.Price">
+            <summary>
+            Gets or sets item cost. 10 characters max.
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Payment.PayPalPaymentDto">
+            <summary>
+            Dto for return user information about successful payment
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.PayPalPaymentDto.Currency">
+            <summary>
+            Gets or sets payPal does not support all currencies.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.PayPalPaymentDto.Total">
+            <summary>
+            Gets or sets total amount charged from the payer to the payee. In case of a refund, this is
+                the refunded amount to the original payer from the payee. 10 characters max with
+                support for 2 decimal places.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Payment.PayPalPaymentDto.Items">
+            <summary>
+            Gets or sets list of items.
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.AddToCartNotifyDto">
+            <summary>
+            Dto model for notification about add to cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.AddToCartNotifyDto.ReceiverId">
+            <summary>
+            Notification receiver id
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.AddToCartNotifyDto.ProductName">
+            <summary>
+            Name of product
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Product.CompressedProductDTO">
+            <summary>
+            Модель для получения картинки в оригинальном разме
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.CompressedProductDTO.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.CompressedProductDTO.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.CompressedProductDTO.ProductPrice">
+            <summary>
+            Gets or sets ProductPrice
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.CompressedProductDTO.Content">
+            <summary>
+            картинка, видео, музыка в формате Base64
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.CompressedProductDTO.ProductType">
+            <summary>
+            Gets or Sets Product Type
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Product.OriginalProductDTO">
+            <summary>
+            Модель для получения картинки в оригинальном разме
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.OriginalProductDTO.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.OriginalProductDTO.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.OriginalProductDTO.Content">
+            <summary>
+            картинка, видео, музыка в формате Base64
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.ProductPrice">
+            <summary>
+            Gets or sets the ProductPrice.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.ProductType">
+            <summary>
+            Gets or sets the ProductId.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.Description">
+            <summary>
+            Gets or sets the Description.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductInfoDto.Content">
+            <summary>
+            Gets or sets the protected content
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Product.UploadProductModel">
+            <summary>
+            Модель для   загрузки модели
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.UploadProductModel.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.UploadProductModel.ProductPrice">
+            <summary>
+            Gets or sets the ProductPrice.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.UploadProductModel.Description">
+            <summary>
+            Gets or sets the Description.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.UploadProductModel.UploadProduct">
+            <summary>
+            Загружаемый файл
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Product.ProductSearchModel">
+            <summary>
+            модель для передачи операндов и операций для дерева выражений
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductSearchModel.LeftValue">
+            <summary>
+             Gets or setst Properties of product model
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductSearchModel.Operand">
+            <summary>
+             Gets or setst = or >= or  something else
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductSearchModel.RightValue">
+            <summary>
+            Gets or setst value to search
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.Product.ProductDto">
+            <summary>
+            class ProductDto
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductDto.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductDto.ProductPrice">
+            <summary>
+            Gets or sets the ProductPrice.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductDto.ProductType">
+            <summary>
+            Gets or sets the ProductId.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.Product.ProductDto.Description">
+            <summary>
+            Gets or sets the Description.
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.User.Account">
+            <summary>
+            Account
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Login">
+            <summary>
+            Gets or sets the login.
+            </summary>
+            <value>The login.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Email">
+            <summary>
+            Gets or sets the email.
+            </summary>
+            <value>The email.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.IsBanned">
+            <summary>
+            Get or sets flag isBanned
+            </summary>
+            <value>true - user is banned</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.IsDeleted">
+            <summary>
+            Get or sets flag isDeleted
+            </summary>
+            <value>true - user unregistered</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Profile">
+            <summary>
+            Gets or sets the profile.
+            </summary>
+            <value>The profile.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Settings">
+            <summary>
+            Gets or sets the settings.
+            </summary>
+            <value>The settings.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Account.Permissions">
+            <summary>
+            Gets or sets the permissions.
+            </summary>
+            <value>The permissions.</value>
+        </member>
+        <member name="T:MediaShop.Common.Dto.User.Profile">
+            <summary>
+            Class ProfileBL.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Models.Entity" />
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Profile.DateOfBirth">
+            <summary>
+            Gets or sets the date of birth.
+            </summary>
+            <value>The date of birth.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Profile.FirstName">
+            <summary>
+            Gets or sets the first name.
+            </summary>
+            <value>The first name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Profile.LastName">
+            <summary>
+            Gets or sets the last name.
+            </summary>
+            <value>The last name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Profile.Phone">
+            <summary>
+            Gets or sets the phone number.
+            </summary>
+            <value>The phone.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.SettingsDto.AccountId">
+            <summary>
+            Account  id
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.SettingsDto.TimeZoneId">
+            <summary>
+            Identifier timezone of user, default value +0
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.SettingsDto.InterfaceLanguage">
+            <summary>
+            Languae of userinterface
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.SettingsDto.NotificationStatus">
+            <summary>
+            Turn on/off notification
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Dto.User.ProfileDto">
+            <summary>
+            Class ProfileDto.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Models.Entity" />
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.ProfileDto.DateOfBirth">
+            <summary>
+            Gets or sets the date of birth.
+            </summary>
+            <value>The date of birth.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.ProfileDto.FirstName">
+            <summary>
+            Gets or sets the first name.
+            </summary>
+            <value>The first name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.ProfileDto.LastName">
+            <summary>
+            Gets or sets the last name.
+            </summary>
+            <value>The last name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.ProfileDto.Phone">
+            <summary>
+            Gets or sets the phone number.
+            </summary>
+            <value>The phone.</value>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.ProfileDto.AccountId">
+            <summary>
+            Account  id
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Validators.Settings.TimeZoneId">
+            <summary>
+            Identifier timezone of user, default value +0
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Validators.Settings.InterfaceLanguage">
+            <summary>
+            Languae of userinterface
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Dto.User.Validators.Settings.NotificationStatus">
+            <summary>
+            Turn on/off notification
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Enums.PaymentEnums.PaymentStates">
+            <summary>
+            State of Payment
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.PaymentEnums.PaymentStates.None">
+            <summary>
+            State Payment by default
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.PaymentEnums.PaymentStates.Created">
+            <summary>
+            Payment created but not confirmed
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.PaymentEnums.PaymentStates.Approved">
+            <summary>
+            Payment confirmed succesfully
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.PaymentEnums.PaymentStates.Failed">
+            <summary>
+            Payment is failed
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Enums.ProductType">
+            <summary>
+            Типы загружаемых продуктов
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Enums.CartEnums">
+            <summary>
+            Class enums
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Enums.CartEnums.StateCartContent">
+            <summary>
+            Enum for discribe ContentCarts stat
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.CartEnums.StateCartContent.InCart">
+            <summary>
+            content add in cart but did not Bought
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.CartEnums.StateCartContent.InBought">
+            <summary>
+            content object Bought but did not  Paid
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Enums.CartEnums.StateCartContent.InPaid">
+            <summary>
+            content object Paid
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.CartExceptions.ExistContentInCartExceptions">
+            <summary>
+            Class CartExceptions
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.PaymentExceptions.AddDefrayalException">
+            <summary>
+            Class AddDefrayalException
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.PaymentExceptions.AddPaymentException">
+            <summary>
+            Class AddPaymentException
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.PaymentExceptions.DeleteDefrayalException">
+            <summary>
+            Class DeleteDefrayalException
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.PaymentExceptions.ExistPaymentException">
+            <summary>
+            Class ExistPaymentException
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.User.DeleteUserException">
+            <summary>
+            Exception arising when add to repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.User.UpdateProfileException">
+            <summary>
+            Exception arising when update repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.User.UpdateSettingsException">
+            <summary>
+            Exception arising when update repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.AddAccountException">
+            <summary>
+            Exception arising when add to repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.AddProfileException">
+            <summary>
+            Exception arising when add to repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.AddSettingsException">
+            <summary>
+            Exception arising when add to repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.AddStatisticException">
+            <summary>
+            Exception arising when add to repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.UpdateAccountException">
+            <summary>
+            Exception arising when update repository fail
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.CanNotSendEmailException">
+            <summary>
+            Exception arising when can not send Email
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Exceptions.ExistingLoginException">
+            <summary>
+            Exception arising when user registres with existing login
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Helpers.CollectionExtensions">
+            <summary>
+            Extension methods for ICollection
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Helpers.CollectionExtensions.Remove``1(System.Collections.Generic.ICollection{``0},System.Predicate{``0})">
+            <summary>
+            Remove suitable elements
+            </summary>
+            <param name="collection">Collection</param>
+            <param name="predicate">Criteria</param>
+            <typeparam name="T">Generic type param</typeparam>
+            <returns>Count of deleted items</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.IDefrayalRepository">
+            <summary>
+            Interface IDefrayalRepository
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.INotificationRepository">
+            <summary>
+            Interface of notifications' repository
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.IPayPalPaymentRepository">
+            <summary>
+            Interface describing the methods of
+            interaction with the repository when working with the Payment class
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.GetAsync(System.Int64)">
+            <summary>
+            Interface method get for type TModel
+            </summary>
+            <param name="id">Id of searching element</param>
+            <returns>TModel</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.AddAsync(`0)">
+            <summary>
+            interface method add for type TModel
+            </summary>
+            <param name="model">Model to add</param>
+            <returns>Added Model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.UpdateAsync(`0)">
+            <summary>
+             interface method update for type TModel
+            </summary>
+            <param name="model">Model to update</param>
+            <returns>Updated model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.DeleteAsync(`0)">
+            <summary>
+            interface method delete for type TModel by model
+            </summary>
+            <param name="model">Model to delete</param>
+            <returns>Instance of deleted model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.DeleteAsync(System.Int64)">
+            <summary>
+            interface method delete for type TModel by id
+            </summary>
+            <param name="id">Id of deleting model</param>
+            <returns>Deleted model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepositoryAsync`1.FindAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Find by id
+            </summary>
+            <param name="filter">Filter criteria</param>
+            <returns>Suitable entities</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.IStatisticRepository">
+            <summary>
+            Interface IProfileRepository
+            </summary>
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IRepository`1" />
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.IProfileRepository">
+            <summary>
+            Interface IProfileRepository
+            </summary>
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IRepository`1" />
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MediaShop.Common.Interfaces.Repositories.IAccountRepository" -->
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.GetByLogin(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="login">The login.</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.GetByLoginAsync(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="login">The login.</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.GetByEmail(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="email">The Email.</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.GetByEmailAsync(System.String)">
+            <summary>
+            Gets the specified login.
+            </summary>
+            <param name="email">The Email.</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.SoftDelete(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="id">user</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IAccountRepository.SoftDeleteAsync(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="id">user</param>
+            <returns>Entity</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.ISettingsRepository">
+            <summary>
+            Interface ISettingsRepository
+            </summary>
+            <seealso cref="T:MediaShop.Common.Interfaces.Repositories.IRepository`1" />
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IProductRepository.SoftDelete(System.Int64)">
+            <summary>
+            Soft delete
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IProductRepository.SoftDeleteAsync(System.Int64)">
+            <summary>
+            Soft delete async
+            </summary>
+            <param name="id">ID</param>
+            <returns>Task Product</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IProductRepository.GetListOnSale">
+            <summary>
+            Get list products on sale
+            </summary>
+            <param name=""></param>
+            <returns></returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.IRepository`1">
+            <summary>
+            Interface IRepository
+            </summary>
+            <typeparam name="TModel">The type of the t model.</typeparam>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Get(System.Int64)">
+            <summary>
+            Interface method get for type TModel
+            </summary>
+            <param name="id">Id of searching element</param>
+            <returns>TModel</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Add(`0)">
+            <summary>
+            interface method add for type TModel
+            </summary>
+            <param name="model">Model to add</param>
+            <returns>Added Model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Update(`0)">
+            <summary>
+             interface method update for type TModel
+            </summary>
+            <param name="model">Model to update</param>
+            <returns>Updated model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Delete(`0)">
+            <summary>
+            interface method delete for type TModel by model
+            </summary>
+            <param name="model">Model to delete</param>
+            <returns>Instance of deleted model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Delete(System.Int64)">
+            <summary>
+            interface method delete for type TModel by id
+            </summary>
+            <param name="id">Id of deleting model</param>
+            <returns>Deleted model</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.IRepository`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Find by id
+            </summary>
+            <param name="filter">Filter criteria</param>
+            <returns>Suitable entities</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Repositories.ICartRepository">
+            <summary>
+            Interface describing the methods of
+            interaction with the repository when working with the ShoppingCart
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.GetAsync(System.Int64)">
+            <summary>
+            Method for getting object type ContentCart
+            by Id
+            </summary>
+            <param name="id">identificator</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.DeleteAsync(MediaShop.Common.Models.ContentCart)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="model">object for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.DeleteAsync(System.Int64)">
+            <summary>
+            Method for delete object type ContentCart
+            </summary>
+            <param name="id">id for delete</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.GetById(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCart in state InCart
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.GetByIdAsync(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCart in state InCart
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Repositories.ICartRepository.GetAll(System.Int64)">
+            <summary>
+            Method for getting collection objects type ContentCartDto
+            by user identificator
+            </summary>
+            <param name="userId">identificator user</param>
+            <returns>rezalt operation</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IBannedService.SetFlagIsBanned(System.Int64,System.Boolean)">
+            <summary>
+            Set or remove flag banned
+            </summary>
+            <param name="id"></param>
+            <param name="flag"></param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IBannedService.SetFlagIsBannedAsync(System.Int64,System.Boolean)">
+            <summary>
+            Set or remove flag banned async
+            </summary>
+            <param name="id"></param>
+            <param name="flag"></param>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.INotificationService">
+            <summary>
+            Interface INotificationService
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.Notify(MediaShop.Common.Dto.Messaging.NotificationDto)">
+            <summary>
+            Notify user
+            </summary>
+            <param name="notification">Notification and notification receiver</param>
+            <returns>Notification</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.NotifyAsync(MediaShop.Common.Dto.Messaging.NotificationDto)">
+            <summary>
+            Notify user
+            </summary>
+            <param name="notification">Notification and notification receiver</param>
+            <returns>Notification</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.AddToCartNotify(MediaShop.Common.Dto.AddToCartNotifyDto)">
+            <summary>
+            Create notification of adding content to cart
+            </summary>
+            <param name="data">Data for notification</param>
+            <returns>notification</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.AddToCartNotifyAsync(MediaShop.Common.Dto.AddToCartNotifyDto)">
+            <summary>
+            Create notification of adding content to cart
+            </summary>
+            <param name="data">Data for notification</param>
+            <returns>notification</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.GetByUserId(System.Int64)">
+            <summary>
+            Get user notifications
+            </summary>
+            <param name="userId">User id</param>
+            <returns>List notifications</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationService.GetByUserIdAsync(System.Int64)">
+            <summary>
+            Get user notifications
+            </summary>
+            <param name="userId">User id</param>
+            <returns>List notifications</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.INotificationSubscribedUserService">
+            <summary>
+            Interface INotificationSubscribedUserService
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationSubscribedUserService.Subscribe(MediaShop.Common.Dto.NotificationSubscribedUserDto)">
+            <summary>
+            Subscribe user to receive notifications
+            </summary>
+            <param name="subscribe">Subscribe parameters</param>
+            <returns>Subscribtion info</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.INotificationSubscribedUserService.UserIsSubscribed(MediaShop.Common.Dto.NotificationSubscribedUserDto)">
+            <summary>
+            Check user is subscribed
+            </summary>
+            <param name="subscribe">Subscribe parameters</param>
+            <returns>true  - subscribed</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.IAccountService">
+            <summary>
+            Interface IAccountService
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.Register(MediaShop.Common.Dto.User.RegisterUserDto)">
+            <summary>
+            Registers the user.
+            </summary>
+            <param name="userModel">The user to register.</param>
+            <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.RegisterAsync(MediaShop.Common.Dto.User.RegisterUserDto)">
+            <summary>
+            Registers the user.
+            </summary>
+            <param name="userModel">The user to register.</param>
+            <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.ConfirmRegistration(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Confirm user registration
+            </summary>
+            <param name="email">User email</param>
+            <param name="token">Confirmation token</param>
+            <returns><c>account</c> if succeeded</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.ConfirmRegistrationAsync(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Confirm user registration
+            </summary>
+            <param name="email">User email</param>
+            <param name="id">id user</param>
+            <returns><c>account</c> if succeeded</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.Login(MediaShop.Common.Dto.User.LoginDto)">
+            <summary>
+            Login user
+            </summary>
+            <param name="data">Login data</param>
+            <returns><c>Login account</c></returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.LoginAsync(MediaShop.Common.Dto.User.LoginDto)">
+            <summary>
+            Login user
+            </summary>
+            <param name="data">Login data</param>
+            <returns><c>Login account</c></returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.Logout(System.Int64)">
+            <summary>
+            Logout user
+            </summary>
+            <param name="id">id user</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.RecoveryPassword(MediaShop.Common.Dto.User.ResetPasswordDto)">
+            <summary>
+            Reset user password  for recovery
+            </summary>
+            <param name="email">user email</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.User.ConfirmationTokenException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.RecoveryPasswordAsync(MediaShop.Common.Dto.User.ResetPasswordDto)">
+            <summary>
+            Reset user password  for recovery
+            </summary>
+            <param name="email">user email</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.User.ConfirmationTokenException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.InitRecoveryPassword(MediaShop.Common.Dto.Messaging.ForgotPasswordDto)">
+            <summary>
+            Init procedure password recovery
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <param name="email">Account Email</param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IAccountService.InitRecoveryPasswordAsync(MediaShop.Common.Dto.Messaging.ForgotPasswordDto)">
+            <summary>
+            Init procedure password recovery
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <param name="email">Account Email</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MediaShop.Common.Interfaces.Services.IAccountService.GetAllUsers" -->
+        <member name="T:MediaShop.Common.Interfaces.Services.IPayPalPaymentService">
+            <summary>
+            Interface for payment
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPayPalPaymentService.GetPayment(MediaShop.Common.Models.Cart,System.String)">
+            <summary>
+            Create and return new Payment
+            </summary>
+            <param name="cart">user Cart</param>
+            <param name="baseUrl">base uri of Requst</param>
+            <returns>created Payment</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPayPalPaymentService.ExecutePayment(System.String,System.Int64)">
+            <summary>
+            Executes, or completes, a PayPal payment that the payer has approved
+            </summary>
+            <param name="paymentId">paymentId</param>
+            <param name="userId">users id</param>
+            <returns>PayPalPaymentDto with info of Payment</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPayPalPaymentService.ExecutePaymentAsync(System.String,System.Int64)">
+            <summary>
+            Executes, or completes, a PayPal payment that the payer has approved
+            </summary>
+            <param name="paymentId">paymentId</param>
+            <param name="userId">users id</param>
+            <returns>Executed Payment</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPayPalPaymentService.AddPayment(PayPal.Api.Payment,System.Int64)">
+            <summary>
+            Add new model
+            </summary>
+            <param name="payment">object Payment for save in repository</param>
+            <param name="userId">userId</param>
+            <returns>object Payment that save in repository</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPayPalPaymentService.AddPaymentAsync(PayPal.Api.Payment,System.Int64)">
+            <summary>
+            Async add new model
+            </summary>
+            <param name="payment">object Payment for save in repository</param>
+            <param name="userId">userId</param>
+            <returns>object Payment that save in repository</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.IEmailService">
+            <summary>
+            Interface IEmailService
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IEmailService.SendConfirmation(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Method for send account confirmation
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model">Confirmation model</param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IEmailService.SendRestorePwdLink(MediaShop.Common.Dto.Messaging.AccountPwdRestoreDto)">
+            <summary>
+            Method for send restore link
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model"></param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IEmailService.SendConfirmationAsync(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Method for async send account confirmation
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model">Confirmation model</param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IEmailService.SendRestorePwdLinkAsync(MediaShop.Common.Dto.Messaging.AccountPwdRestoreDto)">
+            <summary>
+            Method for async send restore link
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model"></param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPermissionService.SetPermission(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Set permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPermissionService.RemovePermission(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Remove permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPermissionService.SetPermissionMask(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Set permission mask
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPermissionService.SetPermissionAsync(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Set permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IPermissionService.RemovePermissionAsync(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Remove permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.ICartService`1">
+            <summary>
+            Interface describing the methods of
+            interaction with the service when working with the Cart
+            </summary>
+            <typeparam name="TModel">type model2</typeparam>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetContent(System.Int64)">
+            <summary>
+            Find items in a cart by user Id and return a items collection
+            </summary>
+            <param name="userId">users id</param>
+            <returns> shopping cart for a user </returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetContentAsync(System.Int64)">
+            <summary>
+            Find items in a cart by user Id and return a item collection
+            without state InPaid and InBought
+            </summary>
+            <param name="userId">user Id</param>
+            <returns> shopping cart for a user </returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.AddInCart(System.Int64,System.Int64)">
+            <summary>
+            Add new item in cart with return save item for update view
+            </summary>
+            <param name="contentId">contents object</param>
+            <param name="userId">users identifier</param>
+            <returns>this save item</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.AddInCartAsync(System.Int64,System.Int64)">
+            <summary>
+            Async add new item in cart with return save item for update view
+            </summary>
+            <param name="contentId">contents identifier</param>
+            <param name="userId">users identifier</param>
+            <returns>this save item</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.ExistInCart(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Checking the existence of content in cart
+            </summary>
+            <param name="contentId">content identificator</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>true - content exist in cart
+            false - content does not exist in cart</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.ExistInCartAsync(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Async checking the existence of content in cart
+            </summary>
+            <param name="contentId">content identificator</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>true - content exist in cart
+            false - content does not exist in cart</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetCart(System.Int64)">
+            <summary>
+            Get created Cart model object
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetCartAsync(System.Int64)">
+            <summary>
+            Get created Cart model object
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetPrice(System.Int64)">
+            <summary>
+            Get sum price items for User
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Sum price</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetPrice(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Get sum price items typeof ContentCartDto
+            </summary>
+            <param name="cart">Collection ContentCartDto</param>
+            <returns>Sum price</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetCountItems(System.Int64)">
+            <summary>
+            Get count items for User
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Count Items in cart</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.GetCountItems(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Get count items
+            </summary>
+            <param name="cart">Collection ContentCartDto</param>
+            <returns>Count Items</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteContent(`0)">
+            <summary>
+            Method for deleting selected items
+            </summary>
+            <param name="model">model ContentCartDto for delete</param>
+            <returns>return deleting  model element</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteContentAsync(`0)">
+            <summary>
+            Method for deleting selected ContentCart
+            </summary>
+            <param name="model">model ContentCartDto for delete</param>
+            <returns>return deleting  model element</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteContentAsync(System.Int64)">
+            <summary>
+            Method for deleting selected ContentCart
+            </summary>
+            <param name="id">ContentCart Id for delete</param>
+            <returns>return count</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteOfCart(System.Collections.Generic.ICollection{System.Int64})">
+            <summary>
+            Method for deleting selected items
+            </summary>
+            <param name="itemsId">collection users id</param>
+            <returns>collection of remote objects</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteOfCart(System.Int64)">
+            <summary>
+            Method for deleting Content from cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart after clearing</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.DeleteOfCartAsync(System.Int64)">
+            <summary>
+            Method for deleting Content from cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart after clearing</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.SetState(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Method for check object as Bought
+            </summary>
+            <param name="contentId">contents object</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>update objects state</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.ICartService`1.SetStateAsync(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Async method for check object as Bought
+            </summary>
+            <param name="contentId">contents object</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>update objects state</returns>
+        </member>
+        <member name="T:MediaShop.Common.Interfaces.Services.IProductService">
+            <summary>
+            Interface IProductService.
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetById(System.Int64)">
+            <summary>
+            Get method.
+            </summary>
+            <param name="id">product Id</param>
+            <returns>result</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.UploadProducts(MediaShop.Common.Dto.Product.UploadProductModel,System.Int64)">
+            <summary>
+            Upload products.
+            </summary>
+            <param name="model">product model</param>
+            <returns>result</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.SoftDeleteById(System.Int64,System.Int64)">
+            <summary>
+            DElete method.
+            </summary>
+            <param name="id">product id</param>
+            <returns>result</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.SoftDeleteByIdAsync(System.Int64,System.Int64)">
+            <summary>
+            DElete method Async
+            </summary>
+            <param name="id">product id</param>
+            <returns>result</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.Find(System.Collections.Generic.List{MediaShop.Common.Dto.Product.ProductSearchModel})">
+            <summary>
+            Find method.
+            </summary>
+            <param name="conditionsList">filter</param>
+            <returns>product</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.FindAsync(System.Collections.Generic.List{MediaShop.Common.Dto.Product.ProductSearchModel})">
+            <summary>
+            Find method Async
+            </summary>
+            <param name="conditionsList">filter</param>
+            <returns>product</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetListPurshasedProducts(System.Int64)">
+            <summary>
+            Get list purshased products
+            </summary>
+            <param name="userId">users id</param>
+            <returns>return DTO whith product name and original product byte array</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetListPurshasedProductsAsync(System.Int64)">
+            <summary>
+            Get list purshased products Async
+            </summary>
+            <param name="userId">users id</param>
+            <returns>return DTO whith product name and original product byte array</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetOriginalPurshasedProduct(System.Int64,System.Int64)">
+            <summary>
+            Get original purshased product
+            </summary>
+            <param name="userId">users id</param>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetOriginalPurshasedProductAsync(System.Int64,System.Int64)">
+            <summary>
+            Get original purshased product
+            </summary>
+            <param name="userId">user id</param>
+            <param name="productId">product id</param>
+            <returns>Task Original product</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetListOnSale">
+            <summary>
+            Get list  products on sale
+            </summary>
+            <param name=""></param>
+            <returns>return DTO whith product name and original product byte array</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetListOnSaleAsync">
+            <summary>
+            Get list  products on sale Async method
+            </summary>
+            <param name=""></param>
+            <returns>return DTO whith product name and original product byte array</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.UploadProductsAsync(MediaShop.Common.Dto.Product.UploadProductModel,System.Int64)">
+            <summary>
+            Async upload service
+            </summary>
+            <param name="data">upload model</param>
+            <returns>Task ProductDto</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IProductService.GetUploadProductListAsync(System.Int64)">
+            <summary>
+            возрат списка загруженого контента
+            </summary>
+            <param name="userId"> id создателя </param>
+            <returns>список загруженого проекта</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.SoftDeleteByUser(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.SoftDeleteByUserAsync(System.Int64)">
+            <summary>        
+            Delete user by setting flag deleted in model account 
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.GetUserInfo(System.Int64)">
+            <summary>
+            Get user information
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.GetUserInfoAsync(System.Int64)">
+            <summary>
+            Get user information
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.GetUserDtoAsync(System.Int64)">
+            <summary>
+            Get user information
+            </summary>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.ModifySettings(MediaShop.Common.Dto.User.SettingsDto)">
+            <summary>
+            Modiffy user settings
+            </summary>
+            <param name="settings">settings</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.ModifySettingsAsync(MediaShop.Common.Dto.User.SettingsDto)">
+            <summary>
+            Modiffy user settings
+            </summary>
+            <param name="settings">settings</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.ModifyProfile(MediaShop.Common.Dto.User.ProfileDto)">
+            <summary>
+            Modiffy user profile
+            </summary>
+            <param name="profile">profile</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.Common.Interfaces.Services.IUserService.ModifyProfileAsync(MediaShop.Common.Dto.User.ProfileDto)">
+            <summary>
+            Modiffy user profile
+            </summary>
+            <param name="profile">profile</param>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.Common.MapperProfile">
+            <summary>
+            Class MapperProfile.
+            </summary>
+            <seealso cref="T:AutoMapper.Profile" />
+        </member>
+        <member name="M:MediaShop.Common.MapperProfile.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.Common.MapperProfile"/> class.
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.Cart">
+            <summary>
+            Сlass describes model Cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Cart.ContentCartDtoCollection">
+            <summary>
+            Gets or sets Collection items
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Cart.PriceAllItemsCollection">
+            <summary>
+            Gets or sets Property to determine price all items in collection
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Cart.CountItemsInCollection">
+            <summary>
+            Gets or sets Property to determine the amount of content in a collection
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.ContentCartDto">
+            <summary>
+            Сlass describes model ContentCartDTO
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.ContentId">
+            <summary>
+            Gets or sets the content id in the shopping cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.ContentName">
+            <summary>
+            Gets or sets the content name in the shopping cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.DescriptionItem">
+            <summary>
+            Gets or sets description media content
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.PriceItem">
+            <summary>
+            Gets or sets price media content
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.StateContent">
+            <summary>
+            Gets or sets a state of contents in cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCartDto.CreatorId">
+            <summary>
+            Gets or sets the creator identifier.
+            </summary>
+            <value>The creator identifier.</value>
+        </member>
+        <member name="T:MediaShop.Common.Models.Content.CompressedProduct">
+            <summary>
+            Уменьшенная копия загруженного контента
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.Content.OriginalProduct">
+            <summary>
+            Загруженный файл контента в оригинальном размере
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.Content.Product">
+            <summary>
+            Class Product
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.ProductName">
+            <summary>
+            Gets or sets the ProductName.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.Description">
+            <summary>
+            Gets or sets the Description.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.ProductPrice">
+            <summary>
+            Gets or sets the ProductPrice.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.IsPremium">
+            <summary>
+            Gets or sets a value indicating whether gets or sets the bollean IsPremium.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.IsFavorite">
+            <summary>
+            Gets or sets a value indicating whether gets or sets IsFavorite.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.IsDeleted">
+            <summary>
+            Gets or sets a value indicating whether gets or sets IsDeletede.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.ProductType">
+            <summary>
+            Gets or sets the ProductType.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.OriginalProduct">
+            <summary>
+            Gets or sets file original product
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.ProtectedProduct">
+            <summary>
+            Gets or sets file of protected product
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Content.Product.CompressedProduct">
+            <summary>
+            Gets or sets file of compressed product
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.Content.ProtectedProduct">
+            <summary>
+            Защищенная копия контента
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.Entity">
+            <summary>
+            Class Entity.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Entity.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.Entity.CreatedDate">
+            <summary>
+            Gets or sets the created date.
+            </summary>
+            <value>The created date.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.Entity.CreatorId">
+            <summary>
+            Gets or sets the creator identifier.
+            </summary>
+            <value>The creator identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.Entity.ModifiedDate">
+            <summary>
+            Gets or sets the modified date.
+            </summary>
+            <value>The modified date.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.Entity.ModifierId">
+            <summary>
+            Gets or sets the modifier identifier.
+            </summary>
+            <value>The modifier identifier.</value>
+        </member>
+        <member name="T:MediaShop.Common.Models.Notification.Notification">
+            <summary>
+            Notification Model
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Notification.Notification.Message">
+            <summary>
+            Gets or sets notification message
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Notification.Notification.Title">
+            <summary>
+            Gets or sets notification title
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.Notification.Notification.ReceiverId">
+            <summary>
+            Gets or sets identifier of user who sent notification
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.PaymentModel.DefrayalDbModel">
+            <summary>
+            Class content that defrayal
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.PaymentModel.DefrayalDbModel.ContentId">
+            <summary>
+            Gets or sets the content id in the shopping cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.PaymentModel.DefrayalDbModel.AccountDbModel">
+            <summary>
+            Gets or sets property AccountDbModel
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel">
+            <summary>
+            Model for save information about
+            payment in repository
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel.PaymentId">
+            <summary>
+            Gets or sets id paypal payment
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel.State">
+            <summary>
+            Gets or sets state paypal payment
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.PaymentModel.PayPalPaymentDbModel.AccountDbModel">
+            <summary>
+            Gets or sets property AccountDbModel
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.AccountDbModel">
+            <summary>
+            Class AccountDbModel.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Models.Entity" />
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Login">
+            <summary>
+            Gets or sets the login.
+            </summary>
+            <value>The login.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Email">
+            <summary>
+            Gets or sets the email.
+            </summary>
+            <value>The email.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Permissions">
+            <summary>
+            Gets or sets the permissions.
+            </summary>
+            <value>The permissions.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.IsConfirmed">
+            <summary>
+            Get or sets flag Confirmed
+            </summary>
+            <value>true - user is confirmed by email</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.IsBanned">
+            <summary>
+            Get or sets flag isBanned
+            </summary>
+            <value>true - user is banned</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.IsDeleted">
+            <summary>
+            Get or sets flag isDeleted
+            </summary>
+            <value>true - user unregistered</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.ProfileId">
+            <summary>
+            Gets or sets the profile identifier.
+            </summary>
+            <value>The profile identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.SettingsId">
+            <summary>
+            Gets or sets the settings identifier.
+            </summary>
+            <value>The settings identifier.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Profile">
+            <summary>
+            Gets or sets the profile.
+            </summary>
+            <value>The profile.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Settings">
+            <summary>
+            Gets or sets the settings.
+            </summary>
+            <value>The settings.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.Statistics">
+            <summary>
+            Gets or sets the statistics.
+            </summary>
+            <value>The statistics.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.AccountDbModel.AccountConfirmationToken">
+            <summary>
+            AccountConfirmationToken rendered when accunt wil created. Need for confirm account and reset password
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.SettingsDbModel">
+            <summary>
+            Class describes personal user settings
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.SettingsDbModel.TimeZoneId">
+            <summary>
+            Identifier timezone of user, default value +0
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.SettingsDbModel.InterfaceLanguage">
+            <summary>
+            Languae of userinterface
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.SettingsDbModel.NotificationStatus">
+            <summary>
+            Turn on/off notification
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.ProfileDbModel">
+            <summary>
+            Class ProfileDbModel.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Models.Entity" />
+        </member>
+        <member name="P:MediaShop.Common.Models.User.ProfileDbModel.DateOfBirth">
+            <summary>
+            Gets or sets the date of birth.
+            </summary>
+            <value>The date of birth.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.ProfileDbModel.FirstName">
+            <summary>
+            Gets or sets the first name.
+            </summary>
+            <value>The first name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.ProfileDbModel.LastName">
+            <summary>
+            Gets or sets the last name.
+            </summary>
+            <value>The last name.</value>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.ProfileDbModel.Phone">
+            <summary>
+            Gets or sets the phone number.
+            </summary>
+            <value>The phone.</value>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.Languages">
+            <summary>
+            User language
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Languages.Eng">
+            <summary>
+            English
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Languages.Rus">
+            <summary>
+            Russian
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Languages.Bel">
+            <summary>
+            Belorussian
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.Permissions">
+            <summary>
+            Permission value
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Permissions.See">
+            <summary>
+            View
+            has mask 0001
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Permissions.Create">
+            <summary>
+            Create(add)
+            has mask 0010
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Permissions.Delete">
+            <summary>
+            Delete
+            has mask 0100
+            </summary>
+        </member>
+        <member name="F:MediaShop.Common.Models.User.Permissions.ManageUsers">
+            <summary>
+            ManageUsers
+            has mask 1000
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Models.User.StatisticDbModel">
+            <summary>
+            Class StatisticDbModel.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Models.Entity" />
+        </member>
+        <member name="P:MediaShop.Common.Models.User.StatisticDbModel.DateLogIn">
+            <summary>
+            Date user Login
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.StatisticDbModel.DateLogOut">
+            <summary>
+            Date user LogOut
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.User.StatisticDbModel.AccountDbModel">
+            <summary>
+            Gets or sets Account.
+            </summary>
+            <value>The account.</value>
+        </member>
+        <member name="T:MediaShop.Common.Models.ContentCart">
+            <summary>
+            Сlass describes content in the cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCart.Product">
+            <summary>
+            Gets or sets Product in the shopping cart
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCart.ProductId">
+            <summary>
+            Gets or sets ProductId
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Models.ContentCart.StateContent">
+            <summary>
+            Gets or sets a state of contents in cart
+            </summary>
+        </member>
+        <member name="T:MediaShop.Common.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.AddContentToCartNotificationTemplate">
+            <summary>
+              Looks up a localized string similar to Product &quot;{0}&quot; was added to cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.ConfirmedUser">
+            <summary>
+              Looks up a localized string similar to User is already confirmed.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.DefaultTimeZoneId">
+            <summary>
+              Looks up a localized string similar to UTC.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.EmailExists">
+            <summary>
+              Looks up a localized string similar to User  with such email is already exists.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.EmptyFieldMessage">
+            <summary>
+              Looks up a localized string similar to This field cannot be empty...
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.FailedEnteringDescription">
+            <summary>
+              Looks up a localized string similar to Not less than 5 and not more than 300 symbols.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.FailedEnteringProducName">
+            <summary>
+              Looks up a localized string similar to Not less than 5 and not more than 50 symbols.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectDateValue">
+            <summary>
+              Looks up a localized string similar to Date can not be null.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectEmail">
+            <summary>
+              Looks up a localized string similar to Incorrect Email.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectFirstName">
+            <summary>
+              Looks up a localized string similar to FirstName can not be empty or  less than 2 symbols.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectLastName">
+            <summary>
+              Looks up a localized string similar to LastName can not be empty or  less than 2 symbols.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectLogin">
+            <summary>
+              Looks up a localized string similar to Incorrect login .
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectPassword">
+            <summary>
+              Looks up a localized string similar to Incorrect password.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectPhoneformat">
+            <summary>
+              Looks up a localized string similar to Phone should be in format : +3xxxxxxxxxxx.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.IncorrectToken">
+            <summary>
+              Looks up a localized string similar to Invalid confirmation token.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.LessThanOrEqualToZeroValue">
+            <summary>
+              Looks up a localized string similar to Value can not be less than or equal zerro.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.LoginExists">
+            <summary>
+              Looks up a localized string similar to Login  is already exists.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.NoRootForDelete">
+            <summary>
+              Looks up a localized string similar to You have no rights for delete this product.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.NullOrEmptyValue">
+            <summary>
+              Looks up a localized string similar to Value can not be null.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.NullOrEmptyValueString">
+            <summary>
+              Looks up a localized string similar to String can not be null or empty.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.PasswordNotMatch">
+            <summary>
+              Looks up a localized string similar to Passwords must match.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.PasswordDoNotMatch">
+            <summary>
+              Looks up a localized string similar to Password does not match the confirm password.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.RegExpressionPhone">
+            <summary>
+              Looks up a localized string similar to ^((8|\+3)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$.
+            </summary>
+        </member>
+        <member name="P:MediaShop.Common.Properties.Resources.UserNotFound">
+            <summary>
+              Looks up a localized string similar to User not found.
+            </summary>
+        </member>
+    </members>
+</doc>

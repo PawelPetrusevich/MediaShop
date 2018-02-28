@@ -1,0 +1,1079 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaShop.BusinessLogic</name>
+    </assembly>
+    <members>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.Configuration.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:MediaShop.BusinessLogic.ExtensionMethods.Configuration"/> class.
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.Configuration.GetConfig">
+            <summary>
+            Create the configuration map that contains mode and other optional configuration details.
+            </summary>
+            <returns>Dictionary contains configuration details</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.Configuration.GetAPIContext(System.String)">
+            <summary>
+            Returns APIContext object
+            </summary>
+            <param name="accessToken">accessToken</param>
+            <returns>new ApiContext</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.Configuration.GetAccessToken">
+            <summary>
+            Create accessToken
+            </summary>
+            <returns>accessToken</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods">
+            <summary>
+            Class with Methods for file processing
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetProtectedImage(System.Byte[])">
+            <summary>
+            Get protected copy of image in original size
+            </summary>
+            <param name="originalImageByte">original file in byte[]</param>
+            <returns>Protected file</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetCompressedImage(System.Byte[])">
+            <summary>
+            Get compressed copy of image
+            </summary>
+            <param name="originalImageByte">original file in byte[]</param>
+            <returns>compressed file</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.ConvertTo``1(System.Drawing.ImageConverter,System.Object)">
+            <summary>
+            converter to type 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="converter"></param>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetProtectedMusic(System.Byte[])">
+            <summary>
+            creat a protected product
+            </summary>
+            <param name="originalMusicByte">original music byte array</param>
+            <returns>protected music byte array</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetMimeFromByteArray(System.Byte[])">
+            <summary>
+            MIMY Type whith magic number
+            </summary>
+            <param name="data">file in byte array</param>
+            <returns>Product Type</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetProtectedVideo(System.Byte[])">
+            <summary>
+            Make Protected video
+            </summary>
+            <param name="originalVideoInBytes">byte array whith original video</param>
+            <returns>return byte array</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetProtectedVideoAsync(System.Byte[],System.Web.HttpContext)">
+            <summary>
+            Make Protected video
+            </summary>
+            <param name="originalVideoInBytes">byte array whith original video</param>
+            <returns>return byte array</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetCompresedVideoFrame(System.Byte[])">
+            <summary>
+            creat video frame
+            </summary>
+            <param name="originalVideoBytes">byte aaray whith original file</param>
+            <returns>frame</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.ExtensionMethods.ExtensionProductMethods.GetCompresedVideoFrameAsync(System.Byte[],System.Web.HttpContext)">
+            <summary>
+            creat video frame for async methods
+            </summary>
+            <param name="originalVideoBytes">byte aaray whith original file</param>
+            <returns>frame</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.NInjectProfile">
+            <summary>
+            Class NInjectProfile.
+            </summary>
+            <seealso cref="T:Ninject.Modules.NinjectModule" />
+        </member>
+        <member name="M:MediaShop.BusinessLogic.NInjectProfile.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.AddContentInCart">
+            <summary>
+              Looks up a localized string similar to Content is not add in cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.BadAddPayment">
+            <summary>
+              Looks up a localized string similar to Payment is not add in repository.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.BadDeserializer">
+            <summary>
+              Looks up a localized string similar to Operation deserialization is not successful.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.CompressedAudio">
+             <summary>
+               Looks up a localized string similar to iVBORw0KGgoAAAANSUhEUgAADAEAAA9CCAYAAABqi15lAAAACXBIWXMAAC4jAAAuIwF4pT92AAAK
+            T2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AU
+            kSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXX
+            Pues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgAB
+            eNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAt
+            AGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3
+            AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEO [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ConfirmationError">
+            <summary>
+              Looks up a localized string similar to You did not confirm your registration. Look for confirmation letter  on your email!.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ContentAlreadyBougth">
+            <summary>
+              Looks up a localized string similar to This content already bougth for current user.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.CountContentInCartIsNull">
+            <summary>
+              Looks up a localized string similar to Count content in can not be null.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.CountOfTryToEmailSendExceptionMessage">
+            <summary>
+              Looks up a localized string similar to Email not sent after {0} attempted.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.DefaultNotificationTitle">
+            <summary>
+              Looks up a localized string similar to Media shop.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.DeleteContentFromCart">
+            <summary>
+              Looks up a localized string similar to Content is not delete from cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.DeleteProductError">
+            <summary>
+              Looks up a localized string similar to Delete product error.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.DeleteWithNullId">
+            <summary>
+              Looks up a localized string similar to An attempt to delete with a null identifier.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ErrorGettingMime">
+            <summary>
+              Looks up a localized string similar to Error getting mime for an empty file.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ExistContentInCart">
+            <summary>
+              Looks up a localized string similar to Content already exist in cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ExistPayment">
+            <summary>
+              Looks up a localized string similar to Payment already exist.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.ExistProductInDataBase">
+            <summary>
+              Looks up a localized string similar to Product is not exist.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.FailedOperationPayment">
+            <summary>
+              Looks up a localized string similar to Operation Payment was failed.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.GetProductError">
+            <summary>
+              Looks up a localized string similar to Error retrieving product by ID.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.GetWithNullId">
+            <summary>
+              Looks up a localized string similar to An attempt to get with a null identifier.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.imageType">
+            <summary>
+              Looks up a localized string similar to &quot;image/gif&quot;,
+                           &quot;image/jpeg&quot;,
+                           &quot;image/pjpeg&quot;,
+                           &quot;image/png&quot;,
+                           &quot;image/x-png&quot;,
+                           &quot;image/svg + xml&quot;,
+                           &quot;image/tiff&quot;,
+                           &quot;image/vnd.microsoft.icon&quot;,
+                           &quot;image/vnd.wap.wbmp&quot;,
+                           &quot;image/webp&quot;.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvaliContentCartValueOfPrice">
+            <summary>
+              Looks up a localized string similar to Total amount or price of content is not actual.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidAddOperationDefrayal">
+            <summary>
+              Looks up a localized string similar to Invalid operation add object Defrayal.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidContentId">
+            <summary>
+              Looks up a localized string similar to Invalid content identificator.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidDeleteOperationDefrayal">
+            <summary>
+              Looks up a localized string similar to Invalid operation delete object Defrayal.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidIdValue">
+            <summary>
+              Looks up a localized string similar to Incorrect id value.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidTransactionBuyContent">
+            <summary>
+              Looks up a localized string similar to Purchase transaction is not successfully.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidTransactionRewardSeller">
+            <summary>
+              Looks up a localized string similar to Reward seller transaction is not successfully.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.InvalidTransactionWriteDownPersentageStore">
+            <summary>
+              Looks up a localized string similar to Write down persentage for store is not successfully.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.LessThanOrEqualToZeroValue">
+            <summary>
+              Looks up a localized string similar to Value can not be less than or equal zerro.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.MAX_CONTENT">
+            <summary>
+              Looks up a localized string similar to 256.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.MaxHeightCompressedImage">
+            <summary>
+              Looks up a localized string similar to 300.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.MaxWidthCompressedImage">
+            <summary>
+              Looks up a localized string similar to 300.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.MediaShopMailAddress">
+            <summary>
+              Looks up a localized string similar to noreply.mediashop@gmail.com.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.MediaShopMailPassword">
+            <summary>
+              Looks up a localized string similar to ayTYh?2-3xtUB26j.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.musicType">
+            <summary>
+              Looks up a localized string similar to &quot;audio/basic&quot;,
+                           &quot;audio/L24&quot;,
+                           &quot;audio/mp4&quot;,
+                           &quot;audio/aac&quot;,
+                           &quot;audio/mpeg&quot;,
+                           &quot;audio/ogg&quot;,
+                           &quot;audio/vorbis&quot;,
+                           &quot;audio/x - ms - wma&quot;,
+                           &quot;audio/x - ms - wax&quot;,
+                           &quot;audio/vnd.rn - realaudio&quot;,
+                           &quot;audio/vnd.wave&quot;,
+                           &quot;audio/webm&quot;.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NoRootForDelete">
+            <summary>
+              Looks up a localized string similar to You have no rights for delete this product.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NotApprovedOperationPayment">
+            <summary>
+              Looks up a localized string similar to Operation payment was Created but not Approved.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NotExistContentInCart">
+            <summary>
+              Looks up a localized string similar to Content is not exist in Cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NotFoundProduct">
+            <summary>
+              Looks up a localized string similar to Product not found with this ID..
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NotSubscribedUserMessage">
+            <summary>
+              Looks up a localized string similar to User has not been subscribed to receive notification.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NullModelDefrayal">
+            <summary>
+              Looks up a localized string similar to Object type Defrayal is null .
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NullOrEmptyContent">
+            <summary>
+              Looks up a localized string similar to Content can not be null.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NullOrEmptyValue">
+            <summary>
+              Looks up a localized string similar to Value can not be null.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.NullOrEmptyValueString">
+            <summary>
+              Looks up a localized string similar to String can not be null or empty.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.PaymentIsNullOrEmpty">
+            <summary>
+              Looks up a localized string similar to Payment not found.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.RegisterUserMailBody">
+            <summary>
+              Looks up a localized string similar to It&apos;s registration message from Media shop. Follow the link to continue: {0}.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.StateContentError">
+            <summary>
+              Looks up a localized string similar to State of Content is not valid.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.TemplateFileNotFoundExceptionMessage">
+            <summary>
+              Looks up a localized string similar to Template file {0} not found.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UnknowProductType">
+            <summary>
+              Looks up a localized string similar to Product has unknow type.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UnspecifiedPathToTheMessageTemplate">
+            <summary>
+              Looks up a localized string similar to Unspecified path in {0} to the message template {1}..
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UpdateContentInCart">
+            <summary>
+              Looks up a localized string similar to Content is not update in cart.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UpdateProductError">
+            <summary>
+              Looks up a localized string similar to Update  product error.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UploadProductError">
+            <summary>
+              Looks up a localized string similar to Upload product error.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.UserNotFound">
+            <summary>
+              Looks up a localized string similar to User not found with this ID.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.videoType">
+            <summary>
+              Looks up a localized string similar to &quot;video/mpeg&quot;,
+                           &quot;video/mp4&quot;,
+                           &quot;video/ogg&quot;,
+                           &quot;video/quicktime&quot;,
+                           &quot;video/webm&quot;,
+                           &quot;video/x - ms - wmv&quot;,
+                           &quot;video/x - flv&quot;,
+                           &quot;video/3gpp&quot;,
+                           &quot;video/3gpp2&quot;.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.WaterMark">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MediaShop.BusinessLogic.Properties.Resources.WatermarkOpacity">
+            <summary>
+              Looks up a localized string similar to 0,5.
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.BannedService.SetFlagIsBannedAsync(System.Int64,System.Boolean)">
+            <summary>
+            Set or remove flag banned
+            </summary>
+            <param name="id"></param>
+            <param name="flag"></param>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.EmailService">
+            <summary>
+            Email sender service
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.EmailService.SendConfirmation(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Method for send account confirmation
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model">Confirmation model</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.EmailService.SendRestorePwdLink(MediaShop.Common.Dto.Messaging.AccountPwdRestoreDto)">
+            <summary>
+            Method for send restore link
+            </summary>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.EmailTemplatePathException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotificationExceptions.CountOfTryToEmailSendException"></exception>
+            <param name="model"></param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.EmailService.SendEmail(MimeKit.MimeMessage,System.Int32)">
+            <summary>
+            Method trying sand email
+            </summary>
+            <param name="message">MimeMessage message</param>
+            <param name="tryCount">Count of attempts </param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PermissionService.SetPermission(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Set permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PermissionService.RemovePermission(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Remove permission
+            </summary>
+            <param name="permissionDto">Permission data</param>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PermissionService.RemovePermissionAsync(MediaShop.Common.Dto.User.UserDto)">
+            <summary>
+            Remove permission
+            </summary>
+            <param name="permissionDto">Permissions data</param>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.ProductService">
+            <summary>
+            class ProductService.
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.#ctor(MediaShop.Common.Interfaces.Repositories.IProductRepository,MediaShop.Common.Interfaces.Repositories.ICartRepository,MediaShop.Common.Interfaces.Repositories.IAccountRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.BusinessLogic.Services.ProductService"/> class.
+            </summary>
+            <param name="repository">repository</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.UploadProducts(MediaShop.Common.Dto.Product.UploadProductModel,System.Int64)">
+            <summary>
+            Загрузка файла на сервер
+            </summary>
+            <param name="uploadModels">Модель формы загрузки</param>
+            <returns>Возвращаем модель для отображения</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.UploadProductsAsync(MediaShop.Common.Dto.Product.UploadProductModel,System.Int64)">
+            <summary>
+            Async service for upload product
+            </summary>
+            <param name="uploadModels">UploadProductModel</param>
+            <returns>Task ProductDTO</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.SoftDeleteById(System.Int64,System.Int64)">
+            <summary>
+            метод удаления продукта
+            </summary>
+            <param name="id">id of product</param>
+            <returns>ProductDto</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.SoftDeleteByIdAsync(System.Int64,System.Int64)">
+            <summary>
+            метод удаления продукта
+            </summary>
+            <param name="id">id of product</param>
+            <param name="creatorId">id создателя продукта</param>
+            <returns>ProductDto</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.Find(System.Collections.Generic.List{MediaShop.Common.Dto.Product.ProductSearchModel})">
+            <summary>
+            поиск согласно уловию 
+            </summary>
+            <param name="conditionsList">принимаем условие</param>
+            <returns>возрощаем список product</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.FindAsync(System.Collections.Generic.List{MediaShop.Common.Dto.Product.ProductSearchModel})">
+            <summary>
+            Async Find Methods
+            </summary>
+            <param name="conditionsList">принимаем условие</param>
+            <returns>возрощаем список product</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetListPurshasedProducts(System.Int64)">
+            <summary>
+            Get list purshased products
+            </summary>
+            <param name="userId">users id</param>
+            <returns>Список куленого контента</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetListOnSale">
+            <summary>
+            Get list products on sale
+            </summary>
+            <returns>Список продуктов для продажи</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetListOnSaleAsync">
+            <summary>
+            Get list products on sale
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> список продуктов для продажи</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetOriginalPurshasedProduct(System.Int64,System.Int64)">
+            <summary>
+            Get original purshased product
+            </summary>
+            <param name="userId">users id</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetOriginalPurshasedProductAsync(System.Int64,System.Int64)">
+            <summary>
+            Get original purshased product Async methods
+            </summary>
+            <param name="userId">users id</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetById(System.Int64)">
+            <summary>
+            Получение информации по ID
+            </summary>
+            <param name="id">id of product</param>
+            <returns>ProductDto</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.ProductService.GetUploadProductListAsync(System.Int64)">
+            <summary>
+            Get list purshased products
+            </summary>
+            <param name="userId">users id</param>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.AccountService">
+            <summary>
+            Class with user service business logic.
+            </summary>
+            <seealso cref="T:MediaShop.Common.Interfaces.Services.IAccountService" />
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.#ctor(MediaShop.Common.Interfaces.Services.IAccountFactoryRepository,MediaShop.Common.Interfaces.Services.IEmailService,FluentValidation.IValidator{MediaShop.Common.Dto.User.RegisterUserDto},MediaShop.Common.Interfaces.Services.IAccountTokenFactoryValidator)">
+            <summary>
+            account service
+            Initializes a new instance of the <see cref="T:MediaShop.BusinessLogic.Services.AccountService"/> class.
+            </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.FindUserAsync(System.String,System.String)">
+            <summary>
+            Find user for login
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.Register(MediaShop.Common.Dto.User.RegisterUserDto)">
+            <summary>
+            Registers the user.
+            </summary>
+            <param name="userModel">The user to register.</param>
+            <returns><c>Account </c> if succeeded, <c>null</c> otherwise.</returns>
+            <exception cref="T:MediaShop.Common.Exceptions.ExistingLoginException">Throws when user with such login already exists</exception>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.ConfirmRegistration(MediaShop.Common.Dto.Messaging.AccountConfirmationDto)">
+            <summary>
+            Confirm user registration
+            </summary>
+            <param name="email">User email</param>
+            <param name="id">id user</param>
+            <returns><c>account</c> if succeeded</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.Login(MediaShop.Common.Dto.User.LoginDto)">
+            <summary>
+            Login user
+            </summary>
+            <param name="data">Login data</param>
+            <returns><c>Authorised user</c></returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.InitRecoveryPassword(MediaShop.Common.Dto.Messaging.ForgotPasswordDto)">
+            <summary>
+            Init procedure password recovery
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <param name="email">Account Email</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.InitRecoveryPasswordAsync(MediaShop.Common.Dto.Messaging.ForgotPasswordDto)">
+            <summary>
+            Init procedure password recovery
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <param name="email">Account Email</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.RecoveryPassword(MediaShop.Common.Dto.User.ResetPasswordDto)">
+            <summary>
+            Reset user password  for recovery
+            </summary>
+            <param name="email">user email</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.User.ConfirmationTokenException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.AccountService.RecoveryPasswordAsync(MediaShop.Common.Dto.User.ResetPasswordDto)">
+            <summary>
+            Reset user password  for recovery
+            </summary>
+            <param name="email">user email</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.User.ConfirmationTokenException"></exception>
+            <returns>account</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MediaShop.BusinessLogic.Services.AccountService.GetAllUsers" -->
+        <member name="T:MediaShop.BusinessLogic.Services.NotificationSubscribedUserService">
+            <summary>
+            Service for subscribe user to receive notifications
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.NotificationSubscribedUserService.#ctor(MediaShop.Common.Interfaces.Repositories.INotificationSubscribedUserRepository)">
+            <summary>
+            Initializes a new instance of the  <see cref="T:MediaShop.BusinessLogic.Services.NotificationSubscribedUserService"/> class.
+            </summary>
+            <param name="subscribedUserStore">Subscribed users repository</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.NotificationSubscribedUserService.GetSubscribe(MediaShop.Common.Dto.NotificationSubscribedUserDto)">
+            <summary>
+            Get user subscribe
+            </summary>
+            <param name="subscribeModel">subscribe model</param>
+            <returns>User subscribtion</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.NotificationSubscribedUserService.GetSubscribeAsync(MediaShop.Common.Dto.NotificationSubscribedUserDto)">
+            <summary>
+            Get user subscribe
+            </summary>
+            <param name="subscribeModel">subscribe model</param>
+            <returns>User subscribtion</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.PayPalPaymentService">
+            <summary>
+            Class PaymentService
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.#ctor(MediaShop.Common.Interfaces.Repositories.IPayPalPaymentRepository,MediaShop.Common.Interfaces.Repositories.IDefrayalRepository,MediaShop.Common.Interfaces.Services.ICartService{MediaShop.Common.Models.ContentCartDto})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.BusinessLogic.Services.PayPalPaymentService"/> class.
+            </summary>
+            <param name="paymentRepository">repository IPayPalPaymentRepository</param>
+            <param name="defrayalRepository">repository IDefrayalRepository</param>
+            <param name="cartService">service ICartService</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.AddPayment(PayPal.Api.Payment,System.Int64)">
+            <summary>
+            Add object payment in repository
+            </summary>
+            <param name="payment">object Payment after decerializer</param>
+            <param name="userId">userId</param>
+            <returns>object payment</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.AddPaymentAsync(PayPal.Api.Payment,System.Int64)">
+            <summary>
+            Add object payment in repository
+            </summary>
+            <param name="payment">object Payment after decerializer</param>
+            <param name="userId">userId</param>
+            <returns>object payment</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.ExistInPayment(System.String,System.Int64)">
+            <summary>
+            Checking the existence of payment in repository
+            </summary>
+            <param name="paymentId">payment id</param>
+            <param name="userId">userId</param>
+            <returns>true - payment exist in repository
+            false - payment doesn`t exist in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.ExistInPaymentAsync(System.String,System.Int64)">
+            <summary>
+            Async checking the existence of payment in repository
+            </summary>
+            <param name="paymentId">payment id</param>
+            <param name="userId">userId</param>
+            <returns>true - payment exist in repository
+            false - payment doesn`t exist in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.CreatePayPalPaymentDto(PayPal.Api.Payment)">
+            <summary>
+            Method for create PayPalPaymentDto
+            </summary>
+            <param name="payment">payment</param>
+            <returns>object typeof PayPalPaymentDto</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.SetStateItems(PayPal.Api.Payment,MediaShop.Common.Enums.CartEnums.StateCartContent,System.Int64)">
+            <summary>
+            Method for set state item all product in payment
+            </summary>
+            <param name="payment">payment</param>
+            <param name="state">state </param>
+            <param name="userId">userId</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.SetStateItemsAsync(PayPal.Api.Payment,MediaShop.Common.Enums.CartEnums.StateCartContent,System.Int64)">
+            <summary>
+            Async method for set state item all product in payment
+            </summary>
+            <param name="payment">payment</param>
+            <param name="state">state </param>
+            <param name="userId">userId</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.></returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.DeleteDefrayal(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Method for delete object typeof DefrayalDbModel in repository
+            </summary>
+            <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+            <returns>object DefrayalDbModel after delete in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.DeleteDefrayalAsync(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Async method for delete object typeof DefrayalDbModel in repository
+            </summary>
+            <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+            <returns>object DefrayalDbModel after delete in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.AddInDefrayal(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Method for delete object typeof DefrayalDbModel in repository
+            </summary>
+            <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+            <returns>object DefrayalDbModel after add in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.AddInDefrayalAsync(MediaShop.Common.Models.PaymentModel.DefrayalDbModel)">
+            <summary>
+            Method for delete object typeof DefrayalDbModel in repository
+            </summary>
+            <param name="modelDefrayal">object typeof DefrayalDbModel</param>
+            <returns>object DefrayalDbModel after add in repository</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.GetPayment(MediaShop.Common.Models.Cart,System.String)">
+            <summary>
+            Create and return new Payment
+            </summary>
+            <param name="cart">user Cart</param>
+            <param name="baseUrl">base uri of Requst</param>
+            <returns>created Payment</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.ExecutePayment(System.String,System.Int64)">
+            <summary>
+            Executes, or completes, a PayPal payment that the payer has approved
+            </summary>
+            <param name="paymentId">paymentId</param>
+            <param name="userId">users id</param>
+            <returns>Executed Payment</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.ExecutePaymentAsync(System.String,System.Int64)">
+            <summary>
+            Executes, or completes, a PayPal payment that the payer has approved
+            </summary>
+            <param name="paymentId">paymentId</param>
+            <param name="userId">users id</param>
+            <returns>Executed Payment</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.GetRedirectUrls(System.String)">
+            <summary>
+            Get new redirectUrls
+            </summary>
+            <param name="baseUrl">base Uri of Request</param>
+            <returns>RedirectUrls</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.GetItemList(System.Collections.Generic.IEnumerable{MediaShop.Common.Models.ContentCartDto})">
+            <summary>
+            Get created ItemList from contentCart
+            </summary>
+            <param name="contentCart">content in Cart</param>
+            <returns>ItemList</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.PayPalPaymentService.GetTax(System.Decimal)">
+            <summary>
+            Get tax for payment
+            </summary>
+            <param name="price">price of content</param>
+            <returns>tax of payment</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.CartService">
+            <summary>
+            Service for work with cart
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.#ctor(MediaShop.Common.Interfaces.Repositories.ICartRepository,MediaShop.Common.Interfaces.Repositories.IProductRepository,MediaShop.Common.Interfaces.Services.INotificationService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MediaShop.BusinessLogic.Services.CartService"/> class.
+            </summary>
+            <param name="contentCartRepository">instance repository CartRepository</param>
+            <param name="productRepository">instance repository ProductRepository</param>
+            <param name="notificationService">instance service NotificationService</param>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.AddInCart(System.Int64,System.Int64)">
+            <summary>
+            Add new item in cart with return save item for update view
+            </summary>
+            <param name="contentId">contents identifier</param>
+            <param name="userId">users identifier</param>
+            <returns>this save item</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.AddInCartAsync(System.Int64,System.Int64)">
+            <summary>
+            Async add new item in cart with return save item for update view
+            </summary>
+            <param name="contentId">contents identifier</param>
+            <param name="userId">users identifier</param>
+            <returns>this save item</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteContent(MediaShop.Common.Models.ContentCartDto)">
+            <summary>
+            Method for deleting selected ContentCart
+            </summary>
+            <param name="model">model ContentCartDto for delete</param>
+            <returns>return deleting  model element</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteContentAsync(MediaShop.Common.Models.ContentCartDto)">
+            <summary>
+            Method for deleting selected ContentCart
+            </summary>
+            <param name="model">model ContentCartDto for delete</param>
+            <returns>return deleting  model element</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteContentAsync(System.Int64)">
+            <summary>
+            Method for deleting selected ContentCart
+            </summary>
+            <param name="id">ContentCart Id for delete</param>
+            <returns>return count</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteOfCart(System.Collections.Generic.ICollection{System.Int64})">
+            <summary>
+            Method for deleting selected ContentCartDto
+            </summary>
+            <param name="collectionId">collection content id</param>
+            <returns>collection of remote objects</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteOfCart(System.Int64)">
+            <summary>
+            Method for deleting Content from cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart after clearing</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.DeleteOfCartAsync(System.Int64)">
+            <summary>
+            Method for deleting Content from cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart after clearing</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.ExistInCart(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Checking the existence of content in cart
+            </summary>
+            <param name="contentId">content id</param>
+            <param name="userId">user identifier</param>
+            <param name="contentState">content state</param>
+            <returns>true - content exist in cart
+            false - content doesn`t exist in cart</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.ExistInCartAsync(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Async checking the existence of content in cart
+            </summary>
+            <param name="contentId">content id</param>
+            <param name="userId">user identifier</param>
+            <param name="contentState">content state</param>
+            <returns>true - content exist in cart
+            false - content doesn`t exist in cart</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetContent(System.Int64)">
+            <summary>
+            Find items in a cart by user Id and return a item collection
+            without state InPaid and InBought
+            </summary>
+            <param name="id">user Id</param>
+            <returns> shopping cart for a user </returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetContentAsync(System.Int64)">
+            <summary>
+            Find items in a cart by user Id and return a item collection
+            without state InPaid and InBought
+            </summary>
+            <param name="id">user Id</param>
+            <returns> shopping cart for a user </returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.SetState(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Method for check object as Bought
+            </summary>
+            <param name="contentId">contents object</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>update objects state</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.SetStateAsync(System.Int64,System.Int64,MediaShop.Common.Enums.CartEnums.StateCartContent)">
+            <summary>
+            Async method for check object as Bought
+            </summary>
+            <param name="contentId">contents object</param>
+            <param name="userId">users identifier</param>
+            <param name="contentState">contents state</param>
+            <returns>object with update state</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetCart(System.Int64)">
+            <summary>
+            Get created Cart model object
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetCartAsync(System.Int64)">
+            <summary>
+            Get created Cart model object
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetCountItems(System.Int64)">
+            <summary>
+            Get count items for User
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Count Items in cart</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetCountItems(System.Collections.Generic.IEnumerable{MediaShop.Common.Models.ContentCartDto})">
+            <summary>
+            Get count items
+            </summary>
+            <param name="cart">Collection ContentCartDto</param>
+            <returns>Count Items</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetPrice(System.Int64)">
+            <summary>
+            Get sum price items for User
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Sum price</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.CartService.GetPrice(System.Collections.Generic.IEnumerable{MediaShop.Common.Models.ContentCartDto})">
+            <summary>
+            Get sum price items typeof ContentCartDto
+            </summary>
+            <param name="cart">Collection ContentCartDto</param>
+            <returns>Sum price</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.UserService.SoftDeleteByUser(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="idUser"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.UserService.SoftDeleteByUserAsync(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="idUser"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.UserService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            Delete user by setting flag deleted in model account 
+            </summary>
+            <param name="idUser"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.UserService.GetUserInfo(System.Int64)">
+            <summary>
+            Get user information
+            </summary>
+            <param name="idUser"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.UserService.GetUserInfoAsync(System.Int64)">
+            <summary>
+            Get user information
+            </summary>
+            <param name="idUser"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:MediaShop.Common.Exceptions.NotFoundUserException"></exception>
+            <returns>account</returns>
+        </member>
+        <member name="T:MediaShop.BusinessLogic.Services.NotificationService">
+            <summary>
+            Service for send notifications to user
+            </summary>
+        </member>
+        <member name="M:MediaShop.BusinessLogic.Services.NotificationService.#ctor(MediaShop.Common.Interfaces.Repositories.INotificationSubscribedUserRepository,MediaShop.Common.Interfaces.Repositories.INotificationRepository,FluentValidation.IValidator{MediaShop.Common.Dto.Messaging.NotificationDto},Microsoft.AspNet.SignalR.IHubContext{MediaShop.Common.Interfaces.INotificationProxy})">
+            <summary>
+            Initializes a new instance of the  <see cref="T:MediaShop.BusinessLogic.Services.NotificationService"/> class.
+            </summary>
+            <param name="subscribedUserStore">Repository subscribed users</param>
+            <param name="notifcationStore">Repository of notifications</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,22 @@
+<div class="container" *ngIf = "productList.length > 0">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let product of productList">
+        <td>{{ContentType[product.ProductType]}}</td>
+        <td>{{product.ProductName}}</td>
+        <td><input type = "button" class="btn btn-primary" value="Info" (click) = "ToInfo(product.Id)"/></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf = "productList.length === 0">
+  <h3>You haven`t purshased any product yet</h3>
+</div>

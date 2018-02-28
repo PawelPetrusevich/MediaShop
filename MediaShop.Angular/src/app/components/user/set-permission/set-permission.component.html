@@ -1,0 +1,68 @@
+<h2>USER</h2>
+
+
+<div *ngIf="user | async as user">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Id: </label>
+        </div>
+        <div class="col-md-6">
+          {{ user.Id }}
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+            <label>Login: </label>
+          </div>
+          <div class="col-md-6">
+            {{ user.Login }}
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <label>Email: </label>
+            </div>
+            <div class="col-md-6">
+              {{ user.Email }}
+            </div>
+          </div>
+    </div>
+    <div class="col-md-offset-3 col-md-3 container">
+      <div class="row">
+        <div class="col-md-6">
+          See:
+        </div>
+        <div class="col-md-6">
+          <input type="checkbox" [checked]="see" [(ngModel)]="see" class="checkbox" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          Create:
+        </div>
+        <div class="col-md-6">
+          <input type="checkbox" [checked]="create" [(ngModel)]="create" class="checkbox" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          Delete:
+        </div>
+        <div class="col-md-6">
+          <input type="checkbox" [checked]="del" [(ngModel)]="del" class="checkbox" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="gotoUsers(user,true)">Save</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button  class="btn btn-lg btn-primary btn-block" type="submit"(click)="gotoUsers(user,false)">Back</button>
+    </div>
+  </div>
+</div>

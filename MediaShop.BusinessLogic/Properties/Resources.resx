@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContentInCart" xml:space="preserve">
+    <value>Content is not add in cart</value>
+  </data>
+  <data name="DefaultNotificationTitle" xml:space="preserve">
+    <value>Media shop</value>
+  </data>
+  <data name="DeleteContentFromCart" xml:space="preserve">
+    <value>Content is not delete from cart</value>
+  </data>
+  <data name="DeleteProductError" xml:space="preserve">
+    <value>Delete product error</value>
+  </data>
+  <data name="DeleteWithNullId" xml:space="preserve">
+    <value>An attempt to delete with a null identifier</value>
+  </data>
+  <data name="ExistContentInCart" xml:space="preserve">
+    <value>Content already exist in cart</value>
+  </data>
+  <data name="ExistProductInDataBase" xml:space="preserve">
+    <value>Product is not exist</value>
+  </data>
+  <data name="InvalidContentId" xml:space="preserve">
+    <value>Invalid content identificator</value>
+  </data>
+  <data name="NotExistContentInCart" xml:space="preserve">
+    <value>Content is not exist in Cart</value>
+  </data>
+  <data name="MediaShopMailAddress" xml:space="preserve">
+    <value>noreply.mediashop@gmail.com</value>
+  </data>
+  <data name="LessThanOrEqualToZeroValue" xml:space="preserve">
+    <value>Value can not be less than or equal zerro</value>
+  </data>
+  <data name="GetProductError" xml:space="preserve">
+    <value>Error retrieving product by ID</value>
+  </data>
+  <data name="NotSubscribedUserMessage" xml:space="preserve">
+    <value>User has not been subscribed to receive notification</value>
+  </data>
+  <data name="GetWithNullId" xml:space="preserve">
+    <value>An attempt to get with a null identifier</value>
+  </data>
+  <data name="NullOrEmptyValue" xml:space="preserve">
+    <value>Value can not be null</value>
+  </data>
+  <data name="MediaShopMailPassword" xml:space="preserve">
+    <value>ayTYh?2-3xtUB26j</value>
+  </data>
+  <data name="NullOrEmptyContent" xml:space="preserve">
+    <value>Content can not be null</value>
+  </data>
+  <data name="NullOrEmptyValueString" xml:space="preserve">
+    <value>String can not be null or empty</value>
+  </data>
+  <data name="RegisterUserMailBody" xml:space="preserve">
+    <value>It's registration message from Media shop. Follow the link to continue: {0}</value>
+  </data>
+  <data name="UnknowProductType" xml:space="preserve">
+    <value>Product has unknow type</value>
+  </data>
+  <data name="UpdateContentInCart" xml:space="preserve">
+    <value>Content is not update in cart</value>
+  </data>
+  <data name="StateContentError" xml:space="preserve">
+    <value>State of Content is not valid</value>
+  </data>
+  <data name="InvalidTransactionBuyContent" xml:space="preserve">
+    <value>Purchase transaction is not successfully</value>
+  </data>
+  <data name="InvalidTransactionRewardSeller" xml:space="preserve">
+    <value>Reward seller transaction is not successfully</value>
+  </data>
+  <data name="InvalidTransactionWriteDownPersentageStore" xml:space="preserve">
+    <value>Write down persentage for store is not successfully</value>
+  </data>
+  <data name="UpdateProductError" xml:space="preserve">
+    <value>Update  product error</value>
+  </data>
+  <data name="UploadProductError" xml:space="preserve">
+    <value>Upload product error</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="WaterMark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorGettingMime" xml:space="preserve">
+    <value>Error getting mime for an empty file</value>
+  </data>
+  <data name="MaxHeightCompressedImage" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="MaxWidthCompressedImage" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="WatermarkOpacity" xml:space="preserve">
+    <value>0,5</value>
+  </data>
+  <data name="MAX_CONTENT" xml:space="preserve">
+    <value>256</value>
+    <comment>размер заголовка файла</comment>
+  </data>
+  <data name="imageType" xml:space="preserve">
+    <value>"image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png",
+                "image/x-png",
+                "image/svg + xml",
+                "image/tiff",
+                "image/vnd.microsoft.icon",
+                "image/vnd.wap.wbmp",
+                "image/webp"</value>
+    <comment>mime type for image</comment>
+  </data>
+  <data name="musicType" xml:space="preserve">
+    <value>"audio/basic",
+                "audio/L24",
+                "audio/mp4",
+                "audio/aac",
+                "audio/mpeg",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/x - ms - wma",
+                "audio/x - ms - wax",
+                "audio/vnd.rn - realaudio",
+                "audio/vnd.wave",
+                "audio/webm"</value>
+    <comment>mime type for music</comment>
+  </data>
+  <data name="videoType" xml:space="preserve">
+    <value>"video/mpeg",
+                "video/mp4",
+                "video/ogg",
+                "video/quicktime",
+                "video/webm",
+                "video/x - ms - wmv",
+                "video/x - flv",
+                "video/3gpp",
+                "video/3gpp2"</value>
+    <comment>mime type for video</comment>
+  </data>
+  <data name="InvalidIdValue" xml:space="preserve">
+    <value>Incorrect id value</value>
+  </data>
+  <data name="BadDeserializer" xml:space="preserve">
+    <value>Operation deserialization is not successful</value>
+  </data>
+  <data name="BadAddPayment" xml:space="preserve">
+    <value>Payment is not add in repository</value>
+  </data>
+  <data name="FailedOperationPayment" xml:space="preserve">
+    <value>Operation Payment was failed</value>
+  </data>
+  <data name="NotApprovedOperationPayment" xml:space="preserve">
+    <value>Operation payment was Created but not Approved</value>
+  </data>
+  <data name="CountContentInCartIsNull" xml:space="preserve">
+    <value>Count content in can not be null</value>
+  </data>
+  <data name="InvaliContentCartValueOfPrice" xml:space="preserve">
+    <value>Total amount or price of content is not actual</value>
+  </data>
+  <data name="PaymentIsNullOrEmpty" xml:space="preserve">
+    <value>Payment not found</value>
+  </data>
+  <data name="NullModelDefrayal" xml:space="preserve">
+    <value>Object type Defrayal is null </value>
+  </data>
+  <data name="InvalidAddOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation add object Defrayal</value>
+  </data>
+  <data name="InvalidDeleteOperationDefrayal" xml:space="preserve">
+    <value>Invalid operation delete object Defrayal</value>
+  </data>
+  <data name="ExistPayment" xml:space="preserve">
+    <value>Payment already exist</value>
+  </data>
+  <data name="CountOfTryToEmailSendExceptionMessage" xml:space="preserve">
+    <value>Email not sent after {0} attempted</value>
+  </data>
+  <data name="TemplateFileNotFoundExceptionMessage" xml:space="preserve">
+    <value>Template file {0} not found</value>
+  </data>
+  <data name="UnspecifiedPathToTheMessageTemplate" xml:space="preserve">
+    <value>Unspecified path in {0} to the message template {1}.</value>
+  </data>
+  <data name="NotFoundProduct" xml:space="preserve">
+    <value>Product not found with this ID.</value>
+  </data>
+  <data name="CompressedAudio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nota07.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found with this ID</value>
+  </data>
+  <data name="NoRootForDelete" xml:space="preserve">
+    <value>You have no rights for delete this product</value>
+  </data>
+  <data name="ContentAlreadyBougth" xml:space="preserve">
+    <value>This content already bougth for current user</value>
+  </data>
+  <data name="ConfirmationError" xml:space="preserve">
+    <value>You did not confirm your registration. Look for confirmation letter  on your email!</value>
+  </data>
+</root>

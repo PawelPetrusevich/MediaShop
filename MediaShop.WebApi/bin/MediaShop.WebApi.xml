@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaShop.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:MediaShop.WebApi.App_Start.NinjectWebCommon">
+            <summary>
+            Bootstrapper for the application.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.App_Start.NinjectWebCommon.Start">
+            <summary>
+            Starts the application
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.App_Start.NinjectWebCommon.Stop">
+            <summary>
+            Stops the application.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.App_Start.NinjectWebCommon.CreateKernel">
+            <summary>
+            Creates the kernel that will manage your application.
+            </summary>
+            <returns>The created kernel.</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.App_Start.NinjectWebCommon.RegisterServices(Ninject.IKernel)">
+            <summary>
+            Load your modules or register your services here!
+            </summary>
+            <param name="kernel">The kernel.</param>
+        </member>
+        <member name="T:MediaShop.WebApi.RouteConfig">
+            <summary>
+            Class RouteConfig.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            Registers the routes.
+            </summary>
+            <param name="routes">The routes.</param>
+        </member>
+        <member name="T:MediaShop.WebApi.SwaggerConfig">
+            <summary>
+            Class SwaggerConfig.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.SwaggerConfig.Register">
+            <summary>
+            Registers this instance.
+            </summary>
+        </member>
+        <member name="T:MediaShop.WebApi.WebApiConfig">
+            <summary>
+            Class WebApiConfig.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Registers the specified configuration.
+            </summary>
+            <param name="config">The configuration.</param>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.Get">
+            <summary>
+            Get Cart for User
+            </summary>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.GetAsync">
+            <summary>
+            Get Cart for User
+            </summary>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.AddInCart(System.Int64)">
+            <summary>
+            Method for add content in cart
+            </summary>
+            <param name="contentId">content id</param>
+            <returns>IHttpActionResult</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.AddInCartAsync(System.Int64)">
+            <summary>
+            Method for add content in cart
+            </summary>
+            <param name="contentId">content id</param>
+            <returns>Task<IHttpActionResult></IHttpActionResult></returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.DeleteContent(MediaShop.Common.Models.ContentCartDto)">
+            <summary>
+            Delete content from Cart
+            </summary>
+            <param name="data">Content for delete</param>
+            <returns>Deleted content</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.DeleteContentAsync(MediaShop.Common.Models.ContentCartDto)">
+            <summary>
+            Delete content from Cart
+            </summary>
+            <param name="data">Content for delete</param>
+            <returns>Deleted content</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.DeleteContentAsync(System.Int64)">
+            <summary>
+            Delete content from Cart by content Id
+            </summary>
+            <param name="id">ContentId for delete</param>
+            <returns>Deleted content</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.Delete(System.Int64)">
+            <summary>
+            Delete all content from Cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Content.Controllers.CartController.DeleteAsync(System.Int64)">
+            <summary>
+            Delete all content from Cart
+            </summary>
+            <param name="userId">user Id</param>
+            <returns>Cart</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Payments.Controllers.PaymentController.PayPalPayment(MediaShop.Common.Models.Cart)">
+            <summary>
+            Create paypal payment by Cart
+            </summary>
+            <param name="cart">user Cart</param>
+            <returns>url for payment</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Payments.Controllers.PaymentController.ExecutePayment(System.String,System.String)">
+            <summary>
+            Execute of payment
+            </summary>
+            <param name="paymentId">payment id</param>
+            <param name="token">token</param>
+            <returns>payment Info</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Payments.Controllers.PaymentController.ExecutePaymentAsync(System.String,System.String)">
+            <summary>
+            Execute of payment
+            </summary>
+            <param name="paymentId">payment id</param>
+            <param name="token">token</param>
+            <returns>payment Info</returns>
+        </member>
+        <member name="M:MediaShop.WebApi.Areas.Payments.Controllers.PaymentController.PaymentCancelled(System.String)">
+            <summary>
+            Cancelling paypal payment
+            </summary>
+            <param name="token">token</param>
+            <returns>redirect to Cart</returns>
+        </member>
+        <member name="T:MediaShop.WebApi.Filters.CartExceptionFilterAttribute">
+            <summary>
+            Filter Exceptions for CartController
+            </summary>
+        </member>
+        <member name="T:MediaShop.WebApi.Filters.PayPalPaymentExceptionFilterAttribute">
+            <summary>
+            Filter Exception for PaymentController
+            </summary>
+        </member>
+        <member name="T:MediaShop.WebApi.Global">
+            <summary>
+            Class Global.
+            </summary>
+            <seealso cref="T:System.Web.HttpApplication" />
+        </member>
+        <member name="M:MediaShop.WebApi.Global.Application_Start(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Start event of the Application control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:MediaShop.WebApi.MapperProfile">
+            <summary>
+            Class MapperProfile.
+            </summary>
+            <seealso cref="T:AutoMapper.Profile" />
+        </member>
+        <member name="T:MediaShop.WebApi.NInjectProfile">
+            <summary>
+            внедрение зависимостей
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.NInjectProfile.Load">
+            <summary>
+            Load
+            </summary>
+        </member>
+        <member name="T:MediaShop.WebApi.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ClaimTypeId">
+            <summary>
+              Looks up a localized string similar to Id.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ClaimTypePermission">
+            <summary>
+              Looks up a localized string similar to Permission.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ContentDownloadError">
+            <summary>
+              Looks up a localized string similar to Product not found.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ContentUploadError">
+            <summary>
+              Looks up a localized string similar to Content upload error..
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.DeleteWithNullId">
+            <summary>
+              Looks up a localized string similar to An attempt to delete with a null identifier.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.EmptyAutorizedData">
+            <summary>
+              Looks up a localized string similar to Authorized data is empty.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.EmptyConditionList">
+            <summary>
+              Looks up a localized string similar to Empty condition list.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.EmptyRegisterDate">
+            <summary>
+              Looks up a localized string similar to Data cannot be empty..
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.EmtyData">
+            <summary>
+              Looks up a localized string similar to Data cannot be empty.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ErrorDownload">
+            <summary>
+              Looks up a localized string similar to You cannot download this product.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.ErrorFindService">
+            <summary>
+              Looks up a localized string similar to Error is occurred.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.GetWithNullId">
+            <summary>
+              Looks up a localized string similar to An attempt to get with a null identifier.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.IncorrectData">
+            <summary>
+              Looks up a localized string similar to Incorrect inpute data.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.IncorrectId">
+            <summary>
+              Looks up a localized string similar to Id can not be 0.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.NotFoundNotification">
+            <summary>
+              Looks up a localized string similar to Notifications for user with this id not found.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.NotFoundProduct">
+            <summary>
+              Looks up a localized string similar to Not found product with this ID.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.NotValidNotification">
+            <summary>
+              Looks up a localized string similar to Notification is not valid.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.NullTokenData">
+            <summary>
+              Looks up a localized string similar to You are not authorized.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.UnknowProductType">
+            <summary>
+              Looks up a localized string similar to Product has unknow type.
+            </summary>
+        </member>
+        <member name="P:MediaShop.WebApi.Properties.Resources.UserId">
+            <summary>
+              Looks up a localized string similar to Id.
+            </summary>
+        </member>
+        <member name="M:MediaShop.WebApi.Provider.ApplicationOAuthProvider.GrantResourceOwnerCredentials(Microsoft.Owin.Security.OAuth.OAuthGrantResourceOwnerCredentialsContext)">
+            <summary>
+            Login user
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

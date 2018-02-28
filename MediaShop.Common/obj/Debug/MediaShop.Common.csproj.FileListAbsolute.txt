@@ -1,0 +1,17 @@
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\MediaShop.Common.xml
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\MediaShop.Common.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\MediaShop.Common.pdb
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\AutoMapper.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\AutoMapper.xml
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.csproj.CoreCompileInputs.cache
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.pdb
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.csprojResolveAssemblyReference.cache
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\FluentValidation.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\FluentValidation.xml
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.Properties.Resources.resources
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\obj\Debug\MediaShop.Common.csproj.GenerateResource.Cache
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\PayPal.dll
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Администратор\Documents\MediaShop\MediaShop.Common\bin\Debug\PayPal.xml

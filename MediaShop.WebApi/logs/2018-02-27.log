@@ -1,0 +1,24 @@
+2018-02-27 23:49:57.4502 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-27 23:49:57.4779 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer LnNSnMBGm30Bj3hN9yqLYNBtrUMB1cuqYtD6MblmgeLQN-aPf9l5OzmsMiugbb5MfhA7FZyXl_Tka1lmDrpZxgckwpbY169HKUuXsMyBoIvUsoE1ji_2BsUj3f47j6xOpAA-j1PXeOKdc3RSTe6DNipmCbMkxBe3JrZFAds4Lo2qovV1IAyPDKPnaAz7ueA6dW70g9zbD-gLi9y6IbNrmq1Wrx5TDEEIOG6N1v9fZFSBBqbj78jZnOJ9hWs41B-Catv8lwDTqCX17_8XkKeTUYwwhc6svC5uJldUxys7KitZ2VnnHHY_xO-kSXXutbGMSxuDyJuhAJmMNV4NsD1TKBsqlG549xUSTWxhYRbt3Ak
+Host: localhost:51289
+Referer: http://localhost:4200/product-upload
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-27 23:49:57.4849 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | method name: AddProductAsync, OS: Microsoft Windows NT 10.0.16299.0
+2018-02-27 23:49:57.4849 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | request: http://localhost:51289/api/product/addAsync, Connection: keep-alive
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ru-RU, ru; q=0.9, en-US; q=0.8, en; q=0.7
+Authorization: Bearer LnNSnMBGm30Bj3hN9yqLYNBtrUMB1cuqYtD6MblmgeLQN-aPf9l5OzmsMiugbb5MfhA7FZyXl_Tka1lmDrpZxgckwpbY169HKUuXsMyBoIvUsoE1ji_2BsUj3f47j6xOpAA-j1PXeOKdc3RSTe6DNipmCbMkxBe3JrZFAds4Lo2qovV1IAyPDKPnaAz7ueA6dW70g9zbD-gLi9y6IbNrmq1Wrx5TDEEIOG6N1v9fZFSBBqbj78jZnOJ9hWs41B-Catv8lwDTqCX17_8XkKeTUYwwhc6svC5uJldUxys7KitZ2VnnHHY_xO-kSXXutbGMSxuDyJuhAJmMNV4NsD1TKBsqlG549xUSTWxhYRbt3Ak
+Host: localhost:51289
+Referer: http://localhost:4200/product-upload
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36
+Origin: http://localhost:4200
+
+2018-02-27 23:50:09.0450 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 11559 ms, response: OK
+2018-02-27 23:50:09.0450 | TRACE | MediaShop.WebApi.Filters.LoggingFilterAttribute | executed: 11559 ms, response: OK

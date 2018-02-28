@@ -1,0 +1,3083 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataGenerator</name>
+    </assembly>
+    <members>
+        <member name="T:DataGenerator.AssemblyResolver">
+            <summary>
+            A class to resolve assemblies for scanning.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.AssemblyResolver"/> class.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.AssemblyResolver.Sources">
+            <summary>
+            Gets the assembly sources.
+            </summary>
+            <value>
+            The assembly sources.
+            </value>
+        </member>
+        <member name="P:DataGenerator.AssemblyResolver.Includes">
+            <summary>
+            Gets the include rules.
+            </summary>
+            <value>
+            The include rules.
+            </value>
+        </member>
+        <member name="P:DataGenerator.AssemblyResolver.Excludes">
+            <summary>
+            Gets the exclude rules.
+            </summary>
+            <value>
+            The exclude rules.
+            </value>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.IncludeLoadedAssemblies">
+            <summary>
+            Include the current loaded assemblies as a source.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.IncludeAssemblyFor``1">
+            <summary>
+            Include the assembly from the specified type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type to get assembly from.</typeparam>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.IncludeAssembly(System.Reflection.Assembly)">
+            <summary>
+            Include the specified <see cref="T:System.Reflection.Assembly"/>.
+            </summary>
+            <param name="assembly">The assembly to include.</param>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.IncludeName(System.String)">
+            <summary>
+            Include the assemblies that contain the specified name.
+            </summary>
+            <param name="name">The name to compare.</param>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.ExcludeAssemblyFor``1">
+            <summary>
+            Exclude the assembly from the specified type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type to get assembly from.</typeparam>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.ExcludeAssembly(System.Reflection.Assembly)">
+            <summary>
+            Exclude the specified <see cref="T:System.Reflection.Assembly"/>.
+            </summary>
+            <param name="assembly">The assembly to exclude.</param>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.ExcludeName(System.String)">
+            <summary>
+            Exclude the assemblies that start with the specified name.
+            </summary>
+            <param name="name">The name to compare.</param>
+        </member>
+        <member name="M:DataGenerator.AssemblyResolver.Resolve">
+            <summary>
+            Resolves a list of assemblies using the <see cref="P:DataGenerator.AssemblyResolver.Sources"/>, <see cref="P:DataGenerator.AssemblyResolver.Includes"/>, and <see cref="P:DataGenerator.AssemblyResolver.Excludes"/> rules.
+            </summary>
+            <returns>An enumberable list of assemblies.</returns>
+        </member>
+        <member name="T:DataGenerator.ClassMapping">
+            <summary>
+            Mapping information on how to generate a class
+            </summary>
+        </member>
+        <member name="M:DataGenerator.ClassMapping.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.ClassMapping"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.ClassMapping.#ctor(DataGenerator.Reflection.TypeAccessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.ClassMapping"/> class.
+            </summary>
+            <param name="typeAccessor">The type accessor.</param>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.AutoMap">
+            <summary>
+            Gets or sets a value indicating whether to automatic map properties of the class.
+            </summary>
+            <value>
+              <c>true</c> to automatic map properties; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.Ignored">
+            <summary>
+            Gets or sets a value indicating whether the class is ignored.
+            </summary>
+            <value>
+              <c>true</c> if ignored; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.Mapped">
+            <summary>
+            Gets or sets a value indicating whether <see cref="P:DataGenerator.ClassMapping.AutoMap"/> has completed.
+            </summary>
+            <value>
+              <c>true</c> if AutoMap completed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.Factory">
+            <summary>
+            Gets or sets the instance creation factory.
+            </summary>
+            <value>
+            The instance creation factory.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.TypeAccessor">
+            <summary>
+            Gets or sets the type accessor.
+            </summary>
+            <value>
+            The type accessor.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.Members">
+            <summary>
+            Gets the class mapped members.
+            </summary>
+            <value>
+            The class mapped members.
+            </value>
+        </member>
+        <member name="P:DataGenerator.ClassMapping.SyncRoot">
+            <summary>
+            Gets the synchronize <see langword="lock"/> object.
+            </summary>
+            <value>
+            The synchronize object.
+            </value>
+        </member>
+        <member name="M:DataGenerator.ClassMapping.System#ICloneable#Clone">
+            <summary>
+            Creates a new <see langword="object"/> that is a copy of the current instance.
+            </summary>
+            <returns>
+            A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.ClassMapping.Clone">
+            <summary>
+            Creates a new <see langword="object"/> that is a copy of the current instance.
+            </summary>
+            <returns>
+            A new object that is a copy of this instance.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Configuration">
+            <summary>
+            A class defining the DataGenerator configuration.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Configuration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Configuration"/> class.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Configuration.Assemblies">
+            <summary>
+            Gets the assemblies used by DataGenerator.
+            </summary>
+            <value>
+            The assemblies use by DataGenerator.
+            </value>
+        </member>
+        <member name="P:DataGenerator.Configuration.AutoMap">
+            <summary>
+            Gets or sets a value indicating whether to automatic map properties of the class by default.
+            </summary>
+            <value>
+              <c>true</c> to automatic map properties; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.Configuration.Mapping">
+            <summary>
+            Gets the mapped class definitions.
+            </summary>
+            <value>
+            The mapped class definitions.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Configuration.DataSources">
+            <summary>
+            Gets a list of <see cref="T:DataGenerator.IDataSourceDiscover"/> by scanning the <see cref="P:DataGenerator.Configuration.Assemblies"/>.
+            </summary>
+            <remarks>
+            The result of the assembly scan is cached.  Repeated calls will return results from cache.  Call <see cref="M:DataGenerator.Configuration.ClearCache"/> to re-scan assemblies.
+            </remarks>
+            <returns>The discovered data sources</returns>
+        </member>
+        <member name="M:DataGenerator.Configuration.ClearCache">
+            <summary>
+            Clears the cached data sources.
+            </summary>
+        </member>
+        <member name="T:DataGenerator.Extensions.AssemblyExtensions">
+            <summary>
+            <see cref="T:System.Reflection.Assembly"/> extension methods
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Extensions.AssemblyExtensions.GetTypesAssignableFrom``1(System.Reflection.Assembly)">
+            <summary>
+            Gets the types assignable from <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type to determine whether if it can be assigned.</typeparam>
+            <param name="assembly">The assembly to search types.</param>
+            <returns>An enumerable list of types the are assignable from <typeparamref name="T"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">When assembly is null.</exception>
+        </member>
+        <member name="M:DataGenerator.Extensions.AssemblyExtensions.GetLoadableTypes(System.Reflection.Assembly)">
+            <summary>
+            Gets the public types defined in this assembly that are visible and can be loaded outside the assembly.
+            </summary>
+            <param name="assembly">The assembly to search types.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">assembly</exception>
+        </member>
+        <member name="T:DataGenerator.Extensions.RandomExtensions">
+            <summary>
+            Extension methods for randomization
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Extensions.RandomExtensions.Random``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Gets a random value from the specified <paramref name="list"/>.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="list">The list to get a random value from.</param>
+            <returns>A random value from the list.</returns>
+        </member>
+        <member name="M:DataGenerator.Extensions.RandomExtensions.Random``1(System.Collections.Generic.IList{``0},System.Int32)">
+            <summary>
+            Gets random values from the specified <paramref name="list" />.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="list">The list to get a random value from.</param>
+            <param name="count">The number of random items to return.</param>
+            <returns>
+            Random values from the list.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Extensions.RandomExtensions.Random``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Int32})">
+            <summary>
+            Gets a random value from the specified <paramref name="list" /> using the <paramref name="weightSelector" /> to weight the values.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="list">The list to get a random value from.</param>
+            <param name="weightSelector">The value weight selector.</param>
+            <returns>
+            A random value from the list.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Extensions.RandomExtensions.Random``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Int32},System.Int32)">
+            <summary>
+            Gets random values from the specified <paramref name="list" /> using the <paramref name="weightSelector" /> to weight the values.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+            <param name="list">The list to get a random value from.</param>
+            <param name="weightSelector">The value weight selector.</param>
+            <param name="count">The number of random items to return.</param>
+            <returns>
+            Random values from the list.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Extensions.RandomExtensions.Next(System.Security.Cryptography.RandomNumberGenerator)">
+            <summary>
+            Returns a non-negative random integer.
+            </summary>
+            <param name="generator">The generator.</param>
+            <returns>A 32-bit signed integer that is greater than or equal to 0 and less than MaxValue.</returns>
+        </member>
+        <member name="T:DataGenerator.Fluent.ClassMappingBuilder`1">
+            <summary>
+            Fluent builder for <see cref="P:DataGenerator.Fluent.ClassMappingBuilder`1.ClassMapping"/>.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:DataGenerator.Fluent.ClassMappingBuilder`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Fluent.ClassMappingBuilder`1"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Fluent.ClassMappingBuilder`1.#ctor(DataGenerator.ClassMapping)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Fluent.ClassMappingBuilder`1"/> class.
+            </summary>
+            <param name="classMapping">The class mapping.</param>
+        </member>
+        <member name="P:DataGenerator.Fluent.ClassMappingBuilder`1.ClassMapping">
+            <summary>
+            Gets or sets the class mapping.
+            </summary>
+            <value>
+            The class mapping.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Fluent.ClassMappingBuilder`1.AutoMap(System.Boolean)">
+            <summary>
+            Sets a value indicating whether to automatic map properties of the class.
+            </summary>
+            <param name="value"><c>true</c> to automatic map properties; otherwise, <c>false</c>.</param>
+            <returns>A fluent builder for class mapping.</returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ClassMappingBuilder`1.Factory(System.Func{System.Type,System.Object})">
+            <summary>
+            Sets the instance creation factory <see langword="delegate" />.
+            </summary>
+            <param name="factory">The instance creation factory.</param>
+            <returns>
+            A fluent builder for class mapping.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ClassMappingBuilder`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Start a fluent configuration for the specified <paramref name="property"/>.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="property">The source property to configure.</param>
+            <returns>A fluent member builder for the specified property.</returns>
+        </member>
+        <member name="T:DataGenerator.Fluent.ConfigurationBuilder">
+            <summary>
+            Fluent <see cref="P:DataGenerator.Fluent.ConfigurationBuilder.Configuration"/> builder.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.#ctor(DataGenerator.Configuration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Fluent.ConfigurationBuilder"/> class.
+            </summary>
+            <param name="configuration">The configuration to update.</param>
+        </member>
+        <member name="P:DataGenerator.Fluent.ConfigurationBuilder.Configuration">
+            <summary>
+            Gets the current configuration.
+            </summary>
+            <value>
+            The current configuration.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.IncludeLoadedAssemblies">
+            <summary>
+            Include the current loaded assemblies as a source.
+            </summary>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.IncludeAssemblyFor``1">
+            <summary>
+            Include the assembly from the specified type <typeparamref name="T" />.
+            </summary>
+            <typeparam name="T">The type to get assembly from.</typeparam>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.IncludeAssembly(System.Reflection.Assembly)">
+            <summary>
+            Include the specified <see cref="T:System.Reflection.Assembly" />.
+            </summary>
+            <param name="assembly">The assembly to include.</param>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.IncludeName(System.String)">
+            <summary>
+            Include the assemblies that contain the specified name.
+            </summary>
+            <param name="name">The name to compare.</param>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.ExcludeAssemblyFor``1">
+            <summary>
+            Exclude the assembly from the specified type <typeparamref name="T" />.
+            </summary>
+            <typeparam name="T">The type to get assembly from.</typeparam>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.ExcludeAssembly(System.Reflection.Assembly)">
+            <summary>
+            Exclude the specified <see cref="T:System.Reflection.Assembly" />.
+            </summary>
+            <param name="assembly">The assembly to exclude.</param>
+            <returns>
+            A fluent <see langword="interface"/> to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.ExcludeName(System.String)">
+            <summary>
+            Exclude the assemblies that start with the specified name.
+            </summary>
+            <param name="name">The name to compare.</param>
+            <returns>
+            A fluent builder to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.Entity``1(System.Action{DataGenerator.Fluent.ClassMappingBuilder{``0}})">
+            <summary>
+            Fluent configuration for <see cref="T:DataGenerator.ClassMapping"/>.
+            </summary>
+            <typeparam name="TEntity">The type of the entity for the class mapping.</typeparam>
+            <param name="builder">The fluent builder for <see cref="T:DataGenerator.ClassMapping"/>.</param>
+            <returns>
+            A fluent builder to configure DataGenerator.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="builder"/> parameter is <see langword="null" />.</exception>
+        </member>
+        <member name="M:DataGenerator.Fluent.ConfigurationBuilder.Profile``1">
+            <summary>
+            Add the profile of type <typeparamref name="TProfile"/> to the configuration
+            </summary>
+            <typeparam name="TProfile">The type of the profile.</typeparam>
+            <returns>
+            A fluent builder to configure DataGenerator.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Fluent.ListGeneratorBuilder`1">
+            <summary>
+            A fluent builder for list entity generation.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:DataGenerator.Fluent.ListGeneratorBuilder`1.#ctor(DataGenerator.ClassMapping)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Fluent.ListGeneratorBuilder`1"/> class.
+            </summary>
+            <param name="classMapping">The class mapping.</param>
+        </member>
+        <member name="P:DataGenerator.Fluent.ListGeneratorBuilder`1.GenerateCount">
+            <summary>
+            Gets or sets the generate count.
+            </summary>
+            <value>
+            The generate count.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Fluent.ListGeneratorBuilder`1.Count(System.Int32)">
+            <summary>
+            Set the number entities to generate.
+            </summary>
+            <param name="count">The number of entities to generate..</param>
+            <returns>A fluent builder for class mapping.</returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ListGeneratorBuilder`1.Random(System.Int32,System.Int32)">
+            <summary>
+            Set the <paramref name="min" /> and <paramref name="max" /> range for a random number of entities to generate.
+            </summary>
+            <param name="min">The minimum value in the random range.</param>
+            <param name="max">The maximum value in the random range.</param>
+            <returns>
+            A fluent builder for class mapping.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.ListGeneratorBuilder`1.AutoMap(System.Boolean)">
+            <summary>
+            Sets a value indicating whether to automatic map properties of the class.
+            </summary>
+            <param name="value"><c>true</c> to automatic map properties; otherwise, <c>false</c>.</param>
+            <returns>A fluent builder for class mapping.</returns>
+        </member>
+        <member name="T:DataGenerator.Fluent.MemberConfigurationBuilder`2">
+            <summary>
+            Fluent builder for an entity property.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.#ctor(DataGenerator.MemberMapping)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Fluent.MemberConfigurationBuilder`2"/> class.
+            </summary>
+            <param name="memberMapping">The member mapping.</param>
+        </member>
+        <member name="P:DataGenerator.Fluent.MemberConfigurationBuilder`2.MemberMapping">
+            <summary>
+            Gets the current member mapping.
+            </summary>
+            <value>
+            The current member mapping.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.DataSource``1">
+            <summary>
+            Set the properties generation data source to the specified type.
+            </summary>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.DataSource``1(System.Func{``0})">
+            <summary>
+            Set the properties generation data source to the specified <paramref name="factory"/>.
+            </summary>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <param name="factory">The factory delegate used as the data source.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.DataSource(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            Set the properties generation data source that uses the specified <paramref name="values"/>.
+            </summary>
+            <param name="values">The values to use as the data source.</param>
+            <returns>
+            Fluent builder for an entity property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.DataSource(System.Collections.Generic.IEnumerable{`1},System.Func{`1,System.Int32})">
+            <summary>
+            Set the properties generation data source that uses the specified <paramref name="values" />.
+            </summary>
+            <param name="values">The values to use as the data source.</param>
+            <param name="weightSelector">The random weight selector delegate.</param>
+            <returns>
+            Fluent builder for an entity property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.Ignore(System.Boolean)">
+            <summary>
+            Ignore this property during data generation.
+            </summary>
+            <param name="value">if set to <c>true</c> this property will be ignored.</param>
+            <returns>
+            Fluent builder for an entity property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.Value(System.Func{`0,`1})">
+            <summary>
+            Use the <paramref name="factory"/> value during data generation.
+            </summary>
+            <param name="factory">The factory delegate to get a value from.</param>
+            <returns>
+            Fluent builder for an entity property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.Value(`1)">
+            <summary>
+            Use the specified <paramref name="value" /> during data generation.
+            </summary>
+            <param name="value">The value to use.</param>
+            <returns>
+            Fluent builder for an entity property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.Single">
+            <summary>
+            Generates a new instance of type <typeparamref name="TProperty"/> from the current generator context.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.Single``1">
+            <summary>
+            Generates a new instance of type <typeparamref name="T"/> from the current generator context.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Fluent.MemberConfigurationBuilder`2.List``1(System.Int32)">
+            <summary>
+            Generates multiple new instances of type <typeparamref name="T" /> from the current generator context.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <param name="count">The number of instances to generate.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DataGenerator.GenerateContext">
+            <summary>
+            Data generation context state
+            </summary>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.Generator">
+            <summary>
+            Gets or sets the current generator.
+            </summary>
+            <value>
+            The current generator.
+            </value>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.ClassType">
+            <summary>
+            Gets the type of the class being generated.
+            </summary>
+            <value>
+            The type of the class.
+            </value>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.MemberType">
+            <summary>
+            Gets the type of the member.
+            </summary>
+            <value>
+            The type of the member.
+            </value>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.MemberName">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>
+            The name of the member.
+            </value>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.Depth">
+            <summary>
+            Gets the generation depth.
+            </summary>
+            <value>
+            The generation depth.
+            </value>
+        </member>
+        <member name="P:DataGenerator.GenerateContext.Instance">
+            <summary>
+            Gets the current generated instance.
+            </summary>
+            <value>
+            The current generated instance.
+            </value>
+        </member>
+        <member name="T:DataGenerator.Generator">
+            <summary>
+            Generate intelligent and realistic test data for an object.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Generator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Generator"/> class.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Generator.Configuration">
+            <summary>
+            Gets the generator configuration.
+            </summary>
+            <value>
+            The generator configuration.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Generator.Configure(System.Action{DataGenerator.Fluent.ConfigurationBuilder})">
+            <summary>
+            Configures the generator with specified fluent <paramref name="builder"/>.
+            </summary>
+            <param name="builder">The fluent configuration builder <see langword="delegate"/>.</param>
+        </member>
+        <member name="M:DataGenerator.Generator.Single``1">
+            <summary>
+            Generates a new instance of type <typeparamref name="T"/> with the properties set according to configuration.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A new instance of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+        </member>
+        <member name="M:DataGenerator.Generator.Single``1(System.Action{DataGenerator.Fluent.ClassMappingBuilder{``0}})">
+            <summary>
+            Generates a new instance of type <typeparamref name="T"/> with specified fluent configuration <paramref name="builder"/>.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A new instance of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="builder"/> is <see langword="null" />.</exception>
+        </member>
+        <member name="M:DataGenerator.Generator.List``1">
+            <summary>
+            Generates a random number of type <typeparamref name="T"/> with the properties set according to configuration.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A list of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+        </member>
+        <member name="M:DataGenerator.Generator.List``1(System.Int32,System.Int32)">
+            <summary>
+            Generates a random number between <paramref name="min"/> and <paramref name="max"/> of type <typeparamref name="T"/> with the properties set according to configuration.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A list of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+        </member>
+        <member name="M:DataGenerator.Generator.List``1(System.Int32)">
+            <summary>
+            Generates a <paramref name="count"/> of type <typeparamref name="T"/> with the properties set according to configuration.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A list of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+        </member>
+        <member name="M:DataGenerator.Generator.List``1(System.Action{DataGenerator.Fluent.ListGeneratorBuilder{``0}})">
+            <summary>
+            Generates a list of type <typeparamref name="T"/> with specified fluent configuration <paramref name="builder"/>.
+            </summary>
+            <typeparam name="T">The type to generate.</typeparam>
+            <returns>A list of type <typeparamref name="T"/> with the properties set according to configuration.</returns>
+        </member>
+        <member name="P:DataGenerator.Generator.Default">
+            <summary>
+            Gets the default singleton instance of <see cref="T:DataGenerator.Generator"/>.
+            </summary>
+            <value>The default singleton instance.</value>
+        </member>
+        <member name="M:DataGenerator.Generator.Create(System.Action{DataGenerator.Fluent.ConfigurationBuilder})">
+            <summary>
+            Creates a new <see cref="T:DataGenerator.Generator"/> instance with configuration from the specified <paramref name="builder"/>.
+            </summary>
+            <param name="builder">The fluent configuration builder <see langword="delegate"/>.</param>
+            <returns>A new instance of <see cref="T:DataGenerator.Generator"/>.</returns>
+        </member>
+        <member name="T:DataGenerator.IDataSource">
+            <summary>
+            An <see langword="interface"/> for generating data from a source
+            </summary>
+        </member>
+        <member name="M:DataGenerator.IDataSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>A new value from the data source.</returns>
+        </member>
+        <member name="T:DataGenerator.IDataSourceDiscover">
+            <summary>
+            An <see langword="interface"/> for discoverint data sources
+            </summary>
+        </member>
+        <member name="P:DataGenerator.IDataSourceDiscover.Priority">
+            <summary>
+            Gets the priority of the data source.
+            </summary>
+            <value>
+            The priority of the data source.
+            </value>
+        </member>
+        <member name="M:DataGenerator.IDataSourceDiscover.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext"/> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns><c>true</c> if this data source can be used; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:DataGenerator.IGenerateContext">
+            <summary>
+            An <see langword="interface"/> defining the current generation state
+            </summary>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.Generator">
+            <summary>
+            Gets or sets the current generator.
+            </summary>
+            <value>
+            The current generator.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.ClassType">
+            <summary>
+            Gets the type of the class being generated.
+            </summary>
+            <value>
+            The type of the class.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.MemberType">
+            <summary>
+            Gets the type of the member.
+            </summary>
+            <value>
+            The type of the member.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.MemberName">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>
+            The name of the member.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.Depth">
+            <summary>
+            Gets the generation depth.
+            </summary>
+            <value>
+            The generation depth.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IGenerateContext.Instance">
+            <summary>
+            Gets the current generated instance.
+            </summary>
+            <value>
+            The current generated instance.
+            </value>
+        </member>
+        <member name="T:DataGenerator.IMappingContext">
+            <summary>
+            An <see langword="interface"/> defining the current mapping context.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.IMappingContext.ClassMapping">
+            <summary>
+            Gets the current class mapping.
+            </summary>
+            <value>
+            The current class mapping.
+            </value>
+        </member>
+        <member name="P:DataGenerator.IMappingContext.MemberMapping">
+            <summary>
+            Gets the member mapping.
+            </summary>
+            <value>
+            The member mapping.
+            </value>
+        </member>
+        <member name="T:DataGenerator.IMappingProfile">
+            <summary>
+            An <see langword="interface"/> for mapping a class.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.IMappingProfile.EntityType">
+            <summary>
+            Gets the type of the entity.
+            </summary>
+            <value>
+            The type of the entity.
+            </value>
+        </member>
+        <member name="M:DataGenerator.IMappingProfile.Register(DataGenerator.ClassMapping)">
+            <summary>
+            Registers the specified class mapping.
+            </summary>
+            <param name="classMapping">The class mapping.</param>
+        </member>
+        <member name="T:DataGenerator.MappingContext">
+            <summary>
+            Class mapping context
+            </summary>
+        </member>
+        <member name="M:DataGenerator.MappingContext.#ctor(DataGenerator.ClassMapping,DataGenerator.MemberMapping)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.MappingContext"/> class.
+            </summary>
+            <param name="classMapping">The class mapping.</param>
+            <param name="memberMapping">The member mapping.</param>
+        </member>
+        <member name="P:DataGenerator.MappingContext.ClassMapping">
+            <summary>
+            Gets the current class mapping.
+            </summary>
+            <value>
+            The current class mapping.
+            </value>
+        </member>
+        <member name="P:DataGenerator.MappingContext.MemberMapping">
+            <summary>
+            Gets the member mapping.
+            </summary>
+            <value>
+            The member mapping.
+            </value>
+        </member>
+        <member name="T:DataGenerator.MappingProfile`1">
+            <summary>
+            A <see langword="base"/> class for creating mapping profiles
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="P:DataGenerator.MappingProfile`1.DataGenerator#IMappingProfile#EntityType">
+            <summary>
+            Gets or sets the type of the entity.
+            </summary>
+            <value>
+            The type of the entity.
+            </value>
+        </member>
+        <member name="M:DataGenerator.MappingProfile`1.DataGenerator#IMappingProfile#Register(DataGenerator.ClassMapping)">
+            <summary>
+            Registers the specified class mapping.
+            </summary>
+            <param name="classMapping">The class mapping.</param>
+        </member>
+        <member name="M:DataGenerator.MappingProfile`1.Configure">
+            <summary>
+            Configure the <typeparamref name="TEntity"/> mapping information.
+            </summary>
+        </member>
+        <member name="T:DataGenerator.MemberMapping">
+            <summary>
+            Mapping information for a class member.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.MemberMapping.Ignored">
+            <summary>
+            Gets or sets a value indicating whether the member is ignored.
+            </summary>
+            <value>
+              <c>true</c> if ignored; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.MemberMapping.MemberAccessor">
+            <summary>
+            Gets or sets the member accessor.
+            </summary>
+            <value>
+            The member accessor.
+            </value>
+        </member>
+        <member name="P:DataGenerator.MemberMapping.DataSource">
+            <summary>
+            Gets or sets the data source used for generating values.
+            </summary>
+            <value>
+            The data source used for generating values.
+            </value>
+        </member>
+        <member name="T:DataGenerator.RandomGenerator">
+            <summary>
+            A shared thread-safe instance of <see cref="T:System.Random"/>.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.RandomGenerator.Current">
+            <summary>
+            Gets the thread-safe instance of <see cref="T:System.Random"/>.
+            </summary>
+            <value>
+            The thread-safe instance of <see cref="T:System.Random"/>.
+            </value>
+        </member>
+        <member name="T:DataGenerator.Reflection.FieldAccessor">
+            <summary>
+            An accessor class for <see cref="T:System.Reflection.FieldInfo"/>.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.FieldAccessor.#ctor(System.Reflection.FieldInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Reflection.FieldAccessor"/> class.
+            </summary>
+            <param name="fieldInfo">The <see cref="T:System.Reflection.FieldInfo"/> instance to use for this accessor.</param>
+        </member>
+        <member name="P:DataGenerator.Reflection.FieldAccessor.MemberType">
+            <summary>
+            Gets the type of the member.
+            </summary>
+            <value>The type of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.FieldAccessor.MemberInfo">
+            <summary>
+            Gets the member info.
+            </summary>
+            <value>The member info.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.FieldAccessor.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>The name of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.FieldAccessor.HasGetter">
+            <summary>
+            Gets a value indicating whether this member has getter.
+            </summary>
+            <value><c>true</c> if this member has getter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.FieldAccessor.HasSetter">
+            <summary>
+            Gets a value indicating whether this member has setter.
+            </summary>
+            <value><c>true</c> if this member has setter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:DataGenerator.Reflection.FieldAccessor.GetValue(System.Object)">
+            <summary>
+            Returns the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be returned.</param>
+            <returns>
+            The member value for the instance parameter.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.FieldAccessor.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be set.</param>
+            <param name="value">The new value for this member.</param>
+        </member>
+        <member name="T:DataGenerator.Reflection.IMemberAccessor">
+            <summary>
+            An <see langword="interface"/> for late binding member accessors.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.IMemberAccessor.GetValue(System.Object)">
+            <summary>
+            Returns the value of the member.
+            </summary>
+            <param name="instance">The instance whose member value will be returned.</param>
+            <returns>The member value for the instance parameter.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.IMemberAccessor.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the <paramref name="value"/> of the member.
+            </summary>
+            <param name="instance">The instance whose member value will be set.</param>
+            <param name="value">The new value for this member.</param>
+        </member>
+        <member name="T:DataGenerator.Reflection.IMemberInfo">
+            <summary>
+            An interface for member information
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMemberInfo.MemberType">
+            <summary>
+            Gets the type of the member.
+            </summary>
+            <value>The type of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMemberInfo.MemberInfo">
+            <summary>
+            Gets the member info.
+            </summary>
+            <value>The member info.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMemberInfo.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>The name of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMemberInfo.HasGetter">
+            <summary>
+            Gets a value indicating whether this member has getter.
+            </summary>
+            <value>
+            	<c>true</c> if this member has getter; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMemberInfo.HasSetter">
+            <summary>
+            Gets a value indicating whether this member has setter.
+            </summary>
+            <value>
+            	<c>true</c> if this member has setter; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:DataGenerator.Reflection.IMethodAccessor">
+            <summary>
+            An interface for method accessor
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMethodAccessor.MethodInfo">
+            <summary>
+            Gets the method info.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Reflection.IMethodAccessor.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>The name of the member.</value>
+        </member>
+        <member name="M:DataGenerator.Reflection.IMethodAccessor.Invoke(System.Object,System.Object[])">
+            <summary>
+            Invokes the method on the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object on which to invoke the method. If a method is static, this argument is ignored.</param>
+            <param name="arguments">An argument list for the invoked method.</param>
+            <returns>An object containing the return value of the invoked method.</returns>
+        </member>
+        <member name="T:DataGenerator.Reflection.LateBinder">
+            <summary>
+            A class for late bound operations on a <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="F:DataGenerator.Reflection.LateBinder.DefaultPublicFlags">
+            <summary>
+            The default public flags
+            </summary>
+        </member>
+        <member name="F:DataGenerator.Reflection.LateBinder.DefaultNonPublicFlags">
+            <summary>
+            The default non public flags
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindMethod(System.Type,System.String,System.Object[])">
+            <summary>
+            Searches for the specified method with the specified name.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the method in.</param>
+            <param name="name">The name of the method to find.</param>
+            <param name="arguments">The arguments.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMethodAccessor"/> instance for the method if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindMethod(System.Type,System.String,System.Reflection.BindingFlags,System.Object[])">
+            <summary>
+            Searches for the specified method, using the specified binding constraints.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the method in.</param>
+            <param name="name">The name of the method to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <param name="arguments">The arguments.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMethodAccessor"/> instance for the method if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindProperty``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Searches for the property using a property expression.
+            </summary>
+            <typeparam name="T">The object type containing the property specified in the expression.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p => p.PropertyName)</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+                Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+                The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+                Or, the property is static.
+            </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindProperty(System.Type,System.String)">
+            <summary>
+            Searches for the public property with the specified name.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the property in.</param>
+            <param name="name">The name of the property to find.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindProperty(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the specified property, using the specified binding constraints.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the property in.</param>
+            <param name="name">The name of the property to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindField(System.Type,System.String)">
+            <summary>
+            Searches for the field with the specified name.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the field in.</param>
+            <param name="name">The name of the field to find.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.FindField(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the field, using the specified binding constraints.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the field in.</param>
+            <param name="name">The name of the field to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Find(System.Type,System.String)">
+            <summary>
+            Searches for the property or field with the specified name.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the property or field in.</param>
+            <param name="name">The name of the property or field to find.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property or field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Find(System.Type,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the property or field, using the specified binding constraints.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to search for the property or field in.</param>
+            <param name="name">The name of the property or field to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property or field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.SetProperty(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the property value with the specified name.
+            </summary>
+            <param name="target">The object whose property value will be set.</param>
+            <param name="name">The name of the property to set.</param>
+            <param name="value">The new value to be set.</param>
+            <remarks>This method supports nested property names. An exmample name would be 'Person.Address.ZipCode'.</remarks>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.SetProperty(System.Object,System.String,System.Object,System.Reflection.BindingFlags)">
+            <summary>
+            Sets the property value with the specified name.
+            </summary>
+            <param name="target">The object whose property value will be set.</param>
+            <param name="name">The name of the property to set.</param>
+            <param name="value">The new value to be set.</param>
+            <remarks>This method supports nested property names. An exmample name would be 'Person.Address.ZipCode'.</remarks>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.SetField(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the field value with the specified name.
+            </summary>
+            <param name="target">The object whose field value will be set.</param>
+            <param name="name">The name of the field to set.</param>
+            <param name="value">The new value to be set.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.SetField(System.Object,System.String,System.Object,System.Reflection.BindingFlags)">
+            <summary>
+            Sets the field value with the specified name.
+            </summary>
+            <param name="target">The object whose field value will be set.</param>
+            <param name="name">The name of the field to set.</param>
+            <param name="value">The new value to be set.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Set(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the property or field value with the specified name.
+            </summary>
+            <param name="target">The object whose property or field value will be set.</param>
+            <param name="name">The name of the property or field to set.</param>
+            <param name="value">The new value to be set.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Set(System.Object,System.String,System.Object,System.Reflection.BindingFlags)">
+            <summary>
+            Sets the property or field value with the specified name.
+            </summary>
+            <param name="target">The object whose property or field value will be set.</param>
+            <param name="name">The name of the property or field to set.</param>
+            <param name="value">The new value to be set.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.GetProperty(System.Object,System.String)">
+            <summary>
+            Returns the value of the property with the specified name.
+            </summary>
+            <param name="target">The object whose property value will be returned.</param>
+            <param name="name">The name of the property to read.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.GetProperty(System.Object,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Returns the value of the property with the specified name.
+            </summary>
+            <param name="target">The object whose property value will be returned.</param>
+            <param name="name">The name of the property to read.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.GetField(System.Object,System.String)">
+            <summary>
+            Returns the value of the field with the specified name.
+            </summary>
+            <param name="target">The object whose field value will be returned.</param>
+            <param name="name">The name of the field to read.</param>
+            <returns>The value of the field.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.GetField(System.Object,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Returns the value of the field with the specified name.
+            </summary>
+            <param name="target">The object whose field value will be returned.</param>
+            <param name="name">The name of the field to read.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>The value of the field.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Get(System.Object,System.String)">
+            <summary>
+            Returns the value of the property or field with the specified name.
+            </summary>
+            <param name="target">The object whose property or field value will be returned.</param>
+            <param name="name">The name of the property or field to read.</param>
+            <returns>The value of the property or field.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.Get(System.Object,System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Returns the value of the property or field with the specified name.
+            </summary>
+            <param name="target">The object whose property or field value will be returned.</param>
+            <param name="name">The name of the property or field to read.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>The value of the property or field.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.CreateInstance(System.Type)">
+            <summary>
+            Creates an instance of the specified type.
+            </summary>
+            <param name="type">The type to create.</param>
+            <returns>A new instance of the specified type.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.LateBinder.InvokeMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Invokes the method with the spcified name and arguments.
+            </summary>
+            <param name="target">The target instance to call the method on.</param>
+            <param name="name">The name of the method.</param>
+            <param name="arguments">The method argument values.</param>
+            <returns>The returned results from the method call.</returns>
+        </member>
+        <member name="T:DataGenerator.Reflection.MemberAccessor">
+            <summary>
+            A <see langword="base"/> class for member accessors.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Reflection.MemberAccessor.MemberType">
+            <summary>
+            Gets the <see cref="T:System.Type"/> of the member.
+            </summary>
+            <value>The <see cref="T:System.Type"/> of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.MemberAccessor.MemberInfo">
+            <summary>
+            Gets the <see cref="P:DataGenerator.Reflection.MemberAccessor.MemberInfo"/> for the accessor.
+            </summary>
+            <value>The member info.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.MemberAccessor.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>The name of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.MemberAccessor.HasGetter">
+            <summary>
+            Gets a value indicating whether this member has getter.
+            </summary>
+            <value><c>true</c> if this member has getter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.MemberAccessor.HasSetter">
+            <summary>
+            Gets a value indicating whether this member has setter.
+            </summary>
+            <value><c>true</c> if this member has setter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:DataGenerator.Reflection.MemberAccessor.GetValue(System.Object)">
+            <summary>
+            Returns the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be returned.</param>
+            <returns>
+            The member value for the instance parameter.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.MemberAccessor.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be set.</param>
+            <param name="value">The new value for this member.</param>
+        </member>
+        <member name="M:DataGenerator.Reflection.MemberAccessor.Equals(DataGenerator.Reflection.IMemberAccessor)">
+            <summary>
+            Determines whether the specified <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> is equal to this instance.
+            </summary>
+            <param name="other">The <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> to compare with this instance.</param>
+            <returns>
+            	<c>true</c> if the specified <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.MemberAccessor.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with this instance.</param>
+            <returns>
+            	<c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.MemberAccessor.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Reflection.MethodAccessor">
+            <summary>
+            An accessor class for <see cref="P:DataGenerator.Reflection.MethodAccessor.MethodInfo"/>.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.MethodAccessor.#ctor(System.Reflection.MethodInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Reflection.MethodAccessor"/> class.
+            </summary>
+            <param name="methodInfo">The method info.</param>
+        </member>
+        <member name="P:DataGenerator.Reflection.MethodAccessor.MethodInfo">
+            <summary>
+            Gets the method info.
+            </summary>
+        </member>
+        <member name="P:DataGenerator.Reflection.MethodAccessor.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>
+            The name of the member.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Reflection.MethodAccessor.Invoke(System.Object,System.Object[])">
+            <summary>
+            Invokes the method on the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object on which to invoke the method. If a method is static, this argument is ignored.</param>
+            <param name="arguments">An argument list for the invoked method.</param>
+            <returns>
+            An object containing the return value of the invoked method.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.MethodAccessor.GetKey(System.String,System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Gets the method key using a hash code from the name and paremeter types.
+            </summary>
+            <param name="name">The name of the method.</param>
+            <param name="parameterTypes">The method parameter types.</param>
+            <returns>The method key</returns>
+        </member>
+        <member name="T:DataGenerator.Reflection.PropertyAccessor">
+            <summary>
+            An accessor class for <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.PropertyAccessor.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Reflection.PropertyAccessor"/> class.
+            </summary>
+            <param name="propertyInfo">The <see cref="T:System.Reflection.PropertyInfo"/> instance to use for this accessor.</param>
+        </member>
+        <member name="P:DataGenerator.Reflection.PropertyAccessor.MemberType">
+            <summary>
+            Gets the type of the member.
+            </summary>
+            <value>The type of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.PropertyAccessor.MemberInfo">
+            <summary>
+            Gets the member info.
+            </summary>
+            <value>The member info.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.PropertyAccessor.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+            <value>The name of the member.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.PropertyAccessor.HasGetter">
+            <summary>
+            Gets a value indicating whether this member has getter.
+            </summary>
+            <value><c>true</c> if this member has getter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:DataGenerator.Reflection.PropertyAccessor.HasSetter">
+            <summary>
+            Gets a value indicating whether this member has setter.
+            </summary>
+            <value><c>true</c> if this member has setter; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:DataGenerator.Reflection.PropertyAccessor.GetValue(System.Object)">
+            <summary>
+            Returns the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be returned.</param>
+            <returns>
+            The member value for the instance parameter.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.PropertyAccessor.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of the member.
+            </summary>
+            <param name="instance">The object whose member value will be set.</param>
+            <param name="value">The new value for this member.</param>
+        </member>
+        <member name="T:DataGenerator.Reflection.ReflectionHelper">
+            <summary>
+            Reflection helper methods
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <typeparam name="TValue">The of the property value.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p => p.PropertyName)</param>
+            <returns>The name of the property.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+                Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+                The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+                Or, the property is static.
+            </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <typeparam name="TValue">The type of the property value.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p =&gt; p.PropertyName)</param>
+            <returns>
+            The name of the property.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+            Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+            The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+            Or, the property is static.
+              </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyName(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <param name="memberExpression">The member expression</param>
+            <returns>
+            The name of the property.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="memberExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+            Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+            The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+            Or, the property is static.
+              </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractColumnName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <typeparam name="TValue">The of the property value.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p => p.PropertyName)</param>
+            <returns>The name of the property.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+                Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+                The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+                Or, the property is static.
+            </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractColumnName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <typeparam name="TValue">The type of the property value.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p =&gt; p.PropertyName)</param>
+            <returns>
+            The name of the property.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+            Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+            The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+            Or, the property is static.
+              </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractColumnName(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Extracts the property name from a property expression.
+            </summary>
+            <param name="memberExpression">The member expression</param>
+            <returns>
+            The name of the property.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="memberExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+            Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+            The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+            Or, the property is static.
+              </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyInfo``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Extracts the <see cref="T:System.Reflection.PropertyInfo"/> from the specified property expression.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="propertyExpression">The property expression.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyInfo``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Extracts the <see cref="T:System.Reflection.PropertyInfo"/> from the specified property expression.
+            </summary>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="propertyExpression">The property expression.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.ExtractPropertyInfo(System.Linq.Expressions.MemberExpression)">
+            <summary>
+            Extracts the <see cref="T:System.Reflection.PropertyInfo"/> from the specified member expression.
+            </summary>
+            <param name="memberExpression">The member expression.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.GetUnderlyingType(System.Type)">
+            <summary>
+            Gets the underlying type dealing with <see cref="T:System.Nullable"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>Returns a type dealing with <see cref="T:System.Nullable"/>.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.IsCollection(System.Type)">
+            <summary>
+            Determines whether the specified <paramref name="type"/> is a collection.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>
+              <c>true</c> if the specified <paramref name="type"/> is a collection; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.IsCollection(System.Type,System.Type@)">
+            <summary>
+            Determines whether the specified <paramref name="type"/> is a collection.
+            </summary>
+            <param name="type">The type to check.</param>
+            <param name="elementType">The Type of the generic element.</param>
+            <returns>
+              <c>true</c> if the specified <paramref name="type"/> is a collection; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.IsDictionary(System.Type)">
+            <summary>
+            Determines whether the specified <paramref name="type"/> is a dictionary.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>
+              <c>true</c> if the specified <paramref name="type"/> is a dictionary; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.IsDictionary(System.Type,System.Type@,System.Type@)">
+            <summary>
+            Determines whether the specified <paramref name="type"/> is a dictionary.
+            </summary>
+            <param name="type">The type to check.</param>
+            <param name="keyType">Type of the generic key.</param>
+            <param name="elementType">The Type of the generic element.</param>
+            <returns>
+              <c>true</c> if the specified <paramref name="type"/> is a dictionary; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.CoerceValue(System.Type,System.Type,System.Object)">
+            <summary>
+            Attempts to coerce a value of one type into
+            a value of a different type.
+            </summary>
+            <param name="desiredType">
+            Type to which the value should be coerced.MO
+            </param>
+            <param name="valueType">
+            Original type of the value.
+            </param>
+            <param name="value">
+            The value to coerce.
+            </param>
+            <remarks>
+            <para>
+            If the desired type is a primitive type or Decimal,
+            empty string and null values will result in a 0
+            or equivalent.
+            </para>
+            <para>
+            If the desired type is a <see cref="T:System.Nullable"/> type, empty string
+            and null values will result in a null result.
+            </para>
+            <para>
+            If the desired type is an <c>enum</c> the value's ToString()
+            result is parsed to convert into the <c>enum</c> value.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:DataGenerator.Reflection.ReflectionHelper.IsOverriding(System.Reflection.MethodInfo)">
+            <summary>
+            Determines whether the specified <paramref name="method"/> overrides a base method.
+            </summary>
+            <param name="method">The method information.</param>
+            <returns>
+              <c>true</c> if the specified <paramref name="method"/> overrides a base method; otherwise, <c>false</c>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">methodInfo</exception>
+        </member>
+        <member name="T:DataGenerator.Reflection.TypeAccessor">
+            <summary>
+            A class for accessing type reflection information.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Reflection.TypeAccessor"/> class.
+            </summary>
+            <param name="type">The <see cref="P:DataGenerator.Reflection.TypeAccessor.Type"/> this accessor is for.</param>
+        </member>
+        <member name="P:DataGenerator.Reflection.TypeAccessor.Type">
+            <summary>
+            Gets the <see cref="P:DataGenerator.Reflection.TypeAccessor.Type"/> this accessor is for.
+            </summary>
+            <value>The <see cref="P:DataGenerator.Reflection.TypeAccessor.Type"/> this accessor is for.</value>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.Create">
+            <summary>
+            Creates a new instance of accessors type.
+            </summary>
+            <returns>A new instance of accessors type.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindMethod(System.String)">
+            <summary>
+            Finds the method with the spcified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the method.</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> for the method.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindMethod(System.String,System.Type[])">
+            <summary>
+            Finds the method with the spcified <paramref name="name" />.
+            </summary>
+            <param name="name">The name of the method.</param>
+            <param name="parameterTypes">The method parameter types.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor" /> for the method.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindMethod(System.String,System.Type[],System.Reflection.BindingFlags)">
+            <summary>
+            Finds the method with the spcified <paramref name="name" />.
+            </summary>
+            <param name="name">The name of the method.</param>
+            <param name="parameterTypes">The method parameter types.</param>
+            <param name="flags">The binding flags to search.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor" /> for the method.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.Find(System.String)">
+            <summary>
+            Searches for the public property or field with the specified name.
+            </summary>
+            <param name="name">The name of the property or field to find.</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property or field if found; otherwise <c>null</c>.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.Find(System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the specified property or field, using the specified binding constraints.
+            </summary>
+            <param name="name">The name of the property or field to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property or field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindColumn(System.String)">
+            <summary>
+            Searches for the public property with the specified column name.
+            </summary>
+            <param name="name">The name of the property or field to find.</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property or field if found; otherwise <c>null</c>.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindColumn(System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the specified property the specified column name and binding constraints.
+            </summary>
+            <param name="name">The name of the property to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindProperty``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Searches for the property using a property expression.
+            </summary>
+            <typeparam name="T">The object type containing the property specified in the expression.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p => p.PropertyName)</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+                Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+                The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+                Or, the property is static.
+            </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindProperty``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Searches for the property using a property expression.
+            </summary>
+            <typeparam name="TSource">The object type containing the property specified in the expression.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="propertyExpression">The property expression (e.g. p =&gt; p.PropertyName)</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the <paramref name="propertyExpression"/> is null.</exception>
+              
+            <exception cref="T:System.ArgumentException">Thrown when the expression is:<br/>
+            Not a <see cref="T:System.Linq.Expressions.MemberExpression"/><br/>
+            The <see cref="T:System.Linq.Expressions.MemberExpression"/> does not represent a property.<br/>
+            Or, the property is static.
+              </exception>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindProperty(System.String)">
+            <summary>
+            Searches for the <see langword="public"/> property with the specified <paramref name="name"/>.
+            </summary>
+            <param name="name">The name of the property to find.</param>
+            <returns>An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.</returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindProperty(System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the specified property, using the specified binding constraints.
+            </summary>
+            <param name="name">The name of the property to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetAccessor(System.Reflection.PropertyInfo)">
+            <summary>
+            Gets the <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> for the specified <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+            <param name="propertyInfo">The <see cref="T:System.Reflection.PropertyInfo"/> to get the <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> for.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetProperties">
+            <summary>
+            Gets the property member accessors for the Type.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instances for the Type.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetProperties(System.Reflection.BindingFlags)">
+            <summary>
+            Gets the property member accessors for the Type using the specified flags.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instances for the Type.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindField(System.String)">
+            <summary>
+            Searches for the specified field with the specified name.
+            </summary>
+            <param name="name">The name of the field to find.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.FindField(System.String,System.Reflection.BindingFlags)">
+            <summary>
+            Searches for the specified field, using the specified binding constraints.
+            </summary>
+            <param name="name">The name of the field to find.</param>
+            <param name="flags">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"/> that specify how the search is conducted.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the field if found; otherwise <c>null</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetAccessor(System.Reflection.FieldInfo)">
+            <summary>
+            Gets the <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> for the specified <see cref="T:System.Reflection.FieldInfo"/>.
+            </summary>
+            <param name="fieldInfo">The <see cref="T:System.Reflection.FieldInfo"/> to get the <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> for.</param>
+            <returns>
+            An <see cref="T:DataGenerator.Reflection.IMemberAccessor"/> instance for the property.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetAccessor``1">
+            <summary>
+            Gets the <see cref="T:DataGenerator.Reflection.TypeAccessor"/> for the specified Type.
+            </summary>
+            <typeparam name="T">The Type to get the accessor for.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Reflection.TypeAccessor.GetAccessor(System.Type)">
+            <summary>
+            Gets the <see cref="T:DataGenerator.Reflection.TypeAccessor"/> for the specified Type.
+            </summary>
+            <param name="type">The Type to get the accessor for.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DataGenerator.Sources.BooleanSource">
+            <summary>
+            Data source for boolean values
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.BooleanSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.BooleanSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.BooleanSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.CitySource">
+            <summary>
+            City name data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.CitySource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.CitySource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.CitySource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.CompanySource">
+            <summary>
+            Company data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.CompanySource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.CompanySource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.CompanySource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.CreditCardSource">
+            <summary>
+            Credit card data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="T:DataGenerator.Sources.CreditCardSource.CreditCardType">
+            <summary>
+            Credit card types
+            </summary>
+        </member>
+        <member name="F:DataGenerator.Sources.CreditCardSource.CreditCardType.Visa">
+            <summary>Visa credit card</summary>
+        </member>
+        <member name="F:DataGenerator.Sources.CreditCardSource.CreditCardType.Mastercard">
+            <summary>Mastercard credit card</summary>
+        </member>
+        <member name="F:DataGenerator.Sources.CreditCardSource.CreditCardType.AmericanExpress">
+            <summary>American Express credit card</summary>
+        </member>
+        <member name="F:DataGenerator.Sources.CreditCardSource.CreditCardType.Discover">
+            <summary>Discover credit card</summary>
+        </member>
+        <member name="M:DataGenerator.Sources.CreditCardSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.CreditCardSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.CreditCardSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Sources.CreditCardSource.GenerateNumber(DataGenerator.Sources.CreditCardSource.CreditCardType)">
+            <summary>
+            Generates a random credit card number.
+            </summary>
+            <param name="cardType">Type of the credit card.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataGenerator.Sources.CreditCardSource.IsValidNumber(System.String)">
+            <summary>
+            Determines whether the credit card number is valid.
+            </summary>
+            <param name="number">The credit card number.</param>
+            <returns></returns>
+            <remarks>
+            Extremely fast Luhn algorithm implementation, based on
+            pseudo code from Cliff L. Biffle (http://microcoder.livejournal.com/17175.html)
+            Copyleft Thomas @ Orb of Knowledge:
+            http://orb-of-knowledge.blogspot.com/2009/08/extremely-fast-luhn-function-for-c.html
+            </remarks>
+        </member>
+        <member name="T:DataGenerator.Sources.DataSourceBase">
+            <summary>
+            A base class for data sources.
+            </summary>
+            <seealso cref="T:DataGenerator.IDataSourceDiscover" />
+        </member>
+        <member name="F:DataGenerator.Sources.DataSourceBase.MatchNamePriority">
+            <summary>
+            The match name priority
+            </summary>
+        </member>
+        <member name="F:DataGenerator.Sources.DataSourceBase.ContainNamePriority">
+            <summary>
+            The contain name priority
+            </summary>
+        </member>
+        <member name="F:DataGenerator.Sources.DataSourceBase.PropertyTypePriority">
+            <summary>
+            The property type priority
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceBase"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceBase.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceBase"/> class.
+            </summary>
+            <param name="priority">The priority of the data source.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.DataSourceBase.Priority">
+            <summary>
+            Gets the priority of the data source.
+            </summary>
+            <value>
+            The priority of the data source.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceBase.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext" /> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns>
+              <c>true</c> if this data source can be used; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceBase.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DataSourceContainName">
+            <summary>
+            A base class for data source property names pattern match
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceContainName.#ctor(System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceContainName"/> class.
+            </summary>
+            <param name="types">The types.</param>
+            <param name="names">The names.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceContainName.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceContainName"/> class.
+            </summary>
+            <param name="priority">The priority.</param>
+            <param name="types">The types.</param>
+            <param name="names">The names.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.DataSourceContainName.Names">
+            <summary>
+            Gets the name patterns this data source will generate values for.
+            </summary>
+            <value>
+            The name patterns this data source will generate values for..
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceContainName.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext" /> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns>
+              <c>true</c> if this data source can be used; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DataSourceMatchName">
+            <summary>
+            A base class for data source property names
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceMatchName.#ctor(System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceMatchName"/> class.
+            </summary>
+            <param name="types">The types.</param>
+            <param name="names">The names.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceMatchName.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourceMatchName"/> class.
+            </summary>
+            <param name="priority">The priority.</param>
+            <param name="types">The types.</param>
+            <param name="names">The names.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.DataSourceMatchName.Names">
+            <summary>
+            Gets the names this data source will generate values for.
+            </summary>
+            <value>
+            The names this data source will generate values for..
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourceMatchName.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext" /> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns>
+              <c>true</c> if this data source can be used; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DataSourcePropertyType">
+            <summary>
+            A base class for data source property types
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceBase" />
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourcePropertyType.#ctor(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourcePropertyType"/> class.
+            </summary>
+            <param name="types">The types.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourcePropertyType.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DataSourcePropertyType"/> class.
+            </summary>
+            <param name="priority">The priority.</param>
+            <param name="types">The types.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:DataGenerator.Sources.DataSourcePropertyType.Types">
+            <summary>
+            Gets the types this data source will generate values for.
+            </summary>
+            <value>
+            The types this data source will generate values for.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.DataSourcePropertyType.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext" /> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns>
+              <c>true</c> if this data source can be used; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DateTimeSource">
+            <summary>
+              <see cref="T:System.DateTime" /> data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.DateTimeSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DateTimeSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.DateTimeSource.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DateTimeSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DateTimeSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DateTimeSourceExtensions">
+            <summary>
+            <see cref="T:System.DateTime"/> data source extension methods
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DateTimeSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.DateTimeSourceExtensions.DateTimeSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.DateTime},System.DateTime,System.DateTime)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.DateTimeSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.DateTimeSourceExtensions.DateTimeSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.DateTimeOffset},System.DateTime,System.DateTime)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.DateTimeSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DecimalSource">
+            <summary>
+              <see cref="T:System.Decimal" /> data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DecimalSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSource.#ctor(System.Decimal,System.Decimal)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DecimalSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSource.#ctor(System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.DecimalSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.DecimalSourceExtensions">
+            <summary>
+            <see cref="T:System.Decimal"/> data source extension methods
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DecimalSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSourceExtensions.DecimalSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Decimal},System.Decimal,System.Decimal)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.DecimalSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.DecimalSourceExtensions.DecimalSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Decimal},System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.DecimalSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.EmailSource">
+            <summary>
+            Email address data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.EmailSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.EmailSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.EmailSource.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.EmailSource"/> class.
+            </summary>
+            <param name="domain">The domain.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.EmailSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.EnumSource">
+            <summary>
+            Enum value data source
+            </summary>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.EnumSource.TryMap(DataGenerator.IMappingContext)">
+            <summary>
+            Test if the current <paramref name="mappingContext" /> can use this data source.
+            </summary>
+            <param name="mappingContext">The mapping context.</param>
+            <returns>
+              <c>true</c> if this data source can be used; otherwise <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Sources.EnumSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.FactoryDataSource`2">
+            <summary>
+            Data source to generate a value with a factory method
+            </summary>
+            <typeparam name="TEntity">The type of the instance.</typeparam>
+            <typeparam name="TProperty">Type returned from the factory method</typeparam>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.FactoryDataSource`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.FactoryDataSource`2"/> class.
+            </summary>
+            <param name="factory">The factory.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.FactoryDataSource`2.Factory">
+            <summary>
+            Gets the factory method to generate a value with.
+            </summary>
+            <value>
+            The factory method to generate a value with.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.FactoryDataSource`2.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.FirstNameSource">
+            <summary>
+            First name data source generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.FirstNameSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.FirstNameSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.FirstNameSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.FloatSource">
+            <summary>
+              <see cref="T:System.Single" /> data source value generator
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.FloatSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSource.#ctor(System.Single,System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.FloatSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSource.#ctor(System.Single,System.Single,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.FloatSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.FloatSourceExtensions">
+            <summary>
+            <see cref="T:System.Single"/> and <see cref="T:System.Double"/> data source extension methods
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.FloatSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSourceExtensions.FloatSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Single},System.Single,System.Single)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.FloatSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSourceExtensions.FloatSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Single},System.Single,System.Single,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.FloatSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSourceExtensions.FloatSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Double},System.Single,System.Single)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.FloatSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.FloatSourceExtensions.FloatSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Double},System.Single,System.Single,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.FloatSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.GenerateListSource`1">
+            <summary>
+            Generate a list of values data source
+            </summary>
+            <typeparam name="T">Type of values</typeparam>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.GenerateListSource`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.GenerateListSource`1"/> class.
+            </summary>
+            <param name="count">The number of values to generate.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.GenerateListSource`1.Count">
+            <summary>
+            Gets the number of values to generate.
+            </summary>
+            <value>
+            The number of values to generate.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.GenerateListSource`1.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.GenerateSingleSource`1">
+            <summary>
+            Generate single value data source
+            </summary>
+            <typeparam name="T">Type to generate</typeparam>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.GenerateSingleSource`1.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.GuidSource">
+            <summary>
+            <see cref="T:System.Guid"/> value generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.GuidSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.GuidSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.GuidSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.IdentifierSource">
+            <summary>
+            Identifier value generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.IdentifierSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.IdentifierSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.IdentifierSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.IntegerSource">
+            <summary>
+            Integer value generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.IntegerSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSource.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.IntegerSource"/> class.
+            </summary>
+            <param name="min">The minimum.</param>
+            <param name="max">The maximum.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.IntegerSourceExtensions">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.IntegerSource"/>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSourceExtensions.IntegerSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Int16},System.Int16,System.Int16)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.IntegerSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSourceExtensions.IntegerSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.IntegerSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSourceExtensions.IntegerSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Double},System.Int32,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.IntegerSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="M:DataGenerator.Sources.IntegerSourceExtensions.IntegerSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.Decimal},System.Int32,System.Int32)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.IntegerSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.LastNameSource">
+            <summary>
+            Last name value generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.LastNameSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.LastNameSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.LastNameSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.ListDataSource`1">
+            <summary>
+            Generate value from a list data source
+            </summary>
+            <typeparam name="T">Type of value in list</typeparam>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.ListDataSource`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.ListDataSource`1"/> class.
+            </summary>
+            <param name="items">The items to generate from.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.ListDataSource`1.Items">
+            <summary>
+            Gets the items to generate from.
+            </summary>
+            <value>
+            The items to generate from.
+            </value>
+        </member>
+        <member name="P:DataGenerator.Sources.ListDataSource`1.WeightSelector">
+            <summary>
+            Gets or sets the weight selector.
+            </summary>
+            <value>
+            The weight selector.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.ListDataSource`1.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.LoremIpsumSource">
+            <summary>
+            Lorem Ipsum data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceContainName" />
+        </member>
+        <member name="M:DataGenerator.Sources.LoremIpsumSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.LoremIpsumSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.LoremIpsumSource.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.LoremIpsumSource"/> class.
+            </summary>
+            <param name="wordCount">The word count.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.LoremIpsumSource.WordCount">
+            <summary>
+            Gets or sets the word count.
+            </summary>
+            <value>
+            The word count.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.LoremIpsumSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.MoneySource">
+            <summary>
+            Money data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceContainName" />
+        </member>
+        <member name="M:DataGenerator.Sources.MoneySource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.MoneySource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.MoneySource.#ctor(System.Decimal,System.Decimal)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.MoneySource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.MoneySource.#ctor(System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.MoneySource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <param name="decimals">The number of decimal places.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.MoneySource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.NameSource">
+            <summary>
+            Name generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.NameSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.NameSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.NameSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.PasswordSource">
+            <summary>
+            Password generator data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.PasswordSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.PasswordSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.PasswordSource.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.PasswordSource"/> class.
+            </summary>
+            <param name="length">The password length.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.PasswordSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="M:DataGenerator.Sources.PasswordSource.Generate(System.Int32)">
+            <summary>
+            Generates a password with the specified length.
+            </summary>
+            <param name="passwordLength">Length of the password.</param>
+            <returns>A generated password</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.PhoneSource">
+            <summary>
+            Phone number data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceContainName" />
+        </member>
+        <member name="F:DataGenerator.Sources.PhoneSource.DefaultFormat">
+            <summary>
+            The default phone number format
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.PhoneSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.PhoneSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.PhoneSource.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.PhoneSource"/> class.
+            </summary>
+            <param name="format">The format.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.PhoneSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.PostalCodeSource">
+            <summary>
+            Postal code data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.PostalCodeSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.PostalCodeSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.PostalCodeSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.SocialSecuritySource">
+            <summary>
+            Social Security data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.SocialSecuritySource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.SocialSecuritySource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.SocialSecuritySource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.StateSource">
+            <summary>
+            State data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.StateSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.StateSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.StateSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.StreetSource">
+            <summary>
+            Street data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.StreetSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.StreetSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.StreetSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.TimeSpanSource">
+            <summary>
+            <see cref="T:System.TimeSpan"/> data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourcePropertyType" />
+        </member>
+        <member name="M:DataGenerator.Sources.TimeSpanSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.TimeSpanSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.TimeSpanSource.#ctor(System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.TimeSpanSource"/> class.
+            </summary>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+        </member>
+        <member name="M:DataGenerator.Sources.TimeSpanSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.TimeSpanSourceExtensions">
+            <summary>
+            <see cref="T:System.TimeSpan"/> data source extension methods
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.TimeSpanSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.TimeSpanSourceExtensions.TimeSpanSource``1(DataGenerator.Fluent.MemberConfigurationBuilder{``0,System.TimeSpan},System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Use the <see cref="T:DataGenerator.Sources.TimeSpanSource"/> data source with the specified <paramref name="min"/> and <paramref name="max"/> values
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="builder">The member configuration builder.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>Fluent builder for an entity property.</returns>
+        </member>
+        <member name="T:DataGenerator.Sources.ValueSource`1">
+            <summary>
+            Static value data source
+            </summary>
+            <typeparam name="T">The value type</typeparam>
+            <seealso cref="T:DataGenerator.IDataSource" />
+        </member>
+        <member name="M:DataGenerator.Sources.ValueSource`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.ValueSource`1"/> class.
+            </summary>
+            <param name="value">The static value.</param>
+        </member>
+        <member name="P:DataGenerator.Sources.ValueSource`1.Value">
+            <summary>
+            Gets the static value.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="M:DataGenerator.Sources.ValueSource`1.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.Sources.WebsiteSource">
+            <summary>
+            Website data source
+            </summary>
+            <seealso cref="T:DataGenerator.Sources.DataSourceMatchName" />
+        </member>
+        <member name="M:DataGenerator.Sources.WebsiteSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.Sources.WebsiteSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DataGenerator.Sources.WebsiteSource.NextValue(DataGenerator.IGenerateContext)">
+            <summary>
+            Get a value from the data source.
+            </summary>
+            <param name="generateContext">The generate context.</param>
+            <returns>
+            A new value from the data source.
+            </returns>
+        </member>
+        <member name="T:DataGenerator.WeightedValue`1">
+            <summary>
+            A class for use in a random weighted value
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+        </member>
+        <member name="M:DataGenerator.WeightedValue`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.WeightedValue`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:DataGenerator.WeightedValue`1.#ctor(`0,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DataGenerator.WeightedValue`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="weight">The weight.</param>
+        </member>
+        <member name="P:DataGenerator.WeightedValue`1.Weight">
+            <summary>
+            Gets the weight.
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="P:DataGenerator.WeightedValue`1.Value">
+            <summary>
+            Gets the value.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="M:DataGenerator.WeightedValue`1.op_Implicit(DataGenerator.WeightedValue{`0})~`0">
+            <summary>
+            Performs an implicit conversion from <see cref="T:DataGenerator.WeightedValue`1" /> to <typeparamref name="T"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+    </members>
+</doc>
