@@ -69,21 +69,24 @@ export class AccountService {
 
   logout() {
     this.signalRServiceConnector.Disconnect();
-    localStorage.removeItem(AppSettings.tokenKey);
-    localStorage.removeItem(AppSettings.userId);
-    this.router.navigate(['login']);
-    return this.http.post(
+
+     this.http.post(
       environment.API_ENDPOINT + 'api/account/logout',
-      null
+      null)
+      .subscribe(resp => {
+      localStorage.removeItem(AppSettings.tokenKey);
+      localStorage.removeItem(AppSettings.userId);
+      this.router.navigate(['login']);
+      },
+      (err: HttpErrorResponse) => {
+      this.ErrMsg.next(err.error.Message);
+      }
     );
   }
 
   isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null) {
-      return false;
-    }
+    return localStorage.getItem(AppSettings.tokenKey) != null;
 
-    return true;
   }
 
   forgotPassword(model: ForgotPasswordDto) {

@@ -26,7 +26,7 @@ import { ProductListUploadedComponent } from '../Components/Content/product-list
   imports: [
     CommonModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent },
+      { path: '', component: ProductListComponent },
       { path: 'login', component: LoginComponent },
      { path: 'logOut',
        component: LogoutComponent,
