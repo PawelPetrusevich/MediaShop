@@ -17,22 +17,16 @@ import { environment } from '../../../environments/environment';
 import { SignalRServiceConnector } from '../../signalR/signalr-service';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
-import { UserInfoService } from './userInfoService';
-import { Permissions } from '../../Models/User/permissions';
 
 @Injectable()
 export class AccountService {
   private ErrMsg = new Subject<string>();
-  private IsAuthorized = new Subject<boolean>();
-  private IsAdmin = new Subject<boolean>();
-  private IsCreator = new Subject<boolean>();
-  private Login = new Subject<string>();
 
+  userLoggedIn = new Subject<boolean>();
   constructor(
     private http: HttpClient,
     private signalRServiceConnector: SignalRServiceConnector,
-    private router: Router,
-    private userInfoService: UserInfoService
+    private router: Router
 
   ) {
   }
@@ -65,43 +59,41 @@ export class AccountService {
           localStorage.setItem(AppSettings.tokenKey, resp.access_token);
           localStorage.setItem(AppSettings.userId, resp.userId);
 
-          this.userInfoService.getUserInfo().subscribe(result => {
-            this.IsAuthorized.next(true);
-            this.IsAdmin.next((result.Permissions & Permissions.Delete) !== 0);
-            this.IsCreator.next((result.Permissions & Permissions.Create) !== 0);
-            this.Login.next(result.Login);
-          });
-
           this.signalRServiceConnector.Connect(true);
+          this.userLoggedIn.next(true);
           this.router.navigate(['product-list']);
         },
         (err: HttpErrorResponse) => {
           this.ErrMsg.next(err.error.error_description);
         }
       );
+
   }
 
   logout() {
     this.signalRServiceConnector.Disconnect();
-    localStorage.removeItem(AppSettings.tokenKey);
-    localStorage.removeItem(AppSettings.userId);
-    this.router.navigate(['login']);
-    this.IsAuthorized.next(false);
-    this.IsAdmin.next(false);
-    this.IsCreator.next(false);
-    this.Login.next(' ');
-    return this.http.post(
+
+     this.http.post(
       environment.API_ENDPOINT + 'api/account/logout',
-      null
+      null)
+      .subscribe(resp => {
+      localStorage.removeItem(AppSettings.tokenKey);
+      localStorage.removeItem(AppSettings.userId);
+      this.router.navigate(['login']);
+      },
+      (err: HttpErrorResponse) => {
+      this.ErrMsg.next(err.error.Message);
+      }
     );
   }
 
-  isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null) {
-      return false;
-    }
+  getLoginEvent() {
+    return this.userLoggedIn.asObservable();
+  }
 
-    return true;
+  isAuthorized(): boolean {
+    return localStorage.getItem(AppSettings.tokenKey) != null;
+
   }
 
   forgotPassword(model: ForgotPasswordDto) {
@@ -133,21 +125,5 @@ export class AccountService {
 
   getError() {
     return this.ErrMsg.asObservable();
-  }
-
-  getIsAuthorized() {
-    return this.IsAuthorized.asObservable();
-  }
-
-  getIsAdmin() {
-    return this.IsAdmin.asObservable();
-  }
-
-  getIsCreator() {
-    return this.IsCreator.asObservable();
-  }
-
-  getLogin() {
-    return this.Login.asObservable();
   }
 }

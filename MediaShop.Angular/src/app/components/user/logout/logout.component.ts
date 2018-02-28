@@ -15,16 +15,14 @@ export class LogoutComponent implements OnInit {
 
   constructor(private accountService: AccountService, private router: Router) { }
 
-  logOut(): void {
-    this.accountService.logout().subscribe(resp => {},
-       (err: HttpErrorResponse) => {
-      this.showError = true ;
-      this.errorMessage = err.error.Message;
-      console.log(err);
-    });
-  }
-
   ngOnInit() {
-    this.logOut();
+    this.accountService.getError().subscribe(resp => {
+      if (resp != null) {
+        this.showError = true;
+        this.errorMessage = resp;
+      }
+    } );
+
+    this.accountService.logout();
   }
 }
