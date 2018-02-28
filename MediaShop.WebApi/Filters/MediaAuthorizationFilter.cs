@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.WebPages;
+using Microsoft.AspNet.Identity;
 
 namespace MediaShop.WebApi.Filters
 {
@@ -21,16 +23,9 @@ namespace MediaShop.WebApi.Filters
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
-            var currentUserClaims = (HttpContext.Current.User?.Identity as ClaimsIdentity)?.Claims;
-            var principal = actionContext.RequestContext.Principal;
-            int currentUserPermissions = 0;
-            bool parseFlag = false;
-            if (!ReferenceEquals(currentUserClaims, null))
-            {
-                parseFlag = int.TryParse(currentUserClaims?.SingleOrDefault(x => x.Type == "Permission")?.Value, out currentUserPermissions);
-            }
-
-            if (!parseFlag || !((Permissions)currentUserPermissions).HasFlag(Permission))
+            var currentUserIdentity = HttpContext.Current.User?.Identity as ClaimsIdentity;
+            int? currentUserPermissions = currentUserIdentity?.FindFirstValue("Permission")?.AsInt();
+            if (ReferenceEquals(currentUserPermissions, null) || !((Permissions)currentUserPermissions).HasFlag(Permission))
             {
                 return Task.FromResult<HttpResponseMessage>(actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             }
