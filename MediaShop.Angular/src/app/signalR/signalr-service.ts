@@ -9,6 +9,8 @@ import { NotificationDto } from "../Models/Messaging/notification";
 
 @NgModule({})
 export class SignalRServiceConnector {
+    public connected: boolean;
+    connection: ISignalRConnection;
     conx: SignalRConnection;
     onUpdateNotices = new BroadcastEventListener<NotificationDto>('UpdateNotices');
 
@@ -21,25 +23,47 @@ export class SignalRServiceConnector {
         this.onUpdateNotices.subscribe((notification: NotificationDto) => this.showNotify(notification));
     }
 
-    public Connect(reinitConf?: boolean): Promise<ISignalRConnection> {
+    public Connect(reinitConf?: boolean) {
         if (reinitConf) {
+            if (this.connected) {
+                this.Disconnect();
+            }
             this.conx = this.signalR.createConnection(SignalRConfig.createConfig());
         }
+        if (this.connected) {
+            return this.connection;
+        }
+        let context = this;
         this.conx.listen(this.onUpdateNotices);
-        return this.conx.start();
+        this.conx.start().then(function (con) {
+            context.connection = con;
+            context.connected = true;
+        }, function (reason) {
+            console.log(reason);
+            console.log('WebSockt could not connected');
+        });
+    }
+
+    public getConnection(): ISignalRConnection {
+        return this.connection;
+    }
+
+    public getIsConnected(): boolean {
+        return this.connected;
     }
 
     public Disconnect() {
         this.conx.stop();
+        this.connected = false;
     }
 
-    private showNotify(notification: NotificationDto){
-        this.notificationService.success(notification.Title,notification.Message,{
+    private showNotify(notification: NotificationDto) {
+        this.notificationService.success(notification.Title, notification.Message, {
             position: ["bottom", "left"],
             timeOut: 1000,
             showProgressBar: false,
             lastOnBottom: true
-          });
+        });
     }
 
     static forRoot(): ModuleWithProviders {
