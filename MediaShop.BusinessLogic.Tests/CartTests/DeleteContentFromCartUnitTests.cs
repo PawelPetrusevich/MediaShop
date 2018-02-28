@@ -53,9 +53,6 @@ namespace MediaShop.BusinessLogic.Tests.CartTests
         [Test]
         public void Set_State_Content_Is_Bought()
         {
-            //// Object ContentCartDtoDto
-            //var objContentCart = new ContentCart() { StateContent = CartEnums.StateCartContent.InBought };
-
             // Create List for search by content.Id
             List<ContentCart> contentCartList = new List<ContentCart>()
             {
