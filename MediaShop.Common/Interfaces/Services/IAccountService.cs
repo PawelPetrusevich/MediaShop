@@ -115,12 +115,5 @@ namespace MediaShop.Common.Interfaces.Services
         /// </summary>
         /// <returns>IEnumerable<PermissionDto></returns>
         IEnumerable<UserDto> GetAllUsers();
-
-        /// <summary>
-        /// Get hash string
-        /// </summary>
-        /// <param name="s">string</param>
-        /// <returns>hash string</returns>
-        string GetHashString(string s);
     }
 }

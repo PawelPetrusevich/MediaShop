@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class AccountService {
   private ErrMsg = new Subject<string>();
 
+  userLoggedIn = new Subject<boolean>();
   constructor(
     private http: HttpClient,
     private signalRServiceConnector: SignalRServiceConnector,
@@ -59,31 +60,40 @@ export class AccountService {
           localStorage.setItem(AppSettings.userId, resp.userId);
 
           this.signalRServiceConnector.Connect(true);
+          this.userLoggedIn.next(true);
           this.router.navigate(['product-list']);
         },
         (err: HttpErrorResponse) => {
           this.ErrMsg.next(err.error.error_description);
         }
       );
+
   }
 
   logout() {
     this.signalRServiceConnector.Disconnect();
-    localStorage.removeItem(AppSettings.tokenKey);
-    localStorage.removeItem(AppSettings.userId);
-    this.router.navigate(['login']);
-    return this.http.post(
+
+     this.http.post(
       environment.API_ENDPOINT + 'api/account/logout',
-      null
+      null)
+      .subscribe(resp => {
+      localStorage.removeItem(AppSettings.tokenKey);
+      localStorage.removeItem(AppSettings.userId);
+      this.router.navigate(['login']);
+      },
+      (err: HttpErrorResponse) => {
+      this.ErrMsg.next(err.error.Message);
+      }
     );
   }
 
-  isAuthorized(): boolean {
-    if (localStorage.getItem(AppSettings.tokenKey) === null) {
-      return false;
-    }
+  getLoginEvent() {
+    return this.userLoggedIn.asObservable();
+  }
 
-    return true;
+  isAuthorized(): boolean {
+    return localStorage.getItem(AppSettings.tokenKey) != null;
+
   }
 
   forgotPassword(model: ForgotPasswordDto) {

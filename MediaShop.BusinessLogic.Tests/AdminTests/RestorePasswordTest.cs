@@ -101,7 +101,7 @@ namespace MediaShop.BusinessLogic.Tests.AdminTests
 
             var actual = _accountService.RecoveryPassword(_resetPasswordDto);
 
-            Assert.AreEqual(_accountService.GetHashString(_resetPasswordDto.Password), actual.Password);
+            Assert.AreEqual(_resetPasswordDto.Password.GetHash(), actual.Password);
             Assert.AreNotEqual(actualDbModel.AccountConfirmationToken, token);
         }
 
