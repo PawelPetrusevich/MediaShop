@@ -29,7 +29,6 @@ export class ProductListUploadedComponent implements OnInit {
   }
 
   DeleteProduct(id: number) {
-    console.log('run methods');
     this.productService.deleteProduct(id).subscribe(
       data => {
         this.ShowOkDelete(data as ProductDto);
