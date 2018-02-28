@@ -62,7 +62,6 @@ export class ProductInfoComponent implements OnInit {
   }
 
   ToCart() {
-    console.log('run methods');
     this.cartService.addContent(this.productInfo.Id).subscribe(
       data => this.ShowOkInCart(data as ContentCartDto),
       error => this.ShowError(error as HttpErrorResponse)
@@ -73,7 +72,6 @@ export class ProductInfoComponent implements OnInit {
   Download() {
     console.log('to servise');
     this.productService.downloadProduct(this.productInfo.Id).subscribe((response) => {
-      console.log(response);
       switch (this.productInfo.ProductType) {
         case ContentType.Image:
         this.SaveImage(response);
@@ -93,8 +91,6 @@ export class ProductInfoComponent implements OnInit {
   }
 
   SaveImage(downloadingFile: OriginalProductDTO) {
-    console.log(' save file methods');
-
       const contentType = 'image/jpg';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -110,8 +106,6 @@ export class ProductInfoComponent implements OnInit {
   }
 
   SaveAudio(downloadingFile: OriginalProductDTO) {
-    console.log(' save file methods');
-
       const contentType = 'audio/mp3';
       const base64str = downloadingFile.Content;
       const binary = atob(base64str);
@@ -127,8 +121,6 @@ export class ProductInfoComponent implements OnInit {
     }
 
     SaveVideo(downloadingFile: OriginalProductDTO) {
-      console.log(' save file methods');
-
         const contentType = 'video/*';
         const base64str = downloadingFile.Content;
         const binary = atob(base64str);
