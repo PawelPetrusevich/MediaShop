@@ -31,12 +31,14 @@ export class RegisterUserComponent implements OnInit {
     this.accountService
       .register(user)
       .subscribe(resp =>  {
+        this.showError = false;
         this.isRegistered = true;
         this.userInfo = resp;
         console.log(resp);
       } ,
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.isRegistered = false;
         this.showError = true ;
         this.errorMessage = err.error.Message;
         }
